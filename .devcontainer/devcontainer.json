@@ -1,0 +1,28 @@
+{
+  "name": "forge-gui",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "forgegui",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "forwardPorts": [
+    6080,
+    7681
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "GUI (noVNC)",
+      "visibility": "public"
+    },
+    "7681": {
+      "label": "Terminal (ttyd)",
+      "visibility": "public"
+    }
+  },
+  "postCreateCommand": "sudo apt-get update -qq && sudo apt-get install -y -qq ttyd",
+  "postStartCommand": "nohup ttyd -p 7681 -W bash >/tmp/ttyd.log 2>&1 &",
+  "postAttachCommand": "gh codespace ports visibility 6080:public 7681:public -c \"$CODESPACE_NAME\" >/tmp/ports-vis.log 2>&1 || true"
+}
