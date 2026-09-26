@@ -1,50 +1,54 @@
 # bbbh
 
-A Forge control-plane VM host with a Linux desktop and browser-accessible terminal, plus two
-independent projects that live in this repository:
+A Forge control-plane VM host repository that currently hosts **four independent projects**.
+They share a domain but nothing else — separate stylesheets, scripts, build steps and dependency
+trees. None of them import from another.
 
-| Project | Lives at | What it is |
-|---|---|---|
-| **Forge Workspace** | `/` (repo root) | A static landing page for selling remote-workspace setup services. See [INCOME_PLAYBOOK.md](INCOME_PLAYBOOK.md). |
-| **Affiliate Income Lab** | `/affiliate-marketing/` | A 13-page SEO content site about earning money with affiliate marketing. See [affiliate-marketing/README.md](affiliate-marketing/README.md). |
+| Project | Lives at | Stack | What it is |
+|---|---|---|---|
+| **Worth** | `/` | Vite + vanilla JS | Money calculators and practical guides. The default root application. |
+| **HOOKED** | `/hooked/` | Next.js 15 + React | Traffic-engine / content generation app. |
+| **Affiliate Income Lab** | `/affiliate-marketing/` | Static HTML/CSS/JS | A 13-page SEO content site about earning money with affiliate marketing. |
+| **Forge Workspace** | `/workspace-service/` | Static HTML/CSS/JS | Landing page for selling remote-workspace setup services. See [INCOME_PLAYBOOK.md](workspace-service/INCOME_PLAYBOOK.md). |
 
-The two share a domain but nothing else — separate stylesheets, scripts and build steps. They do not
-import from each other.
+Shared files at the repository root: `robots.txt`, `sitemap.xml`, `404.html`, `server.js`,
+`package.json`, `.gitignore`.
 
 ---
 
-## 1. Forge Workspace (repo root)
+## Worth (root)
 
-A static landing page for the workspace setup service described in [INCOME_PLAYBOOK.md](INCOME_PLAYBOOK.md).
-
-**Files:** `index.html`, `styles.css`, `app.js`, `site-config.js` — all referenced with relative paths,
-so the page must stay at the repository root.
-
-### Preview
+Responsive static money calculators and practical guides: purchase-to-work-hours calculator,
+subscription annualization, daily savings, browser-local saved thoughts, shareable inputs.
 
 ```sh
-python3 -m http.server 4173 --bind 0.0.0.0
+npm install
+npm run dev       # http://localhost:5173
+npm test
+npm run build
 ```
 
-Then open the page on port `4173`.
+Development serves on port 5173. Default builds are **noindex** and robots-disallowed — do not deploy
+them as the public production site. Use `npm run build:production` for that.
 
-Before publishing, set a real `contactEmail` in `site-config.js`. In demo mode the inquiry form only
-copies the request to the visitor's clipboard; it does not send or store leads. The page does not take
-payments. Agree on a paid pilot and invoice/payment terms directly with a customer before beginning work.
+## HOOKED (`/hooked/`)
 
-### Security
+A separate Next.js application with its own README, SEO audit, assets and dependency lockfile.
 
-The current devcontainer is demo-only: it exposes a writable shell and GUI on public ports and includes a
-static demo GUI password. Do not use it to host customer workspaces or data as-is. The income playbook
-describes the security work needed before offering anything to customers.
+```sh
+npm --prefix hooked ci
+npm run dev:hooked     # port 3000
+npm run build:hooked
+```
 
----
+Its original documentation and marketing/SEO claims are preserved as received, not independently
+verified. Review its production configuration and dependency security before deploying.
 
-## 2. Affiliate Income Lab (`/affiliate-marketing/`)
+## Affiliate Income Lab (`/affiliate-marketing/`)
 
-An SEO-optimised affiliate marketing content site: a landing page with an interactive income calculator,
-eight keyword-targeted long-form guides, a hub page, program comparisons and full SEO infrastructure.
-Plain HTML, CSS and vanilla JavaScript — no build step required to deploy.
+An SEO-optimised affiliate marketing content site: a landing page with an interactive income
+calculator, eight keyword-targeted long-form guides, a hub page, program comparisons and full SEO
+infrastructure. Plain HTML, CSS and vanilla JavaScript — no build step required to deploy.
 
 **Target keywords and volumes:**
 
@@ -61,20 +65,40 @@ Plain HTML, CSS and vanilla JavaScript — no build step required to deploy.
 | `/affiliate-marketing/guides/` | hub page for the cluster | — |
 
 Plus `/affiliate-marketing/about/` (E-E-A-T author page), `/affiliate-marketing/legal/privacy/` (FTC
-disclosure and privacy policy) and `/affiliate-marketing/404.html`.
+disclosure and privacy policy) and a site-wide `404.html`.
 
-**Commands** (run from the repository root):
-
-```bash
-npm start                    # dev server on :3000, serves both projects
-npm run build                # regenerate pages, sync nav/footer, rebuild sitemap + feed
-npm run check                # validate SEO, JSON-LD, internal links, a11y basics
+```sh
+npm run affiliate:build   # regenerate pages, sync nav/footer, rebuild sitemap + feed
+npm run affiliate:check   # validate SEO, JSON-LD, internal links, a11y basics
 ```
 
-**Build system:** `affiliate-marketing/tools/build.py` — zero dependencies. It wraps article bodies from
+`affiliate-marketing/tools/build.py` is zero-dependency. It wraps article bodies from
 `affiliate-marketing/content/*.html` in the shared head/header/footer, syncs the navigation and footer
-into every page from a single definition, and regenerates `sitemap.xml` and `rss.xml`. Full details are
-in [affiliate-marketing/README.md](affiliate-marketing/README.md).
+into every page from a single definition, and regenerates the root `sitemap.xml` and
+`affiliate-marketing/rss.xml`. It is **prefix-aware**: the `SITE` and `BASE` constants control every
+generated URL, so the site can move between a subpath and a domain root without editing links by hand.
+Full details: [affiliate-marketing/README.md](affiliate-marketing/README.md).
+
+## Forge Workspace (`/workspace-service/`)
+
+A static landing page for the workspace setup service described in
+[INCOME_PLAYBOOK.md](workspace-service/INCOME_PLAYBOOK.md). All asset references are relative, so the
+page must be served from its own directory.
+
+```sh
+python3 -m http.server 4173 --bind 0.0.0.0   # then open /workspace-service/
+```
+
+Before publishing, set a real `contactEmail` in `workspace-service/site-config.js`. In demo mode the
+inquiry form only copies the request to the visitor's clipboard; it does not send or store leads. The
+page does not take payments. Agree on a paid pilot and invoice/payment terms directly with a customer
+before beginning work.
+
+### Security
+
+The devcontainer is demo-only: it exposes a writable shell and GUI on public ports and includes a
+static demo GUI password. Do not use it to host customer workspaces or data as-is. The income playbook
+describes the security work needed before offering anything to customers.
 
 ---
 
@@ -82,18 +106,29 @@ in [affiliate-marketing/README.md](affiliate-marketing/README.md).
 
 | File | Purpose |
 |---|---|
-| `robots.txt` | Single root robots file, covers both projects, points to the root sitemap. Must stay at root. |
-| `sitemap.xml` | Single root sitemap listing every URL in both projects. |
-| `404.html` | Site-wide 404 page, links into both projects. |
-| `server.js` | Zero-dependency dev server for the whole repository (clean URLs, gzip, caching). |
-| `package.json` | Scripts for the dev server and the affiliate site's build/check steps. |
+| `robots.txt` | One root robots file covering all projects, pointing at the root sitemap. Must stay at the domain root. |
+| `sitemap.xml` | Root sitemap. Written by the affiliate builder; currently lists the affiliate pages plus the workspace landing page. |
+| `404.html` | Site-wide 404 page, linking into the projects. |
+| `server.js` | Zero-dependency static dev server for the whole repository (clean URLs, gzip, caching). |
+| `package.json` | Scripts for all four projects, namespaced. |
+
+### Previewing the static projects together
+
+```sh
+npm run serve:static    # http://localhost:3000
+```
+
+Serves the repository root so you can browse Worth at `/`, Affiliate Income Lab at
+`/affiliate-marketing/` and Forge Workspace at `/workspace-service/`. This is a convenience server for
+the static projects only — it does not run Vite or Next.js. Use `npm run dev` and
+`npm run dev:hooked` for those.
 
 ## Deploying
 
-Deploy the repository root to any static host. Both projects are plain static files.
+Each project deploys independently. Worth and HOOKED have their own build pipelines
+(`npm run build`, `npm run build:hooked`). Affiliate Income Lab and Forge Workspace are plain static
+files requiring no build step.
 
-The affiliate site's canonical URLs and sitemap entries assume `https://affiliateincomelab.com` as the
-host with a `/affiliate-marketing` path prefix. If you deploy it elsewhere — or promote it to its own
-domain — change the `SITE` and `BASE` constants at the top of `affiliate-marketing/tools/build.py`, then
-run `npm run build` and `npm run check`. The `BASE` constant exists precisely so the site can be moved
-between a subpath and a domain root without rewriting every link by hand.
+The affiliate site's canonical URLs assume `https://affiliateincomelab.com` with a
+`/affiliate-marketing` path prefix. If you deploy it elsewhere — or promote it to its own domain —
+change the `SITE` and `BASE` constants at the top of `affiliate-marketing/tools/build.py` and rebuild.

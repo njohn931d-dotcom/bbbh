@@ -39,9 +39,11 @@ PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../af
 REPO_ROOT = os.path.dirname(PKG_ROOT)                                   # repository root
 BUILD_DATE = "2026-09-26"
 
-# The sibling project at the repository root, included in the root sitemap.
+# Sibling static project included in the root sitemap. The repository root is
+# occupied by the Worth Vite app, so the workspace landing page lives at
+# /workspace-service/ alongside this package.
 SIBLING = {
-    "url": SITE + "/",
+    "url": SITE + "/workspace-service/",
     "priority": "0.8",
     "changefreq": "monthly",
 }

@@ -9,13 +9,17 @@
  *   node server.js            # http://0.0.0.0:3000
  *   PORT=8080 node server.js
  *
- * Serves both projects in this repository:
- *   /                      Forge Workspace landing page (repo root)
- *   /affiliate-marketing/  Affiliate Income Lab SEO content site
+ * Serves the STATIC projects in this repository:
+ *   /                      Worth            (built output — use `npm run dev` for the Vite source)
+ *   /affiliate-marketing/  Affiliate Income Lab
+ *   /workspace-service/    Forge Workspace landing page
  *
- * This is a preview/development server only. For production, deploy the folder
- * to any static host (Netlify, Cloudflare Pages, Vercel, S3, Nginx) — both
- * projects are plain HTML/CSS/JS with no build step and no server-side code.
+ * It does NOT run Vite or Next.js. For those, use `npm run dev` (Worth, :5173)
+ * and `npm run dev:hooked` (HOOKED, :3000).
+ *
+ * Preview/development server only. For production, deploy each project to a
+ * static host or its own build pipeline — all static projects here are plain
+ * HTML/CSS/JS with no build step and no server-side code.
  */
 'use strict';
 
@@ -152,6 +156,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, HOST, () => {
   console.log(`Preview server: http://${HOST}:${PORT}`);
   console.log(`Serving: ${ROOT}`);
-  console.log(`  /                      Forge Workspace`);
   console.log(`  /affiliate-marketing/  Affiliate Income Lab`);
+  console.log(`  /workspace-service/    Forge Workspace landing page`);
+  console.log(`  (Worth + HOOKED need their own dev servers: npm run dev / npm run dev:hooked)`);
 });
