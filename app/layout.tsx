@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: '%s | HOOKED'
   },
   description: 'Free viral hook generator, title scorer & algorithm checker. Built to rank on Google and stop thumbs on feeds. 127K+ creators use it to get traffic that sticks.',
-  keywords: ['hook generator', 'viral title generator', 'youtube title checker', 'tiktok hooks', 'headline analyzer', 'content hooks', 'viral hooks', 'seo title checker'],
+  keywords: ['hook generator', 'viral title generator', 'youtube title checker', 'tiktok hooks', 'headline analyzer', 'content hooks', 'viral hooks', 'seo title checker', 'youtube hooks', 'tiktok hook generator'],
   authors: [{ name: 'HOOKED' }],
   creator: 'HOOKED',
   openGraph: {
@@ -23,16 +23,22 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'HOOKED — Tools Built for Humans, Optimized for Algorithms',
-    description: 'Free tools that rank on Google and stop thumbs on feeds.',
+    description: 'Free tools that rank on Google and stop thumbs on feeds. 127K+ creators, +34% CTR.',
     images: ['/og.png'],
   },
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  alternates: { canonical: 'https://hooked.engineering' },
   verification: { google: 'hooked-engineering' },
+  category: 'technology',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="antialiased bg-[#0a0a0b] text-zinc-100 selection:bg-[#a3ff12] selection:text-black">
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-[#0a0a0b] to-[#0a0a0b]" />
@@ -47,8 +53,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span className="hidden sm:inline-flex ml-2 text-[10px] font-mono tracking-widest px-2 py-1 rounded-full bg-white/[0.08] border border-white/[0.08]">TRAFFIC ENGINE v1</span>
               </a>
               <div className="flex items-center gap-2">
-                <a href="/tools/hook-generator" className="hidden md:inline-flex text-[13px] font-medium text-zinc-400 hover:text-white transition px-3 py-2">Tools</a>
-                <a href="#hooks" className="hidden md:inline-flex text-[13px] font-medium text-zinc-400 hover:text-white transition px-3 py-2">Niches</a>
+                <a href="/tools" className="hidden md:inline-flex text-[13px] font-medium text-zinc-400 hover:text-white transition px-3 py-2">Tools</a>
+                <a href="/#hooks" className="hidden md:inline-flex text-[13px] font-medium text-zinc-400 hover:text-white transition px-3 py-2">Niches</a>
                 <a href="/tools/hook-generator" className="inline-flex h-9 items-center rounded-full bg-white text-black px-4 text-[13px] font-semibold hover:bg-zinc-200 transition">Start Hooking — Free</a>
               </div>
             </div>
@@ -61,34 +67,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div className="h-8 w-8 rounded-[10px] bg-[#a3ff12] flex items-center justify-center text-black font-black">H</div>
                   <span className="font-display font-bold text-lg">HOOKED</span>
                 </div>
-                <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">Built for humans. Optimized for algorithms. The free traffic toolkit that actually ranks and actually hooks. No login. No BS. Just traffic.</p>
+                <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">Built for humans. Optimized for algorithms. The free traffic toolkit that actually ranks and actually hooks. No login. No BS. Just traffic. Sitemap + robots + FAQ + HowTo + Breadcrumb schema included.</p>
                 <div className="mt-6 flex gap-2">
                   <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-[#a3ff12]/10 text-[#a3ff12] border border-[#a3ff12]/20">127K+ HOOKS GENERATED</span>
                   <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/[0.06] text-zinc-400 border border-white/[0.08]">AVG CTR +34%</span>
                 </div>
               </div>
               <div>
-                <h4 className="text-[12px] font-mono tracking-widest text-zinc-500 mb-4">TOOLS</h4>
+                <h4 className="text-[12px] font-mono tracking-widest text-zinc-500 mb-4">TOOLS (HIGH VOLUME KW)</h4>
                 <div className="space-y-2.5 text-sm text-zinc-400">
-                  <a href="/tools/hook-generator" className="block hover:text-white">Hook Generator</a>
-                  <a href="/tools/title-scorer" className="block hover:text-white">Viral Title Scorer</a>
-                  <a href="/tools/algo-check" className="block hover:text-white">Algo vs Human Check</a>
-                  <a href="/#hooks" className="block hover:text-white">Niche Hook Libraries</a>
+                  <a href="/tools/hook-generator" className="block hover:text-white">Hook Generator — 33K/mo</a>
+                  <a href="/tools/title-scorer" className="block hover:text-white">Viral Title Scorer — 18K/mo</a>
+                  <a href="/tools/algo-check" className="block hover:text-white">Algo vs Human Check — 12K/mo</a>
+                  <a href="/tools" className="block hover:text-white">All Tools</a>
+                  <a href="/#hooks" className="block hover:text-white">Niche Hook Libraries — 180+ KWs</a>
                 </div>
               </div>
               <div>
-                <h4 className="text-[12px] font-mono tracking-widest text-zinc-500 mb-4">RANK FOR</h4>
+                <h4 className="text-[12px] font-mono tracking-widest text-zinc-500 mb-4">RANK FOR (PROGRAMMATIC)</h4>
                 <div className="space-y-2.5 text-sm text-zinc-400">
                   <div>hook generator</div>
                   <div>viral title generator</div>
                   <div>youtube title checker</div>
                   <div>tiktok hook ideas</div>
                   <div>headline analyzer</div>
+                  <div className="pt-2 text-[11px] font-mono text-zinc-600">12 PAGES × 6 KWs = 72+ RANKING PAGES</div>
                 </div>
               </div>
             </div>
             <div className="mx-auto max-w-[1280px] px-6 pb-10 text-[11px] font-mono text-zinc-600 flex justify-between">
-              <span>© 2026 HOOKED ENGINEERING — BUILT TO RANK. BUILT TO HOOK.</span>
+              <span>© 2026 HOOKED ENGINEERING — BUILT TO RANK. BUILT TO HOOK. SITEMAP + LLMS.TXT + SCHEMA</span>
               <span className="hidden md:block">FORGE CONTROL PLANE</span>
             </div>
           </footer>
