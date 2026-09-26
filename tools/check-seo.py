@@ -3,8 +3,10 @@ import os, re, json, sys, html.parser
 
 ROOT = "/home/user/bbbh"
 HTML_FILES = []
+# `content/` holds build partials (not full pages) and `tools/` holds scripts.
+SKIP_DIRS = {".git", "node_modules", "content", "tools", ".devcontainer"}
 for dirpath, dirnames, filenames in os.walk(ROOT):
-    dirnames[:] = [d for d in dirnames if d not in (".git", "node_modules")]
+    dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
     for f in filenames:
         if f.endswith(".html"):
             HTML_FILES.append(os.path.join(dirpath, f))

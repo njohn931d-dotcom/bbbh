@@ -11,6 +11,7 @@ Plain HTML, CSS and vanilla JavaScript. **No build step, no dependencies, no fra
 
 ```bash
 npm start          # http://localhost:3000
+npm run build      # regenerate pages, sync nav + footer, rebuild sitemap.xml and rss.xml
 npm run check      # validate SEO, JSON-LD, internal links, a11y basics
 ```
 
@@ -24,19 +25,45 @@ S3 + CloudFront, Nginx). Nothing here requires a runtime.
 
 ## Site structure
 
-| Path | Target keywords | Volume |
+A hub-and-spoke content cluster: one hub (`/guides/`) linking to eight articles, each cross-linking
+to the others by topic.
+
+| Path | Primary target keywords | Volume/mo |
 |---|---|---|
 | `/` | affiliate marketing for beginners, make money with affiliate marketing | 14,800 · 8,100 |
-| `/ways-to-generate-income-with-affiliate-marketing/` | ways to generate income with affiliate marketing, affiliate marketing income ideas | 12,100 · 8,100 |
-| `/best-affiliate-programs/` | best affiliate programs, best affiliate programs for beginners, recurring commission affiliate programs | 12,100 · 2,400 · 1,300 |
+| `/guides/` | affiliate marketing guides (hub page) | — |
+| `/affiliate-marketing-for-beginners/` | affiliate marketing for beginners, how to start affiliate marketing | 14,800 · 8,100 |
+| `/ways-to-generate-income-with-affiliate-marketing/` | ways to generate income with affiliate marketing | 12,100 · 8,100 |
+| `/affiliate-marketing-websites/` | affiliate marketing websites, affiliate website examples | 22,200 · 5,400 |
+| `/high-ticket-affiliate-marketing/` | high ticket affiliate marketing | 9,900 |
+| `/passive-income-ideas/` | passive income ideas, passive income streams | 74,000 |
+| `/amazon-affiliate-commission-rates/` | amazon affiliate commission rates, amazon affiliate commission | 9,900 · 18,100 |
+| `/best-affiliate-programs/` | best affiliate programs, best affiliate programs for beginners | 12,100 · 2,400 |
+| `/recurring-commission-affiliate-programs/` | recurring commission affiliate programs | 1,300 |
 | `/about/` | E-E-A-T signal — author, methodology, editorial policy | — |
 | `/legal/privacy/` | FTC affiliate disclosure + privacy policy | — |
 | `/404.html` | Custom 404 with internal-link recovery | — |
 
-Supporting files: `robots.txt`, `sitemap.xml`, `site.webmanifest`, `llms.txt` (for AI/answer-engine
-citations), `assets/`.
+Supporting files: `robots.txt`, `sitemap.xml`, `rss.xml`, `site.webmanifest`, `llms.txt` (for AI and
+answer-engine citations), `assets/`.
 
----
+### Content cluster architecture
+
+```
+/guides/  (hub)
+├── /affiliate-marketing-for-beginners/          beginner path
+├── /ways-to-generate-income-with-affiliate-marketing/   pillar
+├── /affiliate-marketing-websites/               strategy
+├── /high-ticket-affiliate-marketing/            premium models
+├── /recurring-commission-affiliate-programs/    premium models
+├── /amazon-affiliate-commission-rates/          program data
+├── /best-affiliate-programs/                    program data
+└── /passive-income-ideas/                       broad intent
+```
+
+Every article links to at least three siblings in-content (not just in the footer), which is what
+distributes authority through the cluster. The global footer is synced from one definition in
+`tools/build.py`, so all pages share an identical internal-link map.
 
 ## What makes this SEO-optimised
 
@@ -76,6 +103,35 @@ citations), `assets/`.
 | Mobile nav | CSS-driven, `aria-expanded` managed |
 
 ---
+
+## How the build works
+
+There is no bundler, no framework and no dependency tree. `tools/build.py` is the entire pipeline
+and it is only needed when you change content — the committed HTML is deployable as-is.
+
+```bash
+python3 tools/build.py          # build pages, sync nav/footer, write sitemap.xml + rss.xml
+python3 tools/build.py --check  # report which generated pages are stale
+```
+
+What it does:
+
+1. **Generates article pages** from `content/*.html` partials. Each partial starts with a
+   `<!--META {json} META-->` front-matter block carrying keywords, the OG image and any page-specific
+   JSON-LD. The builder wraps it in the shared head, header, breadcrumbs and footer.
+2. **Syncs the navigation** into every `.html` file from a single `NAV` definition, setting
+   `aria-current` per page automatically.
+3. **Syncs the footer** into every page that uses the `.footer-grid` layout, so the internal-link map
+   is identical sitewide and cannot drift.
+4. **Regenerates `sitemap.xml`** (with image sitemap extensions) and **`rss.xml`** from the `PAGES`
+   registry.
+
+To add an article: create `content/your-slug.html` with a META block, add an entry to `PAGES` in
+`tools/build.py`, then run the build. The nav, footer, sitemap and feed all update themselves.
+
+Hand-written pages (`index.html`, `best-affiliate-programs/`, `ways-to-generate-income-with-affiliate-marketing/`)
+are marked `"partial": None` in the registry — the builder still syncs their nav and footer and includes
+them in the sitemap, but leaves their content alone.
 
 ## Customising
 
@@ -143,11 +199,18 @@ See `/legal/privacy/` for the full disclosure text.
 
 | Asset | Size |
 |---|---|
-| `assets/css/styles.css` | ~24 KB (≈6 KB gzipped) |
-| `assets/js/main.js` | ~8 KB (≈3 KB gzipped) |
-| Homepage HTML | ~45 KB (≈12 KB gzipped) |
+| `assets/css/styles.css` | 24 KB (≈6 KB gzipped) |
+| `assets/js/main.js` | 8 KB (≈3 KB gzipped) |
+| Heaviest page HTML (passive income guide) | ≈48 KB (≈15 KB gzipped) |
+| Lightest page (guides hub) | ≈15 KB (≈4.7 KB gzipped) |
+| Images | WebP served first, PNG fallback — 78% smaller |
 | Web fonts | none |
 | Third-party scripts | none |
+| Total requests, first view (homepage) | 6 |
+
+Images use `<picture>` with a WebP `<source>` and a PNG fallback, cutting image weight from 388 KB to
+87 KB. Every `<img>` carries explicit `width`/`height` so there is no layout shift, and the hero image
+uses `fetchpriority="high"` for LCP.
 
 ## License
 
