@@ -1,0 +1,26 @@
+name: seo-audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Rebuild site from content sources
+        run: node scripts/build-site.js
+      - name: Fail if generated HTML drifted from sources
+        run: |
+          if [ -n "$(git status --porcelain -- '*.html' sitemap.xml robots.txt site.webmanifest)" ]; then
+            echo "::error::Generated output is stale. Run 'node scripts/build-site.js' and commit."
+            git status --porcelain -- '*.html' sitemap.xml robots.txt site.webmanifest
+            exit 1
+          fi
+      - name: On-page SEO + integrity audit
+        run: node scripts/seo-audit.js

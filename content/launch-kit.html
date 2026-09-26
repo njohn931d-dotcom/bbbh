@@ -1,0 +1,132 @@
+<section class="section" style="padding-bottom:1rem">
+  <div class="wrap">
+    <p class="pill pill--mint">Free · no card · no upsell email sequence</p>
+    <h1>The Launch Kit: everything you need to validate a digital product this week</h1>
+    <p class="hero__lead">Three assets, one zip-free download page. This is the exact starting point every RevenueKit guide assumes: a production landing template, the SEO pre-flight checklist we run on every page of this site, and the worksheet version of our 21-method income ranking.</p>
+    <div class="btn-row">
+      <a class="btn btn--primary btn--lg" href="#checklist">Jump to the SEO pre-flight checklist</a>
+      <a class="btn btn--ghost btn--lg" href="#worksheet">The 21-method worksheet</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:1rem" aria-labelledby="h-inside">
+  <div class="wrap">
+    <h2 id="h-inside">What’s inside</h2>
+    <div class="grid grid--3">
+      <div class="card card--hover">
+        <span class="card__ico card__ico--mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></span>
+        <h3>1 · Landing template</h3>
+        <p style="color:var(--fg-muted)">A complete, dependency-free HTML/CSS landing page: hero, comparison table, FAQ, product cards and newsletter block — the same architecture this site ranks with. Semantic headings, WCAG-AA contrast, dark mode, print styles.</p>
+      </div>
+      <div class="card card--hover">
+        <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <h3>2 · SEO pre-flight checklist</h3>
+        <p style="color:var(--fg-muted)">The 34-point list below. Titles, metas, canonicals, schema types, internal-link topology, image dimensions, sitemap parity — everything our own audit script enforces before a page ships.</p>
+      </div>
+      <div class="card card--hover">
+        <span class="card__ico card__ico--flame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
+        <h3>3 · Income worksheet</h3>
+        <p style="color:var(--fg-muted)">The 21-method ranking as a fill-in sheet: score each method against your skills, capital and patience, then compute the units-per-month math for your target income.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="checklist">
+  <div class="wrap">
+    <h2 id="checklist">The SEO pre-flight checklist (34 points)</h2>
+    <p class="measure" style="color:var(--fg-muted)">Run this before every page goes live. It is deliberately mechanical: the pages that rank are the ones where nothing is missing, not the ones where something is clever.</p>
+    <div class="grid grid--2">
+      <div class="panel">
+        <h3>Head &amp; metadata</h3>
+        <ul class="check">
+          <li>One <code>&lt;h1&gt;</code>, matching search intent, ≤60 chars including brand.</li>
+          <li>Unique <code>&lt;title&gt;</code> 30–60 chars; keyword toward the front.</li>
+          <li>Meta description 120–160 chars with a reason to click.</li>
+          <li>Self-referential absolute canonical on every URL variant.</li>
+          <li><code>robots</code> meta = index,follow (+ max-image-preview:large).</li>
+          <li>Open Graph title/description/image (1200×630) + image alt.</li>
+          <li>Twitter card = summary_large_image with the same image.</li>
+          <li>Favicon (SVG + PNG), apple-touch-icon, webmanifest.</li>
+          <li><code>lang</code> attribute; viewport; theme-color for light &amp; dark.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Structure &amp; schema</h3>
+        <ul class="check">
+          <li>Heading order never skips a level (h1→h2→h3).</li>
+          <li>Table of contents with anchor links on long guides.</li>
+          <li>Breadcrumb trail visible <em>and</em> in BreadcrumbList schema.</li>
+          <li>Article schema with author, dates, wordCount, section.</li>
+          <li>FAQPage schema mirrors the visible FAQ exactly.</li>
+          <li>Product/SoftwareApplication + Offer schema on sales pages.</li>
+          <li>Organization + Person schema for E-E-A-T attribution.</li>
+          <li>Tables carry <code>&lt;caption&gt;</code> and scoped <code>&lt;th&gt;</code>.</li>
+          <li>Every figure/SVG has title+desc or alt text.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Links &amp; topology</h3>
+        <ul class="check">
+          <li>Pillar guide links to every cluster; every cluster links back.</li>
+          <li>Siblings interlink (no orphan pages, ever).</li>
+          <li>Descriptive anchor text — never “click here”.</li>
+          <li>All internal links relative so any host/path works.</li>
+          <li>External links <code>rel="noopener"</code>; affiliate links labelled.</li>
+          <li>No dangling #anchors (audit script enforces).</li>
+          <li>Custom 404 that links the top ten destinations.</li>
+          <li>sitemap.xml lists every indexable URL with lastmod.</li>
+          <li>robots.txt references the sitemap.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Performance &amp; trust</h3>
+        <ul class="check">
+          <li>Zero render-blocking third-party requests.</li>
+          <li>System font stack; one CSS file; JS deferred &amp; optional.</li>
+          <li>Images carry width/height (no layout shift).</li>
+          <li>Contrast ≥4.5:1 in both themes; visible focus states.</li>
+          <li>Published + last-verified dates shown and in schema.</li>
+          <li>Author bio page with credentials and contact.</li>
+          <li>Refund, licence, privacy and corrections pages linked in footer.</li>
+          <li>Page tested with JS disabled — content still complete.</li>
+          <li>Re-run <code>node scripts/seo-audit.js</code> until it exits 0.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="worksheet">
+  <div class="wrap">
+    <h2 id="worksheet">The 21-method worksheet (condensed)</h2>
+    <p class="measure" style="color:var(--fg-muted)">Copy this into a doc and score yourself 1–5 on each column. The method with the highest total that also passes your cashflow constraint is your method. Full ranges and sources live in <a href="../ways-to-generate-income/">the guide</a>.</p>
+    <div class="table-scroll">
+      <table>
+        <caption>Self-scoring sheet: rate each column 1–5 for your situation, then total.</caption>
+        <thead><tr><th scope="col">Method (short)</th><th scope="col">Skill fit</th><th scope="col">Capital fit</th><th scope="col">Patience fit</th><th scope="col">Channel fit</th><th scope="col">Maintenance fit</th><th scope="col">Total</th></tr></thead>
+        <tbody>
+          <tr><td>Productized service</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Templates / systems</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Ebook / guide</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Course / cohort</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Plugin / theme</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Micro-SaaS</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Boilerplate / kit</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Newsletter / community</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Niche SEO site</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+          <tr><td>Index investing (floor)</td><td></td><td></td><td></td><td></td><td></td><td class="num">/25</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout--mint">
+      <span class="callout__label">Then do the unit math</span>
+      <p>Target monthly income ÷ price = sales per month; sales ÷ conversion rate = traffic per month. If the traffic number frightens you, raise the price or pick a recurring model — do not lower the target.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="../ways-to-generate-income/">Read the full 21-method guide</a>
+      <a class="btn btn--ghost" href="../tools/">See the paid kits</a>
+    </div>
+  </div>
+</section>

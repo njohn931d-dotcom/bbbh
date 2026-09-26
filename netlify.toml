@@ -1,0 +1,17 @@
+# Optional: deploy this repo to Netlify with zero configuration.
+# (GitHub Pages works too — see README.md. No build step is required because
+# the generated HTML is committed.)
+
+[build]
+  publish = "."
+  command = "node scripts/build-site.js && node scripts/seo-audit.js"
+
+[[redirects]]
+  from = "/ways-to-generate-income.html"
+  to = "/ways-to-generate-income/"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
