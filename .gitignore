@@ -1,0 +1,8 @@
+node_modules/
+dist/
+
+.generated/
+calculators/
+guides/
+public/robots.txt
+public/sitemap.xml
