@@ -4,7 +4,7 @@ import { niches } from '@/lib/seo'
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://hooked.engineering'
   const now = new Date()
-  
+
   const staticPages = [
     '', '/tools/hook-generator', '/tools/title-scorer', '/tools/algo-check'
   ].map(p => ({

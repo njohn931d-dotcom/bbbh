@@ -1,78 +1,82 @@
-# HOOKED — Traffic Engine
+# Worth + HOOKED
 
-**Built for Humans. Optimized for Algorithms.**
+## Repository layout after merge
 
-Live: `npm run dev` → http://localhost:3000
+Both implementations and their Git histories are preserved. **Worth** remains the default root application. The remote **HOOKED** Next.js application lives independently in `hooked/`, with its original README, SEO audit, assets, and dependency lockfile. The apps are not served together or deployed to the same origin automatically.
 
-A traffic machine that ranks on Google and hooks humans in 0.8s.
+To work on HOOKED:
 
-### What it does
+```sh
+npm --prefix hooked ci
+npm run dev:hooked   # port 3000
+npm run build:hooked
+```
 
-Free toolkit targeting high-volume SEO keywords, each delivering instant dopamine:
+Its original documentation and marketing/SEO claims are preserved as received, not independently verified by the merge. Review its production configuration and dependency security before deploying.
 
-1. **Hook Generator** → ranks for "hook generator" (33K/mo)
-   - 8 viral hooks in 0.8s, niche-tuned templates
-   - Click to reveal Human Hook + Algo Rank scores
-   - Copy = micro-win loop
+## Worth
 
-2. **Viral Title Scorer** → ranks for "headline analyzer" (18K/mo)
-   - Paste title → instant dual score + fixes
-   - Dopamine loop: paste → score → fix → rescore
+Responsive, static money calculators and practical guides. Purchase-to-work-hours calculator, subscription annualization, daily savings, browser-local saved thoughts, and shareable inputs.
 
-3. **Algo vs Human Check** → ranks for "seo title checker"
-   - Dual engine showing why algo loves/hates vs humans
+## Development
 
-4. **Programmatic SEO** → 12 niche pages `/hooks/[slug]`
-   - fitness, finance, saas, podcast, youtube, tiktok, newsletter, ecommerce, ai, coaching, real-estate, food
-   - Each: 800+ words, FAQ schema, internal linking, LSI keywords
-   - Targets "hooks for {niche}" long-tails (8K-33K/mo each)
-
-### Why it ranks (for algorithms)
-
-- **Core Web Vitals 100/100**: Next.js 14, <50kb JS, LCP <1.2s, edge-ready
-- **Search Intent Match**: Tools, not blog posts. User wants generator → we give tool above fold = low bounce
-- **Programmatic SEO**: 12 pages × topical cluster = authority for "content hooks" topic
-- **Dwell time hack**: Interactive tools = 3min avg session vs 45s blog = ranking boost
-- **Technical SEO**: sitemap.xml, robots.txt, JSON-LD (SoftwareApplication + FAQPage), Open Graph, semantic HTML
-- **Linkable asset**: Free tools get backlinks naturally
-
-### Why it hooks (for humans)
-
-- **0.8s to first hook**: No spinner, instant generation = instant dopamine
-- **Curiosity gap**: Scores hidden until click → interaction = memory
-- **Copy = micro-win**: Every copy is progress, drives return visits
-- **No friction**: No login, no watermark, free forever
-- **Social proof**: 127K+ hooks, +34% CTR, live counter
-- **Streak-ready**: Architecture for streaks/leaderboards to drive retention
-
-### Traffic Math
-
-- If CTR goes 2.1% → 3.4% (+62%) and impressions stay same, traffic 1.62x
-- Algo Rank gets impressions, Human Hook gets clicks
-- Average tool session: 3.2 min vs industry 1.1 min = Google loves it
-
-### Stack
-
-- Next.js 14 App Router, Tailwind, TypeScript
-- No external AI needed — template engine with scoring heuristics (fast, free)
-- Deploy anywhere (Vercel, Cloudflare, Forge VM)
-
-### Run
-
-```bash
+```sh
 npm install
 npm run dev
-# build
+npm test
 npm run build
 ```
 
-### SEO Keywords Targeted
+Development serves on port 5173. Default builds are **noindex** and robots-disallowed: do not deploy them as the public production site.
 
-- hook generator (33K/mo)
-- tiktok hooks (27K/mo)
-- newsletter subject lines (22K/mo)
-- headline analyzer (18K/mo)
-- podcast hooks (15K/mo)
-- + 180 long-tails via /hooks/* pages
+## Production launch
 
-Built for forge control-plane VM host.
+```sh
+SITE_URL=https://YOUR-PRODUCTION-DOMAIN npm run build:production
+```
+
+Replace the example with the actual site origin (no subdirectory). This command refuses to build without a domain. Deploy `dist/` to a static host that serves directory `index.html` files. Configure HTTPS and redirect alternate hosts to the same canonical origin. Use actual 404 responses for missing pages, not a blanket SPA fallback.
+
+With SITE_URL configured, the build emits indexable HTML, absolute canonical URLs, Open Graph URLs, robots.txt, and a seven-URL sitemap.xml. Never use the sandbox preview host as the production canonical domain.
+
+### Before announcing the launch
+
+- Verify production status codes, redirects, canonical tags, robots.txt, sitemap.xml, and mobile rendering.
+- Verify ownership in Google Search Console and Bing Webmaster Tools; submit `/sitemap.xml` and inspect the main URLs. This requires the domain owner's access; it is not done automatically.
+- Measure real deployed performance and Core Web Vitals. No Lighthouse score or ranking improvement is claimed.
+- Develop and validate a content strategy using actual query/impression data. The starting search intents below are hypotheses, not measured keyword volumes.
+- Consider consent-aware analytics if engagement measurement is needed; none is installed by default.
+
+## Search architecture
+
+All seven pages ship substantive HTML before JavaScript runs:
+
+| Route | Starting intent |
+| --- | --- |
+| `/` | Free money calculators |
+| `/calculators/cost-of-time/` | Convert purchase cost to work hours |
+| `/calculators/subscription-cost/` | Monthly subscription to annual cost |
+| `/calculators/daily-savings/` | Daily amount to yearly savings |
+| `/guides/hourly-pay/` | Calculate take-home hourly pay |
+| `/guides/small-purchases/` | Understand recurring small expenses |
+| `/guides/24-hour-rule/` | Pause before impulse purchases |
+
+Each page has a unique title and description, one H1, related-page links, and JSON-LD appropriate to its visible content. Detail pages include breadcrumbs; calculators include WebApplication data. Guides use WebPage data without fabricated authorship or review claims. No FAQ rich-result eligibility is assumed. Article bodies and formulas are crawlable without executing scripts.
+
+`scripts/generate-seo.mjs` produces static route files and discovery metadata during Vite configuration. Generated routes, metadata, and build output are ignored in Git; their source generator is tracked. `index.html` is the homepage template. The Vite HTML transform applies generated homepage metadata and internal links.
+
+## Privacy and assumptions
+
+Calculations and saved thoughts run in the browser. Shared URL fragments contain entered numbers; the UI warns users before sharing. Google Fonts is the only external font service; system fallbacks are provided.
+
+Pay conversions assume 2,080 hours per year. Subscriptions multiply monthly cost by 12; daily savings multiply by 365. No investment returns or inflation are assumed. These are perspective tools, not affordability assessments or financial advice.
+
+## Verification
+
+`npm test` runs six DOM/static tests covering calculator modes, saving/deduplication, shared-input restoration, validation, SEO metadata, canonical links, sitemap coverage, crawlable article sections, internal links, and preview/production indexing safeguards. A production build has also been checked using a reserved test origin; this does not mean the website is deployed.
+
+Automated visual browser checks remain unverified because the Chromium download endpoint failed in the development environment. Search rankings, indexing, and traffic cannot be guaranteed.
+
+## Merge validation
+
+After separating the apps, all six Worth tests and both app production builds pass. `npm ci` for the preserved HOOKED dependency versions reports **one high and one critical vulnerability**. Those upstream dependency versions were not changed as part of this history-preserving merge; address them before deploying HOOKED.

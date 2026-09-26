@@ -59,7 +59,7 @@ export function generateHooks(topic: string, nicheSlug: string = 'default') {
     age: ['22', '25', '30'][Math.floor(Math.random()*3)],
     shocking: ['shocked me', 'changed my business', 'made me quit my job'][Math.floor(Math.random()*3)],
   };
-  
+
   return templates.slice(0, 8).map(t => {
     let hook = t;
     Object.entries(vars).forEach(([k,v]) => {
@@ -73,7 +73,7 @@ export function generateHooks(topic: string, nicheSlug: string = 'default') {
 export function scoreTitle(title: string) {
   const len = title.length;
   const words = title.split(' ').length;
-  
+
   // Algorithm score factors
   let algo = 50;
   if (len >= 40 && len <= 60) algo += 15;
@@ -82,7 +82,7 @@ export function scoreTitle(title: string) {
   if (title.match(/\b(how|why|what|when|where)\b/i)) algo += 8;
   if (title.includes(':') || title.includes('-')) algo += 5;
   if (words >= 6 && words <= 12) algo += 12;
-  
+
   // Human hook factors
   let human = 50;
   if (title.match(/\b(you|your|we|I)\b/i)) human += 10;

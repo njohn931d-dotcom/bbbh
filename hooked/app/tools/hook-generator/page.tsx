@@ -15,7 +15,7 @@ export default function Page() {
         <p className="text-zinc-400 mt-4 max-w-[640px] leading-relaxed">Most hook generators give generic ChatGPT slop. This one is trained on 10K viral titles and scores each hook for Human Hook + Algo Rank. Built to rank, built to hook.</p>
       </div>
       <HookGenerator />
-      
+
       <div className="mt-16 prose prose-invert max-w-none prose-zinc">
         <h2 className="font-display font-bold text-2xl">How to write hooks that rank AND hook</h2>
         <p className="text-zinc-400 leading-relaxed">A hook has two jobs: stop the human thumb and please the algorithm. Human hooks need curiosity gap, pattern interrupt, and stakes. Algo hooks need length (40-60 chars), numbers, and intent keywords.</p>

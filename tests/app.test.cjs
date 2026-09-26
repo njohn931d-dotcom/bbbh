@@ -1,0 +1,9 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const {JSDOM}=require('jsdom');
+function app(hash='') { const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{url:'https://worth.example/'+hash,runScripts:'outside-only'});dom.window.eval(fs.readFileSync('app.js','utf8'));return dom; }
+test('purchase, subscriptions, and daily savings compute correctly',()=>{const dom=app();const d=dom.window.document;assert.equal(d.getElementById('hours').textContent,'6');d.querySelector('[data-mode="subscription"]').click();assert.equal(d.getElementById('hours').textContent,'72');d.getElementById('price').value=5;d.querySelector('[data-mode="saving"]').click();assert.equal(d.getElementById('hours').textContent,'$1,825');dom.window.close();});
+test('saved thoughts persist without duplicates',()=>{const dom=app();const d=dom.window.document;d.getElementById('save').click();d.getElementById('save').click();assert.equal(d.getElementById('saved-count').textContent,'1');assert.equal(JSON.parse(dom.window.localStorage.getItem('worth-thoughts')).length,1);dom.window.close();});
+test('shared inputs restore annual income conversion',()=>{const dom=app('#mode=purchase&price=100&income=52000&period=year&item=Test');const d=dom.window.document;assert.equal(d.getElementById('hours').textContent,'4');assert.equal(d.getElementById('item').value,'Test');dom.window.close();});
+test('zero income is rejected and zero cost is supported',()=>{const dom=app();const d=dom.window.document;d.getElementById('income').value=0;assert.equal(d.getElementById('calc-form').checkValidity(),false);d.getElementById('income').value=25;d.getElementById('price').value=0;d.querySelector('[data-mode="purchase"]').click();assert.equal(d.getElementById('hours').textContent,'0');dom.window.close();});

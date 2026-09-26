@@ -9,11 +9,11 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-[900px] px-6 pt-12 pb-20">
       <h1 className="font-display font-extrabold text-[36px] leading-[0.95]">Algo vs Human Check<br/><span className="text-zinc-500 text-[24px]">Dual scoring engine</span></h1>
-      
+
       <div className="mt-8 grid md:grid-cols-[1.2fr_0.8fr] gap-6">
         <div className="rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6">
           <textarea value={text} onChange={e=>setText(e.target.value)} className="w-full h-[120px] rounded-2xl bg-[#111113] border border-white/[0.08] p-4 text-[15px] focus:outline-none focus:border-white/20" />
-          
+
           <div className="mt-6 space-y-4">
             <div>
               <div className="flex justify-between text-[11px] font-mono tracking-widest mb-2"><span className="text-zinc-500">HUMAN ATTENTION</span><span className={s.human > 70 ? 'text-[#a3ff12]' : 'text-amber-400'}>{s.human}%</span></div>
