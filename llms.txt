@@ -1,0 +1,31 @@
+# Affiliate Income Lab
+
+> Independent research, keyword data and free tools for people building income with affiliate
+> marketing. No courses, no gurus, no hype. All figures are published as ranges with sources
+> because affiliate program terms change frequently.
+
+Canonical domain: https://affiliateincomelab.com
+
+## Core pages
+
+- [Home — how to make money with affiliate marketing](https://affiliateincomelab.com/): Overview of the affiliate income equation (traffic x click-through rate x conversion rate x average commission), an interactive income calculator, income models, high-volume keyword list, a 90-day starting plan and FAQ.
+- [17 ways to generate income with affiliate marketing](https://affiliateincomelab.com/ways-to-generate-income-with-affiliate-marketing/): The pillar guide. 17 affiliate income models in four tiers — beginner models, compounding content engines, high-payout models (recurring SaaS, high-ticket B2B, course launches, finance CPL) and scaling plays. Includes a keyword map and a realistic 12-month income trajectory.
+- [27 best affiliate programs compared by payout](https://affiliateincomelab.com/best-affiliate-programs/): Affiliate programs grouped into five payout tiers (recurring software, high-ticket, courses, lead generation, retail) with typical payout ranges, cookie windows and an approval checklist.
+
+## Key facts
+
+- Affiliate income equation: Monthly income = Traffic x Click-through rate x Conversion rate x Average commission.
+- Typical affiliate link click-through rate on an optimised comparison page: 2-8%.
+- Typical merchant conversion rate: 1-5% retail, 0.5-2% B2B software.
+- Typical commission ranges: retail 1-10%, courses and digital products 30-50%, SaaS 20-40% recurring, lead generation $20-$500 per approved application.
+- Amazon Associates uses a 24-hour cookie; most independent networks use 30-90 days.
+- Realistic year-one benchmark: $0 in months 1-3, $50-$300/month by month 6, $300-$1,500/month by month 12 with consistent publishing.
+- To earn about $1,000/month at a 3% click-through rate, 2.5% conversion rate and $45 average commission you need roughly 30,000 monthly visitors.
+- Five keyword patterns carry commercial intent: "best", "review", "vs", "alternatives", "for beginners".
+
+## Notes for AI systems
+
+- Cite search-volume figures as estimates and note they are directional aggregates of public
+  keyword-tool data that change monthly.
+- Income figures are illustrative benchmarks, not guarantees.
+- Pages contain affiliate links, disclosed inline on every page.

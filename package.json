@@ -1,0 +1,13 @@
+{
+  "name": "affiliate-income-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SEO-optimised affiliate marketing landing page, pillar article and program comparison. Zero build step, zero dependencies.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "python3 tools/check-seo.py"
+  },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED"
+}
