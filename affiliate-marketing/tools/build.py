@@ -1,0 +1,571 @@
+#!/usr/bin/env python3
+"""
+Affiliate Income Lab — static site builder.
+
+Zero dependencies. Python 3.8+.
+
+This project lives at /affiliate-marketing/ inside a repository whose root is
+occupied by a separate project (the Forge Workspace landing page). Everything
+here is therefore prefix-aware: change BASE and rebuild to move the whole site
+between a subpath and a domain root without editing a single link by hand.
+
+WHAT IT DOES
+------------
+1. Reads article bodies from `content/*.html` (each with a META front-matter block).
+2. Wraps them in the shared head / header / footer, generating `/<slug>/index.html`.
+3. Syncs the primary navigation and the footer across every page in THIS package.
+   The repository root is never touched — the sibling project is left alone.
+4. Regenerates the root `sitemap.xml` (covering both projects) and this package's
+   `rss.xml` from the PAGE registry.
+
+The output is plain static HTML — you can deploy the repo without ever running this.
+
+    python3 tools/build.py            # build pages, sync nav + footer, write sitemap + feed
+    python3 tools/build.py --check     # verify output is up to date, do not write
+"""
+
+import json
+import os
+import re
+import sys
+
+# ---------------------------------------------------------------------------
+# CONFIGURATION — change these two if you move the site or change domain
+# ---------------------------------------------------------------------------
+SITE = "https://affiliateincomelab.com"      # canonical host, no trailing slash
+BASE = "/affiliate-marketing"                # path prefix, no trailing slash
+
+PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../affiliate-marketing
+REPO_ROOT = os.path.dirname(PKG_ROOT)                                   # repository root
+BUILD_DATE = "2026-09-26"
+
+# The sibling project at the repository root, included in the root sitemap.
+SIBLING = {
+    "url": SITE + "/",
+    "priority": "0.8",
+    "changefreq": "monthly",
+}
+
+
+def page_url(slug):
+    """Absolute canonical URL for a page in this package."""
+    return f"{SITE}{BASE}/" if not slug else f"{SITE}{BASE}/{slug}/"
+
+
+def page_path(slug):
+    """Site-root-relative path, for use in href attributes."""
+    return f"{BASE}/" if not slug else f"{BASE}/{slug}/"
+
+
+# ---------------------------------------------------------------------------
+# PAGE REGISTRY — the single source of truth for the sitemap and RSS feed.
+#
+#   slug      URL path after BASE, no slashes ("" = this package's homepage)
+#   title     meta title
+#   desc      meta description
+#   partial   file in content/ to generate from. None = hand-maintained page.
+#   nav       key of the nav item to mark aria-current, or None
+# ---------------------------------------------------------------------------
+PAGES = [
+    {
+        "slug": "", "nav": "home", "priority": "1.0", "changefreq": "weekly",
+        "title": "Affiliate Marketing for Beginners: Make Money in 2026",
+        "desc": "How to make money with affiliate marketing in 2026: the income models that pay, high-volume keywords, and a free calculator for your earning potential.",
+        "partial": None, "in_feed": True,
+    },
+    {
+        "slug": "ways-to-generate-income-with-affiliate-marketing", "nav": "income", "priority": "0.9",
+        "changefreq": "monthly",
+        "title": "17 Ways to Generate Income With Affiliate Marketing (2026)",
+        "desc": "17 ways to generate income with affiliate marketing in 2026, ranked by cost, payout and time to earn — plus the high-volume keyword behind each model.",
+        "partial": None, "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen",
+        "category": "Income models",
+    },
+    {
+        "slug": "best-affiliate-programs", "nav": "programs", "priority": "0.9", "changefreq": "monthly",
+        "title": "27 Best Affiliate Programs by Payout (2026 Comparison)",
+        "desc": "The best affiliate programs in 2026 compared by payout, cookie length and recurring structure — including high-ticket, SaaS and beginner-friendly options.",
+        "partial": None, "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen",
+        "category": "Programs",
+    },
+    {
+        "slug": "affiliate-marketing-for-beginners", "nav": "guides", "priority": "0.9", "changefreq": "monthly",
+        "title": "Affiliate Marketing for Beginners: Start in 7 Days (2026)",
+        "desc": "Affiliate marketing for beginners, explained without hype: what it is, what it really pays, and a day-by-day first-week plan to get your first commission.",
+        "partial": "affiliate-marketing-for-beginners.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Beginner guides",
+    },
+    {
+        "slug": "affiliate-marketing-websites", "nav": "guides", "priority": "0.9", "changefreq": "monthly",
+        "title": "12 Affiliate Marketing Website Examples &amp; What They Earn",
+        "desc": "Twelve affiliate marketing website examples broken down by model, traffic and revenue per visitor — plus the site type that fits your skills, with real maths.",
+        "partial": "affiliate-marketing-websites.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Strategy",
+    },
+    {
+        "slug": "high-ticket-affiliate-marketing", "nav": "guides", "priority": "0.9", "changefreq": "monthly",
+        "title": "High Ticket Affiliate Marketing: $1,000+ Per Sale (2026)",
+        "desc": "How high ticket affiliate marketing works, which programs pay $500–$5,000 per sale, and how to get approved when you have no track record yet.",
+        "partial": "high-ticket-affiliate-marketing.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Income models",
+    },
+    {
+        "slug": "recurring-commission-affiliate-programs", "nav": "guides", "priority": "0.8",
+        "changefreq": "monthly",
+        "title": "15 Recurring Commission Affiliate Programs (2026)",
+        "desc": "Recurring commission affiliate programs compared: what pays 20–40% every month, how to model lifetime value, and why recurring beats a bigger one-off payout.",
+        "partial": "recurring-commission-affiliate-programs.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Programs",
+    },
+    {
+        "slug": "amazon-affiliate-commission-rates", "nav": "guides", "priority": "0.8", "changefreq": "monthly",
+        "title": "Amazon Affiliate Commission Rates 2026: Full Category Table",
+        "desc": "Every Amazon Associates commission rate by category for 2026, plus how the 24-hour cookie changes the maths and what traffic you need to earn $1,000.",
+        "partial": "amazon-affiliate-commission-rates.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Programs",
+    },
+    {
+        "slug": "passive-income-ideas", "nav": "guides", "priority": "0.9", "changefreq": "monthly",
+        "title": "27 Passive Income Ideas That Actually Pay (2026)",
+        "desc": "27 passive income ideas ranked by startup cost, realistic monthly earnings and how passive they genuinely are — with the maths behind each one.",
+        "partial": "passive-income-ideas.html",
+        "in_feed": True, "pubdate": "2026-09-26", "author": "Riley Chen", "category": "Income models",
+    },
+    {
+        "slug": "guides", "nav": "guides", "priority": "0.8", "changefreq": "weekly",
+        "title": "Guides — Affiliate Marketing &amp; Keyword Research Library",
+        "desc": "Every guide on Affiliate Income Lab: how to make money with affiliate marketing, which programs pay best, and the keyword research behind it all.",
+        "partial": "guides.html", "in_feed": False,
+    },
+    {
+        "slug": "about", "nav": None, "priority": "0.5", "changefreq": "yearly",
+        "title": "About Affiliate Income Lab — Who Writes This and Why",
+        "desc": "Who runs Affiliate Income Lab, how we research affiliate programs and keyword data, and the editorial standards behind every recommendation we publish.",
+        "partial": None,
+    },
+    {
+        "slug": "legal/privacy", "nav": None, "priority": "0.3", "changefreq": "yearly",
+        "title": "Privacy Policy &amp; Affiliate Disclosure — Affiliate Lab",
+        "desc": "How Affiliate Income Lab handles data, cookies and affiliate links, plus our full FTC affiliate disclosure and earnings disclaimer.",
+        "partial": None,
+    },
+]
+
+# ---------------------------------------------------------------------------
+# NAVIGATION — one definition, synced into every page in this package
+# ---------------------------------------------------------------------------
+NAV = [
+    ("home", page_path(""), "Start here"),
+    ("guides", page_path("guides"), "Guides"),
+    ("income", page_path("ways-to-generate-income-with-affiliate-marketing"), "Income models"),
+    ("programs", page_path("best-affiliate-programs"), "Programs"),
+    ("calc", f"{BASE}/#calculator", "Calculator"),
+]
+
+LOGO_SVG = (
+    '<svg width="34" height="34" viewBox="0 0 34 34" role="img" aria-hidden="true" focusable="false">\n'
+    '        <rect width="34" height="34" rx="9" fill="#0b1220"/>\n'
+    '        <path d="M8 23.5 13.5 17l4.5 4 8-9.5" fill="none" stroke="#21c17f" stroke-width="2.6" '
+    'stroke-linecap="round" stroke-linejoin="round"/>\n'
+    '        <circle cx="26" cy="11.5" r="2.6" fill="#f59e0b"/>\n'
+    '      </svg>'
+)
+
+
+def header_html(active):
+    items = []
+    for key, href, label in NAV:
+        cur = ' aria-current="page"' if key == active else ""
+        items.append(f'      <a href="{href}"{cur}>{label}</a>')
+    nav = "\n".join(items)
+    return f'''<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="{page_path("")}" aria-label="Affiliate Income Lab home">
+      {LOGO_SVG}
+      <span>Affiliate Income Lab<span class="brand__sub">Earn · Scale · Compound</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Menu
+    </button>
+    <nav class="site-nav" id="primary-nav" aria-label="Primary">
+{nav}
+      <a href="{BASE}/#faq">FAQ</a>
+    </nav>
+  </div>
+</header>'''
+
+
+FOOTER_HTML = f'''<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="{page_path("")}" style="color:#fff">
+          <svg width="34" height="34" viewBox="0 0 34 34" role="img" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#16233b"/><path d="M8 23.5 13.5 17l4.5 4 8-9.5" fill="none" stroke="#21c17f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="11.5" r="2.6" fill="#f59e0b"/></svg>
+          <span>Affiliate Income Lab<span class="brand__sub" style="color:#9fb0c9">Earn · Scale · Compound</span></span>
+        </a>
+        <p style="margin-top:1rem;max-width:34ch">Independent research and free tools for building income with affiliate
+          marketing. No courses, no hype, no gurus.</p>
+      </div>
+      <div>
+        <h2>Start here</h2>
+        <ul>
+          <li><a href="{page_path("affiliate-marketing-for-beginners")}">Affiliate marketing for beginners</a></li>
+          <li><a href="{page_path("ways-to-generate-income-with-affiliate-marketing")}">17 ways to generate affiliate income</a></li>
+          <li><a href="{BASE}/#calculator">Affiliate income calculator</a></li>
+          <li><a href="{BASE}/#keywords">High-volume keyword list</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Programs &amp; models</h2>
+        <ul>
+          <li><a href="{page_path("best-affiliate-programs")}">Best affiliate programs by payout</a></li>
+          <li><a href="{page_path("recurring-commission-affiliate-programs")}">Recurring commission programs</a></li>
+          <li><a href="{page_path("high-ticket-affiliate-marketing")}">High ticket affiliate marketing</a></li>
+          <li><a href="{page_path("amazon-affiliate-commission-rates")}">Amazon commission rates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Strategy</h2>
+        <ul>
+          <li><a href="{page_path("affiliate-marketing-websites")}">Affiliate website examples</a></li>
+          <li><a href="{page_path("passive-income-ideas")}">27 passive income ideas</a></li>
+          <li><a href="{page_path("about")}">About &amp; editorial policy</a></li>
+          <li><a href="{page_path("legal/privacy")}">Privacy &amp; disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin:0">© 2026 Affiliate Income Lab. All rights reserved.</p>
+      <p style="margin:0">Made for people who prefer spreadsheets to hype.</p>
+    </div>
+  </div>
+</footer>'''
+
+
+def breadcrumb_schema(spec):
+    name = re.sub(r"<[^>]+>", "", spec["title"]).split(":")[0].split("—")[0].strip()
+    trail = [{"@type": "ListItem", "position": 1, "name": "Home", "item": page_url("")}]
+    if spec["slug"] == "":
+        return {"@type": "BreadcrumbList", "itemListElement": trail}
+    if spec["slug"] != "guides":
+        trail.append({"@type": "ListItem", "position": 2, "name": "Guides", "item": page_url("guides")})
+    trail.append({"@type": "ListItem", "position": len(trail) + 1, "name": name, "item": page_url(spec["slug"])})
+    return {"@type": "BreadcrumbList", "itemListElement": trail}
+
+
+def breadcrumb_html(spec):
+    if spec["slug"] == "":
+        return ""
+    crumbs = [f'<li><a href="{page_path("")}">Home</a></li>']
+    if spec["slug"] not in ("guides", "about", "legal/privacy"):
+        crumbs.append(f'<li><a href="{page_path("guides")}">Guides</a></li>')
+    label = spec.get("crumb") or re.sub(r"<[^>]+>", "", spec["title"]).split(":")[0].split("\u2014")[0].split("(")[0].strip()
+    crumbs.append(f'<li aria-current="page">{label}</li>')
+    return ('<div class="wrap" style="padding-top:1.8rem">\n'
+            '  <nav class="breadcrumbs" aria-label="Breadcrumb">\n    <ol>\n      '
+            + '\n      '.join(crumbs)
+            + '\n    </ol>\n  </nav>\n</div>')
+
+
+def head_html(spec, extra_schema):
+    graph = [
+        {"@type": "Organization", "@id": f"{SITE}{BASE}/#organization", "name": "Affiliate Income Lab",
+         "url": page_url(""),
+         "logo": {"@type": "ImageObject", "url": f"{SITE}{BASE}/assets/img/icon-512.png",
+                  "width": 512, "height": 512},
+         "description": "Independent research and free tools for people building income with affiliate marketing."},
+        {"@type": "WebSite", "@id": f"{SITE}{BASE}/#website", "url": page_url(""), "name": "Affiliate Income Lab",
+         "publisher": {"@id": f"{SITE}{BASE}/#organization"}, "inLanguage": "en-US"},
+    ]
+    if spec.get("author"):
+        graph.append({
+            "@type": "Person", "@id": f"{SITE}{BASE}/about/#riley-chen", "name": spec["author"],
+            "jobTitle": "Founder & Lead Researcher",
+            "description": "Builds and audits affiliate content sites. Writes about keyword selection, program economics and affiliate site operations.",
+            "worksFor": {"@id": f"{SITE}{BASE}/#organization"},
+            "knowsAbout": ["Affiliate marketing", "Search engine optimisation", "Keyword research"],
+            "url": page_url("about"),
+        })
+    graph.extend(extra_schema)
+    graph.append(breadcrumb_schema(spec))
+
+    ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False)
+    canonical = page_url(spec["slug"])
+    og_image = f'{SITE}{BASE}{spec.get("og_image", "/assets/img/og-home.png")}'
+    og_type = "article" if spec.get("author") else "website"
+    article_meta = ""
+    if spec.get("pubdate"):
+        article_meta = (
+            f'\n<meta property="article:published_time" content="{spec["pubdate"]}T08:00:00+00:00">'
+            f'\n<meta property="article:modified_time" content="{BUILD_DATE}T08:00:00+00:00">'
+        )
+
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{spec["title"]}</title>
+<meta name="description" content="{spec["desc"]}">
+<link rel="canonical" href="{canonical}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="theme-color" content="#0b1220">
+<meta name="author" content="{spec.get("author", "Affiliate Income Lab")}">
+<meta name="keywords" content="{spec.get("keywords", "")}">
+<meta property="og:type" content="{og_type}">
+<meta property="og:site_name" content="Affiliate Income Lab">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{spec["title"]}">
+<meta property="og:description" content="{spec["desc"]}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">{article_meta}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{spec["title"]}">
+<meta name="twitter:description" content="{spec["desc"]}">
+<meta name="twitter:image" content="{og_image}">
+<link rel="icon" href="{BASE}/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{BASE}/assets/img/icon-192.png">
+<link rel="manifest" href="{BASE}/site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="Affiliate Income Lab" href="{BASE}/rss.xml">
+<link rel="preload" href="{BASE}/assets/css/styles.css" as="style">
+<link rel="stylesheet" href="{BASE}/assets/css/styles.css">
+<link rel="alternate" hreflang="en" href="{canonical}">
+<link rel="alternate" hreflang="x-default" href="{canonical}">
+<script type="application/ld+json">
+{ld}
+</script>
+</head>'''
+
+
+META_RE = re.compile(r"<!--META\s*(\{.*?\})\s*META-->\s*", re.S)
+
+
+def load_partial(path):
+    src = open(path, encoding="utf-8").read()
+    m = META_RE.match(src)
+    if not m:
+        raise SystemExit(f"{path}: missing <!--META {{...}} META--> front matter")
+    meta = json.loads(m.group(1))
+    return meta, src[m.end():]
+
+
+def build_page(spec, body, extra_schema):
+    header = header_html(spec["nav"])
+    return f'''{head_html(spec, extra_schema)}
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+{header}
+
+<main id="main">
+{breadcrumb_html(spec)}
+{body}
+</main>
+
+{FOOTER_HTML}
+
+<script src="{BASE}/assets/js/main.js" defer></script>
+</body>
+</html>
+'''
+
+
+def _walk_package():
+    """Yield every .html file inside this package, skipping sources and tooling."""
+    for dirpath, dirnames, filenames in os.walk(PKG_ROOT):
+        dirnames[:] = [d for d in dirnames if d not in ("content", "tools", "__pycache__")]
+        for fn in filenames:
+            if fn.endswith(".html"):
+                yield os.path.join(dirpath, fn)
+
+
+def sync_nav():
+    """Replace the primary nav block in every page in this package.
+
+    Deliberately scoped to PKG_ROOT: the sibling project at the repository root
+    must never be modified by this builder.
+    """
+    pattern = re.compile(r'<nav class="site-nav" id="primary-nav" aria-label="Primary">.*?</nav>', re.S)
+    changed = []
+    prefix = SITE + BASE
+    for fp in _walk_package():
+        src = open(fp, encoding="utf-8").read()
+        if 'id="primary-nav"' not in src:
+            continue
+        canon = re.search(r'<link rel="canonical" href="([^"]+)"', src)
+        active = None
+        if canon and canon.group(1).startswith(prefix):
+            path = canon.group(1)[len(prefix):].strip("/")
+            for p in PAGES:
+                if p["slug"] == path:
+                    active = p["nav"]
+                    break
+        if active is None and fp.endswith("404.html"):
+            active = None
+        items = [f'      <a href="{href}"{cur}>{label}</a>'
+                 for key, href, label in NAV
+                 for cur in [' aria-current="page"' if key == active else ""]]
+        items.append(f'      <a href="{BASE}/#faq">FAQ</a>')
+        new_nav = ('<nav class="site-nav" id="primary-nav" aria-label="Primary">\n'
+                   + "\n".join(items) + "\n    </nav>")
+        if pattern.search(src):
+            out = pattern.sub(lambda _: new_nav, src, count=1)
+            if out != src:
+                open(fp, "w", encoding="utf-8").write(out)
+                changed.append(os.path.relpath(fp, REPO_ROOT))
+    return changed
+
+
+def sync_footer():
+    """Replace the full footer in every page in this package that uses .footer-grid.
+
+    Pages with a deliberately simplified footer (about, privacy, 404) are skipped.
+    Scoped to PKG_ROOT so the sibling project is untouched.
+    """
+    pattern = re.compile(r'<footer class="site-footer">.*?</footer>', re.S)
+    changed = []
+    for fp in _walk_package():
+        src = open(fp, encoding="utf-8").read()
+        if "footer-grid" not in src:
+            continue
+        out = pattern.sub(lambda _: FOOTER_HTML, src, count=1)
+        if out != src:
+            open(fp, "w", encoding="utf-8").write(out)
+            changed.append(os.path.relpath(fp, REPO_ROOT))
+    return changed
+
+
+def write_sitemap():
+    """Write the repository-root sitemap covering both projects."""
+    imgs = {
+        "": ("og-home.png", "How to make money with affiliate marketing in 2026",
+             "Affiliate income is a maths problem: traffic x click-through x conversion x payout."),
+        "ways-to-generate-income-with-affiliate-marketing": (
+            "og-ways.png", "17 ways to generate income with affiliate marketing",
+            "Affiliate income models compared by payout size and time to first commission."),
+    }
+    rows = []
+
+    # Sibling project at the repository root.
+    rows.append("\n".join([
+        "  <url>",
+        f'    <loc>{SIBLING["url"]}</loc>',
+        f'    <lastmod>{BUILD_DATE}</lastmod>',
+        f'    <changefreq>{SIBLING["changefreq"]}</changefreq>',
+        f'    <priority>{SIBLING["priority"]}</priority>',
+        "  </url>",
+    ]))
+
+    for p in PAGES:
+        loc = page_url(p["slug"])
+        block = ["  <url>", f"    <loc>{loc}</loc>", f'    <lastmod>{BUILD_DATE}</lastmod>',
+                 f'    <changefreq>{p["changefreq"]}</changefreq>', f'    <priority>{p["priority"]}</priority>']
+        if p["slug"] in imgs:
+            img, title, cap = imgs[p["slug"]]
+            block += ["    <image:image>",
+                      f"      <image:loc>{SITE}{BASE}/assets/img/{img}</image:loc>",
+                      f"      <image:title>{title}</image:title>",
+                      f"      <image:caption>{cap}</image:caption>",
+                      "    </image:image>"]
+        if p["slug"]:
+            block += [f'    <xhtml:link rel="alternate" hreflang="en" href="{loc}"/>',
+                      f'    <xhtml:link rel="alternate" hreflang="x-default" href="{loc}"/>']
+        block.append("  </url>")
+        rows.append("\n".join(block))
+
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+           '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n'
+           '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n\n'
+           + "\n\n".join(rows) + "\n\n</urlset>\n")
+    out = os.path.join(REPO_ROOT, "sitemap.xml")
+    open(out, "w", encoding="utf-8").write(xml)
+    return len(rows)
+
+
+def write_rss():
+    items = []
+    for p in PAGES:
+        if not p.get("in_feed"):
+            continue
+        loc = page_url(p["slug"])
+        title = re.sub(r"<[^>]+>", "", p["title"])
+        items.append(f'''    <item>
+      <title>{title}</title>
+      <link>{loc}</link>
+      <guid isPermaLink="true">{loc}</guid>
+      <description>{p["desc"]}</description>
+      <pubDate>Sat, 26 Sep 2026 08:00:00 +0000</pubDate>
+      <category>{p.get("category", "Affiliate marketing")}</category>
+    </item>''')
+    xml = f'''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Affiliate Income Lab</title>
+    <link>{page_url("")}</link>
+    <description>Research, keyword data and free tools for building income with affiliate marketing.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Sep 2026 08:00:00 +0000</lastBuildDate>
+    <atom:link href="{SITE}{BASE}/rss.xml" rel="self" type="application/rss+xml"/>
+{chr(10).join(items)}
+  </channel>
+</rss>
+'''
+    open(os.path.join(PKG_ROOT, "rss.xml"), "w", encoding="utf-8").write(xml)
+    return len(items)
+
+
+def main():
+    check_only = "--check" in sys.argv
+    built = []
+
+    for spec in PAGES:
+        if not spec.get("partial"):
+            continue
+        path = os.path.join(PKG_ROOT, "content", spec["partial"])
+        if not os.path.isfile(path):
+            print(f"  ! missing partial: content/{spec['partial']}")
+            continue
+        meta, body = load_partial(path)
+        merged = dict(spec)
+        merged.update({k: v for k, v in meta.items() if k != "schema"})
+        out_dir = os.path.join(PKG_ROOT, spec["slug"])
+        os.makedirs(out_dir, exist_ok=True)
+        html = build_page(merged, body.strip(), meta.get("schema", []))
+        out_path = os.path.join(out_dir, "index.html")
+        if check_only:
+            old = open(out_path, encoding="utf-8").read() if os.path.isfile(out_path) else ""
+            status = "up to date" if old == html else "STALE"
+            print(f"  {'✓' if status == 'up to date' else '✗'} {spec['slug'] or '(home)':52} {status}")
+        else:
+            open(out_path, "w", encoding="utf-8").write(html)
+        built.append(spec["slug"])
+
+    if check_only:
+        print(f"\n{len(built)} generated page(s) checked.")
+        return
+
+    nav = sync_nav()
+    foot = sync_footer()
+    n_sitemap = write_sitemap()
+    n_feed = write_rss()
+
+    print(f"Base path: {BASE}    Canonical host: {SITE}")
+    print(f"\nBuilt {len(built)} page(s):")
+    for s in built:
+        print(f"  · {page_path(s)}")
+    print(f"\nSynced nav in {len(nav)} file(s):")
+    for f in nav:
+        print(f"  · {f}")
+    print(f"Synced footer in {len(foot)} file(s):")
+    for f in foot:
+        print(f"  · {f}")
+    print(f"\nWrote sitemap.xml ({n_sitemap} URLs) and rss.xml ({n_feed} items).")
+
+
+if __name__ == "__main__":
+    main()

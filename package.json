@@ -1,14 +1,14 @@
 {
-  "name": "affiliate-income-lab",
+  "name": "bbbh",
   "version": "1.0.0",
   "private": true,
-  "description": "An SEO-optimised affiliate marketing content site: 8 keyword-targeted guides, a hub page, a landing page with an income calculator, and a zero-dependency static build pipeline.",
+  "description": "Forge control-plane VM host. Also hosts two static projects: a Forge Workspace landing page at / and the Affiliate Income Lab SEO content site at /affiliate-marketing/.",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "python3 tools/build.py",
-    "check": "python3 tools/check-seo.py",
-    "build:check": "python3 tools/build.py --check"
+    "build": "python3 affiliate-marketing/tools/build.py",
+    "check": "python3 affiliate-marketing/tools/check-seo.py",
+    "build:check": "python3 affiliate-marketing/tools/build.py --check"
   },
   "engines": {
     "node": ">=18"

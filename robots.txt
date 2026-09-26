@@ -1,4 +1,8 @@
-# robots.txt — Affiliate Income Lab
+# robots.txt — shared by both projects in this repository
+#
+#   /                        Forge Workspace (workspace setup service landing page)
+#   /affiliate-marketing/    Affiliate Income Lab (SEO content site)
+#
 # Standard crawlers: everything public is allowed.
 User-agent: *
 Allow: /
@@ -16,8 +20,8 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-# AI / answer-engine crawlers. Allowed so the content can be cited in
-# AI answers, which is a real acquisition channel in 2026.
+# AI / answer-engine crawlers. Allowed so the content can be cited in AI
+# answers, which is a real acquisition channel in 2026.
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot
@@ -31,4 +35,5 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+# Single root sitemap covering both projects.
 Sitemap: https://affiliateincomelab.com/sitemap.xml

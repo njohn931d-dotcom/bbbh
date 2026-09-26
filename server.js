@@ -9,9 +9,13 @@
  *   node server.js            # http://0.0.0.0:3000
  *   PORT=8080 node server.js
  *
+ * Serves both projects in this repository:
+ *   /                      Forge Workspace landing page (repo root)
+ *   /affiliate-marketing/  Affiliate Income Lab SEO content site
+ *
  * This is a preview/development server only. For production, deploy the folder
- * to any static host (Netlify, Cloudflare Pages, Vercel, S3, Nginx) — the site
- * is plain HTML/CSS/JS with no build step and no server-side code required.
+ * to any static host (Netlify, Cloudflare Pages, Vercel, S3, Nginx) — both
+ * projects are plain HTML/CSS/JS with no build step and no server-side code.
  */
 'use strict';
 
@@ -146,6 +150,8 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`Affiliate Income Lab preview: http://${HOST}:${PORT}`);
+  console.log(`Preview server: http://${HOST}:${PORT}`);
   console.log(`Serving: ${ROOT}`);
+  console.log(`  /                      Forge Workspace`);
+  console.log(`  /affiliate-marketing/  Affiliate Income Lab`);
 });
