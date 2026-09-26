@@ -1,4 +1,20 @@
-# Worth
+# Worth + HOOKED
+
+## Repository layout after merge
+
+Both implementations and their Git histories are preserved. **Worth** remains the default root application. The remote **HOOKED** Next.js application lives independently in `hooked/`, with its original README, SEO audit, assets, and dependency lockfile. The apps are not served together or deployed to the same origin automatically.
+
+To work on HOOKED:
+
+```sh
+npm --prefix hooked ci
+npm run dev:hooked   # port 3000
+npm run build:hooked
+```
+
+Its original documentation and marketing/SEO claims are preserved as received, not independently verified by the merge. Review its production configuration and dependency security before deploying.
+
+## Worth
 
 Responsive, static money calculators and practical guides. Purchase-to-work-hours calculator, subscription annualization, daily savings, browser-local saved thoughts, and shareable inputs.
 
@@ -60,3 +76,7 @@ Pay conversions assume 2,080 hours per year. Subscriptions multiply monthly cost
 `npm test` runs six DOM/static tests covering calculator modes, saving/deduplication, shared-input restoration, validation, SEO metadata, canonical links, sitemap coverage, crawlable article sections, internal links, and preview/production indexing safeguards. A production build has also been checked using a reserved test origin; this does not mean the website is deployed.
 
 Automated visual browser checks remain unverified because the Chromium download endpoint failed in the development environment. Search rankings, indexing, and traffic cannot be guaranteed.
+
+## Merge validation
+
+After separating the apps, all six Worth tests and both app production builds pass. `npm ci` for the preserved HOOKED dependency versions reports **one high and one critical vulnerability**. Those upstream dependency versions were not changed as part of this history-preserving merge; address them before deploying HOOKED.

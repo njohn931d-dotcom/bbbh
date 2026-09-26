@@ -6,3 +6,8 @@ calculators/
 guides/
 public/robots.txt
 public/sitemap.xml
+
+.next/
+.env
+.env.local
+*.tsbuildinfo
