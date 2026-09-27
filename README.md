@@ -24,11 +24,11 @@ Worth is a static site of browser-based money calculators and practical guides. 
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 12 tests, 133 URL validation
+1. `npm test` — 12 tests, 133 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
-4. Verify dist: 133 URLs, 46 guides, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms
-5. Deploy to GitHub Pages + verify
+4. Verify dist: 133 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
+5. Deploy to GitHub Pages + verify + notify
 
 For manual production build:
 
@@ -60,7 +60,7 @@ npm run build        # preview (noindex)
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production  # production
 ```
 
-`npm run dev` and `npm test` regenerate guide pages from `content/articles/*.md`. Preview builds are noindex and drop discovery files. The HOOKED Next.js app under `hooked/` is separate (not deployed by Pages workflow) — run `npm --prefix hooked run dev` for it.
+`npm run dev` and `npm test` regenerate the guide pages from `content/articles/*.md`, so run them when the guide sources change. The test script pins `--test-concurrency=1`: the test files each regenerate the same shared output (`.generated/`, `public/sitemap.xml`, `public/robots.txt`, `public/feed.xml`, `public/llms.txt`, `public/ai.txt`) and a preview build deletes the discovery files, so running them in parallel makes the suite fail intermittently depending on the runner's CPU count. Keep it serial. Preview builds are noindex and robots-disallowed, and discovery files (`sitemap.xml`, `feed.xml`, `llms.txt`, `ai.txt`) are removed rather than shipped with placeholder URLs; do not deploy a preview as production. The separate HOOKED Next.js application under `hooked/` is not deployed by this Pages workflow.
 
 ## 📚 Content Engine: 40 Guides
 
@@ -93,7 +93,7 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 - `scripts/generate-seo.mjs` — base routes + guides, sitemap, robots, RSS, llms.txt, ai.txt
 - `scripts/generate-parasite.mjs` — 40-route 2026 multilingual cluster
 - `scripts/generate-articles-md.mjs` — Markdown mirrors under `articles/` for GitHub browsing
-- `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest
+- `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest, hashed assets, security headers
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, `GITHUB_SEO.md` — article plan (treat volumes as hypotheses)
 
 ## 🔒 Privacy & Assumptions
@@ -106,10 +106,10 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 
 ## 📦 PWA & Performance
 
-- `public/manifest.json` — standalone, theme_color #204f3c, shortcuts to 3 calculators
+- `public/manifest.json` — standalone, theme_color #204f3c, shortcuts to 3 calculators, maskable icons
 - `dist/404.html` — GitHub Pages SPA fallback (copied from index)
 - `dist/.nojekyll` — bypass Jekyll
-- Vite: esbuild minify, cssMinify, hashed assets, 500kb warning limit
+- Vite: esbuild minify, cssMinify, hashed assets, 500kb warning limit, security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
 - Preconnect to Google Fonts, optimized images via data URI icons
 
 ## 🤝 Contributing
