@@ -65,6 +65,26 @@ Each page has a unique title and description, one H1, related-page links, and JS
 
 `scripts/generate-seo.mjs` produces static route files and discovery metadata during Vite configuration. Generated routes, metadata, and build output are ignored in Git; their source generator is tracked. `index.html` is the homepage template. The Vite HTML transform applies generated homepage metadata and internal links.
 
+## SEO article hub (GitHub Pages)
+
+`content/articles/` holds 40 markdown articles across 6 topic clusters, built by
+`scripts/build-articles.mjs` into a standalone static site in `docs/` designed
+to rank (see `SEO_STRATEGY.md` for the full playbook):
+
+```sh
+npm run articles         # build docs/ (40 articles, hub, clusters, sitemap, RSS, llms.txt)
+npm run articles:verify  # SEO + internal-link verification — must print PASS
+npm run articles:ping    # IndexNow submission, run after the site is live
+```
+
+Production canonicals come from `SITE_URL` (default:
+`https://njohn931d-dotcom.github.io/bbbh`).
+
+To publish: GitHub **Settings → Pages → Deploy from a branch → `/docs`**.
+The build output is committed so no CI is required; rebuild and re-commit
+after editing articles. The generated `docs/` tree is tracked in Git on
+purpose (it is the Pages artifact, unlike the ignored app build output).
+
 ## Privacy and assumptions
 
 Calculations and saved thoughts run in the browser. Shared URL fragments contain entered numbers; the UI warns users before sharing. Google Fonts is the only external font service; system fallbacks are provided.

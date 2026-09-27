@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml

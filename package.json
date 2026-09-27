@@ -8,6 +8,9 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "node --test tests/*.test.cjs",
     "build:production": "REQUIRE_SITE_URL=1 vite build",
+    "articles": "node scripts/build-articles.mjs",
+    "articles:verify": "node scripts/verify-seo.mjs",
+    "articles:ping": "node scripts/ping-indexnow.mjs",
     "dev:hooked": "npm --prefix hooked run dev",
     "build:hooked": "npm --prefix hooked run build"
   },

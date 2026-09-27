@@ -1,0 +1,63 @@
+# Worth Guides
+
+> Practical, no-fluff personal finance guides from Worth: budgeting methods, spending psychology, frugality challenges, true-cost math, money systems and everyday savings. Each guide answers a specific question with concrete numbers and examples. Publisher of the Worth cost-of-time calculator.
+
+All guides: https://njohn931d-dotcom.github.io/bbbh/
+
+## Budgeting
+
+- [The 50/30/20 Rule Explained, With a Simple Worksheet](https://njohn931d-dotcom.github.io/bbbh/50-30-20-rule/): How the 50/30/20 budget splits your take-home pay into needs, wants and savings — with examples, mistakes and when to adjust the ratios.
+- [How to Make a Budget You'll Actually Stick To](https://njohn931d-dotcom.github.io/bbbh/budget-you-actually-stick-to/): A realistic budgeting system for people who quit budgets: fewer categories, a fun line item, and a review rhythm that survives real life.
+- [Cash Stuffing: How the Envelope Method Works Today](https://njohn931d-dotcom.github.io/bbbh/cash-stuffing/): What cash stuffing is, how to set it up with envelopes or a binder, and the pros and cons compared with digital budgeting.
+- [The Envelope Budgeting System, Explained (Cash or Digital)](https://njohn931d-dotcom.github.io/bbbh/envelope-budgeting-system/): How envelope budgeting works, which expenses belong in envelopes, and how to run the system with cash, cards or a budgeting app.
+- [Pay Yourself First: The Autopilot Savings Method](https://njohn931d-dotcom.github.io/bbbh/pay-yourself-first/): What paying yourself first means, how to automate it from every paycheck, and how much to save before you pay any other bill.
+- [The 15-Minute Weekly Money Check-In](https://njohn931d-dotcom.github.io/bbbh/weekly-money-check-in/): A simple weekly money review: check balances, review spending, adjust what's coming up, and keep goals visible — in fifteen minutes.
+- [Zero-Based Budgeting: Give Every Dollar a Job](https://njohn931d-dotcom.github.io/bbbh/zero-based-budgeting/): What zero-based budgeting is, how to build one in an afternoon, and why assigning income to expenses until the balance hits zero works.
+
+## Spending Psychology
+
+- [The 30-Day List: Kill Impulse Buys Before They Happen](https://njohn931d-dotcom.github.io/bbbh/30-day-list/): How the 30-day list works: write it down, wait 30 days, buy only what you still want. A simple system that ends most impulse spending.
+- [Buyer's Remorse: How to Avoid It and Recover Fast](https://njohn931d-dotcom.github.io/bbbh/buyers-remorse/): Why buyer's remorse happens, the pre-purchase checks that prevent it, and what to do in the 30 days after a regretted buy.
+- [Impulse Buying: Why It Happens and How to Stop](https://njohn931d-dotcom.github.io/bbbh/impulse-buying/): The psychology behind impulse purchases — triggers, dopamine and friction — plus practical rules that stop unplanned spending.
+- [Lifestyle Creep: The Silent Savings Killer](https://njohn931d-dotcom.github.io/bbbh/lifestyle-creep/): What lifestyle creep is, why raises vanish, and how to keep income growth from being swallowed by new spending habits.
+- [Opportunity Cost: The Real Price of Every Purchase](https://njohn931d-dotcom.github.io/bbbh/opportunity-cost/): What opportunity cost means in personal finance, how to calculate it in hours and dollars, and why it changes spending decisions.
+- [Retail Therapy: Does Shopping Actually Improve Your Mood?](https://njohn931d-dotcom.github.io/bbbh/retail-therapy/): Why retail therapy feels good for about eleven minutes, what emotional spending does to your finances, and cheaper fixes that work.
+- [The Sunk Cost Fallacy and Your Money](https://njohn931d-dotcom.github.io/bbbh/sunk-cost-fallacy/): What the sunk cost fallacy is, how it traps spending on things that already failed, and how to decide forward instead of backward.
+
+## Frugality & Challenges
+
+- [The 52-Week Money Challenge (Easier Variations)](https://njohn931d-dotcom.github.io/bbbh/52-week-money-challenge/): How the 52-week savings challenge works, why the standard version fails in December, and three easier versions that still build the habit.
+- [27 Frugal Habits That Don't Feel Like Deprivation](https://njohn931d-dotcom.github.io/bbbh/frugal-habits/): Practical frugal living habits for food, home, shopping and energy — the ones that save real money without making life smaller.
+- [The Latte Factor: Rethinking Small Splurges](https://njohn931d-dotcom.github.io/bbbh/latte-factor/): What the latte factor means, the real math behind daily small purchases, and how to apply it without becoming joyless about money.
+- [The Low-Buy Year: Rules That Actually Work](https://njohn931d-dotcom.github.io/bbbh/low-buy-year/): What a low-buy year is, how to set rules you can keep for 12 months, and the categories worth cutting — and worth keeping.
+- [How to Do a No-Spend Challenge (7, 14 or 30 Days)](https://njohn931d-dotcom.github.io/bbbh/no-spend-challenge/): A practical no-spend challenge setup: what counts as a spend, the allowed list, common rules, and how to restart without guilt.
+- [The One-In, One-Out Rule for a Lighter Home (and Wallet)](https://njohn931d-dotcom.github.io/bbbh/one-in-one-out-rule/): How the one-in-one-out rule works: every new item forces one out. A simple consumption cap that slows clutter, spending and buyer's remorse.
+- [Spending Freeze: The Fast Reset for Your Budget](https://njohn931d-dotcom.github.io/bbbh/spending-freeze/): How to run a 3-, 7- or 30-day spending freeze — rules, allowed list, and why short freezes outperform permanent restriction.
+- [How to Do a Subscription Audit in One Hour](https://njohn931d-dotcom.github.io/bbbh/subscription-audit/): A step-by-step subscription audit: find every recurring charge, decide keep or cancel, and set up guardrails so they never creep back.
+
+## The True Cost of Everyday Life
+
+- [Brand vs Generic: Where Switching Actually Saves Money](https://njohn931d-dotcom.github.io/bbbh/brand-vs-generic/): A practical look at brand-name versus generic products — which swaps save real money, which keep quality, and where store brands win outright.
+- [Your Daily Coffee Habit Costs More Than You Think](https://njohn931d-dotcom.github.io/bbbh/coffee-habit-cost/): The real annual and 10-year cost of a daily coffee run, with the math, break-even against brewing at home, and a guilt-free middle path.
+- [Turn Any Price Into Hours of Your Life](https://njohn931d-dotcom.github.io/bbbh/cost-of-time-calculator/): The cost-of-time method: converting purchase prices into hours of work to judge whether something is truly worth buying.
+- [The Real Cost of Eating Out (Formula + Examples)](https://njohn931d-dotcom.github.io/bbbh/eating-out-cost/): How much takeout and restaurant meals really cost per year — the math, the hidden add-ons, and a middle path that keeps dinners out enjoyable.
+- [Gym Membership Break-Even: When It's Actually Worth It](https://njohn931d-dotcom.github.io/bbbh/gym-membership-break-even/): How to calculate gym membership cost per visit, the break-even point versus home workouts, and how to cancel or pause without overpaying.
+- [Is Upgrading Your Phone Every Year Worth It?](https://njohn931d-dotcom.github.io/bbbh/phone-upgrade-cycle/): The real cost of the annual phone upgrade cycle — depreciation math, when it makes sense, and the two-year habit that saves hundreds.
+- [Small Fees, Big Leak: The Annual Cost of $5 Here and There](https://njohn931d-dotcom.github.io/bbbh/small-fees-big-leak/): How $5 convenience fees, delivery charges and app upgrades compound — the annual math and a system to stop fee creep for good.
+
+## Money Systems & Automation
+
+- [The 10/10/10 Rule for Better Spending Decisions](https://njohn931d-dotcom.github.io/bbbh/10-10-10-rule/): How the 10/10/10 decision rule stops impulse buys: ask how you'll feel in 10 minutes, 10 months and 10 years — with worked examples.
+- [Add Friction to Spending: Spend Less Without Willpower](https://njohn931d-dotcom.github.io/bbbh/add-friction-to-spending/): How adding friction — saved cards, app deletions, cooling-off queues — cuts spending automatically, based on how behavior actually works.
+- [Automate Your Finances: Set It and Forget It](https://njohn931d-dotcom.github.io/bbbh/automate-your-finances/): How to automate salary routing, bills, savings and investments so the right money moves before you can spend it — a full setup guide.
+- [Money Dates: The 30-Minute Ritual for Couples (and Solo)](https://njohn931d-dotcom.github.io/bbbh/money-date/): How to run a money date: an agenda, the conversation starters, and why couples who review finances regularly fight less about them.
+- [Savings Goals That Stick: Name It, Size It, Automate It](https://njohn931d-dotcom.github.io/bbbh/savings-goals/): How to set savings goals that actually get funded: SMART-ish sizing, named buckets, automatic transfers and progress you can see.
+- [Sinking Funds: Save for Big Expenses Before They Hit](https://njohn931d-dotcom.github.io/bbbh/sinking-funds/): What a sinking fund is, how to set one up per expense category, and why dividing annual costs by 12 prevents financial surprises.
+
+## Bills & Everyday Savings
+
+- [Unit Pricing: The Grocery Hack Most Shoppers Skip](https://njohn931d-dotcom.github.io/bbbh/grocery-unit-pricing/): What unit pricing means at the supermarket, how to read price-per-unit labels, and where bigger packs silently cost more.
+- [How to Lower Your Electric Bill (Practical, Not Gimmicky)](https://njohn931d-dotcom.github.io/bbbh/lower-electric-bill/): Realistic ways to cut electricity costs: the biggest loads first, thermostat and usage habits, and whether solar, tariffs or providers help.
+- [How to Lower Your Phone Bill in 2026](https://njohn931d-dotcom.github.io/bbbh/lower-phone-bill/): Practical ways to cut mobile costs: MVNO switches, right-sizing data, Wi-Fi calling, family plans and the traps in 'free' phone deals.
+- [Meal Planning to Save Money (A Starter System)](https://njohn931d-dotcom.github.io/bbbh/meal-plan-to-save-money/): A simple meal planning system that cuts grocery spending and food waste: plan three dinners, shop one list, cook once, repeat.
+- [How to Negotiate Bills: Scripts for the Top 5 Charges](https://njohn931d-dotcom.github.io/bbbh/negotiate-bills/): Practical scripts to lower internet, phone, insurance, streaming and credit card charges — what to ask, when to call, and how to keep the discount.
