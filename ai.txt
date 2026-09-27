@@ -1,107 +1,115 @@
-# Worth - 47 Free Money Calculators 2026 - GitHub Parasite SEO DA 99
-> 47 free calculators hosted on GitHub Pages DA 99 for 24h ranking. Mortgage, compound interest, crypto, YouTube, OnlyFans, cost-of-time.
+# Worth - Free Money Calculators (Open Source on GitHub)
+> 46 free calculators and guides. Private, browser-only, no sign-up. MIT licensed on GitHub.
 
-## 40 Articles - High Volume Keywords 2026
-- [cost of time](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [subscription cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [daily savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [hourly pay](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [small purchases](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
-- [24 hour rule](https://njohn931d-dotcom.github.io/bbbh/guides/24-hour-rule/)
-- [salary to hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/)
-- [hourly to salary](https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/)
-- [freelance rate](https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate/)
-- [cost per wear](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-wear/)
-- [cost per use](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/)
-- [overtime pay](https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/)
-- [after tax income](https://njohn931d-dotcom.github.io/bbbh/calculators/after-tax-income/)
-- [commute cost](https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/)
-- [latte factor](https://njohn931d-dotcom.github.io/bbbh/calculators/latte-factor/)
-- [gym cost per visit](https://njohn931d-dotcom.github.io/bbbh/calculators/gym-cost-per-visit/)
-- [streaming cost](https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost/)
-- [car ownership cost](https://njohn931d-dotcom.github.io/bbbh/calculators/car-ownership-cost/)
-- [time to save](https://njohn931d-dotcom.github.io/bbbh/calculators/time-to-save/)
-- [paycheck breakdown](https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/)
-- [buy vs rent hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/buy-vs-rent-hourly/)
-- [how much is time worth](https://njohn931d-dotcom.github.io/bbbh/guides/how-much-is-time-worth/)
-- [stop impulse buying](https://njohn931d-dotcom.github.io/bbbh/guides/stop-impulse-buying/)
-- [subscription audit](https://njohn931d-dotcom.github.io/bbbh/guides/subscription-audit/)
-- [latte factor explained](https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/)
-- [no spend challenge](https://njohn931d-dotcom.github.io/bbbh/guides/no-spend-challenge/)
-- [30 day rule spending](https://njohn931d-dotcom.github.io/bbbh/guides/30-day-rule-spending/)
-- [cost per wear guide](https://njohn931d-dotcom.github.io/bbbh/guides/cost-per-wear-guide/)
-- [freelance rate guide](https://njohn931d-dotcom.github.io/bbbh/guides/freelance-rate-guide/)
-- [psychology small purchases](https://njohn931d-dotcom.github.io/bbbh/guides/psychology-small-purchases/)
-- [track daily spending](https://njohn931d-dotcom.github.io/bbbh/guides/track-daily-spending/)
-- [emergency fund hours](https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/)
-- [side hustle worth it](https://njohn931d-dotcom.github.io/bbbh/guides/side-hustle-worth-it/)
-- [coffee cost per year](https://njohn931d-dotcom.github.io/bbbh/guides/coffee-cost-per-year/)
-- [average subscription cost 2025](https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/)
-- [hourly budget](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-budget/)
-- [paycheck to paycheck](https://njohn931d-dotcom.github.io/bbbh/guides/paycheck-to-paycheck/)
-- [cost of convenience](https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-convenience/)
-- [value free time](https://njohn931d-dotcom.github.io/bbbh/guides/value-free-time/)
-- [minimalism cost per time](https://njohn931d-dotcom.github.io/bbbh/guides/minimalism-cost-per-time/)
-- [negotiate hourly rate](https://njohn931d-dotcom.github.io/bbbh/guides/negotiate-hourly-rate/)
-- [is netflix worth it](https://njohn931d-dotcom.github.io/bbbh/guides/is-netflix-worth-it/)
-- [annual vs monthly subscription](https://njohn931d-dotcom.github.io/bbbh/guides/annual-vs-monthly-subscription/)
-- [how to calculate overtime](https://njohn931d-dotcom.github.io/bbbh/guides/how-to-calculate-overtime/)
-- [true cost of car](https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/)
-- [how long save 1000](https://njohn931d-dotcom.github.io/bbbh/guides/how-long-save-1000/)
-- [mortgage calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/mortgage-calculator-2026/)
-- [compound interest calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/compound-interest-calculator/)
-- [inflation calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/inflation-calculator-2026/)
-- [paycheck calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-calculator-2026/)
-- [crypto profit calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/crypto-profit-calculator-2026/)
-- [youtube earnings calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/youtube-earnings-calculator-2026/)
-- [tiktok money calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/tiktok-money-calculator-2026/)
-- [onlyfans earnings calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/onlyfans-earnings-calculator-2026/)
-- [freelance rate calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate-calculator-2026/)
-- [rent vs buy calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/rent-vs-buy-calculator-2026/)
-- [car loan calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/car-loan-calculator-2026/)
-- [student loan calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/student-loan-calculator-2026/)
-- [net worth calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/net-worth-calculator-2026/)
-- [cost of living calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-living-calculator-2026/)
-- [salary in hours elon musk calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-in-hours-elon-musk-calculator/)
-- [wedding budget calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/wedding-budget-calculator-2026/)
-- [lottery tax calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/lottery-tax-calculator-2026/)
-- [divorce cost calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/divorce-cost-calculator-2026/)
-- [child cost calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/child-cost-calculator-2026/)
-- [streaming cost calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost-calculator-2026/)
-- [chatgpt cost calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/chatgpt-cost-calculator-2026/)
-- [mrbeast earnings per second calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/mrbeast-earnings-per-second-calculator/)
-- [side hustle calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/side-hustle-calculator-2026/)
-- [ai job replacement calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/ai-job-replacement-calculator-2026/)
-- [trump tariff calculator 2026](https://njohn931d-dotcom.github.io/bbbh/calculators/trump-tariff-calculator-2026/)
-- [taylor swift concert cost calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/taylor-swift-concert-cost-calculator/)
-- [how much house can i afford 2026](https://njohn931d-dotcom.github.io/bbbh/guides/how-much-house-can-i-afford-2026/)
-- [are you rich net worth percentile 2026](https://njohn931d-dotcom.github.io/bbbh/guides/are-you-rich-net-worth-percentile-2026/)
-- [calculadora hipoteca 2026 espana mexico](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-hipoteca-2026-espana-mexico/)
-- [calculadora salario hora 2026 latam](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-salario-hora-2026-latam/)
-- [stundenlohn rechner deutschland 2026](https://njohn931d-dotcom.github.io/bbbh/guides/stundenlohn-rechner-deutschland-2026/)
-- [calculateur salaire horaire france 2026](https://njohn931d-dotcom.github.io/bbbh/guides/calculateur-salaire-horaire-france-2026/)
-- [калькулятор зарплаты час россия 2026](https://njohn931d-dotcom.github.io/bbbh/guides/калькулятор-зарплаты-час-россия-2026/)
-- [时薪计算器 中国 2026](https://njohn931d-dotcom.github.io/bbbh/guides/时薪计算器-中国-2026/)
-- [時給計算機 日本 2026](https://njohn931d-dotcom.github.io/bbbh/guides/時給計算機-日本-2026/)
-- [연봉 시급 계산기 한국 2026](https://njohn931d-dotcom.github.io/bbbh/guides/연봉-시급-계산기-한국-2026/)
-- [حاسبة الراتب بالساعة السعودية 2026](https://njohn931d-dotcom.github.io/bbbh/guides/حاسبة-الراتب-بالساعة-السعودية-2026/)
-- [calculadora horas trabalho brasil 2026](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-horas-trabalho-brasil-2026/)
-- [how much youtubers make 2026 shocking truth](https://njohn931d-dotcom.github.io/bbbh/guides/how-much-youtubers-make-2026-shocking-truth/)
-- [cost of time elon musk jeff bezos 2026](https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-time-elon-musk-jeff-bezos-2026/)
+## What is Worth?
+Worth converts money to time. How many work hours does a purchase cost? Free calculators for salary to hourly, freelance rate, cost per wear, latte factor, overtime, subscription audit. Open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
 
-## Why GitHub Parasite Ranks Fast
-- DA 99 domain authority
-- 47 interlinked pages = topical cluster
-- Daily sitemap + RSS for QDF (Query Deserves Freshness)
-- 10 languages = international SERPs (es, de, fr, ru, zh, ja, ko, ar, pt, en)
-- FAQ schema = rich results + PAA box
-- HowTo schema = HowTo rich snippet
-- llms.txt = ChatGPT, Perplexity, Claude indexing
-- Other extensions: .json, .txt, .xml for crawlers
-- Link wheel: every page links to 10 others
-- External authority: Wikipedia, Forbes, GitHub topics
+## Calculators (18)
+- https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/ - Cost of Time Calculator - Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/ - Subscription Cost Calculator - Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/ - Daily Savings Calculator - See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/ - Salary to Hourly Calculator - Convert annual salary to hourly rate instantly. Formula: salary ÷ 2080. Free, open-source calculator with overtime and after-tax adjustments. GitHub source.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/ - Hourly to Salary Calculator - Convert hourly wage to annual salary: hourly × 2080. Free calculator shows monthly, weekly, after-tax. Open source on GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate/ - Freelance Hourly Rate Calculator - Freelance rate calculator: (salary + expenses + profit) ÷ billable hours. Includes taxes, benefits, PTO. Free, open source on GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-wear/ - Cost Per Wear Calculator - Cost per wear = price ÷ wears. Calculate true clothing value. $200 jacket worn 100 times = $2/wear. Free open source calculator.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/ - Cost Per Use Calculator - Cost per use = price ÷ uses. Calculate true value of gadgets, tools, memberships. Free calculator, open source on GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/ - Overtime Pay Calculator - Calculate overtime pay: time and a half = 1.5× hourly. Double time = 2×. Free calculator with weekly, biweekly. Open source.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/after-tax-income/ - After Tax Income Calculator - Calculate take-home pay after federal, state, FICA. Enter gross salary, get net hourly, monthly. Free, open source GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/ - Cost of Commuting Calculator - Commute cost calculator: gas + time + wear + lost wages. 1 hour commute = $12,500/year in time alone. Free, GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/latte-factor/ - Latte Factor Calculator - Latte factor calculator: daily $5 habit = $1,825/year. See 10, 30 year total. Free calculator, open source on GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/gym-cost-per-visit/ - Gym Cost Per Visit Calculator - Gym cost per visit = monthly fee ÷ visits. $50/month ÷ 4 visits = $12.50/visit. Free calculator, open source GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost/ - Streaming Cost Calculator - Streaming calculator: Netflix + Spotify + Hulu annual cost and hours worked. Average American $1,200/yr. Free GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/car-ownership-cost/ - True Cost of Car Ownership Calculator - True car cost calculator: payment + gas + insurance + maintenance ÷ hours driven. Average $0.70/mile. Free, open source GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/time-to-save/ - How Long to Save Calculator - How long to save $1000? Enter daily saving, hourly rate. See days, work hours needed. Free calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/ - Paycheck Breakdown Calculator - Paycheck breakdown: rent = 12 hours, groceries = 4 hours. See where work hours go. Free calculator, open source GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/calculators/buy-vs-rent-hourly/ - Buy vs Rent Hourly Calculator - Buy vs rent calculator: mortgage + maintenance vs rent, cost per hour lived. Free, open source on GitHub.
 
-## Keywords 2026
-mortgage calculator 2026, compound interest calculator, inflation calculator, paycheck calculator, crypto profit calculator, youtube earnings calculator, tiktok money calculator, onlyfans earnings calculator, freelance rate calculator, rent vs buy calculator, car loan calculator, student loan calculator, net worth calculator, cost of living calculator, elon musk per second, wedding budget calculator, lottery tax calculator, divorce cost calculator, child cost calculator, streaming cost calculator, chatgpt cost calculator, mrbeast earnings, side hustle calculator, ai job replacement calculator, trump tariff calculator, taylor swift cost calculator, how much house can i afford, are you rich calculator, calculadora hipoteca, calculadora salario hora, stundenlohn rechner, calculateur salaire horaire, калькулятор зарплаты, 时薪计算器, 時給計算機, 연봉 시급 계산기, حاسبة الراتب بالساعة, calculadora horas trabalho
+## Guides (28)
+- https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/ - How to calculate what an hour of your life is worth - Your salary is one number. The money available to spend is another. Start with your pay after taxes and deductions, then divide it by the number of hours y
+- https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/ - The small purchases that aren’t actually small - A $5 coffee is a $5 coffee. Every day for a year, it is $1,825. Neither framing is more correct, but seeing both helps you make a choice instead of followi
+- https://njohn931d-dotcom.github.io/bbbh/guides/24-hour-rule/ - The 24-hour rule: a little space before you spend - For a nonessential purchase, wait a day before buying. Put it on a list, close the tab, and come back tomorrow. The point is not to make spending difficult
+- https://njohn931d-dotcom.github.io/bbbh/guides/how-much-is-time-worth/ - How Much Is Your Time Worth? - How much is your time worth? Take-home pay ÷ real hours including commute. Average American $19/hr real. Free calculator + GitHub source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/stop-impulse-buying/ - How to Stop Impulse Buying - Stop impulse buying: 24-hour rule, cost per hour, remove cards. Average American $5,400/yr impulse. Guide + free GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/subscription-audit/ - How to Audit Subscriptions - Subscription audit checklist: find $500+ yearly savings. Free template, open source on GitHub. Step-by-step guide.
+- https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/ - Latte Factor Explained - Latte factor explained: $5/day at 7% = $1M in 50 years. Formula, examples, how to find yours. Free calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/no-spend-challenge/ - 30-Day No Spend Challenge - 30-day no spend challenge rules, tracker, savings calculator. Average saves $1,000. Free template GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/30-day-rule-spending/ - 30-Day Rule for Spending - 30-day rule: wait 30 days before buying non-essential over $100. 80% urges fade. Guide + free GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/cost-per-wear-guide/ - Cost Per Wear Wardrobe Guide - Cost per wear wardrobe guide: capsule wardrobe, $0.50/wear formula. Free calculator, open source GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/guides/freelance-rate-guide/ - How to Set Freelance Rates - Freelance rate formula: (salary + 30% benefits + expenses) ÷ 1000 billable hours. Guide + free calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/psychology-small-purchases/ - Psychology of Small Purchases - Why $5 purchases add up: mental accounting, pain of paying. $5/day = $1,825/year. Science + free GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/track-daily-spending/ - How to Track Daily Spending - Track daily spending without apps: GitHub markdown template, 2-min method. Free open source tracker.
+- https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/ - Emergency Fund in Work Hours - Emergency fund in work hours: $10k fund = 400 hours at $25/hr. Calculate hours needed. Free calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/side-hustle-worth-it/ - Is Your Side Hustle Worth It? - Side hustle worth it? Calculate true hourly after gas, taxes, time. Many $15/hr side hustles = $5/hr real. Free calculator GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/guides/coffee-cost-per-year/ - Coffee Cost Per Year - Coffee cost per year: $5/day = $1,825, $3,650 for 2/day. Calculator shows work hours. Free GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/ - Average Subscription Spending 2025 - Average subscription spending 2025: $1,200/year, $2,800 with apps. Data + free audit calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/hourly-budget/ - How to Budget on Hourly Wage - Budget on hourly wage: convert bills to work hours. Rent = 60 hours. Free calculator + GitHub template.
+- https://njohn931d-dotcom.github.io/bbbh/guides/paycheck-to-paycheck/ - Paycheck to Paycheck Hours - Paycheck to paycheck: calculate how many work hours go to bills before you earn for you. Free calculator GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-convenience/ - True Cost of Convenience - Cost of convenience: DoorDash $10 fees, Uber $15. Average $5k/year. Calculator shows work hours. GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/value-free-time/ - How to Value Free Time - Value free time: overtime vs free time formula. $25/hr overtime may be worth $10/hr free time. Guide + GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/minimalism-cost-per-time/ - Minimalism and Cost Per Time - Minimalism cost per time: fewer items, lower cost per use, more free time. Guide + free GitHub calculators.
+- https://njohn931d-dotcom.github.io/bbbh/guides/negotiate-hourly-rate/ - How to Negotiate Hourly Rate - Negotiate hourly rate: scripts, data, get $5/hr more = $10k/year. Guide + free GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/is-netflix-worth-it/ - Is Netflix Worth It? Cost Per Hour - Is Netflix worth it? Cost per hour watched = monthly ÷ hours watched. $23 ÷ 20h = $1.15/hr. Free calculator GitHub.
+- https://njohn931d-dotcom.github.io/bbbh/guides/annual-vs-monthly-subscription/ - Annual vs Monthly Subscription - Annual vs monthly: annual saves 20% but only if use 12 months. Calculator shows break-even. Free GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/how-to-calculate-overtime/ - How to Calculate Overtime Pay - How to calculate overtime: time and a half formula, California daily OT, double time. Examples + free GitHub calculator.
+- https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/ - True Cost of Owning a Car - True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.
+- https://njohn931d-dotcom.github.io/bbbh/guides/how-long-save-1000/ - How to Save $1000 Fast - Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.
 
-Last updated: 2026-09-27
+## GitHub SEO
+All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
+
+## Keywords
+cost of time calculator, subscription cost calculator, daily savings calculator, how to calculate what an hour of your life is worth, the small purchases that aren’t actually small, the 24-hour rule: a little space before you spend, salary to hourly calculator, hourly to salary calculator, freelance hourly rate calculator, cost per wear calculator, cost per use calculator, overtime pay calculator, after tax income calculator, cost of commuting calculator, latte factor calculator, gym cost per visit calculator, streaming cost calculator, true cost of car ownership calculator, how long to save calculator, paycheck breakdown calculator, buy vs rent hourly calculator, how much is your time worth?, how to stop impulse buying, how to audit subscriptions, latte factor explained, 30-day no spend challenge, 30-day rule for spending, cost per wear wardrobe guide, how to set freelance rates, psychology of small purchases, how to track daily spending, emergency fund in work hours, is your side hustle worth it?, coffee cost per year, average subscription spending 2025, how to budget on hourly wage, paycheck to paycheck hours, true cost of convenience, how to value free time, minimalism and cost per time, how to negotiate hourly rate, is netflix worth it? cost per hour, annual vs monthly subscription, how to calculate overtime pay, true cost of owning a car, how to save $1000 fast, open source, github, calculator, money, personal finance
+
+## Cite as
+Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
+
+## Guides by collection
+
+- [Money in hours](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/): Turn price tags into hours of work: the formula, the tables, and what each common purchase really costs you.
+- [Subscriptions](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/): What recurring charges add up to per year, how to audit them, and how to cancel cleanly when you decide to.
+- [Saving habits](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/): Challenges, buffers and sinking funds — what small amounts add to, and how to keep going past week three.
+- [Pay & rates](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/): Converting between hourly and annual pay, what actually comes off a salary, and how to price your own time.
+- [Spending decisions](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/): Cost per use, total cost of ownership and the questions that make a large purchase easier to judge.
+
+## Money guides (40)
+
+- [$20 an Hour Is How Much a Year? (Gross, Take-Home and Monthly)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/20-dollars-an-hour-is-how-much-a-year/): $20 an hour is $41,600 a year gross at 2,080 hours. See monthly, weekly and daily figures, take-home estimates by tax rate, and what changes the total.
+- [The 52-Week Savings Challenge: Full Table and Five Variations](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/52-week-savings-challenge/): The complete 52-week money challenge table, five variations including the reverse and bi-weekly versions, and totals from $689 to $6,890.
+- [$60,000 a Year Is How Much an Hour? (Before and After Tax)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/60000-a-year-is-how-much-an-hour/): $60,000 a year is $28.85 an hour gross at 2,080 hours. See hourly rates by working hours, take-home estimates, and monthly, biweekly and daily figures.
+- [Annual vs Monthly Subscription Plans: Which Actually Saves Money?](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/annual-vs-monthly-subscription-plan/): A break-even test for choosing annual over monthly billing, with a table of discounts from 0% to 40%, and the four situations where monthly still wins.
+- [How Much Does the Average Person Spend on Subscriptions a Month?](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/average-monthly-subscription-spend/): Why published averages are unreliable, how to measure your own monthly subscription spend in 20 minutes, and how to sanity-check it against your income.
+- [Budgeting on a Biweekly Paycheck (and the 27-Paycheck Year)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/budgeting-on-a-biweekly-paycheck/): How to budget when you are paid every two weeks, with tables splitting monthly bills across 26 paychecks and what to do with the occasional 27th payment.
+- [Buy It Nice or Buy It Twice: When Paying More Actually Costs Less](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/buy-it-nice-or-buy-it-twice/): The arithmetic behind buying quality once, with break-even tables, the three conditions that must hold, and the categories where the rule does not apply.
+- [Coffee Cost Per Year: What Your Daily Habit Really Adds Up To](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/coffee-cost-per-year-calculator/): Turn a daily coffee into a yearly total with tables from $3 to $7 a cup, weekday-only and every-day schedules, plus home-brew savings and hours of work.
+- [Cost Per Use: The Only Fair Way to Compare Two Purchases](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/cost-per-use-how-to-compare-purchases/): How to compare purchases on cost per use, with tables for shoes, coats and appliances, a break-even test, and when cost per use is the wrong metric.
+- [Do Round-Up Savings Apps Actually Work? The Arithmetic](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/do-round-up-savings-apps-work/): What rounding up your card purchases really saves, modelled at 20 to 60 transactions a month, with multiplier versions and who the method suits.
+- [Family and Shared Plans: When Splitting a Subscription Actually Saves](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/family-and-shared-plans-when-splitting-saves/): The arithmetic of shared and family plans, with break-even tables by number of people, the hidden costs of splitting, and the rules that decide who pays.
+- [The $5 a Day Savings Challenge: What It Adds Up To](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/five-dollars-a-day-savings-challenge/): Tables showing what saving $1, $3, $5 and $10 a day totals over 30, 90 and 365 days, weekday-only versions, and how to make the challenge actually stick.
+- [Free Trials That Turn Into Subscriptions: How to Stop the Charges](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/free-trials-that-turn-into-subscriptions/): Why free trials convert into paid subscriptions, the four types of trial to watch for, and a checklist that stops the charges before they happen.
+- [Gross Pay vs Take-Home Pay: What Actually Comes Off Your Salary](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/gross-pay-vs-take-home-pay/): The difference between gross and take-home pay, what is deducted in between, and why using gross pay makes every purchase look cheaper than it is.
+- [How Big Should My Emergency Fund Be? Sizing It by Your Own Numbers](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-big-should-my-emergency-fund-be/): Size an emergency fund from 1 to 12 months of essential expenses, with tables by income and job stability, and a two-phase plan for building one.
+- [How Many Hours of Work Does a Car Payment Cost?](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-does-a-car-payment-cost/): Convert a monthly car payment into hours of work, see the total cost of a 36, 48, 60 and 72-month loan, and check what share of take-home pay it consumes.
+- [How Many Hours of Work Goes to Rent? (Tables by Monthly Rent)](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-goes-to-rent/): See how many hours of work a month your rent costs, what share of take-home pay it consumes, and how to work out the number for your own lease.
+- [How Many Hours of Work Is $1,000? (Tables by Hourly Rate)](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-is-1000-dollars/): See how many hours of work $1,000 costs at hourly rates from $15 to $100, how to adjust for tax, and why gross earnings needed exceeds the price.
+- [How Many Working Hours Are in a Year? (2,080 and Why)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-many-working-hours-in-a-year/): Where the 2,080-hour working year comes from, how holidays, vacation and leave change it, and the hourly divisor to use for your own schedule.
+- [How Much Is a New Phone in Work Hours? (Flagship vs Mid-Range)](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-much-is-a-new-phone-in-work-hours/): Convert a $1,000 flagship phone, a $500 mid-range model and a 24-month carrier plan into hours of work, and see what the cost looks like per month of use.
+- [How Much Should I Save Each Month? (Rules, Tables and a Reality Check)](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-much-should-i-save-each-month/): Compare the 50/30/20 rule, the 20% rule and pay-yourself-first by income, with monthly savings tables and what to do when none of them fit.
+- [How Overtime Pay Is Calculated (Time-and-a-Half, Double Time)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-overtime-pay-is-calculated/): How overtime is worked out, with tables at 1.5x and 2x rates, salaried vs hourly eligibility, and the effective hourly cost of unpaid overtime.
+- [How to Audit Your Subscriptions in 30 Minutes (Step-by-Step)](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/how-to-audit-your-subscriptions/): A 30-minute subscription audit that finds forgotten renewals and duplicates, with a scoring table, a keep-or-cancel rule and reusable templates.
+- [How to Cancel a Subscription (and Ask for a Refund) in 2026](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/how-to-cancel-a-subscription-and-get-a-refund/): Step-by-step cancellation for app store, website, carrier and bundled subscriptions, plus a refund request template and what to do when a provider refuses.
+- [How to Save $1,000 Fast: Four Timelines That Work](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-to-save-1000-dollars-fast/): Save your first $1,000 in 4, 8, 12 or 26 weeks with weekly and daily amounts, specific places to find the money, and a plan for when the timeline slips.
+- [How to Set a Freelance Day Rate (Formula, Tables and Examples)](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-to-set-a-freelance-day-rate/): Build a freelance day rate from your income target, billable days and overheads, with tables for tax, unbilled time and a sanity check against employment.
+- [Lifestyle Creep After a Raise: Why More Money Feels Like Nothing](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/lifestyle-creep-after-a-raise/): What lifestyle inflation costs over a career, with tables showing the annual and compounding effect of absorbing each raise, and four ways to keep most of it.
+- [No-Spend Challenge Rules: A Version You Can Actually Finish](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/no-spend-challenge-rules/): How to run a no-spend week, month or weekend with clear rules, a list of what counts, typical savings, and the three mistakes that end most challenges.
+- [Price to Hours: The Formula for Turning Money Into Work Time](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/price-to-hours-formula/): The complete price-to-hours formula: hourly, monthly and annual inputs, the pre-tax adjustment, recurring costs, and the five mistakes that skew it.
+- [Seven Questions to Ask Before Any Big Purchase](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/seven-questions-before-a-big-purchase/): A pre-purchase checklist covering cost per use, total cost of ownership, hours of work, opportunity cost and the 30-day test, with a worked example.
+- [Should You Rent or Buy? The Break-Even Math](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/should-you-rent-or-buy/): Compare renting and buying using cost per month, the break-even horizon and the five-year total, with a worked example and the costs buyers forget.
+- [Sinking Funds Explained: Saving for Costs You Know Are Coming](https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/sinking-funds-explained/): How sinking funds work, with a table of common categories and monthly amounts, and a system for turning irregular annual bills into monthly savings.
+- [Streaming Service Price Comparison: How to Compare Tiers Properly](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/streaming-service-price-comparison/): Compare streaming plans by cost per hour watched, ad-supported vs ad-free tiers and annual discounts, with a fill-in table and a worked example.
+- [What to Do When a Subscription Raises Its Price](https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/subscription-price-increase-what-to-do/): A five-step response to a subscription price rise, with tables showing what $2, $3 and $5 a month costs annually, and when to switch or downgrade.
+- [The Latte Factor: What It Gets Right and What It Gets Wrong](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/the-latte-factor-what-it-gets-right/): A fair assessment of the small-daily-spending argument, with tables showing when small cuts matter, when they do not, and what to fix first instead.
+- [The True Cost of Car Ownership: A Full Monthly Model](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/true-cost-of-car-ownership/): Build the real monthly cost of running a car — depreciation, finance, insurance, fuel, maintenance and parking — with a worked example and cost per mile.
+- [How Much Work Is a Vacation Worth? Cost in Hours and Days](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/vacation-cost-in-work-hours/): Convert a $1,000 to $8,000 holiday into hours and weeks of work, work out the cost per day away, and see what unpaid leave really adds to the bill.
+- [What Is an Hour of Your Time Worth? (Formula + Table)](https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/what-is-an-hour-of-your-time-worth/): Work out what one hour of your time is worth using take-home pay and hours actually worked, with a table from $15 to $100 per hour and the mistakes to avoid.
+- [Why You Impulse Spend (and Nine Ways to Actually Stop)](https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/why-you-impulse-spend-and-how-to-stop/): The triggers behind impulse buying, from frictionless checkout to mood and social proof, with nine countermeasures and a table of what each one costs you.
+- [Your Real Hourly Wage: Counting Commute, Overtime and Unpaid Work](https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/your-real-hourly-wage/): Work out what you actually earn per hour once commute, preparation time, unpaid overtime and work costs are included, with tables and the break-even test.
