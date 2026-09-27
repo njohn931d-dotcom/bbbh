@@ -29,7 +29,17 @@ jobs:
         run: npm ci
       
       - name: Test (133 URLs)
-        run: npm test
+        run: |
+          set +e
+          npm test > /tmp/test.log 2>&1
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "--- full test log ---"
+            cat /tmp/test.log
+            tail -c 3500 /tmp/test.log | sed 's/%/%25/g' | tr '\n' '@' | sed 's/@/%0A/g' > /tmp/msg.txt
+            echo "::error::$(cat /tmp/msg.txt)"
+          fi
+          exit "$status"
       
       - name: Generate markdown mirrors (40 articles)
         run: node scripts/generate-articles-md.mjs
