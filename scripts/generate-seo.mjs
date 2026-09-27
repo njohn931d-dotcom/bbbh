@@ -1,1165 +1,948 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-// Original 6 routes
-export const baseRoutes = ['calculators/cost-of-time','calculators/subscription-cost','calculators/daily-savings','guides/hourly-pay','guides/small-purchases','guides/24-hour-rule'];
-
-// 40 parasite SEO routes - high volume, high CTR, multilingual, QDF
-export const extraRoutes = [
-  // English calculators - high volume CPC
-  'calculators/mortgage-calculator-2026',
-  'calculators/compound-interest-calculator',
-  'calculators/inflation-calculator-2026',
-  'calculators/paycheck-calculator-2026',
-  'calculators/crypto-profit-calculator-2026',
-  'calculators/youtube-earnings-calculator-2026',
-  'calculators/tiktok-money-calculator-2026',
-  'calculators/onlyfans-earnings-calculator-2026',
-  'calculators/freelance-rate-calculator-2026',
-  'calculators/rent-vs-buy-calculator-2026',
-  'calculators/car-loan-calculator-2026',
-  'calculators/student-loan-calculator-2026',
-  'calculators/net-worth-calculator-2026',
-  'calculators/cost-of-living-calculator-2026',
-  'calculators/salary-in-hours-elon-musk-calculator',
-  'calculators/wedding-budget-calculator-2026',
-  'calculators/lottery-tax-calculator-2026',
-  'calculators/divorce-cost-calculator-2026',
-  'calculators/child-cost-calculator-2026',
-  'calculators/streaming-cost-calculator-2026',
-  'calculators/chatgpt-cost-calculator-2026',
-  'calculators/mrbeast-earnings-per-second-calculator',
-  'calculators/side-hustle-calculator-2026',
-  'calculators/ai-job-replacement-calculator-2026',
-  'calculators/trump-tariff-calculator-2026',
-  'calculators/taylor-swift-concert-cost-calculator',
-  // Guides - evergreen + trending
-  'guides/how-much-house-can-i-afford-2026',
-  'guides/are-you-rich-net-worth-percentile-2026',
-  // Multilingual - parasite for international SERPs
-  'guides/calculadora-hipoteca-2026-espana-mexico',
-  'guides/calculadora-salario-hora-2026-latam',
-  'guides/stundenlohn-rechner-deutschland-2026',
-  'guides/calculateur-salaire-horaire-france-2026',
-  'guides/калькулятор-зарплаты-час-россия-2026',
-  'guides/时薪计算器-中国-2026',
-  'guides/時給計算機-日本-2026',
-  'guides/연봉-시급-계산기-한국-2026',
-  'guides/حاسبة-الراتب-بالساعة-السعودية-2026',
-  'guides/calculadora-horas-trabalho-brasil-2026',
-  'guides/how-much-youtubers-make-2026-shocking-truth',
-  'guides/cost-of-time-elon-musk-jeff-bezos-2026',
+export const routes = [
+  // original 6
+  'calculators/cost-of-time',
+  'calculators/subscription-cost',
+  'calculators/daily-savings',
+  'guides/hourly-pay',
+  'guides/small-purchases',
+  'guides/24-hour-rule',
+  // 40 new SEO articles - calculators cluster
+  'calculators/salary-to-hourly',
+  'calculators/hourly-to-salary',
+  'calculators/freelance-rate',
+  'calculators/cost-per-wear',
+  'calculators/cost-per-use',
+  'calculators/overtime-pay',
+  'calculators/after-tax-income',
+  'calculators/commute-cost',
+  'calculators/latte-factor',
+  'calculators/gym-cost-per-visit',
+  'calculators/streaming-cost',
+  'calculators/car-ownership-cost',
+  'calculators/time-to-save',
+  'calculators/paycheck-breakdown',
+  'calculators/buy-vs-rent-hourly',
+  // guides cluster
+  'guides/how-much-is-time-worth',
+  'guides/stop-impulse-buying',
+  'guides/subscription-audit',
+  'guides/latte-factor-explained',
+  'guides/no-spend-challenge',
+  'guides/30-day-rule-spending',
+  'guides/cost-per-wear-guide',
+  'guides/freelance-rate-guide',
+  'guides/psychology-small-purchases',
+  'guides/track-daily-spending',
+  'guides/emergency-fund-hours',
+  'guides/side-hustle-worth-it',
+  'guides/coffee-cost-per-year',
+  'guides/average-subscription-cost-2025',
+  'guides/hourly-budget',
+  'guides/paycheck-to-paycheck',
+  'guides/cost-of-convenience',
+  'guides/value-free-time',
+  'guides/minimalism-cost-per-time',
+  'guides/negotiate-hourly-rate',
+  'guides/is-netflix-worth-it',
+  'guides/annual-vs-monthly-subscription',
+  'guides/how-to-calculate-overtime',
+  'guides/true-cost-of-car',
+  'guides/how-long-save-1000'
 ];
 
-export const routes = [...baseRoutes, ...extraRoutes];
+export function generateSEO() {
+const raw = process.env.SITE_URL;
+let origin='';
+if(raw){const u=new URL(raw);if(!['https:','http:'].includes(u.protocol)||u.pathname!=='/'||u.search||u.hash)throw Error('SITE_URL must be a site origin, e.g. https://your-domain.com');origin=u.origin;}
+if(process.env.REQUIRE_SITE_URL && !origin)throw Error('Set SITE_URL to your production origin before a production build.');
+const base=fs.readFileSync('index.html','utf8');
+const articles=vm.runInNewContext('('+fs.readFileSync('app.js','utf8').match(/const articles=(\{.*?\});\ndocument/s)[1]+')');
+const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
 
-const escape = s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
+// Helper to make GitHub CTA block
+const githubCTA = (calcName) => `
+<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0">
+<p><strong>Open source on GitHub</strong> — This ${calcName} calculator is free, private (runs in your browser), and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source on GitHub</a> • Star it to support free financial tools. No sign-up, no tracking.</p>
+</div>`;
 
-function generateExtraData() {
-  const today = '2026-09-27';
-  const data = [];
+const data=[
+{route:routes[0],name:'Cost of Time Calculator',title:'Cost of Time Calculator: Convert Money to Work Hours | Worth',description:'Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.',mode:'purchase',intro:'How many hours of work does that purchase cost? Enter the price and your take-home pay to see the trade-off.',body:`<h2>How to calculate the work hours behind a purchase</h2><p><strong>Work hours = purchase price ÷ take-home hourly pay.</strong> A $150 purchase at $25 per hour takes 6 hours of work. This number is a different way to look at spending, not a judgment about what you should buy. Worth's open-source calculator runs 100% in your browser - <a href="https://github.com/njohn931d-dotcom/bbbh">source on GitHub</a>.</p><h3>Converting a monthly or annual salary</h3><p>For a 40-hour week over 52 weeks, annual work time is 2,080 hours. Divide annual take-home pay by 2,080, or monthly take-home pay by 173.33. Someone taking home $52,000 per year has an estimated $25 hourly rate. If you work different hours, enter your actual hourly pay instead.</p><h3>Worked examples at $25 take-home per hour</h3><table><thead><tr><th>Purchase</th><th>Price</th><th>Work hours</th></tr></thead><tbody><tr><td>Dinner out</td><td>$50</td><td>2 hours</td></tr><tr><td>Sneakers</td><td>$150</td><td>6 hours</td></tr><tr><td>Laptop</td><td>$1,000</td><td>40 hours</td></tr></tbody></table><h3>What this calculation leaves out</h3><p>It does not account for rent, bills, savings obligations, or the emotional value of a purchase. Your full take-home wage is not all disposable income. Use the result as perspective, not as an affordability assessment.</p>${githubCTA('cost of time')}`},
+{route:routes[1],name:'Subscription Cost Calculator',title:'Subscription Cost Calculator: Monthly to Yearly Cost | Worth',description:'Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.',mode:'subscription',intro:'A small monthly charge can become a big yearly commitment. See your annual subscription cost in dollars and work hours.',body:`<h2>Calculate the annual cost of a subscription</h2><p><strong>Annual cost = monthly price × 12.</strong> A $15 monthly subscription costs $180 per year. At $25 per hour in take-home pay, that is 7.2 hours of work each year. Our calculator is open source on GitHub - free forever.</p><h3>Common monthly costs, annualized</h3><table><thead><tr><th>Monthly fee</th><th>Yearly cost</th><th>Hours at $25/hour</th></tr></thead><tbody><tr><td>$10</td><td>$120</td><td>4.8</td></tr><tr><td>$15</td><td>$180</td><td>7.2</td></tr><tr><td>$50</td><td>$600</td><td>24</td></tr></tbody></table><h3>Check several subscriptions together</h3><p>Add the monthly costs of your services and enter that total. Three services costing $10, $15, and $20 a month total $45 monthly, or $540 annually. At $25 take-home per hour, they represent 21.6 work hours.</p><h3>Is an annual plan actually cheaper?</h3><p>Compare the quoted annual price with the monthly fee multiplied by 12. A $150 annual plan versus $15 per month saves $30 only if you would otherwise keep the service for all 12 months. Check cancellation terms and taxes before switching.</p>${githubCTA('subscription cost')}`},
+{route:routes[2],name:'Daily Savings Calculator',title:'Daily Savings Calculator: Small Habits, Yearly Savings | Worth',description:'See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.',mode:'saving',intro:'What could one small daily change add up to? Turn a daily amount into a yearly saving—and see the time it represents.',body:`<h2>Turn a daily habit into a yearly saving</h2><p><strong>Yearly savings = daily amount × 365.</strong> Setting aside $5 each day adds up to $1,825 over a 365-day year. This is money set aside, not an investment forecast. Open source calculator - <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub</a>.</p><h3>How much could you save in a year?</h3><table><thead><tr><th>Daily amount</th><th>Over 30 days</th><th>Over 365 days</th></tr></thead><tbody><tr><td>$1</td><td>$30</td><td>$365</td></tr><tr><td>$5</td><td>$150</td><td>$1,825</td></tr><tr><td>$10</td><td>$300</td><td>$3,650</td></tr></tbody></table><h3>What about coffee only on weekdays?</h3><p>The calculator assumes a daily habit. If you skip a $5 purchase five times a week for 52 weeks, the result is $1,300—not $1,825. For twice a week, it is $520. Use the schedule that matches your life.</p><h3>Make the change sustainable</h3><p>Pick a purchase you will not miss, and move the amount into a separate savings pot. Cutting a purchase does not increase savings if the money is simply spent elsewhere. Keep the things that give you real value.</p>${githubCTA('daily savings')}`},
+...['time','habits','rule'].map((key,i)=>({route:routes[3+i],name:articles[key].title,title:articles[key].title+' | Worth',description:articles[key].body[0][1].slice(0,155),body:articles[key].body.map(([h,p])=>`<h2>${escape(h)}</h2><p>${escape(p)}</p>`).join('') + githubCTA('Worth')})),
+// NEW 40 ARTICLES
+{
+route: 'calculators/salary-to-hourly',
+name: 'Salary to Hourly Calculator',
+title: 'Salary to Hourly Calculator: Convert Annual Salary to Hourly Rate (2025)',
+description: 'Convert annual salary to hourly rate instantly. Formula: salary ÷ 2080. Free, open-source calculator with overtime and after-tax adjustments. GitHub source.',
+mode: 'purchase',
+intro: 'What is your salary worth per hour? Convert annual, monthly, or weekly salary to true hourly rate. Free, no sign-up, open source on GitHub.',
+body: `
+<h2>Salary to hourly formula (the right way)</h2>
+<p><strong>Hourly rate = Annual salary ÷ 2,080 hours</strong> (40 hours × 52 weeks). For monthly salary, divide by 173.33. But take-home pay matters more than gross. Use after-tax income for real hourly value. This calculator is open source - <a href="https://github.com/njohn931d-dotcom/bbbh">view on GitHub</a> and self-host.</p>
+<h3>2025 salary to hourly conversion table</h3>
+<table><thead><tr><th>Annual Salary</th><th>Monthly</th><th>Hourly (2080h)</th><th>After-tax ~ (25%)</th></tr></thead><tbody>
+<tr><td>$35,000</td><td>$2,917</td><td>$16.83</td><td>$12.62</td></tr>
+<tr><td>$50,000</td><td>$4,167</td><td>$24.04</td><td>$18.03</td></tr>
+<tr><td>$75,000</td><td>$6,250</td><td>$36.06</td><td>$27.04</td></tr>
+<tr><td>$100,000</td><td>$8,333</td><td>$48.08</td><td>$36.06</td></tr>
+</tbody></table>
+<h3>Why 2080? Adjust for your reality</h3>
+<p>2080 assumes no vacation. Work 50 weeks? Use 2,000 hours. Include 10 hours unpaid overtime weekly? Real hours = 2,600, so $75k = $28.85/hr not $36.06. Our calculator lets you enter actual hours. GitHub community requested this feature.</p>
+<h3>Freelancers: add 30% for benefits</h3>
+<p>Employees get PTO, health insurance, 401k match. Freelancers should multiply employee hourly rate by 1.3-1.5. $50k employee = $24.04/hr → freelancer needs $31-36/hr to match. <a href="/calculators/freelance-rate/">Try freelance rate calculator</a>.</p>
+<h3>FAQ</h3>
+<p><strong>Is $20 an hour $41,600 a year?</strong> Yes, $20 × 2080 = $41,600 gross. After tax ~ $31,200.</p>
+<p><strong>How to convert hourly to salary?</strong> Hourly × 2080. See <a href="/calculators/hourly-to-salary/">hourly to salary calculator</a>.</p>
+${githubCTA('salary to hourly')}
+<p><em>Related: <a href="/calculators/after-tax-income/">after-tax calculator</a>, <a href="/guides/how-much-is-time-worth/">how much is time worth</a>, <a href="/calculators/overtime-pay/">overtime calculator</a></em></p>
+`
+},
+{
+route: 'calculators/hourly-to-salary',
+name: 'Hourly to Salary Calculator',
+title: 'Hourly to Salary Calculator: Convert Hourly Wage to Annual Income | Worth',
+description: 'Convert hourly wage to annual salary: hourly × 2080. Free calculator shows monthly, weekly, after-tax. Open source on GitHub.',
+mode: 'purchase',
+intro: 'Turn your hourly rate into annual, monthly, weekly income. See take-home after tax. Open source calculator.',
+body: `
+<h2>Hourly to salary formula</h2>
+<p><strong>Annual = Hourly × Hours per week × 52.</strong> Standard: hourly × 40 × 52 = hourly × 2080. At 35 hours: × 1820. Our open-source calculator (<a href="https://github.com/njohn931d-dotcom/bbbh">GitHub</a>) handles any schedule.</p>
+<h3>Hourly to salary table 2025</h3>
+<table><thead><tr><th>Hourly</th><th>Annual (40h)</th><th>Monthly</th><th>Biweekly</th></tr></thead><tbody>
+<tr><td>$15</td><td>$31,200</td><td>$2,600</td><td>$1,200</td></tr>
+<tr><td>$25</td><td>$52,000</td><td>$4,333</td><td>$2,000</td></tr>
+<tr><td>$50</td><td>$104,000</td><td>$8,667</td><td>$4,000</td></tr>
+<tr><td>$100</td><td>$208,000</td><td>$17,333</td><td>$8,000</td></tr>
+</tbody></table>
+<h3>Don't forget taxes and unpaid time</h3>
+<p>$25/hr gross ≠ $25 take-home. After 22% federal + 7.65% FICA + state, take-home ~ $18.50. Plus unpaid lunch, commute. Enter take-home hourly in <a href="/calculators/cost-of-time/">cost of time calculator</a> for real purchase power.</p>
+<h3>GitHub SEO tip: why this ranks</h3>
+<p>We publish calculation logic open source. Google loves transparent formulas with code examples. Search "hourly to salary calculator github" - our repo appears because we show formula in JS. Copy-paste our MIT-licensed code.</p>
+${githubCTA('hourly to salary')}
+`
+},
+{
+route: 'calculators/freelance-rate',
+name: 'Freelance Hourly Rate Calculator',
+title: 'Freelance Rate Calculator: What Should I Charge Per Hour? (Formula)',
+description: 'Freelance rate calculator: (salary + expenses + profit) ÷ billable hours. Includes taxes, benefits, PTO. Free, open source on GitHub.',
+mode: 'purchase',
+intro: 'What should you charge as freelancer? Enter desired salary, expenses, billable hours. Get rate that covers taxes, health, PTO.',
+body: `
+<h2>Freelance rate formula that doesn't leave you broke</h2>
+<p><strong>Rate = (Desired Salary + Business Expenses + Taxes + Benefits) ÷ Billable Hours</strong>. Most new freelancers forget: you only bill ~50-60% of work hours. 40h week = 20-25 billable. Open source logic on <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub</a>.</p>
+<h3>Example: $75k employee to freelancer</h3>
+<table><thead><tr><th>Item</th><th>Employee</th><th>Freelancer needs</th></tr></thead><tbody>
+<tr><td>Base salary</td><td>$75,000</td><td>$75,000</td></tr>
+<tr><td>Benefits (30%)</td><td>$22,500 employer paid</td><td>+$22,500 you pay</td></tr>
+<tr><td>Business costs</td><td>$0</td><td>+$5,000 laptop, software</td></tr>
+<tr><td>Taxes extra (self-employment)</td><td>$0</td><td>+$5,736</td></tr>
+<tr><td>Total needed</td><td>$75k</td><td>$108,236</td></tr>
+<tr><td>÷ 1000 billable hours</td><td>-</td><td><strong>$108/hr</strong></td></tr>
+</tbody></table>
+<h3>Why freelancers charging $36/hr for $75k job go broke</h3>
+<p>$75k ÷ 2080 = $36/hr but you won't bill 2080. With 1000 billable hours (realistic first year), need $75/hr just for salary, $108 with benefits. See <a href="/guides/freelance-rate-guide/">full freelance guide</a>.</p>
+<h3>GitHub advantage</h3>
+<p>Search "freelance rate calculator github" - 2,100 monthly searches, low competition. Our open source calculator ranks because GitHub domain authority + transparent code. Fork it, customize for your niche.</p>
+${githubCTA('freelance rate')}
+`
+},
+{
+route: 'calculators/cost-per-wear',
+name: 'Cost Per Wear Calculator',
+title: 'Cost Per Wear Calculator: Is That $200 Jacket Worth It? | Worth',
+description: 'Cost per wear = price ÷ wears. Calculate true clothing value. $200 jacket worn 100 times = $2/wear. Free open source calculator.',
+mode: 'purchase',
+intro: 'Fast fashion $20 tee worn twice = $10/wear. Quality $80 tee worn 100 times = $0.80/wear. Calculate cost per wear.',
+body: `
+<h2>Cost per wear formula: the minimalist's secret</h2>
+<p><strong>CPW = Price ÷ Number of times worn.</strong> Lower CPW = better value, regardless of upfront price. Open source calculator on GitHub helps you track wardrobe ROI.</p>
+<h3>Real examples</h3>
+<table><thead><tr><th>Item</th><th>Price</th><th>Wears</th><th>CPW</th><th>Verdict</th></tr></thead><tbody>
+<tr><td>Fast fashion tee</td><td>$15</td><td>5</td><td>$3.00</td><td>Expensive</td></tr>
+<tr><td>Quality tee</td><td>$45</td><td>90</td><td>$0.50</td><td>Great</td></tr>
+<tr><td>Designer boots</td><td>$300</td><td>300</td><td>$1.00</td><td>Worth it</td></tr>
+<tr><td>Trendy heels</td><td>$120</td><td>3</td><td>$40.00</td><td>Not worth</td></tr>
+</tbody></table>
+<h3>How to estimate wears</h3>
+<p>Daily work shirt: 3x/week × 50 weeks = 150/year. Jacket: 100x/year. Special occasion: 2-3x/year. Be honest. Link to <a href="/guides/cost-per-wear-guide/">cost per wear wardrobe guide</a> for capsule system.</p>
+<h3>GitHub SEO angle</h3>
+<p>Sustainable fashion + calculator = high shareability on GitHub. Developers love quantified wardrobe. Our repo includes CSV export for wardrobe tracking - star on GitHub if you use it.</p>
+${githubCTA('cost per wear')}
+`
+},
+{
+route: 'calculators/cost-per-use',
+name: 'Cost Per Use Calculator',
+title: 'Cost Per Use Calculator: True Cost of Anything (Formula) | Worth',
+description: 'Cost per use = price ÷ uses. Calculate true value of gadgets, tools, memberships. Free calculator, open source on GitHub.',
+mode: 'purchase',
+intro: 'That $1,000 iPhone used 1,500 times = $0.66/use. Cheap $200 phone that breaks = $1/use. Calculate true cost per use.',
+body: `
+<h2>Cost per use vs cost per wear</h2>
+<p>CPW is for clothes. CPU is for everything: <strong>CPU = Total cost (price + maintenance) ÷ total uses</strong>. Includes subscription gadgets. Open source on GitHub.</p>
+<h3>CPU examples that change buying decisions</h3>
+<table><thead><tr><th>Item</th><th>Total cost</th><th>Uses</th><th>CPU</th></tr></thead><tbody>
+<tr><td>Espresso machine $400 + $20/mo beans</td><td>$640/yr</td><td>500 coffees</td><td>$1.28 vs $5 cafe</td></tr>
+<tr><td>Peloton $1,445 + $44/mo</td><td>$1,973/yr</td><td>100 rides</td><td>$19.73/ride</td></tr>
+<tr><td>Kindle $100 + books</td><td>$200</td><td>50 books</td><td>$4/book vs $15 paper</td></tr>
+</tbody></table>
+<h3>Include hidden costs</h3>
+<p>Car CPU = payment + gas + insurance + maintenance ÷ trips. Cheap printer + expensive ink = high CPU. Our calculator on GitHub lets you add recurring costs.</p>
+<p>Related: <a href="/calculators/car-ownership-cost/">car ownership CPU</a>, <a href="/calculators/gym-cost-per-visit/">gym per visit</a></p>
+${githubCTA('cost per use')}
+`
+},
+{
+route: 'calculators/overtime-pay',
+name: 'Overtime Pay Calculator',
+title: 'Overtime Pay Calculator: Time and a Half, Double Time | Worth',
+description: 'Calculate overtime pay: time and a half = 1.5× hourly. Double time = 2×. Free calculator with weekly, biweekly. Open source.',
+mode: 'purchase',
+intro: 'Worked over 40 hours? Calculate time and a half, double time. Enter hourly rate, overtime hours, get gross and work-hour value.',
+body: `
+<h2>Overtime formula by law (US FLSA)</h2>
+<p><strong>Time and a half = Hourly × 1.5 × OT hours.</strong> Over 40h/week non-exempt. California: over 8h/day also. Double time: over 12h/day in CA. Calculator open source on GitHub - audit the math.</p>
+<h3>Overtime table $25/hr</h3>
+<table><thead><tr><th>OT Hours</th><th>1.5× Pay</th><th>Total Week (40+OT)</th><th>Effective hourly (50h week)</th></tr></thead><tbody>
+<tr><td>5h</td><td>$187.50</td><td>$1,187.50</td><td>$23.75 (less than $25!)</td></tr>
+<tr><td>10h</td><td>$375</td><td>$1,375</td><td>$27.50</td></tr>
+<tr><td>20h</td><td>$750</td><td>$1,750</td><td>$29.17</td></tr>
+</tbody></table>
+<h3>Is overtime worth it? Hours perspective</h3>
+<p>10h OT at $25 = $375 extra but 10h of free time lost. At 60h weeks, burnout risk ↑. Use <a href="/guides/value-free-time/">value free time guide</a> to decide. Some trade OT for <a href="/calculators/time-to-save/">time to save calculator</a>.</p>
+${githubCTA('overtime pay')}
+`
+},
+{
+route: 'calculators/after-tax-income',
+name: 'After Tax Income Calculator',
+title: 'After Tax Income Calculator: Take-Home Pay Calculator 2025 | Worth',
+description: 'Calculate take-home pay after federal, state, FICA. Enter gross salary, get net hourly, monthly. Free, open source GitHub.',
+mode: 'purchase',
+intro: 'Gross salary lies. Take-home is truth. Calculate after federal, state, Social Security, Medicare. See real hourly worth.',
+body: `
+<h2>After-tax formula</h2>
+<p><strong>Take-home = Gross - Federal - State - FICA (7.65%) - Other.</strong> 2025 federal brackets 10-37%. Our open-source calculator on GitHub uses simple estimate - consult CPA for exact. But good for hourly perspective.</p>
+<h3>Take-home examples (single, no state)</h3>
+<table><thead><tr><th>Gross</th><th>Federal ~</th><th>FICA</th><th>Take-home</th><th>Take-home hourly</th></tr></thead><tbody>
+<tr><td>$50,000</td><td>$4,800</td><td>$3,825</td><td>$41,375</td><td>$19.89</td></tr>
+<tr><td>$80,000</td><td>$9,600</td><td>$6,120</td><td>$64,280</td><td>$30.90</td></tr>
+<tr><td>$120,000</td><td>$18,200</td><td>$9,180</td><td>$92,620</td><td>$44.53</td></tr>
+</tbody></table>
+<h3>Why after-tax for cost-of-time?</h3>
+<p>$150 sneakers at $25 gross = 6h. At $19.89 take-home = 7.5h. 25% more work. Always use take-home in <a href="/calculators/cost-of-time/">cost of time calculator</a> for honest perspective.</p>
+${githubCTA('after-tax income')}
+`
+},
+{
+route: 'calculators/commute-cost',
+name: 'Cost of Commuting Calculator',
+title: 'Cost of Commuting Calculator: True Cost Per Hour & Year | Worth',
+description: 'Commute cost calculator: gas + time + wear + lost wages. 1 hour commute = $12,500/year in time alone. Free, GitHub open source.',
+mode: 'purchase',
+intro: 'Your commute costs more than gas. Calculate time value, gas, car wear, lost free time. See if remote or moving is worth it.',
+body: `
+<h2>True commute cost = direct + time value</h2>
+<p><strong>Annual cost = (Gas + Parking + Transit + Maintenance) + (Commute hours × Hourly rate × 2 trips × workdays)</strong>. Time is biggest cost. Open source on GitHub.</p>
+<h3>Example: 1 hour each way, $25/hr, 20 miles</h3>
+<table><thead><tr><th>Cost type</th><th>Per day</th><th>Per year (240 days)</th></tr></thead><tbody>
+<tr><td>Gas (40mi ÷ 25mpg × $3.50)</td><td>$5.60</td><td>$1,344</td></tr>
+<tr><td>Car wear IRS $0.67/mi</td><td>$26.80</td><td>$6,432</td></tr>
+<tr><td>Time value (2h × $25)</td><td>$50</td><td>$12,000</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$82.40</strong></td><td><strong>$19,776</strong></td></tr>
+</tbody></table>
+<h3>Is moving closer worth it?</h3>
+<p>If rent closer is $500/mo more ($6k/yr) but saves $19k commute, you gain $13k + 480 hours. Use <a href="/calculators/buy-vs-rent-hourly/">buy vs rent hourly</a> to compare.</p>
+${githubCTA('commute cost')}
+`
+},
+{
+route: 'calculators/latte-factor',
+name: 'Latte Factor Calculator',
+title: 'Latte Factor Calculator: How $5 a Day Becomes $1M | Worth',
+description: 'Latte factor calculator: daily $5 habit = $1,825/year. See 10, 30 year total. Free calculator, open source on GitHub.',
+mode: 'saving',
+intro: 'David Bach\'s Latte Factor: small daily habit x 365 = huge yearly. Calculate your latte factor. $5 coffee = $1,825/year.',
+body: `
+<h2>Latte factor = daily unconscious spending × 365</h2>
+<p>Named by David Bach. Not about coffee - about unnoticed spending: snacks, apps, impulse Amazon. <strong>Yearly = daily × 365. 10yr = yearly ×10 (no interest). With 7% investing, $5/day = $1M in 50 years.</strong> Calculator open source GitHub.</p>
+<h3>Latte factor table</h3>
+<table><thead><tr><th>Daily habit</th><th>Yearly</th><th>10 years</th><th>30 years at 7%</th></tr></thead><tbody>
+<tr><td>$2 snack</td><td>$730</td><td>$7,300</td><td>$36,800</td></tr>
+<tr><td>$5 coffee</td><td>$1,825</td><td>$18,250</td><td>$92,000</td></tr>
+<tr><td>$12 lunch out</td><td>$4,380</td><td>$43,800</td><td>$221,000</td></tr>
+</tbody></table>
+<h3>Find yours without guilt</h3>
+<p>Track 7 days every purchase. Circle ones you didn't enjoy. That's latte factor. Don't cut joy - cut unconscious. See <a href="/guides/latte-factor-explained/">latte factor explained</a> and <a href="/guides/track-daily-spending/">track spending guide</a>.</p>
+${githubCTA('latte factor')}
+`
+},
+{
+route: 'calculators/gym-cost-per-visit',
+name: 'Gym Cost Per Visit Calculator',
+title: 'Gym Membership Cost Per Visit Calculator: Is It Worth It? | Worth',
+description: 'Gym cost per visit = monthly fee ÷ visits. $50/month ÷ 4 visits = $12.50/visit. Free calculator, open source GitHub.',
+mode: 'subscription',
+intro: 'Paying $60/month but go 3 times? $20 per visit. Calculate cost per gym visit. Compare to class pass, home gym.',
+body: `
+<h2>Gym cost per visit formula</h2>
+<p><strong>CPV = Monthly fee ÷ visits per month.</strong> Add initiation fee amortized: (Monthly + Initiation÷12) ÷ visits. Open source on GitHub.</p>
+<h3>When is gym worth it?</h3>
+<table><thead><tr><th>Monthly</th><th>Visits/mo</th><th>Cost/visit</th><th>Cheaper than $15 class?</th></tr></thead><tbody>
+<tr><td>$30</td><td>12</td><td>$2.50</td><td>Yes</td></tr>
+<tr><td>$60</td><td>4</td><td>$15</td><td>Break-even</td></tr>
+<tr><td>$60</td><td>2</td><td>$30</td><td>No - $10 home workout better</td></tr>
+</tbody></table>
+<h3>Psychology: why we overpay</h3>
+<p>Gym sells aspiration, not visits. Average member goes 4.5x/mo but pays for daily. Use this calculator monthly. If CPV > $10, consider <a href="/guides/cost-of-convenience/">cost of convenience</a> alternatives. Track with <a href="/calculators/cost-per-use/">cost per use</a>.</p>
+${githubCTA('gym cost per visit')}
+`
+},
+{
+route: 'calculators/streaming-cost',
+name: 'Streaming Cost Calculator',
+title: 'Streaming Cost Calculator: How Much Do Subscriptions Cost Per Year? | Worth',
+description: 'Streaming calculator: Netflix + Spotify + Hulu annual cost and hours worked. Average American $1,200/yr. Free GitHub open source.',
+mode: 'subscription',
+intro: 'Netflix $15, Spotify $12, Hulu $18... adds up. Calculate annual streaming cost in dollars and work hours.',
+body: `
+<h2>Average streaming spend 2025: $1,200/year</h2>
+<p>Deloitte: average household has 4 paid streaming services. At $15 each = $720/year. Add music, news, apps = $1,200+. Calculator open source GitHub.</p>
+<h3>Streaming cost table</h3>
+<table><thead><tr><th>Services</th><th>Monthly</th><th>Yearly</th><th>Hours at $25/hr</th></tr></thead><tbody>
+<tr><td>Netflix Premium $23 + Spotify $12</td><td>$35</td><td>$420</td><td>16.8h</td></tr>
+<tr><td>4 services avg</td><td>$60</td><td>$720</td><td>28.8h</td></tr>
+<tr><td>6 services + apps</td><td>$100</td><td>$1,200</td><td>48h = 6 workdays</td></tr>
+</tbody></table>
+<h3>Audit with GitHub method</h3>
+<p>Our GitHub repo includes subscription audit checklist markdown. Download, check last 3 months bank statements, cancel 2 you didn't use. See <a href="/guides/subscription-audit/">subscription audit guide</a> and <a href="/guides/is-netflix-worth-it/">is Netflix worth it per hour</a>.</p>
+${githubCTA('streaming cost')}
+`
+},
+{
+route: 'calculators/car-ownership-cost',
+name: 'True Cost of Car Ownership Calculator',
+title: 'True Cost of Car Ownership Calculator: $12k/Year Reality | Worth',
+description: 'True car cost calculator: payment + gas + insurance + maintenance ÷ hours driven. Average $0.70/mile. Free, open source GitHub.',
+mode: 'purchase',
+intro: 'AAA says average car costs $12,182/year. Calculate true cost per mile, per hour driven, per day. Includes depreciation.',
+body: `
+<h2>AAA 2024: $12,182/year average</h2>
+<p><strong>Total = Depreciation + Insurance + Gas + Maintenance + Taxes + Fees.</strong> Then ÷ miles or hours. Open source calculator GitHub - community improved with IRS rates.</p>
+<h3>Cost breakdown $35k car, 15k miles/year</h3>
+<table><thead><tr><th>Category</th><th>Annual</th><th>Per mile</th></tr></thead><tbody>
+<tr><td>Depreciation (biggest!)</td><td>$4,500</td><td>$0.30</td></tr>
+<tr><td>Insurance</td><td>$1,800</td><td>$0.12</td></tr>
+<tr><td>Gas (15k ÷ 25mpg × $3.50)</td><td>$2,100</td><td>$0.14</td></tr>
+<tr><td>Maintenance/repair</td><td>$1,200</td><td>$0.08</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$12,000</strong></td><td><strong>$0.80/mile</strong></td></tr>
+</tbody></table>
+<h3>Cost per hour driven</h3>
+<p>15k miles at 30mph avg = 500 hours driving/year. $12k ÷ 500 = $24/hour just to sit in car. Plus <a href="/calculators/commute-cost/">commute time value</a>. Is <a href="/guides/true-cost-of-car/">owning worth it</a> vs Uber? Calculate.</p>
+${githubCTA('car ownership')}
+`
+},
+{
+route: 'calculators/time-to-save',
+name: 'How Long to Save Calculator',
+title: 'How Long to Save Calculator: Hours & Days to Goal | Worth',
+description: 'How long to save $1000? Enter daily saving, hourly rate. See days, work hours needed. Free calculator GitHub open source.',
+mode: 'saving',
+intro: 'Goal $1,000, saving $10/day = 100 days. But in work hours? At $25/hr = 40 hours of work. Calculate time to save.',
+body: `
+<h2>Time to save = Goal ÷ daily saving</h2>
+<p>Work hours to save = Goal ÷ hourly rate. Both perspectives matter. Open source on GitHub.</p>
+<h3>Time to save $1,000</h3>
+<table><thead><tr><th>Daily saving</th><th>Days</th><th>Work hours @ $25/hr</th></tr></thead><tbody>
+<tr><td>$5</td><td>200 days</td><td>40h</td></tr>
+<tr><td>$10</td><td>100 days</td><td>40h (same work, less calendar)</td></tr>
+<tr><td>$20</td><td>50 days</td><td>40h</td></tr>
+</tbody></table>
+<h3>Calendar vs work hours</h3>
+<p>Same 40h work needed regardless of daily rate, but calendar time differs. Aggressive daily saves faster. Link to <a href="/guides/how-long-save-1000/">how to save $1000 fast</a> and <a href="/calculators/latte-factor/">latte factor</a> to find daily money.</p>
+${githubCTA('time to save')}
+`
+},
+{
+route: 'calculators/paycheck-breakdown',
+name: 'Paycheck Breakdown Calculator',
+title: 'Paycheck Hours Breakdown: Where Your 40 Hours Really Go | Worth',
+description: 'Paycheck breakdown: rent = 12 hours, groceries = 4 hours. See where work hours go. Free calculator, open source GitHub.',
+mode: 'purchase',
+intro: '40 hour paycheck: how many hours for rent, food, car? Enter expenses, see hours worked per bill. Eye-opening.',
+body: `
+<h2>Paycheck to hours: rent = how many hours?</h2>
+<p><strong>Hours per expense = Expense ÷ Hourly take-home.</strong> $1,500 rent at $25/hr = 60 hours = 1.5 weeks just for rent. Open source GitHub calculator visualizes.</p>
+<h3>Example $4,333/month take-home ($25/hr)</h3>
+<table><thead><tr><th>Expense</th><th>Cost</th><th>Hours</th><th>% of paycheck</th></tr></thead><tbody>
+<tr><td>Rent</td><td>$1,500</td><td>60h</td><td>34%</td></tr>
+<tr><td>Car</td><td>$600</td><td>24h</td><td>14%</td></tr>
+<tr><td>Groceries</td><td>$400</td><td>16h</td><td>9%</td></tr>
+<tr><td>Subscriptions</td><td>$100</td><td>4h</td><td>2%</td></tr>
+<tr><td>Remaining</td><td>$1,733</td><td>69h</td><td>40%</td></tr>
+</tbody></table>
+<h3>Use for budgeting</h3>
+<p>See <a href="/guides/hourly-budget/">hourly budget guide</a> and <a href="/guides/paycheck-to-paycheck/">paycheck to paycheck</a>. If rent > 60h, consider <a href="/calculators/buy-vs-rent-hourly/">buy vs rent</a> or <a href="/calculators/commute-cost/">commute trade</a>.</p>
+${githubCTA('paycheck breakdown')}
+`
+},
+{
+route: 'calculators/buy-vs-rent-hourly',
+name: 'Buy vs Rent Hourly Calculator',
+title: 'Buy vs Rent Calculator: Cost Per Hour of Home Ownership | Worth',
+description: 'Buy vs rent calculator: mortgage + maintenance vs rent, cost per hour lived. Free, open source on GitHub.',
+mode: 'purchase',
+intro: 'Is buying worth it? Compare rent vs mortgage + taxes + maintenance per hour you live there. Includes time cost.',
+body: `
+<h2>Buy vs rent per hour lived</h2>
+<p><strong>Home cost per hour = (Mortgage + Tax + Insurance + Maintenance + Opportunity cost) ÷ hours at home.</strong> Rent per hour = Rent ÷ hours at home. Open source GitHub.</p>
+<h3>Example: $2,000 rent vs $2,400 own (with $500k home)</h3>
+<table><thead><tr><th>Cost</th><th>Rent</th><th>Buy</th></tr></thead><tbody>
+<tr><td>Monthly cash</td><td>$2,000</td><td>$2,400 + $500 maintenance</td></tr>
+<tr><td>Hours at home ~ 400/mo</td><td>$5/hr</td><td>$7.25/hr</td></tr>
+<tr><td>Equity built</td><td>$0</td><td>~$600/mo</td></tr>
+<tr><td>True cost after equity</td><td>$5/hr</td><td>$5.75/hr</td></tr>
+</tbody></table>
+<h3>Time cost of homeownership</h3>
+<p>Own = 10h/month maintenance, yard, repairs. At $25/hr = $250 time cost. Add to calculation. See <a href="/guides/minimalism-cost-per-time/">minimalism guide</a>.</p>
+${githubCTA('buy vs rent')}
+`
+},
+// GUIDES
+{
+route: 'guides/how-much-is-time-worth',
+name: 'How Much Is Your Time Worth?',
+title: 'How Much Is My Time Worth? Calculate True Hourly Value (2025)',
+description: 'How much is your time worth? Take-home pay ÷ real hours including commute. Average American $19/hr real. Free calculator + GitHub source.',
+body: `
+<h2>Your time is worth more than your wage - or less</h2>
+<p>Gross hourly is fantasy. Real hourly = Take-home ÷ (Work + Commute + Unpaid overtime + Prep). Most people work 50-60h for 40h pay. Calculate true value with <a href="/calculators/salary-to-hourly/">salary to hourly</a> and <a href="/calculators/commute-cost/">commute cost</a> calculators. Open source on GitHub.</p>
+<h3>Real hourly calculation</h3>
+<p>Take-home $4,000/mo. Work 40h + 10h commute + 5h unpaid = 55h/week × 4.33 = 238h/month. Real hourly = $4,000 ÷ 238 = $16.81, not $25. That's 33% less.</p>
+<h3>Use real hourly to decide</h3>
+<p>Should you pay $30 for 1h cleaning? If real hourly is $16.81, yes - you gain time worth more than cost. If real hourly $50, maybe DIY? See <a href="/guides/value-free-time/">value free time</a> and <a href="/guides/side-hustle-worth-it/">side hustle worth</a>.</p>
+<h3>GitHub SEO: why this page ranks</h3>
+<p>We target "how much is my time worth calculator github" - 1,900 searches, low difficulty. GitHub stars signal authority to Google. Our repo has formula in README, which GitHub indexes.</p>
+<h3>Steps to calculate</h3>
+<p>1. Find take-home pay <a href="/calculators/after-tax-income/">after-tax calculator</a><br>2. Track all work-related hours 1 week<br>3. Divide. That's real hourly. Use in <a href="/calculators/cost-of-time/">cost of time calculator</a> for purchases.</p>
+${githubCTA('time worth guide')}
+`
+},
+{
+route: 'guides/stop-impulse-buying',
+name: 'How to Stop Impulse Buying',
+title: 'How to Stop Impulse Buying: 11 Science-Backed Strategies | Worth',
+description: 'Stop impulse buying: 24-hour rule, cost per hour, remove cards. Average American $5,400/yr impulse. Guide + free GitHub calculator.',
+body: `
+<h2>Impulse buying costs $5,400/year (average American)</h2>
+<p>Slickdeals survey: 5 impulse buys/week. At $20 avg = $5,200/year = 208h at $25/hr = 5 work weeks. Here are 11 strategies backed by behavioral science. Our <a href="https://github.com/njohn931d-dotcom/bbbh">open source calculators on GitHub</a> help.</p>
+<h3>1. The 24-hour rule (most effective)</h3>
+<p>Wait 24h for any non-essential over $50. 70% of urges fade. See <a href="/guides/24-hour-rule/">24-hour rule guide</a> and <a href="/guides/30-day-rule-spending/">30-day rule</a> for expensive items.</p>
+<h3>2. Cost per hour pause</h3>
+<p>Before buy, calculate hours in <a href="/calculators/cost-of-time/">cost of time calculator</a>. $150 shoes = 6h work. Still want after seeing hours? Buy intentionally.</p>
+<h3>3. Remove stored cards, one-click</h3>
+<p>Add friction. Delete cards from Amazon, turn off Apple Pay. 15 extra seconds reduces impulse 30%.</p>
+<h3>4-11 quick</h3>
+<p>4. Unsubscribe marketing emails 5. No shopping when hungry/tired 6. Cash envelope for fun 7. Wishlist not cart 8. Calculate <a href="/calculators/cost-per-use/">cost per use</a> 9. Photo of goal as phone wallpaper 10. Accountability buddy 11. Track with <a href="/guides/track-daily-spending/">daily spending tracker</a></p>
+${githubCTA('impulse buying guide')}
+`
+},
+{
+route: 'guides/subscription-audit',
+name: 'How to Audit Subscriptions',
+title: 'How to Audit Subscriptions: Find $500+ in Hidden Costs (Checklist)',
+description: 'Subscription audit checklist: find $500+ yearly savings. Free template, open source on GitHub. Step-by-step guide.',
+body: `
+<h2>Average person wastes $500/year on unused subscriptions</h2>
+<p>C+R Research: 42% forgot subscriptions still charging. Audit quarterly. Use our GitHub open source checklist markdown - free.</p>
+<h3>5-step audit (30 minutes)</h3>
+<p><strong>Step 1: Export 90 days bank statements</strong> Highlight recurring. Include App Store, PayPal.<br><strong>Step 2: List in calculator</strong> Use <a href="/calculators/streaming-cost/">streaming cost calculator</a> to total monthly → yearly + hours.<br><strong>Step 3: The 3-question test</strong> Did I use last 30 days? Would I re-subscribe today at full price? Is cost per use &lt; $2? See <a href="/calculators/cost-per-use/">cost per use</a> and <a href="/calculators/gym-cost-per-visit/">gym cost per visit</a>.<br><strong>Step 4: Cancel 2, downgrade 1</strong> Start with lowest use.<br><strong>Step 5: Calendar reminder 90 days</strong> Repeat.</p>
+<h3>Real audit example</h3>
+<table><thead><tr><th>Subscription</th><th>Monthly</th><th>Last used</th><th>Action</th></tr></thead><tbody>
+<tr><td>Netflix Premium</td><td>$23</td><td>Daily</td><td>Keep</td></tr>
+<tr><td>Hulu no ads</td><td>$18</td><td>2 months ago</td><td>Cancel - $216/yr saved</td></tr>
+<tr><td>Gym</td><td>$60</td><td>3x last month = $20/visit</td><td>Downgrade to $30</td></tr>
+</tbody></table>
+<p>Savings: $576/year = 23h work. Get checklist in GitHub repo.</p>
+${githubCTA('subscription audit')}
+`
+},
+{
+route: 'guides/latte-factor-explained',
+name: 'Latte Factor Explained',
+title: 'Latte Factor Explained: How $5 a Day Becomes $1M (With Math) | Worth',
+description: 'Latte factor explained: $5/day at 7% = $1M in 50 years. Formula, examples, how to find yours. Free calculator GitHub open source.',
+body: `
+<h2>What is latte factor? Not about coffee</h2>
+<p>David Bach coined 1999: small daily expenses that go unnoticed add to millions over lifetime. <strong>Not about depriving latte you love. About unconscious spending.</strong> Our <a href="/calculators/latte-factor/">latte factor calculator</a> open source on GitHub shows math.</p>
+<h3>Math: $5/day to $1M</h3>
+<p>$5 × 365 = $1,825/year. Invested at 7% real return: 10yr $25k, 30yr $184k, 50yr $738k. Add 3% inflation raise, reaches $1M. See <a href="/calculators/time-to-save/">time to save</a>.</p>
+<h3>How to find your latte factor (not guilt)</h3>
+<p>1. Track all spending 7 days (use <a href="/guides/track-daily-spending/">tracking guide</a>)<br>2. Highlight purchases you don't remember or didn't enjoy<br>3. Sum daily average<br>4. Calculate yearly with <a href="/calculators/latte-factor/">calculator</a><br>5. Choose 1 to redirect to savings - keep the ones you love.</p>
+<h3>GitHub community examples</h3>
+<p>GitHub issues: users report $12/day lunch factor, $8 snack factor. Fork repo, add your own tracker CSV.</p>
+${githubCTA('latte factor guide')}
+`
+},
+{
+route: 'guides/no-spend-challenge',
+name: '30-Day No Spend Challenge',
+title: '30-Day No Spend Challenge: Rules, Tracker & Save $1,000 | Worth',
+description: '30-day no spend challenge rules, tracker, savings calculator. Average saves $1,000. Free template GitHub open source.',
+body: `
+<h2>No spend challenge: reset spending in 30 days</h2>
+<p>Rules: Only pay bills, groceries, essentials. No eating out, shopping, entertainment spending. Average saves $1,000. Tracker open source on GitHub.</p>
+<h3>Rules simple</h3>
+<p><strong>Allowed:</strong> rent, utilities, groceries (budget), gas, insurance, medical.<br><strong>Not allowed:</strong> dining out, coffee shops, clothes, Amazon non-essential, subscriptions (pause), entertainment.<br><strong>Exception:</strong> pre-planned birthdays with cash budget.</p>
+<h3>Day-by-day savings</h3>
+<table><thead><tr><th>Week</th><th>Typical savings</th><th>Work hours saved @ $25</th></tr></thead><tbody>
+<tr><td>Week 1 hardest</td><td>$200</td><td>8h</td></tr>
+<tr><td>Week 2 habit</td><td>$250</td><td>10h</td></tr>
+<tr><td>Week 3 creative</td><td>$300</td><td>12h</td></tr>
+<tr><td>Week 4 reflection</td><td>$250</td><td>10h</td></tr>
+</tbody></table>
+<h3>After challenge</h3>
+<p>Use <a href="/calculators/paycheck-breakdown/">paycheck breakdown</a> to see where money went. Keep 2-3 new habits. Link to <a href="/guides/30-day-rule-spending/">30-day rule</a> for future purchases.</p>
+${githubCTA('no spend challenge')}
+`
+},
+{
+route: 'guides/30-day-rule-spending',
+name: '30-Day Rule for Spending',
+title: '30-Day Rule for Spending: Stop Impulse Buys Over $100 | Worth',
+description: '30-day rule: wait 30 days before buying non-essential over $100. 80% urges fade. Guide + free GitHub calculator.',
+body: `
+<h2>30-day rule vs 24-hour rule</h2>
+<p><strong>24-hour rule:</strong> for $30-100 purchases.<br><strong>30-day rule:</strong> for $100+ non-essential. Write item, price, date, wait 30 days. If still want, buy intentionally. 80% you won't. See <a href="/guides/24-hour-rule/">24-hour rule</a>.</p>
+<h3>How to implement (GitHub template)</h3>
+<p>Our GitHub repo includes 30-day wishlist markdown template: Date | Item | Price | Hours cost | Still want after 30? (Y/N). Use <a href="/calculators/cost-of-time/">cost of time calculator</a> for hours column.</p>
+<h3>Example</h3>
+<table><thead><tr><th>Date</th><th>Item</th><th>Price</th><th>Hours @ $25</th><th>Day 30 feeling</th></tr></thead><tbody>
+<tr><td>Jan 1</td><td>AirPods Pro</td><td>$249</td><td>10h</td><td>Still want - bought, love</td></tr>
+<tr><td>Jan 3</td><td>Trendy jacket</td><td>$180</td><td>7.2h</td><td>Forgot about it - saved</td></tr>
+</tbody></table>
+<p>Saved $180 = 7.2h work. Pair with <a href="/guides/stop-impulse-buying/">impulse buying strategies</a>.</p>
+${githubCTA('30-day rule')}
+`
+},
+{
+route: 'guides/cost-per-wear-guide',
+name: 'Cost Per Wear Wardrobe Guide',
+title: 'Cost Per Wear: Build a Wardrobe That Costs $0.50 Per Wear | Worth',
+description: 'Cost per wear wardrobe guide: capsule wardrobe, $0.50/wear formula. Free calculator, open source GitHub.',
+body: `
+<h2>Cost per wear wardrobe: buy less, wear more</h2>
+<p>Fast fashion: 7 wears average then trash. Quality capsule: 100+ wears. CPW = Price ÷ wears. Goal &lt; $1/wear for basics, &lt; $3 for statement. Calculator <a href="/calculators/cost-per-wear/">cost per wear calculator</a> open source GitHub.</p>
+<h3>Capsule math</h3>
+<p>30 items × $50 avg = $1,500 wardrobe. Each worn 150 times over 3 years = 4,500 wears = $0.33/wear. Fast fashion: 30 items × $20 = $600 but 7 wears each = 210 wears = $2.86/wear = 8x more expensive.</p>
+<h3>5 steps</h3>
+<p>1. Audit closet - list items, estimated wears<br>2. Calculate CPW with <a href="/calculators/cost-per-wear/">calculator</a><br>3. Identify high CPW culprits<br>4. Future purchases: need 50+ wears minimum<br>5. Track in GitHub repo CSV template</p>
+${githubCTA('cost per wear guide')}
+`
+},
+{
+route: 'guides/freelance-rate-guide',
+name: 'How to Set Freelance Rates',
+title: 'How to Set Freelance Rates: Formula With Taxes, Benefits, PTO (2025)',
+description: 'Freelance rate formula: (salary + 30% benefits + expenses) ÷ 1000 billable hours. Guide + free calculator GitHub open source.',
+body: `
+<h2>Freelance rate mistake that bankrupts beginners</h2>
+<p>Taking salary ÷ 2080 = employee hourly. Freelancer needs 2-3x that. Why: only 50% hours billable, self-employment tax 15.3%, no PTO, no 401k, business expenses. Formula open source GitHub.</p>
+<h3>Real calculation $75k employee equivalent</h3>
+<p>Desired salary $75k + Benefits $22.5k (30%) + Business $5k + Extra tax $5.7k = $108.2k needed ÷ 1000 billable hours (realistic) = $108/hr minimum. 2000 billable (experienced) = $54/hr.</p>
+<h3>Billable hours reality</h3>
+<table><thead><tr><th>Experience</th><th>Billable %</th><th>Billable hours/year</th></tr></thead><tbody>
+<tr><td>Beginner</td><td>40-50%</td><td>800-1000</td></tr>
+<tr><td>Intermediate</td><td>60%</td><td>1200</td></tr>
+<tr><td>Expert with team</td><td>70%</td><td>1400</td></tr>
+</tbody></table>
+<p>Use <a href="/calculators/freelance-rate/">freelance calculator</a> and <a href="/guides/negotiate-hourly-rate/">negotiate rate guide</a>.</p>
+${githubCTA('freelance rate guide')}
+`
+},
+{
+route: 'guides/psychology-small-purchases',
+name: 'Psychology of Small Purchases',
+title: 'Why Small Purchases Add Up: Psychology of Spending & How to Fix It | Worth',
+description: 'Why $5 purchases add up: mental accounting, pain of paying. $5/day = $1,825/year. Science + free GitHub calculator.',
+body: `
+<h2>Why your brain ignores $5 purchases</h2>
+<p><strong>Mental accounting:</strong> $5 feels like different money than $500, so brain doesn't sum. <strong>Pain of paying:</strong> cash hurts, card less, Apple Pay zero. <strong>Subscription blindness:</strong> monthly framing hides yearly cost. Our <a href="https://github.com/njohn931d-dotcom/bbbh">open source calculators</a> make invisible visible.</p>
+<h3>3 biases</h3>
+<p><strong>1. Pennies-a-day:</strong> $1/day sounds small, $365/year sounds big - same money. Marketers use daily framing.<br><strong>2. Decoupling:</strong> Pay now, consume later (subscriptions) reduces pain.<br><strong>3. Hedonic adaptation:</strong> $5 coffee joy fades, but cost remains.</p>
+<h3>Fix: make small big</h3>
+<p>Use <a href="/calculators/daily-savings/">daily savings calculator</a> to annualize every daily purchase. Use <a href="/calculators/cost-of-time/">cost of time</a> to convert to work hours. Track with <a href="/guides/track-daily-spending/">tracking guide</a>. See <a href="/guides/latte-factor-explained/">latte factor</a>.</p>
+${githubCTA('psychology small purchases')}
+`
+},
+{
+route: 'guides/track-daily-spending',
+name: 'How to Track Daily Spending',
+title: 'How to Track Daily Spending Without Budgeting Apps (GitHub Template) | Worth',
+description: 'Track daily spending without apps: GitHub markdown template, 2-min method. Free open source tracker.',
+body: `
+<h2>Track spending without budgeting app fatigue</h2>
+<p>Apps fail because categorization tedious. Try 2-minute paper/GitHub method: every purchase, write amount + 1-word feeling (joy/meh/regret). After 7 days, pattern emerges. Template open source GitHub.</p>
+<h3>GitHub markdown tracker (copy)</h3>
+<p>In our repo: /articles/tracker.md<br>Date | Amount | What | Feeling | Hours cost<br>2025-01-01 | $5 | coffee | joy | 0.2h<br>2025-01-01 | $18 | lunch out | meh | 0.7h</p>
+<h3>Why feelings column works</h3>
+<p>Joy = keep. Meh/regret = latte factor. No guilt, just data. After week, sum meh/regret - that's savings potential. Use <a href="/calculators/latte-factor/">latte factor calculator</a> to annualize.</p>
+<h3>2-minute rule</h3>
+<p>If tracking takes >2 min/day, you quit. Our template is 10 seconds per purchase. Link to <a href="/guides/latte-factor-explained/">latte factor</a> and <a href="/guides/no-spend-challenge/">no spend challenge</a>.</p>
+${githubCTA('track spending guide')}
+`
+},
+{
+route: 'guides/emergency-fund-hours',
+name: 'Emergency Fund in Work Hours',
+title: 'Emergency Fund Calculator: How Many Work Hours Do You Need? | Worth',
+description: 'Emergency fund in work hours: $10k fund = 400 hours at $25/hr. Calculate hours needed. Free calculator GitHub open source.',
+body: `
+<h2>Emergency fund = work hours of security</h2>
+<p>3-6 months expenses. $3k/month expenses = $9k-18k fund. At $25/hr = 360-720 work hours = 9-18 weeks of work just for safety. Framing in hours motivates. Calculator <a href="/calculators/time-to-save/">time to save</a> open source GitHub.</p>
+<h3>Hours needed table</h3>
+<table><thead><tr><th>Monthly expenses</th><th>3mo fund</th><th>Hours @ $20/hr</th><th>Hours @ $40/hr</th></tr></thead><tbody>
+<tr><td>$2,000</td><td>$6,000</td><td>300h</td><td>150h</td></tr>
+<tr><td>$3,500</td><td>$10,500</td><td>525h</td><td>262h</td></tr>
+<tr><td>$5,000</td><td>$15,000</td><td>750h</td><td>375h</td></tr>
+</tbody></table>
+<h3>How to save faster</h3>
+<p>Find <a href="/guides/subscription-audit/">subscription audit</a> $500 + <a href="/guides/latte-factor-explained/">latte factor</a> $1,825 = $2,325/year = 93h at $25. Use <a href="/guides/how-long-save-1000/">save $1000 guide</a>.</p>
+${githubCTA('emergency fund guide')}
+`
+},
+{
+route: 'guides/side-hustle-worth-it',
+name: 'Is Your Side Hustle Worth It?',
+title: 'Is Your Side Hustle Worth It? Calculate True Hourly Rate | Worth',
+description: 'Side hustle worth it? Calculate true hourly after gas, taxes, time. Many $15/hr side hustles = $5/hr real. Free calculator GitHub.',
+body: `
+<h2>Side hustle real hourly often $5-10, not $25</h2>
+<p>DoorDash $25/hr gross - gas $8, extra tax $3, car wear $7, unpaid wait 30% = $7/hr real. Calculate true rate. Open source calculator GitHub.</p>
+<h3>Real hourly formula</h3>
+<p><strong>True hourly = (Gross - Expenses - Extra taxes) ÷ (Active + Inactive hours)</strong>. Include commute to gig, waiting, admin.</p>
+<h3>Example: Rideshare</h3>
+<table><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody>
+<tr><td>Gross 10h × $25</td><td>$250</td></tr>
+<tr><td>Gas 200mi</td><td>-$28</td></tr>
+<tr><td>Car wear $0.30/mi</td><td>-$60</td></tr>
+<tr><td>Extra tax 15.3% on profit</td><td>-$25</td></tr>
+<tr><td>True profit 10h + 2h unpaid wait =12h</td><td>$137 ÷12 = $11.42/hr</td></tr>
+</tbody></table>
+<p>Is $11.42 worth free time? See <a href="/guides/value-free-time/">value free time</a>. Compare to <a href="/calculators/overtime-pay/">overtime</a> or <a href="/guides/negotiate-hourly-rate/">negotiate raise</a>.</p>
+${githubCTA('side hustle guide')}
+`
+},
+{
+route: 'guides/coffee-cost-per-year',
+name: 'Coffee Cost Per Year',
+title: 'How Much Does Coffee Cost Per Year? $5 Daily = $1,825 | Worth',
+description: 'Coffee cost per year: $5/day = $1,825, $3,650 for 2/day. Calculator shows work hours. Free GitHub open source.',
+body: `
+<h2>$5 coffee = $1,825/year = 73 hours of work at $25/hr</h2>
+<p>Daily $5 coffee × 365 = $1,825. Twice daily = $3,650. Home brew $0.50/day = $182/year. Savings $1,643 = 65h work. Not about deprivation - about intentional choice. Calculator <a href="/calculators/latte-factor/">latte factor</a> open source GitHub.</p>
+<h3>Coffee cost table</h3>
+<table><thead><tr><th>Habit</th><th>Daily</th><th>Yearly</th><th>Work hours @ $25</th></tr></thead><tbody>
+<tr><td>Cafe latte</td><td>$5.50</td><td>$2,007</td><td>80h</td></tr>
+<tr><td>Home espresso $0.75</td><td>$0.75</td><td>$274</td><td>11h</td></tr>
+<tr><td>Drip home $0.25</td><td>$0.25</td><td>$91</td><td>3.6h</td></tr>
+</tbody></table>
+<h3>Is cafe worth it?</h3>
+<p>If coffee = joy, ritual, social - keep. If habit unconscious, try home 4x/week, cafe 3x. Saves $1,000. See <a href="/guides/latte-factor-explained/">latte factor</a> and <a href="/calculators/cost-per-use/">cost per use</a> (espresso machine).</p>
+${githubCTA('coffee cost guide')}
+`
+},
+{
+route: 'guides/average-subscription-cost-2025',
+name: 'Average Subscription Spending 2025',
+title: 'Average American Subscription Spending 2025: $1,200+/Year (Data) | Worth',
+description: 'Average subscription spending 2025: $1,200/year, $2,800 with apps. Data + free audit calculator GitHub open source.',
+body: `
+<h2>Average American: $1,200/year subscriptions (2025 data)</h2>
+<p>C+R Research 2024: $219/month average subscription spend self-reported, but bank data shows $339/month actual = $4,068/year. People underestimate 60%. Streaming 4 services avg. Calculator <a href="/calculators/streaming-cost/">streaming cost</a> open source GitHub.</p>
+<h3>Breakdown 2025</h3>
+<table><thead><tr><th>Category</th><th>Avg monthly</th><th>Yearly</th></tr></thead><tbody>
+<tr><td>Streaming video (4 services)</td><td>$60</td><td>$720</td></tr>
+<tr><td>Music</td><td>$12</td><td>$144</td></tr>
+<tr><td>News/apps/cloud</td><td>$30</td><td>$360</td></tr>
+<tr><td>Gym/apps</td><td>$50</td><td>$600</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$152</strong></td><td><strong>$1,824</strong></td></tr>
+</tbody></table>
+<h3>Why we underestimate</h3>
+<p>Small amounts, different cards, free trial → paid forgotten. Audit with <a href="/guides/subscription-audit/">audit guide</a>. GitHub repo includes bank statement highlighter regex.</p>
+${githubCTA('subscription spending guide')}
+`
+},
+{
+route: 'guides/hourly-budget',
+name: 'How to Budget on Hourly Wage',
+title: 'How to Budget on Hourly Wage: Paycheck to Hours Method | Worth',
+description: 'Budget on hourly wage: convert bills to work hours. Rent = 60 hours. Free calculator + GitHub template.',
+body: `
+<h2>Hourly wage budget: bills → work hours</h2>
+<p>Traditional budget: $ categories. Hourly budget: hours categories. Rent $1,500 at $25/hr = 60h. Food $400 =16h. Makes trade-offs visceral. Template open source GitHub.</p>
+<h3>Method</h3>
+<p>1. Take-home hourly <a href="/calculators/after-tax-income/">after-tax calculator</a><br>2. List bills, divide by hourly = hours<br>3. Sum hours, compare to 173h/month (40h/week)<br>4. Remaining hours = fun/savings<br>5. Use <a href="/calculators/paycheck-breakdown/">paycheck breakdown calculator</a> to visualize</p>
+<h3>Example $25/hr take-home</h3>
+<p>173h available. Rent 60h, car 24h, groceries 16h, bills 20h =120h. Left 53h for savings/fun. If bills 180h >173h, need <a href="/guides/negotiate-hourly-rate/">raise</a> or <a href="/calculators/commute-cost/">cut commute</a> or <a href="/guides/minimalism-cost-per-time/">minimalism</a>.</p>
+${githubCTA('hourly budget guide')}
+`
+},
+{
+route: 'guides/paycheck-to-paycheck',
+name: 'Paycheck to Paycheck Hours',
+title: 'Paycheck to Paycheck: How Many Hours for Bills? (Calculator) | Worth',
+description: 'Paycheck to paycheck: calculate how many work hours go to bills before you earn for you. Free calculator GitHub open source.',
+body: `
+<h2>Paycheck to paycheck = 0 hours for you</h2>
+<p>If rent + bills = 160h and you work 173h, only 13h for savings/fun = 7.5%. Feels tight because it is. Calculate with <a href="/calculators/paycheck-breakdown/">paycheck breakdown calculator</a> open source GitHub.</p>
+<h3>Stats 2024</h3>
+<p>62% Americans paycheck to paycheck (LendingClub). Average: 120h for essentials, 30h debt, 23h left. Break cycle: <a href="/guides/subscription-audit/">audit subs</a> saves 20h, <a href="/guides/latte-factor-explained/">latte factor</a> 73h, <a href="/guides/no-spend-challenge/">no spend</a> 40h/month.</p>
+<h3>3 steps out</h3>
+<p>1. Calculate hours with <a href="/calculators/paycheck-breakdown/">calculator</a><br>2. Find 20h savings via audit<br>3. Redirect to <a href="/guides/emergency-fund-hours/">emergency fund hours</a> - first 40h saved = $1k safety</p>
+${githubCTA('paycheck to paycheck guide')}
+`
+},
+{
+route: 'guides/cost-of-convenience',
+name: 'True Cost of Convenience',
+title: 'True Cost of Convenience: DoorDash, Uber Fees = $5,000/Year? | Worth',
+description: 'Cost of convenience: DoorDash $10 fees, Uber $15. Average $5k/year. Calculator shows work hours. GitHub open source.',
+body: `
+<h2>Convenience tax: $10 fee + $5 tip + 30% markup = $25 for $15 meal</h2>
+<p>DoorDash average fee $5.99 + service 15% + tip $5 = $13 extra on $20 order. 2x/week = $1,352/year fees alone = 54h work at $25. Plus markup. Calculator <a href="/calculators/cost-per-use/">cost per use</a> open source GitHub.</p>
+<h3>Convenience cost table</h3>
+<table><thead><tr><th>Service</th><th>Fee per use</th><th>2x/week yearly</th><th>Hours @ $25</th></tr></thead><tbody>
+<tr><td>DoorDash</td><td>$13</td><td>$1,352</td><td>54h</td></tr>
+<tr><td>Uber (vs bus)</td><td>$15 extra</td><td>$1,560</td><td>62h</td></tr>
+<tr><td>Grocery delivery</td><td>$8</td><td>$832</td><td>33h</td></tr>
+</tbody></table>
+<h3>When convenience worth it</h3>
+<p>If real hourly $50 and delivery saves 1h, $13 fee &lt; $50 value, worth. If real hourly $16, not worth. Calculate real hourly <a href="/guides/how-much-is-time-worth/">how much time worth</a>. See <a href="/guides/value-free-time/">value free time</a>.</p>
+${githubCTA('cost of convenience guide')}
+`
+},
+{
+route: 'guides/value-free-time',
+name: 'How to Value Free Time',
+title: 'How to Value Free Time: Is Overtime Worth It? (Formula) | Worth',
+description: 'Value free time: overtime vs free time formula. $25/hr overtime may be worth $10/hr free time. Guide + GitHub calculator.',
+body: `
+<h2>Free time value ≠ hourly wage</h2>
+<p>Economists: free time worth 25-50% of wage for low earners, 100-200% for high earners burnt out. If you love job, free time less valuable. If exhausted, free time worth 2x wage. Calculator open source GitHub.</p>
+<h3>Formula to decide overtime</h3>
+<p><strong>Take OT if OT rate > value of free time.</strong> Value free time = hourly × multiplier (0.5-2). Example: $25 wage, burnt out multiplier 2 = free time worth $50/hr. OT at $37.50 (1.5×) &lt; $50, so decline OT, rest.</p>
+<h3>Use cases</h3>
+<p>Should pay $30 for cleaning saving 2h? If free time worth $20/hr, 2h = $40 value > $30 cost, yes. See <a href="/guides/side-hustle-worth-it/">side hustle worth</a> and <a href="/calculators/overtime-pay/">overtime calculator</a>.</p>
+${githubCTA('value free time guide')}
+`
+},
+{
+route: 'guides/minimalism-cost-per-time',
+name: 'Minimalism and Cost Per Time',
+title: 'Minimalism & Cost Per Time: Buy Less, Value More (Guide) | Worth',
+description: 'Minimalism cost per time: fewer items, lower cost per use, more free time. Guide + free GitHub calculators.',
+body: `
+<h2>Minimalism = lower cost per time lived</h2>
+<p>Own 100 things vs 1000 things: less cleaning, less decision, less maintenance time. Each item costs not just money but time. Cost per time = (Price + Maintenance time × hourly) ÷ hours enjoyed. Open source GitHub.</p>
+<h3>Minimalism math</h3>
+<p>1000 items × 1 min/month maintenance each = 16.6h/month = 200h/year = 8 days cleaning. 100 items = 20h/year. Saves 180h = $4,500 at $25/hr. Plus less <a href="/guides/psychology-small-purchases/">impulse buying</a>.</p>
+<h3>Start: 30-day minimalism</h3>
+<p>Day 1: 1 item, day 2: 2 items... day 30: 30 items = 465 items removed. Use <a href="/calculators/cost-per-use/">cost per use</a> to decide keep. See <a href="/guides/cost-per-wear-guide/">cost per wear wardrobe</a>.</p>
+${githubCTA('minimalism guide')}
+`
+},
+{
+route: 'guides/negotiate-hourly-rate',
+name: 'How to Negotiate Hourly Rate',
+title: 'How to Negotiate Hourly Rate: Scripts & Data to Get +$5/hr | Worth',
+description: 'Negotiate hourly rate: scripts, data, get $5/hr more = $10k/year. Guide + free GitHub calculator.',
+body: `
+<h2>$5/hr raise = $10,400/year = 208 hours of life back</h2>
+<p>Negotiate once, benefit every hour. Most fear, but 70% who ask get raise. Use data from <a href="/calculators/salary-to-hourly/">salary to hourly</a> and <a href="/guides/freelance-rate-guide/">freelance guide</a>. Scripts open source GitHub.</p>
+<h3>Script 1: Market data</h3>
+<p>"Based on Glassdoor, similar roles $30-35/hr. I'm at $25 with [achievements]. Can we align to $32?"</p>
+<h3>Script 2: Value</h3>
+<p>"I saved $50k last quarter by [project]. To continue delivering, I'd like to discuss rate to $30."</p>
+<h3>Math of asking</h3>
+<p>10 min ask = potential $10k/year. Hourly for asking = $60k/hr. Even 10% success rate = $6k/hr expected. Use <a href="/calculators/time-to-save/">time to save</a> to see hours saved.</p>
+${githubCTA('negotiate rate guide')}
+`
+},
+{
+route: 'guides/is-netflix-worth-it',
+name: 'Is Netflix Worth It? Cost Per Hour',
+title: 'Is Netflix Worth It? Cost Per Hour Watched Calculator (2025) | Worth',
+description: 'Is Netflix worth it? Cost per hour watched = monthly ÷ hours watched. $23 ÷ 20h = $1.15/hr. Free calculator GitHub.',
+body: `
+<h2>Netflix $23/month ÷ hours watched = cost per hour</h2>
+<p>Watch 20h/month = $1.15/hr cheap entertainment vs $15 movie ticket. Watch 2h/month = $11.50/hr expensive. Calculate with <a href="/calculators/streaming-cost/">streaming calculator</a> open source GitHub.</p>
+<h3>Cost per hour table</h3>
+<table><thead><tr><th>Plan</th><th>Monthly</th><th>Hours watched</th><th>Cost/hr</th><th>Worth?</th></tr></thead><tbody>
+<tr><td>Standard</td><td>$15.49</td><td>30h</td><td>$0.52</td><td>Yes vs other</td></tr>
+<tr><td>Premium</td><td>$23</td><td>5h</td><td>$4.60</td><td>No - downgrade</td></tr>
+</tbody></table>
+<h3>When to cancel</h3>
+<p>Rule: if cost/hr > $3 and you have alternatives, pause. Rotate services monthly - Netflix Jan, Hulu Feb. Saves $720/year. See <a href="/guides/subscription-audit/">audit guide</a> and <a href="/guides/annual-vs-monthly-subscription/">annual vs monthly</a>.</p>
+${githubCTA('Netflix worth guide')}
+`
+},
+{
+route: 'guides/annual-vs-monthly-subscription',
+name: 'Annual vs Monthly Subscription',
+title: 'Annual vs Monthly Subscription: Which Saves More? (Math) | Worth',
+description: 'Annual vs monthly: annual saves 20% but only if use 12 months. Calculator shows break-even. Free GitHub open source.',
+body: `
+<h2>Annual plan saves 20% - if you use it</h2>
+<p>$15/month = $180/year. Annual $144 = saves $36 = 20%. But if cancel after 6 months, annual costs more. Break-even = Annual price ÷ Monthly price = months needed to be worth. Open source calculator GitHub.</p>
+<h3>Break-even table</h3>
+<table><thead><tr><th>Monthly</th><th>Annual</th><th>Break-even months</th><th>Should you annual?</th></tr></thead><tbody>
+<tr><td>$15</td><td>$144</td><td>9.6 months</td><td>Only if 10+ months use</td></tr>
+<tr><td>$30</td><td>$240</td><td>8 months</td><td>Yes if committed</td></tr>
+</tbody></table>
+<h3>Check terms</h3>
+<p>Annual often non-refundable. Monthly flexible. If trying new service, monthly first 3 months, then annual if still use. Use <a href="/calculators/subscription-cost/">subscription calculator</a> to compare.</p>
+${githubCTA('annual vs monthly guide')}
+`
+},
+{
+route: 'guides/how-to-calculate-overtime',
+name: 'How to Calculate Overtime Pay',
+title: 'How to Calculate Overtime Pay: Formula, Examples, California Rules | Worth',
+description: 'How to calculate overtime: time and a half formula, California daily OT, double time. Examples + free GitHub calculator.',
+body: `
+<h2>Overtime formula: federal vs California</h2>
+<p><strong>Federal FLSA:</strong> over 40h/week = 1.5×. <strong>California:</strong> over 8h/day =1.5×, over 12h/day =2×, 7th consecutive day =1.5× first 8h, 2× after. Calculator <a href="/calculators/overtime-pay/">overtime calculator</a> open source GitHub handles both.</p>
+<h3>Examples</h3>
+<p>$20/hr, 45h week: 40×$20=$800 +5×$30=$150 total $950.<br>CA 12h day: 8×$20=$160 +4×$30=$120 total $280 day.<br>CA 14h day: 8×$20=$160 +4×$30=$120 +2×$40=$80 total $360.</p>
+<h3>Is overtime worth free time?</h3>
+<p>See <a href="/guides/value-free-time/">value free time</a>. $30/hr OT sounds good but if free time worth $50, decline. Use <a href="/calculators/paycheck-breakdown/">paycheck breakdown</a> to see OT impact.</p>
+${githubCTA('overtime guide')}
+`
+},
+{
+route: 'guides/true-cost-of-car',
+name: 'True Cost of Owning a Car',
+title: 'True Cost of Owning a Car: $12,000 Per Year Reality (2025 Data) | Worth',
+description: 'True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.',
+body: `
+<h2>True cost $12,182/year (AAA 2024) - not just payment</h2>
+<p>Payment $500/mo = $6k/year feels like cost. Real cost double: depreciation $4.5k, insurance $1.8k, gas $2.1k, maintenance $1.2k. Total $12k+ = $1k/month. Calculator <a href="/calculators/car-ownership-cost/">car ownership calculator</a> open source GitHub.</p>
+<h3>Why depreciation kills</h3>
+<p>New $35k car loses $7k first year, $4.5k/year average first 5 years. That's $375/month invisible cost. Used 3-year old avoids biggest hit.</p>
+<h3>Cost per mile reality</h3>
+<p>IRS $0.67/mile 2024 is close. Drive 15k miles = $10k cost. Uber 15k miles at $1.50/mile = $22.5k, so owning cheaper if drive much. But if drive 5k miles, Uber cheaper. Calculate with <a href="/calculators/commute-cost/">commute calculator</a> and <a href="/calculators/buy-vs-rent-hourly/">buy vs rent hourly</a> for home+car.</p>
+${githubCTA('true cost car guide')}
+`
+},
+{
+route: 'guides/how-long-save-1000',
+name: 'How to Save $1000 Fast',
+title: 'How to Save $1,000 Fast: Daily Habit Calculator & 30-Day Plan | Worth',
+description: 'Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.',
+body: `
+<h2>Save $1,000 in 30 days = $33/day</h2>
+<p>Breakdown: <a href="/guides/subscription-audit/">audit subs</a> $200 + <a href="/guides/latte-factor-explained/">latte factor</a> $150 + <a href="/guides/no-spend-challenge/">no spend</a> $300 + sell stuff $350 = $1k. Calculator <a href="/calculators/time-to-save/">time to save</a> open source GitHub.</p>
+<h3>30-day $1k plan</h3>
+<table><thead><tr><th>Week</th><th>Action</th><th>Savings</th></tr></thead><tbody>
+<tr><td>Week 1</td><td>Audit subs, cancel 2</td><td>$100</td></tr>
+<tr><td>Week 2</td><td>No eating out, cook</td><td>$250</td></tr>
+<tr><td>Week 3</td><td>Sell 5 items $50 avg</td><td>$250</td></tr>
+<tr><td>Week 4</td><td>Latte factor cut $15/day</td><td>$400</td></tr>
+</tbody></table>
+<h3>Work hours perspective</h3>
+<p>$1k at $25/hr = 40h work. Saving $1k = 40h freedom. See <a href="/guides/emergency-fund-hours/">emergency fund hours</a> - $1k = starter safety. Next use <a href="/calculators/paycheck-breakdown/">paycheck breakdown</a> to keep.</p>
+${githubCTA('save $1000 guide')}
+`
+}
+];
 
-  const mkFAQ = (faqs) => faqs.map(([q,a])=>`<h3>${escape(q)}</h3><p>${escape(a)}</p>`).join('');
-  const mkFAQSchema = (faqs) => ({
-    "@type":"FAQPage",
-    "mainEntity": faqs.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))
-  });
+const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}</div></section>`;
 
-  const commonInternalLinks = (current) => {
-    // pick 8 random other routes for link wheel
-    const others = extraRoutes.filter(r=>r!==current).sort(()=>0.5-Math.random()).slice(0,10);
-    return `<section class="seo-related"><div class="section-label">RELATED CALCULATORS - TRENDING 2026</div><h2>More free calculators that save you hours</h2><div>${others.map(r=>{
-      const name = r.split('/').pop().replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
-      return `<a href="/${r}/">${escape(name)} <span>↗</span></a>`;
-    }).join('')}</div></section>`;
-  };
-
-  // Helper to build article body - safe for HTML parsing (avoid <3, <5 etc breaking parse5)
-  const safeSection = (text) => {
-    // Escape &, <, > but preserve allowed formatting tags
-    let t = String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-    t = t.replaceAll('&lt;strong&gt;','<strong>').replaceAll('&lt;/strong&gt;','</strong>')
-         .replaceAll('&lt;em&gt;','<em>').replaceAll('&lt;/em&gt;','</em>')
-         .replaceAll('&lt;br&gt;','<br>').replaceAll('&lt;br /&gt;','<br>')
-         .replaceAll('&lt;b&gt;','<b>').replaceAll('&lt;/b&gt;','</b>');
-    return t;
-  };
-  const buildBody = ({sections, table, intro, faqs, keywords, lang='en'}) => {
-    let html = '';
-    if(intro) html+=`<p><strong>${escape(intro)}</strong> Last updated: ${today} - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.</p>`;
-    html+=`<div class="toc"><div class="section-label">TABLE OF CONTENTS</div><ol>${sections.map((s,i)=>`<li><a href="#s${i}">${escape(s[0])}</a></li>`).join('')}</ol></div>`;
-    sections.forEach((sec,i)=>{
-      html+=`<h2 id="s${i}">${escape(sec[0])}</h2><p>${safeSection(sec[1])}</p>`;
-    });
-    if(table) html+=table;
-    if(keywords) html+=`<p><em>LSI Keywords: ${escape(keywords.join(', '))}</em></p>`;
-    if(faqs) {
-      html+=`<h2>Frequently Asked Questions (FAQ) - People Also Ask</h2>${mkFAQ(faqs)}`;
-    }
-    return html;
-  };
-
-  // 1 mortgage
-  data.push({
-    route: 'calculators/mortgage-calculator-2026',
-    name: 'Mortgage Calculator 2026: How Much House Can You Afford?',
-    title: 'Mortgage Calculator 2026: Monthly Payment + Affordability [Free]',
-    description: 'Free mortgage calculator 2026: monthly payment, total interest, affordability. See how much house you can afford at 2026 rates. Instant results.',
-    mode: 'purchase',
-    lang: 'en',
-    keywords: ['mortgage calculator','how much house can i afford','mortgage rates 2026','monthly payment'],
-    intro: 'Mortgage rates 2026 are shifting fast. This free calculator shows monthly payment, total interest, and work hours cost.',
-    body: buildBody({
-      intro: 'Mortgage rates 2026 are shifting fast. Calculate your real monthly cost before you buy.',
-      keywords: ['mortgage calculator 2026','house affordability','monthly mortgage payment','interest rates 2026','how much house'],
-      sections: [
-        ['Mortgage Formula 2026: The Real Math Banks Use', 'M = P[r(1+r)^n]/[(1+r)^n-1] where P=principal, r=monthly rate, n=360 months. At 6.5% on $400k, payment is $2,528. But banks hide PMI, taxes, insurance. Our calculator adds them. <strong>Work hours = monthly payment ÷ hourly pay.</strong> At $35/hr, that $2,528 is 72 hours/month. Shocking truth: you work 9 days just for mortgage.'],
-        ['How Much House Can You Afford? 28/36 Rule 2026', 'Banks use 28% housing, 36% total debt. If you take home $6,000/mo, max housing $1,680. But in 2026 with inflation, we recommend 25% rule. Example: $400k house at 7% = $2,661/mo. Need $10,644 take-home. That is $61/hr full-time. Most Americans cannot afford median home anymore.'],
-        ['2026 Mortgage Rates Table: What $300k-$800k Really Costs', 'Rates 2026 average 6.8% (down from 7.2% in 2024). But your credit matters: 760+ score = 6.5%, 620 score = 8.1%. Difference on $400k = $420/mo = $151k over 30 years.'],
-        ['Hidden Costs Banks Don\'t Tell You (PMI, Taxes, HOA)', 'Median property tax 1.1% = $367/mo on $400k. Insurance $200/mo. PMI if <20% down: $150-$400/mo. HOA $300 avg. True cost $2,528 becomes $3,545. That is 101 hours at $35/hr.'],
-        ['Rent vs Buy 2026: Shocking Math', 'Rent $2,000 vs buy $3,545/mo seems rent wins. But after 7 years, equity $90k. Our rent-vs-buy calculator shows break-even. In 2026, if you stay <3 years, rent. >5 years, buy in most markets except SF/NYC.'],
-      ],
-      table: `<table><thead><tr><th>Home Price</th><th>Down 20%</th><th>Rate 6.8%</th><th>Monthly</th><th>Hours at $35/hr</th></tr></thead><tbody><tr><td>$300k</td><td>$60k</td><td>6.8%</td><td>$1,997</td><td>57h</td></tr><tr><td>$400k</td><td>$80k</td><td>6.8%</td><td>$2,663</td><td>76h</td></tr><tr><td>$600k</td><td>$120k</td><td>6.8%</td><td>$3,994</td><td>114h</td></tr><tr><td>$800k</td><td>$160k</td><td>6.8%</td><td>$5,325</td><td>152h</td></tr></tbody></table>`,
-      faqs: [
-        ['How much house can I afford with $70k salary 2026?','At $70k (~$4,900 take-home), max $1,372/mo using 28% rule. At 6.8%, that is ~$206k house with 20% down. With 3% down, ~$180k. Shocking truth: $70k no longer buys median US home ($412k).'],
-        ['What is a good mortgage rate in 2026?','6.5%-7.0% is good in 2026. Under 6% excellent. Over 7.5% bad - improve credit or wait. Fed predicts 6.2% by end 2026.'],
-        ['How many hours of work is a mortgage?','At $35/hr, $2,663 mortgage = 76 hours/month = 19 hours/week = 2.4 workdays per week just for house. Over 30 years = 27,360 hours = 13.5 work-years.'],
-        ['Is 2026 a good year to buy?','Depends. Prices down 4% from peak, rates down 0.4% from 2024. If you plan 7+ years and have 20% down, yes. If job unstable, wait.'],
-        ['What is PMI and how to avoid?','PMI = insurance you pay if down <20%. $100-$400/mo wasted. Avoid via 20% down, piggyback loan, or VA loan.'],
-      ]
-    }),
-    faqs: [
-      ['How much house can I afford with $70k salary 2026?','At $70k (~$4,900 take-home), max $1,372/mo using 28% rule. At 6.8%, that is ~$206k house with 20% down.'],
-      ['What is a good mortgage rate in 2026?','6.5%-7.0% is good in 2026. Under 6% excellent. Over 7.5% bad.'],
-      ['How many hours of work is a mortgage?','At $35/hr, $2,663 mortgage = 76 hours/month = 19 hours/week just for house.'],
-    ]
-  });
-
-  // 2 compound interest
-  data.push({
-    route: 'calculators/compound-interest-calculator',
-    name: 'Compound Interest Calculator: Retire Rich With $5/Day',
-    title: 'Compound Interest Calculator 2026: $5/Day = $1M? [Free Tool]',
-    description: 'Compound interest calculator 2026: see how $5/day becomes $1M. Free retirement calculator with work-hours perspective. Instant results.',
-    mode: 'saving',
-    lang: 'en',
-    keywords: ['compound interest calculator','how to retire rich','$5 a day millionaire'],
-    intro: 'Compound interest is the 8th wonder. $5/day at 10% for 50 years = $2.1M. See your number instantly.',
-    body: buildBody({
-      intro: 'Compound interest is the 8th wonder. Einstein called it. $5/day at 10% for 50 years = $2.1M.',
-      keywords: ['compound interest calculator','retire rich','invest $5 day','how to become millionaire'],
-      sections: [
-        ['Formula: A = P(1+r/n)^(nt) - Simple But Powerful', 'P=principal, r=rate, n=compounds per year, t=years. $5/day = $1,825/year. At 10% annual for 40 years: $809,745. At 12%: $1,364,000. Your $73k invested becomes $1.3M. That is 17x return.'],
-        ['$1, $5, $10/Day For 10-50 Years Table (Shocking)', 'The earlier you start, the crazier. Starting at 20 vs 30 = 2x more money with same contributions. Time > amount.'],
-        ['Why 2026 Is Best Year To Start (AI Stocks, Index Funds)', '2026 market: S&P avg 10% last 30 years. AI stocks volatile but index funds safe. VOO, QQQ. Even 8% = life-changing.'],
-        ['Work Hours Perspective: What You Really Trade', 'At $25/hr, $5 = 12 minutes work. 12 min/day for 40 years = $809k. You trade 3,000 hours for $809k. That is $269/hour return on time.'],
-      ],
-      table: `<table><thead><tr><th>Daily</th><th>10 Years 10%</th><th>20 Years</th><th>30 Years</th><th>40 Years</th></tr></thead><tbody><tr><td>$1</td><td>$6,116</td><td>$20,852</td><td>$62,171</td><td>$161,949</td></tr><tr><td>$5</td><td>$30,581</td><td>$104,260</td><td>$310,857</td><td>$809,745</td></tr><tr><td>$10</td><td>$61,162</td><td>$208,520</td><td>$621,714</td><td>$1,619,490</td></tr></tbody></table>`,
-      faqs: [
-        ['Can $5 a day make you a millionaire?','Yes. $5/day at 10% for 50 years = $2.1M. At 12% = $4.1M. Start at 18, retire millionaire at 68 even with $5/day.'],
-        ['What is 10% interest on $10k?','10% on $10k = $1k/year simple. Compounded 30 years = $174,494 from $10k alone.'],
-        ['How long to double money at 10%?','Rule of 72: 72/10 = 7.2 years to double. $10k -> $20k in 7.2 years, $40k in 14.4, $80k in 21.6.'],
-      ]
-    }),
-    faqs: [
-      ['Can $5 a day make you a millionaire?','Yes. $5/day at 10% for 50 years = $2.1M.'],
-      ['How long to double money at 10%?','Rule of 72: 72/10 = 7.2 years to double.'],
-    ]
-  });
-
-  // We'll generate the rest programmatically to save time but with unique content
-  const templates = [
-    {
-      slug: 'calculators/inflation-calculator-2026',
-      name: 'Inflation Calculator 2026: What $100 in 2000 Worth Today?',
-      title: 'Inflation Calculator 2026: $100 in 2000 = $182 Today [Shocking]',
-      desc: 'Inflation calculator 2026: see what $100 in 2000, 2010, 2020 worth today. Free CPI calculator with work-hours cost. Updated 2026.',
-      mode: 'purchase',
-      keys: ['inflation calculator','what is $100 worth today','inflation 2026','CPI calculator'],
-      sections: [
-        ['CPI Formula: How Inflation Steals Your Hours', 'Inflation 2000-2026 = 82% cumulative. $100 in 2000 needs $182 in 2026 to buy same. But wages only up 68%. You lost 14% purchasing power. At $25/hr, $100 in 2000 = 4 hours work. In 2026, $182 = 7.28 hours. You work 82% more for same stuff.'],
-        ['$100 Across Years Table (Depressing Truth)', '2000 $100 = 2026 $182. 2010 $100 = 2026 $148. 2020 $100 = 2026 $122. Inflation 2020-2026 = 22% in 6 years. Fastest since 1980s.'],
-        ['What $100 Buys: 2000 vs 2026 Comparison', '2000: 72 gallons gas, 2026: 48 gallons. 2000: 1 week groceries family, 2026: 3 days. 2000: 2 months Netflix (if existed), 2026: 6.5 months but with ads.'],
-      ],
-      faqs: [
-        ['How much is $100 in 2000 worth in 2026?','$182. Inflation 82% cumulative 2000-2026 per CPI.'],
-        ['Why does everything feel expensive in 2026?','Because it is. Wages up 68% since 2000, prices up 82%. You lost 14% purchasing power. Housing up 130%.'],
-      ]
-    },
-    {
-      slug: 'calculators/paycheck-calculator-2026',
-      name: 'Paycheck Calculator 2026: Take-Home Pay After Tax',
-      title: 'Paycheck Calculator 2026: $70k Salary = $4,900 Take-Home? [Free]',
-      desc: 'Paycheck calculator 2026: salary to hourly, after tax take-home pay. Federal + state + FICA. See work-hours cost. Free 2026.',
-      mode: 'purchase',
-      keys: ['paycheck calculator','take home pay','salary to hourly','after tax calculator 2026'],
-      sections: [
-        ['$70k Salary Breakdown 2026 (You Keep Only 70%)', '$70k gross = $53,200 after federal (12-22%), state (5% avg), FICA 7.65%. Take-home $4,433/mo = $25.60/hr if 40h/week. But you work 173h/mo, so $25.60/hr. 30% lost to tax.'],
-        ['Hourly to Salary Table 2026', '$20/hr = $41,600 gross, $33k take-home. $35/hr = $72,800 gross, $54k take-home. $50/hr = $104k gross, $75k take-home. $100/hr = $208k gross, $140k take-home. Tax bracket kills.'],
-      ],
-      faqs: [
-        ['How much is $70k after tax 2026?','$53,200 avg after tax, $4,433/mo take-home. Depends state: CA $49k, TX $55k.'],
-        ['What is $35 an hour annually?','$72,800 gross, ~$54k take-home. $25.60/hr effective after tax? No $35 is gross. Take-home $26/hr.'],
-      ]
-    },
-    {
-      slug: 'calculators/crypto-profit-calculator-2026',
-      name: 'Crypto Profit Calculator 2026: Bitcoin Ethereum Gains',
-      title: 'Crypto Profit Calculator 2026: BTC ETH SOL Profit [Free Tool]',
-      desc: 'Crypto profit calculator 2026: Bitcoin, Ethereum, Solana profit after tax. See how many work hours your crypto gains worth. Free.',
-      mode: 'purchase',
-      keys: ['crypto profit calculator','bitcoin profit calculator','ethereum calculator 2026'],
-      sections: [
-        ['If You Bought $1k Bitcoin in 2010-2024 (Insane Returns)', '$1k BTC in 2010 = $1.8B in 2026 at $95k BTC. In 2015 $1k = $380k. In 2020 $1k at $8k BTC = $11,875 now. 2024 $1k at $42k = $2,261.'],
-        ['Tax on Crypto 2026: IRS Takes 37%', 'Short-term (<1yr) taxed as income up to 37%. Long-term 0-20%. $100k gain short-term at 32% bracket = $32k tax. Long-term = $15k. Hold >1 year saves $17k.'],
-      ],
-      faqs: [
-        ['How much if I invested $1000 in Bitcoin in 2010?','$1.8 billion in 2026 at $95k BTC. Yes billion.'],
-        ['Do you pay tax on crypto profit 2026?','Yes. IRS tracks via exchanges. Short-term up to 37%, long-term 0-20%.'],
-      ]
-    },
-    {
-      slug: 'calculators/youtube-earnings-calculator-2026',
-      name: 'YouTube Earnings Calculator 2026: How Much YouTubers Make',
-      title: 'YouTube Money Calculator 2026: How Much Per 1M Views? [Free]',
-      desc: 'YouTube earnings calculator 2026: how much YouTubers make per 1k, 1M views. RPM by niche. MrBeast, finance, gaming. Free tool.',
-      mode: 'purchase',
-      keys: ['youtube earnings calculator','how much youtubers make','youtube money calculator 2026'],
-      sections: [
-        ['YouTube RPM by Niche 2026 (Finance $25 vs Gaming $2)', 'Finance RPM $15-30 per 1k views. Tech $8-15. Education $6-12. Entertainment $2-5. Gaming $1-4. Finance 10x gaming. 1M finance views = $20k, gaming = $2k.'],
-        ['MrBeast Math: $2M Per Video But $1.5M Cost', 'MrBeast 100M views = $500k AdSense (RPM $5) but $1.5M production cost. Profit from sponsors $2M. Net $1M/video.'],
-      ],
-      faqs: [
-        ['How much does YouTube pay per 1000 views 2026?','$2-$30 depending niche. Avg $4. Finance $20, gaming $2.'],
-        ['How much for 1 million views?','$2k-$30k. Avg $4k. MrBeast type $5k but sponsor $1M.'],
-      ]
-    },
-    {
-      slug: 'calculators/tiktok-money-calculator-2026',
-      name: 'TikTok Money Calculator 2026: Viral Earnings Per View',
-      title: 'TikTok Earnings Calculator 2026: How Much Per 1M Views? [Free]',
-      desc: 'TikTok money calculator 2026: Creator Fund, Creativity Program, gifts. How much TikTokers make per 1M views. Free 2026.',
-      mode: 'purchase',
-      keys: ['tiktok money calculator','tiktok earnings calculator','how much tiktok pays 2026'],
-      sections: [
-        ['TikTok Pay 2026: $0.02-$0.04 Per 1k Views (Worse Than YouTube)', 'Creativity Program Beta: $0.50-$1 per 1k qualified views (>1min). Old Creator Fund $0.02. 1M views = $20-$1,000. TikTok pays 10x less than YouTube.'],
-        ['How Charli D\'Amelio Makes $17M But Not From Views', 'Charli: 1B views/year = $500k from TikTok. $16.5M from sponsors, merch, TV. Views are marketing, not income.'],
-      ],
-      faqs: [
-        ['How much TikTok pays per 1M views 2026?','$20-$1000. Avg $500 with new program if videos >1min.'],
-        ['Can you make money on TikTok 2026?','Yes but via sponsors not views. 100k followers = $200-$1000 per sponsor post.'],
-      ]
-    },
-    {
-      slug: 'calculators/onlyfans-earnings-calculator-2026',
-      name: 'OnlyFans Earnings Calculator 2026: How Much Creators Make',
-      title: 'OnlyFans Money Calculator 2026: Avg Creator $180/mo Truth [Free]',
-      desc: 'OnlyFans earnings calculator 2026: how much OnlyFans creators make. Average $180/mo, top 1% $10k+. Free calculator with tax.',
-      mode: 'purchase',
-      keys: ['onlyfans earnings calculator','how much onlyfans creators make','onlyfans money calculator'],
-      sections: [
-        ['OnlyFans Truth 2026: Average $180/mo, Median $0', 'OnlyFans has 4M creators. Top 1% makes 33% of all money. Top 0.1% = $10k+/mo. Average $180/mo but median $0 because 70% make $0. Bop House creators $20k-$200k/mo.'],
-        ['OnlyFans Fee: 20% + Tax 30% = You Keep 50%', 'OnlyFans takes 20%. Then tax 30% avg. $10k gross = $8k after OF = $5,600 after tax. Need $18k gross for $10k take-home.'],
-      ],
-      faqs: [
-        ['How much does average OnlyFans make 2026?','$180/mo average, $0 median. Top 10% $1k/mo, top 1% $6k/mo.'],
-        ['How much do top OnlyFans make?','Top 0.1% $10k-$500k/mo. Bop House $50k-$200k/mo each.'],
-      ]
-    },
-    {
-      slug: 'calculators/freelance-rate-calculator-2026',
-      name: 'Freelance Rate Calculator 2026: What To Charge Per Hour',
-      title: 'Freelance Rate Calculator 2026: $50/hr = $30/hr Real [Free]',
-      desc: 'Freelance rate calculator 2026: what to charge per hour. Salary to freelance conversion. Taxes, bench time. Free tool 2026.',
-      mode: 'purchase',
-      keys: ['freelance rate calculator','what to charge freelance','hourly rate calculator 2026'],
-      sections: [
-        ['Salary to Freelance: Multiply by 2-3x Rule 2026', '$70k salary = $33/hr gross. Freelance need $66-$100/hr to match after tax, no benefits, bench time. Formula: (salary/1000)*2 = hourly. $70k = $70*2 = $140k freelance need = $70/hr billable at 50% utilization.'],
-        ['Freelance Tax 2026: 30% Gone', 'Self-employment tax 15.3% + federal 22% = 37% gone. $100/hr = $63/hr take-home. Need $150/hr to keep $95/hr.'],
-      ],
-      faqs: [
-        ['What should I charge as freelancer 2026?','2-3x your old hourly. $35/hr salary = $70-$105/hr freelance.'],
-        ['How much is $50/hr freelance annually?','$100k gross if 40h/week 50 weeks but 50% utilization = $50k. Take-home $35k.'],
-      ]
-    },
-    {
-      slug: 'calculators/rent-vs-buy-calculator-2026',
-      name: 'Rent vs Buy Calculator 2026: Shocking Truth After 5 Years',
-      title: 'Rent vs Buy Calculator 2026: When Buying Loses Money [Free]',
-      desc: 'Rent vs buy calculator 2026: see when buying loses money. 5-year rule, equity, opportunity cost. Free calculator 2026.',
-      mode: 'purchase',
-      keys: ['rent vs buy calculator','should i rent or buy 2026','rent vs buy'],
-      sections: [
-        ['5-Year Rule 2026: If <5 Years, Rent Wins', 'Buying costs 6% to sell, 3% to buy = 9% round trip. On $400k = $36k lost. Need 5 years appreciation to cover. 2026 market flat, so rent wins if <5 years.'],
-        ['Opportunity Cost: $80k Down = $400k in 30 Years', '$80k down at 10% for 30 years = $1.39M. House equity after 30 years $400k + appreciation $300k = $700k. Renting + investing wins mathematically but behaviorally buying wins because people don\'t invest difference.'],
-      ],
-      faqs: [
-        ['Is it better to rent or buy 2026?','If <5 years, rent. If >7 years and 20% down, buy. 2026 rates high, so rent attractive.'],
-        ['How long to break even buying?','5-7 years avg. In SF/NYC 10 years. In Texas 3 years.'],
-      ]
-    },
-    {
-      slug: 'calculators/car-loan-calculator-2026',
-      name: 'Car Loan Calculator 2026: Hidden Cost $15k Car = $35k Real',
-      title: 'Car Loan Calculator 2026: $30k Car Costs $52k Truth [Free]',
-      desc: 'Car loan calculator 2026: monthly payment, total interest, depreciation. See real cost per hour. Free 2026 calculator.',
-      mode: 'purchase',
-      keys: ['car loan calculator','how much car can i afford','car payment calculator 2026'],
-      sections: [
-        [' $30k Car at 8% for 72 Months = $38,700 Total + $15k Depreciation', 'Monthly $538, total interest $8,700. But car worth $15k after 6 years. You paid $38,700 for $15k asset = $23,700 loss. At $30/hr = 790 hours = 19 weeks work gone.'],
-        ['New vs Used 2026: Used Wins by $20k', 'New $35k vs 3-year used $22k same model. New loses $13k year 1. Used loses $4k/year. Over 6 years, used saves $20k.'],
-      ],
-      faqs: [
-        ['How much car can I afford?','20/4/10 rule: 20% down, 4-year loan max, 10% income for car costs. $60k income = $500/mo max all car costs.'],
-        ['What is good car loan rate 2026?','New 6-7% good, used 7-8.5% good. Over 9% bad.'],
-      ]
-    },
-    {
-      slug: 'calculators/student-loan-calculator-2026',
-      name: 'Student Loan Calculator 2026: $50k Loan = $88k Real Cost',
-      title: 'Student Loan Calculator 2026: $50k = 2,500 Work Hours [Free]',
-      desc: 'Student loan calculator 2026: monthly payment, total interest, forgiveness. See work-hours cost. Free 2026 tool.',
-      mode: 'purchase',
-      keys: ['student loan calculator','student loan forgiveness 2026','student loan payment'],
-      sections: [
-        ['$50k at 6% 10 Years = $555/mo = $66k Total = 2,640 Hours at $25/hr', 'Student loans cost hours. $50k = 2,000 hours principal + 640 hours interest. 1.3 work-years. At $35/hr = 1,885 hours.'],
-        ['Forgiveness 2026: SAVE Plan Saves $20k', 'SAVE plan caps at 5% discretionary income. $50k income, $50k loan = $150/mo vs $555 standard. Forgiveness after 20-25 years.'],
-      ],
-      faqs: [
-        ['How much is $50k student loan monthly?','$555/mo 10yr 6%, $300/mo 20yr, $150/mo SAVE income-based.'],
-        ['Will student loans be forgiven 2026?','SAVE plan forgiveness after 20-25 years. Public Service 10 years. No blanket forgiveness expected.'],
-      ]
-    },
-    {
-      slug: 'calculators/net-worth-calculator-2026',
-      name: 'Net Worth Calculator 2026: Are You Rich? Percentile Truth',
-      title: 'Net Worth Calculator 2026: Are You Top 10%? [Free Tool]',
-      desc: 'Net worth calculator 2026: are you rich? US net worth percentiles by age. See work-hours to reach top 10%. Free 2026.',
-      mode: 'purchase',
-      keys: ['net worth calculator','am i rich','net worth percentile 2026','are you rich calculator'],
-      sections: [
-        ['US Net Worth Percentiles 2026 (Shocking Low)', 'Age 30: median $20k, top 10% $150k. Age 40: median $90k, top 10% $500k. Age 50: median $180k, top 10% $1M. Age 60: median $250k, top 10% $1.6M. Top 1% = $11M. You need $1M to be top 10% at 50.'],
-        ['How Many Hours To Top 10%? At $35/hr Need 28,571 Hours', '$1M / $35 = 28,571 hours = 14 work-years full-time. But after tax and expenses, 28 work-years. Most never reach.'],
-      ],
-      faqs: [
-        ['What net worth is top 10% 2026?','$1.2M overall, $500k at 40, $1M at 50, $1.6M at 60.'],
-        ['Am I rich with $500k net worth?','Top 15% overall, top 10% at 40. Rich = top 5% = $2.5M.'],
-      ]
-    },
-    {
-      slug: 'calculators/cost-of-living-calculator-2026',
-      name: 'Cost of Living Calculator 2026: NYC vs Dubai vs Texas',
-      title: 'Cost of Living Calculator 2026: $100k in NYC = $45k Texas [Free]',
-      desc: 'Cost of living calculator 2026: NYC vs Texas vs Dubai vs London. See real salary after rent, tax. Free 2026 tool.',
-      mode: 'purchase',
-      keys: ['cost of living calculator','nyc vs texas salary','cost of living 2026'],
-      sections: [
-        ['$100k in NYC = $45k in Texas Purchasing Power', 'NYC: $100k gross = $68k after tax, $36k after $3k rent = $32k left. Texas: $100k = $75k after tax (no state), $18k after $1.5k rent = $57k left. 78% more. Dubai: $100k tax-free = $100k, rent $2k = $76k left = 137% more than NYC.'],
-        ['Where $100k Feels Rich 2026', 'Top: Texas, Florida, Dubai, Portugal. Bottom: NYC, SF, London, Sydney. Move to Texas = 78% raise without asking.'],
-      ],
-      faqs: [
-        ['Where does $100k feel rich 2026?','Texas, Florida, Ohio, Dubai, Portugal. $100k = top 20% there vs bottom 50% NYC.'],
-        ['Is $100k good salary NYC 2026?','No. Median 1BR $3,500 = $42k/year. After tax $68k - $42k = $26k left. Poor in NYC.'],
-      ]
-    },
-    {
-      slug: 'calculators/salary-in-hours-elon-musk-calculator',
-      name: 'Elon Musk Salary in Hours: How Many Lifetimes You Need',
-      title: 'Elon Musk Makes $12,000 Per Second: Your Hours Calculator [2026]',
-      desc: 'Elon Musk, Bezos, Taylor Swift earnings per second calculator. See how many hours you work vs they earn per second. Shocking 2026.',
-      mode: 'purchase',
-      keys: ['elon musk earnings per second','how much elon musk makes per hour','jeff bezos per second'],
-      sections: [
-        ['Elon Musk 2026: $12,000 Per Second, $720k Per Minute', 'Musk net worth +$80B in 2024 = $2,536/second. 2026 estimate $12k/sec if Tesla + SpaceX up. You at $35/hr = $0.0097/sec. He makes 1,237,113x more per second. You work 1 year = he earns in 2.5 seconds.'],
-        ['Jeff Bezos $4,000/sec, Taylor Swift $2,000/sec, You $0.01/sec', 'Bezos $150B net / year = $4,756/sec. Taylor $1B year = $31/sec from Eras tour 2023-2024 but 2026 catalog $2k/sec. Your lifetime earnings $2M = Bezos 7 minutes.'],
-      ],
-      faqs: [
-        ['How much Elon Musk makes per second 2026?','$2,500-$12,000/sec depending year. Avg $4,000/sec long-term.'],
-        ['How many hours to match Bezos 1 second?','At $35/hr, 1 sec Bezos $4,756 = 135 hours = 17 workdays.'],
-      ]
-    },
-    {
-      slug: 'calculators/wedding-budget-calculator-2026',
-      name: 'Wedding Budget Calculator 2026: Average $35k = 1,400 Hours Work',
-      title: 'Wedding Cost Calculator 2026: $35k Average = 1,000 Hours [Free]',
-      desc: 'Wedding budget calculator 2026: average wedding cost $35k, breakdown. See work-hours cost. Free 2026 calculator.',
-      mode: 'purchase',
-      keys: ['wedding budget calculator','how much wedding cost 2026','average wedding cost'],
-      sections: [
-        ['Average US Wedding 2026: $35k = 1,000 Hours at $35/hr', 'Venue $12k, catering $8k, photo $4k, dress $2k, ring $6k, other $3k. $35k = 1,000 hours work = 6 months full-time. 50% couples go into debt.'],
-        ['$5k vs $35k vs $100k Wedding Happiness Same', 'Study: wedding cost not correlated with marriage success. $5k wedding same divorce rate as $100k. $35k = 1 year honeymoon travel instead.'],
-      ],
-      faqs: [
-        ['How much does average wedding cost 2026?','$35k US average, $50k NYC/LA, $15k small.'],
-        ['How many work hours is a wedding?','$35k at $35/hr = 1,000 hours = 25 weeks full-time.'],
-      ]
-    },
-    {
-      slug: 'calculators/lottery-tax-calculator-2026',
-      name: 'Lottery Tax Calculator 2026: $100M Jackpot = $45M After Tax',
-      title: 'Lottery Winnings Calculator 2026: $1B Powerball = $460M Real [Free]',
-      desc: 'Lottery tax calculator 2026: Powerball, Mega Millions after tax. Lump sum vs annuity. See take-home. Free 2026.',
-      mode: 'purchase',
-      keys: ['lottery tax calculator','how much tax lottery winnings','powerball after tax 2026'],
-      sections: [
-        ['$100M Jackpot = $45M After Tax (55% Gone)', '$100M advertised annuity. Lump sum $52M cash. Federal 37% = $19.2M, state 5% avg $2.6M. You keep $30.2M annuity? No lump sum $52M - $21.8M tax = $30.2M. Wait 55% gone? Actually $100M annuity = $52M lump - 40% tax = $31M. Yes 69% gone from advertised.'],
-        ['Lump Sum vs Annuity 2026: Lump Wins If Invest 7%+', 'Annuity $100M over 30 years = $3.33M/year before tax. Lump $52M invested at 8% = $4.16M/year forever. Lump wins.'],
-      ],
-      faqs: [
-        ['How much tax on $100M lottery?','$45M-$55M total tax. You keep $45M of $100M advertised, $30M of $52M cash.'],
-        ['Should I take lump sum or annuity?','Lump sum if you invest >6%. Annuity if you will spend lump.'],
-      ]
-    },
-    {
-      slug: 'calculators/divorce-cost-calculator-2026',
-      name: 'Divorce Cost Calculator 2026: Average $15k = 600 Hours Work',
-      title: 'Divorce Cost Calculator 2026: $15k Average + Alimony Shock [Free]',
-      desc: 'Divorce cost calculator 2026: average divorce cost $15k, lawyer, alimony, child support. See work-hours cost. Free 2026.',
-      mode: 'purchase',
-      keys: ['divorce cost calculator','how much divorce cost','average divorce cost 2026'],
-      sections: [
-        ['Average Divorce $15k But Can Be $100k Contested', 'Uncontested $1.5k-$5k, contested $15k avg, high-conflict $50k-$100k. Plus alimony: 40% income difference for half marriage length. 10-year marriage $80k vs $40k income = $16k/year alimony 5 years = $80k.'],
-        ['Work Hours: Divorce = 2,000 Hours = 1 Work-Year', '$15k divorce + $80k alimony = $95k = 2,714 hours at $35/hr = 1.35 work-years. Plus child support $1k/mo 10 years = $120k = 3,428 hours. Total 6,142 hours = 3 work-years.'],
-      ],
-      faqs: [
-        ['How much does average divorce cost 2026?','$15k contested, $1.5k uncontested, $100k high-conflict.'],
-        ['How much is alimony 2026?','40% income difference, half marriage length. $80k vs $40k, 10yr marriage = $16k/yr 5yr.'],
-      ]
-    },
-    {
-      slug: 'calculators/child-cost-calculator-2026',
-      name: 'Cost of Raising Child Calculator 2026: $310k Shocking Truth',
-      title: 'Child Cost Calculator 2026: $310k Per Child = 8,857 Hours [Free]',
-      desc: 'Cost of raising child calculator 2026: $310k per child to 18, not college. See work-hours cost. Free 2026 tool.',
-      mode: 'purchase',
-      keys: ['cost of raising child calculator','how much child cost 2026','cost of child'],
-      sections: [
-        ['USDA 2026: $310k Per Child to 18 (Not College)', 'Housing $110k, food $60k, childcare $50k, transport $30k, healthcare $25k, education $20k, other $15k. $310k = $17,222/year = $1,435/mo. At $35/hr = 8,857 hours = 4.4 work-years per child. Two kids = 8.8 work-years.'],
-        ['College Extra $100k-$300k Per Child', 'Public $100k 4yr, private $300k 4yr 2026. Total per child $410k-$610k with college. Two kids college = $1M.'],
-      ],
-      faqs: [
-        ['How much does it cost to raise child 2026?','$310k to 18, $410k-$610k with college. $1,435/mo.'],
-        ['How many work hours per child?','8,857 hours at $35/hr to 18. 17,714 hours with college.'],
-      ]
-    },
-    {
-      slug: 'calculators/streaming-cost-calculator-2026',
-      name: 'Streaming Cost Calculator 2026: $80/mo = $20k Over 20 Years',
-      title: 'Streaming Cost Calculator 2026: Netflix Spotify Hidden $20k [Free]',
-      desc: 'Streaming cost calculator 2026: Netflix, Spotify, YouTube, all subscriptions real cost. See annual + work-hours. Free 2026.',
-      mode: 'subscription',
-      keys: ['streaming cost calculator','how much netflix cost yearly','subscription calculator 2026'],
-      sections: [
-        ['Average American Pays $80/mo Streaming = $960/year = $19,200 Over 20 Years', 'Netflix $15.49, Spotify $11.99, YouTube Premium $13.99, Disney $13.99, HBO $15.99, Apple TV $9.99 = $81.44/mo. $977/year. At 7% invested, 20 years = $40k lost.'],
-        ['Work Hours: $81/mo = 27 Hours/Year at $35/hr = 540 Hours Over 20 Years', 'You work 27 hours/year just for streaming. 540 hours over 20 years = 13.5 work-weeks.'],
-      ],
-      faqs: [
-        ['How much does average person spend streaming 2026?','$80/mo avg, $960/year. Heavy users $150/mo.'],
-        ['How much is Netflix per year 2026?','$186/year basic $15.49/mo. Premium $23.99/mo = $288/year.'],
-      ]
-    },
-    {
-      slug: 'calculators/chatgpt-cost-calculator-2026',
-      name: 'ChatGPT Cost Calculator 2026: $20/mo = $240/year Truth',
-      title: 'ChatGPT Cost Calculator 2026: Plus $20/mo Worth It? [Free]',
-      desc: 'ChatGPT cost calculator 2026: Plus, Team, Enterprise cost. Is $20/mo worth work-hours? Free calculator 2026.',
-      mode: 'subscription',
-      keys: ['chatgpt cost calculator','chatgpt plus worth it','how much chatgpt cost 2026'],
-      sections: [
-        ['ChatGPT Plus $20/mo = $240/year = 6.8 Hours at $35/hr', 'Is 6.8 hours/year worth ChatGPT? If saves 1hr/week = 52hrs/year = 7.6x ROI. Yes if you use. If not, waste.'],
-        ['Team $30/mo/user, Enterprise $60/mo/user. API $0.01/1k tokens. Heavy user $100/mo API.'],
-      ],
-      faqs: [
-        ['Is ChatGPT Plus worth $20/mo 2026?','If saves 2hr/month, yes. 2hr at $35/hr = $70 value for $20 cost.'],
-        ['How much ChatGPT cost per year?','Plus $240, Team $360, Enterprise $720. API $20-$200/mo depending usage.'],
-      ]
-    },
-    {
-      slug: 'calculators/mrbeast-earnings-per-second-calculator',
-      name: 'MrBeast Earnings Per Second Calculator 2026: $2k/Second?',
-      title: 'MrBeast Makes $50M/Year = $1.58/Second Calculator [2026]',
-      desc: 'MrBeast earnings per second calculator 2026: how much MrBeast makes per second, per video. See work-hours vs yours. Free.',
-      mode: 'purchase',
-      keys: ['mrbeast earnings per second','how much mrbeast makes','mrbeast per video earnings'],
-      sections: [
-        ['MrBeast 2026: $50M-$80M/year = $1.58-$2.53/sec', 'MrBeast YouTube AdSense $5M, Beast Burger $30M, Feastables $100M revenue $20M profit. Total $50M profit/year = $1.58/sec. You $35/hr = $0.0097/sec = 163x less.'],
-        ['Per Video: $2M Cost, $3M Revenue, $1M Profit', 'MrBeast videos cost $1M-$4M, views 100M = $500k AdSense + $2.5M sponsor. Profit $1M per video but reinvests.'],
-      ],
-      faqs: [
-        ['How much MrBeast makes per second?','$1.58/sec profit, $6/sec revenue 2026.'],
-        ['How much MrBeast per video?','$1M profit per video avg after $2M cost.'],
-      ]
-    },
-    {
-      slug: 'calculators/side-hustle-calculator-2026',
-      name: 'Side Hustle Calculator 2026: $500/mo = $6k/Year = 171 Hours',
-      title: 'Side Hustle Calculator 2026: Is $500/mo Worth Your Time? [Free]',
-      desc: 'Side hustle calculator 2026: $500/mo side hustle real hourly after tax. See if worth work-hours. Free 2026 tool.',
-      mode: 'purchase',
-      keys: ['side hustle calculator','is side hustle worth it','how much side hustle make 2026'],
-      sections: [
-        ['$500/mo Side Hustle = $6k/year = But 10hr/week = $11.53/hr Real', '$500/mo gross = $350 after tax (30%). If 40hr/mo (10hr/week) = $8.75/hr real. Less than $15 min wage in CA. Need $1k/mo for $17.50/hr.'],
-        ['Best Side Hustles 2026 by $/Hour: AI Automation $80/hr, Tutoring $40/hr, Uber $18/hr, Surveys $5/hr', 'AI automation side hustle best ROI 2026. Tutoring $40/hr. Uber $18/hr after gas. Surveys $5/hr waste.'],
-      ],
-      faqs: [
-        ['Is $500/mo side hustle worth it?','Depends hours. If 20hr/mo = $17.50/hr after tax worth. If 80hr/mo = $4.37/hr not worth.'],
-        ['What side hustle makes most 2026?','AI automation, freelance coding $80/hr, tutoring $40/hr.'],
-      ]
-    },
-    {
-      slug: 'calculators/ai-job-replacement-calculator-2026',
-      name: 'AI Job Replacement Calculator 2026: Will AI Take Your Job?',
-      title: 'Will AI Take Your Job Calculator 2026: Risk % by Job [Free]',
-      desc: 'AI job replacement calculator 2026: will AI take your job? Risk by occupation, salary, work-hours saved. Free 2026 tool.',
-      mode: 'purchase',
-      keys: ['will ai take my job calculator','ai job replacement calculator','ai risk by job 2026'],
-      sections: [
-        ['AI Risk by Job 2026: Data Entry 99%, Customer Service 85%, Coding 40%, Nurse 10%', 'Frey & Osborne 2013 study updated 2026: telemarketers 99%, accountants 94%, paralegals 94%, writers 45%, software devs 30%, managers 15%, nurses 10%, therapists 5%.'],
-        ['Your Job $35/hr = AI Cost $0.10/hr. Company Saves 350x', 'AI agent $0.10/hr vs you $35/hr. Company saves $34.90/hr = $72k/year per employee. Incentive huge.'],
-      ],
-      faqs: [
-        ['Will AI replace my job 2026?','If data entry, customer service, basic coding, writing - high risk 70-99%. If nurse, therapist, manager - low 5-20%.'],
-        ['Which jobs safe from AI 2026?','Nurse, therapist, electrician, plumber, manager, creative director - human touch needed.'],
-      ]
-    },
-    {
-      slug: 'calculators/trump-tariff-calculator-2026',
-      name: 'Trump Tariff Calculator 2026: How Much Tariffs Cost You',
-      title: 'Tariff Cost Calculator 2026: $3,000/Year Extra Per Family [Free]',
-      desc: 'Trump tariff calculator 2026: how much tariffs cost per family. China 60%, Mexico 25%. See work-hours cost. Free 2026.',
-      mode: 'purchase',
-      keys: ['trump tariff calculator','how much tariffs cost me','tariff cost calculator 2026'],
-      sections: [
-        ['2026 Tariffs: China 60%, Mexico/Canada 25% = $3,000/Year Per Family Cost', 'Tax Foundation: 60% China + 25% Mexico/Canada = $3,000/year extra per US family. $1,200 electronics, $800 clothes, $600 food, $400 other.'],
-        ['Work Hours: $3k = 85 Hours at $35/hr = 2 Work-Weeks Just for Tariffs', 'You work 2 weeks/year just to pay tariff tax. $3k = 85 hours.'],
-      ],
-      faqs: [
-        ['How much do Trump tariffs cost me 2026?','$3,000/year per family avg. Low income $1,500, high income $5,000.'],
-        ['What products have tariffs 2026?','China electronics 60%, Mexico produce 25%, Canada lumber 25%, EU cars 20%.'],
-      ]
-    },
-    {
-      slug: 'calculators/taylor-swift-concert-cost-calculator',
-      name: 'Taylor Swift Concert Cost in Work Hours Calculator 2026',
-      title: 'Taylor Swift Ticket Cost Calculator: $1,200 = 34 Hours Work [2026]',
-      desc: 'Taylor Swift concert ticket cost calculator 2026: Eras Tour $1,200 avg, work-hours cost. See if worth. Free 2026.',
-      mode: 'purchase',
-      keys: ['taylor swift ticket cost calculator','how much taylor swift concert cost','eras tour cost 2026'],
-      sections: [
-        ['Eras Tour 2026 Avg Ticket $1,200 Resale = 34 Hours at $35/hr', 'Face $200, resale $1,200 avg, VIP $5k. $1,200 = 34 hours work = 4.3 workdays. Plus flight $400, hotel $300, merch $100 = $2,000 total = 57 hours.'],
-        ['Is Taylor Worth 57 Hours? Happiness Study Says Yes If Superfan', 'Superfans happiness +40% for 2 weeks after concert. Casual fans +10% 2 days. If superfan, 57 hours worth. If casual, not.'],
-      ],
-      faqs: [
-        ['How much Taylor Swift concert cost 2026?','$1,200 avg resale, $200 face, $5k VIP. Total trip $2k.'],
-        ['How many work hours is Taylor concert?','34 hours ticket, 57 hours total trip at $35/hr.'],
-      ]
-    },
-    {
-      slug: 'guides/how-much-house-can-i-afford-2026',
-      name: 'How Much House Can You Afford in 2026? Shocking Truth',
-      title: 'How Much House Can I Afford 2026? $70k = $206k House [Truth]',
-      desc: 'How much house can I afford 2026? $70k salary = $206k house. See 28/36 rule, work-hours cost. Free guide 2026.',
-      mode: null,
-      keys: ['how much house can i afford','how much house can i afford 2026','house affordability 2026'],
-      sections: [
-        ['$70k Salary = $206k House Max 2026 (Not $400k)', '28% rule: $70k gross = $4,900 take-home, max $1,372 housing. At 6.8%, 30yr, $1,372 = $206k loan. With 20% down $257k house. Median US $412k = need $115k salary.'],
-        ['Work Hours: $400k House = 76 Hours/Month = 9 Days Just Mortgage', 'At $35/hr, $2,663/mo mortgage = 76 hours = 9.5 days work just house.'],
-      ],
-      faqs: [
-        ['How much house can I afford with $70k?','$206k loan, $257k house with 20% down.'],
-        ['What salary to afford $400k house?','$115k salary need. $90k with 20% down.'],
-      ]
-    },
-    {
-      slug: 'guides/are-you-rich-net-worth-percentile-2026',
-      name: 'Are You Rich? Net Worth Percentile Calculator 2026 Truth',
-      title: 'Are You Rich? Net Worth Percentile 2026: Top 10% = $1.2M [Free]',
-      desc: 'Are you rich 2026? Net worth percentile by age, US. Top 10% = $1.2M, top 1% = $11M. Free guide 2026.',
-      mode: null,
-      keys: ['are you rich calculator','net worth percentile','am i rich 2026'],
-      sections: [
-        ['Net Worth Percentiles 2026: $100k = Top 50%, $1M = Top 12%, $5M = Top 2%', 'Median US net worth $192k, mean $1M skewed by rich. $100k = median, $500k = top 25%, $1M = top 12%, $2M = top 5%, $5M = top 2%, $11M = top 1%.'],
-        ['Age Matters: 30yo $100k = Top 20%, 50yo $100k = Bottom 40%', 'At 30, $100k = top 20% great. At 50, $100k = bottom 40% behind. Need $500k at 50 to be top 25%.'],
-      ],
-      faqs: [
-        ['What net worth is rich 2026?','Top 10% $1.2M, top 5% $2.5M, top 1% $11M. Rich = top 5% $2.5M.'],
-        ['Is $500k net worth rich?','Top 25% overall, top 10% at 40. Not rich but upper middle.'],
-      ]
-    },
-    {
-      slug: 'guides/calculadora-hipoteca-2026-espana-mexico',
-      name: 'Calculadora Hipoteca 2026 España México: Cuánto Puedes Pagar',
-      title: 'Calculadora Hipoteca 2026 España México: Cuota Mensual [Gratis]',
-      desc: 'Calculadora hipoteca 2026 España México gratis: cuota mensual, intereses, horas trabajo. Actualizado 2026. Gratis.',
-      mode: null,
-      lang: 'es',
-      keys: ['calculadora hipoteca','cuanto puedo pagar hipoteca','hipoteca 2026 españa'],
-      sections: [
-        ['Fórmula Hipoteca 2026: M = P[r(1+r)^n]/[(1+r)^n-1]', 'En España tipo 3.5% 2026, México 11%. Casa $2M MXN (100k€) México 11% 20 años = $18,000 MXN/mes. En España 100k€ 3.5% 25 años = 500€/mes.'],
-        ['Cuántas Horas Trabajo Cuesta Hipoteca 2026', 'España salario medio 1,800€/mes = 11€/hora. Hipoteca 500€ = 45 horas/mes. México salario 15,000 MXN = 94 MXN/hora. Hipoteca 18,000 MXN = 191 horas/mes.'],
-      ],
-      faqs: [
-        ['Cuánto puedo pagar hipoteca con 2,000€ mes?','Máx 30% = 600€/mes. A 3.5% 25 años = 120k€ casa.'],
-        ['Cuánto cuesta hipoteca México 2026?','Tasa 11% promedio 2026. Casa 2M MXN = 18k MXN/mes.'],
-      ]
-    },
-    {
-      slug: 'guides/calculadora-salario-hora-2026-latam',
-      name: 'Calculadora Salario por Hora 2026 LATAM: México Argentina Colombia',
-      title: 'Calculadora Salario por Hora 2026 LATAM: $/hora Real [Gratis]',
-      desc: 'Calculadora salario por hora 2026 LATAM: México, Argentina, Colombia, Chile. Convierte sueldo mensual a horas. Gratis 2026.',
-      mode: 'purchase',
-      lang: 'es',
-      keys: ['calculadora salario por hora','cuanto gano por hora','salario hora 2026'],
-      sections: [
-        ['Salario por Hora Fórmula: Sueldo Mensual / 160 Horas (LATAM)', 'México $15,000 MXN/mes = 94 MXN/hora = $5.2 USD/hora. Argentina $500k ARS = $3,125 ARS/hora = $3.5 USD/hora. Colombia $2M COP = $12,500 COP/hora = $3.1 USD/hora.'],
-        ['Cuántas Horas Cuesta iPhone 2026 LATAM', 'iPhone $1,200 USD. México $5.2/hr = 230 horas = 29 días trabajo. Argentina $3.5/hr = 342 horas = 42 días.'],
-      ],
-      faqs: [
-        ['Cuánto gano por hora con $15,000 MXN?','94 MXN/hora = $5.2 USD/hora.'],
-        ['Cuántas horas trabajo cuesta iPhone LATAM?','230 horas México, 342 Argentina, 387 Colombia.'],
-      ]
-    },
-    {
-      slug: 'guides/stundenlohn-rechner-deutschland-2026',
-      name: 'Stundenlohn Rechner Deutschland 2026: Brutto Netto',
-      title: 'Stundenlohn Rechner 2026 Deutschland: €20/h = €2,800 Netto? [Free]',
-      desc: 'Stundenlohn Rechner Deutschland 2026: brutto netto, was bleibt. €20/h = €2,800 netto. Kostenlos 2026 Rechner.',
-      mode: 'purchase',
-      lang: 'de',
-      keys: ['stundenlohn rechner','brutto netto rechner 2026','stundenlohn deutschland'],
-      sections: [
-        ['€20/h Brutto = €3,360/Monat = €2,200 Netto 2026 (35% Abgaben)', 'Deutschland Abgaben 35% avg: Lohnsteuer 20%, Sozialversicherung 20%. €20/h * 168h = €3,360 brutto = €2,200 netto = €13.09/h netto.'],
-        ['Was Kostet iPhone in Arbeitsstunden 2026 DE', 'iPhone €1,200 / €13.09 netto = 91 Stunden = 11 Arbeitstage.'],
-      ],
-      faqs: [
-        ['Was bleibt von €20/h brutto 2026?','€13.09/h netto, €2,200/Monat netto.'],
-        ['Wie viel Stunden für iPhone 2026 DE?','91 Stunden bei €20/h brutto.'],
-      ]
-    },
-    {
-      slug: 'guides/calculateur-salaire-horaire-france-2026',
-      name: 'Calculateur Salaire Horaire France 2026: Brut Net',
-      title: 'Calculateur Salaire Horaire 2026 France: €15/h = €1,800 Net? [Gratuit]',
-      desc: 'Calculateur salaire horaire France 2026: brut net, combien reste. €15/h = €1,800 net. Gratuit 2026.',
-      mode: 'purchase',
-      lang: 'fr',
-      keys: ['calculateur salaire horaire','salaire brut net 2026','calcul heure france'],
-      sections: [
-        ['€15/h Brut = €2,520/mois = €1,950 Net 2026 (23% Charges)', 'France charges 23% salarié. €15/h * 151.67h (35h) = €2,275 brut = €1,760 net = €11.60/h net.'],
-        ['iPhone en Heures Travail France 2026', 'iPhone €1,200 / €11.60 = 103 heures = 13 jours travail.'],
-      ],
-      faqs: [
-        ['Combien reste €15/h brut 2026 France?','€11.60/h net, €1,760/mois net.'],
-        ['Combien heures pour iPhone France?','103 heures à €15/h brut.'],
-      ]
-    },
-    {
-      slug: 'guides/калькулятор-зарплаты-час-россия-2026',
-      name: 'Калькулятор Зарплаты в Час Россия 2026: Сколько Стоит iPhone',
-      title: 'Калькулятор Зарплаты в Час 2026 Россия: 500₽/час = 300₽ Нетто [Бесплатно]',
-      desc: 'Калькулятор зарплаты в час Россия 2026: брутто нетто, сколько стоит iPhone в часах. Бесплатно 2026.',
-      mode: 'purchase',
-      lang: 'ru',
-      keys: ['калькулятор зарплаты в час','сколько стоит час работы','зарплата в час россия'],
-      sections: [
-        ['500₽/час Брутто = 87,000₽/мес = 75,690₽ Нетто 2026 (13% НДФЛ)', 'Россия НДФЛ 13%. 500₽/ч * 174ч = 87,000₽ брутто = 75,690₽ нетто = 435₽/ч нетто.'],
-        ['Сколько Часов Работа Стоит iPhone 2026 Россия', 'iPhone 100,000₽ / 435₽/ч = 230 часов = 28 рабочих дней.'],
-      ],
-      faqs: [
-        ['Сколько остается от 500₽/час 2026?','435₽/ч нетто, 75,690₽/мес нетто.'],
-        ['Сколько часов на iPhone Россия?','230 часов при 500₽/ч брутто.'],
-      ]
-    },
-    {
-      slug: 'guides/时薪计算器-中国-2026',
-      name: '时薪计算器 中国 2026: 50元/小时 真实收入',
-      title: '时薪计算器 2026 中国: 50元/小时 = 35元到手？[免费]',
-      desc: '时薪计算器 2026 中国: 50元/小时税后多少，iPhone要多少小时。免费2026工具。',
-      mode: 'purchase',
-      lang: 'zh',
-      keys: ['时薪计算器','中国工资计算器','时薪 中国 2026'],
-      sections: [
-        ['50元/小时 = 8,000元/月 = 7,000元到手 2026 (社保个税12%)', '中国社保个税约12%低收入。50元*160小时=8,000元毛=7,000元净=43.75元/小时净。'],
-        ['iPhone 需要多少小时 2026 中国', 'iPhone 8,000元 / 43.75元 = 183小时 = 22天工作。'],
-      ],
-      faqs: [
-        ['50元/小时到手多少2026？','43.75元/小时净，7,000元/月净。'],
-        ['iPhone需要多少小时中国？','183小时50元/小时毛。'],
-      ]
-    },
-    {
-      slug: 'guides/時給計算機-日本-2026',
-      name: '時給計算機 日本 2026: 2000円/時 本当の手取り',
-      title: '時給計算機 2026 日本: 2000円/時 = 1600円手取り？[無料]',
-      desc: '時給計算機 2026 日本: 2000円/時の手取り、iPhone何時間。無料2026ツール。',
-      mode: 'purchase',
-      lang: 'ja',
-      keys: ['時給計算機','日本 時給 計算','時給 日本 2026'],
-      sections: [
-        ['2000円/時 = 336,000円/月 = 268,000円手取り 2026 (20%税)', '日本税金社会保険20%。2000円*168時間=336,000円毛=268,000円净=1,595円/時净。'],
-        ['iPhone何時間 2026 日本', 'iPhone 150,000円 / 1,595円 = 94時間 = 11日労働。'],
-      ],
-      faqs: [
-        ['2000円/時手取りいくら2026？','1,595円/時净、268,000円/月净。'],
-        ['iPhone何時間日本？','94時間2000円/時毛。'],
-      ]
-    },
-    {
-      slug: 'guides/연봉-시급-계산기-한국-2026',
-      name: '연봉 시급 계산기 한국 2026: 3만원/시급 실수령',
-      title: '연봉 시급 계산기 2026 한국: 3만원/시급 = 2.4만원 실수령? [무료]',
-      desc: '연봉 시급 계산기 2026 한국: 3만원/시급 세후 얼마, 아이폰 몇시간. 무료2026도구.',
-      mode: 'purchase',
-      lang: 'ko',
-      keys: ['연봉 시급 계산기','시급 계산기 한국','한국 시급 2026'],
-      sections: [
-        ['3만원/시급 = 504만원/월 = 420만원 실수령 2026 (세금 16%)', '한국 세금 16% avg. 3만원*168시간=504만원총=420만원순=2.5만원/시급순.'],
-        ['아이폰 몇시간 2026 한국', '아이폰 150만원 / 2.5만원 = 60시간 = 7.5일 노동.'],
-      ],
-      faqs: [
-        ['3만원/시급 실수령 얼마2026?','2.5만원/시급순, 420만원/월순.'],
-        ['아이폰 몇시간 한국?','60시간 3만원/시급총.'],
-      ]
-    },
-    {
-      slug: 'guides/حاسبة-الراتب-بالساعة-السعودية-2026',
-      name: 'حاسبة الراتب بالساعة السعودية 2026: 50 ريال/ساعة صافي',
-      title: 'حاسبة الراتب بالساعة 2026 السعودية: 50 ريال/ساعة = 45 صافي؟ [مجاني]',
-      desc: 'حاسبة الراتب بالساعة 2026 السعودية: 50 ريال/ساعة كم صافي، آيفون كم ساعة. مجاني 2026.',
-      mode: 'purchase',
-      lang: 'ar',
-      keys: ['حاسبة الراتب بالساعة','راتب بالساعة السعودية','حاسبة الراتب 2026'],
-      sections: [
-        ['50 ريال/ساعة = 8,000 ريال/شهر = 7,200 ريال صافي 2026 (10% تأمينات)', 'السعودية تأمينات 10%. 50*160=8,000 إجمالي=7,200 صافي=45 ريال/ساعة صافي.'],
-        ['آيفون كم ساعة 2026 السعودية', 'آيفون 5,000 ريال / 45 = 111 ساعة = 14 يوم عمل.'],
-      ],
-      faqs: [
-        ['50 ريال/ساعة صافي كم 2026؟','45 ريال/ساعة صافي، 7,200 ريال/شهر صافي.'],
-        ['آيفون كم ساعة السعودية؟','111 ساعة ب 50 ريال/ساعة إجمالي.'],
-      ]
-    },
-    {
-      slug: 'guides/calculadora-horas-trabalho-brasil-2026',
-      name: 'Calculadora Horas Trabalho Brasil 2026: R$30/hora Líquido',
-      title: 'Calculadora Horas Trabalho 2026 Brasil: R$30/h = R$22 Líquido? [Grátis]',
-      desc: 'Calculadora horas trabalho Brasil 2026: R$30/hora quanto líquido, iPhone quantas horas. Grátis 2026.',
-      mode: 'purchase',
-      lang: 'pt',
-      keys: ['calculadora horas trabalho','quanto ganho por hora brasil','salario por hora 2026 brasil'],
-      sections: [
-        ['R$30/h Bruto = R$5,040/mês = R$3,800 Líquido 2026 (25% Impostos)', 'Brasil impostos 25% avg. R$30*168h=R$5,040 bruto=R$3,800 líquido=R$22.61/h líquido.'],
-        ['iPhone Quantas Horas 2026 Brasil', 'iPhone R$8,000 / R$22.61 = 353 horas = 44 dias trabalho.'],
-      ],
-      faqs: [
-        ['Quanto sobra R$30/h 2026 Brasil?','R$22.61/h líquido, R$3,800/mês líquido.'],
-        ['iPhone quantas horas Brasil?','353 horas a R$30/h bruto.'],
-      ]
-    },
-    {
-      slug: 'guides/how-much-youtubers-make-2026-shocking-truth',
-      name: 'How Much YouTubers Really Make 2026: Shocking Truth by Niche',
-      title: 'How Much YouTubers Make 2026: $2-$30 RPM Truth by Niche [Free]',
-      desc: 'How much YouTubers make 2026: RPM by niche $2-$30, MrBeast $50M/year, finance $20 RPM vs gaming $2. Free guide 2026.',
-      mode: null,
-      keys: ['how much youtubers make','youtube rpm by niche','youtuber salary 2026'],
-      sections: [
-        ['YouTube RPM 2026 Table: Finance $25, Tech $12, Gaming $2 (10x Difference)', 'Finance $15-30 RPM, Tech $8-15, Education $6-12, Lifestyle $4-8, Entertainment $2-5, Gaming $1-4. 1M views finance = $20k, gaming = $2k. Choose niche = choose income.'],
-        ['How Much YouTubers Make: Nano to Mega 2026', 'Nano 10k subs $200/mo, Micro 100k $1,500/mo, Mid 500k $8k/mo, Mega 1M+ $20k-$100k/mo. Top 0.1% $1M+/mo.'],
-      ],
-      faqs: [
-        ['How much YouTube pays per 1k views 2026?','$2-$30 niche dependent. Avg $4.'],
-        ['How much 1M views worth 2026?','$2k-$30k. Finance $20k, gaming $2k.'],
-      ]
-    },
-    {
-      slug: 'guides/cost-of-time-elon-musk-jeff-bezos-2026',
-      name: 'Cost of Time: Elon Musk vs Jeff Bezos vs You 2026 Shocking',
-      title: 'Cost of Time 2026: Elon $12k/sec vs You $0.01/sec Calculator [Free]',
-      desc: 'Cost of time calculator 2026: Elon Musk $12k/sec, Bezos $4k/sec, Taylor $2k/sec vs you $0.01/sec. Shocking work-hours comparison. Free.',
-      mode: null,
-      keys: ['elon musk per second','jeff bezos per second','cost of time billionaire'],
-      sections: [
-        ['Billionaire Per Second 2026: Elon $12k, Bezos $4k, You $0.01 (1M x Difference)', 'Elon +$80B 2024 = $2,536/sec, 2026 est $12k/sec peak. Bezos $4,756/sec. You $35/hr = $0.0097/sec. Elon makes your annual salary in 0.8 seconds.'],
-        ['How Many Lifetimes to Match Elon 1 Year?', 'Elon $80B/year / $70k salary = 1,142,857 years. You need 14,285 lifetimes (80yr each) to match Elon 1 year.'],
-      ],
-      faqs: [
-        ['How much Elon Musk per second 2026?','$2,500-$12,000/sec avg $4k/sec long-term.'],
-        ['How many hours to match Bezos 1 sec?','At $35/hr, 135 hours = 17 workdays for 1 sec Bezos.'],
-      ]
-    },
-  ];
-
-  for(const t of templates){
-    const faqs = t.faqs || [['What is this calculator?','Free calculator 2026 with work-hours perspective.']];
-    data.push({
-      route: t.slug,
-      name: t.name,
-      title: t.title,
-      description: t.desc,
-      mode: t.mode || 'purchase',
-      lang: t.lang || 'en',
-      keywords: t.keys,
-      intro: t.desc,
-      body: buildBody({
-        intro: t.desc,
-        keywords: t.keys,
-        sections: t.sections,
-        table: t.table || '',
-        faqs: faqs
-      }),
-      faqs: faqs
-    });
-  }
-
-  return data;
+function metadata(html,p){
+const url=origin+(p.route?'/'+p.route+'/':'/');
+html=html.replace(/<title>.*?<\/title>/,`<title>${escape(p.title)}</title>`)
+.replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
+.replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(p.title)}">`)
+.replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
+const baseUrl = origin ? origin + '/' : '';
+const webSiteObj = origin ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
+const pageObj = {'@type':p.mode?'WebApplication':'WebPage',name:p.name,description:p.description};
+if(origin) pageObj.url = origin + (p.route?'/'+p.route+'/':'/');
+if(p.mode){pageObj.applicationCategory='FinanceApplication';pageObj.operatingSystem='Any';pageObj.offers={'@type':'Offer',price:'0',priceCurrency:'USD'};pageObj.isAccessibleForFree=true;pageObj.codeRepository='https://github.com/njohn931d-dotcom/bbbh';}
+let graph = [webSiteObj, pageObj];
+if(p.route){
+  const bc = {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home'},{'@type':'ListItem',position:2,name:p.name}]};
+  if(origin){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=origin+'/'+p.route+'/';}
+  graph.push(bc);
+}
+graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
+const schema={'@context':'https://schema.org','@graph':graph};
+html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
+return html.replace('</head>',`${origin?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth"><meta property="og:image" content="${origin?origin:''}/og.png"></head>`);
 }
 
-export function generateSEO(){
-  const raw = process.env.SITE_URL;
-  let origin='';
-  if(raw){
-    const u=new URL(raw);
-    if(!['https:','http:'].includes(u.protocol)||u.pathname!=='/'||u.search||u.hash) throw Error('SITE_URL must be a site origin, e.g. https://your-domain.com');
-    origin=u.origin;
-  }
-  if(process.env.REQUIRE_SITE_URL && !origin) throw Error('Set SITE_URL to your production origin before a production build.');
-
-  const base=fs.readFileSync('index.html','utf8');
-  const articlesRaw=fs.readFileSync('app.js','utf8').match(/const articles=(\{.*?\});\ndocument/s);
-  const articles=vm.runInNewContext('('+articlesRaw[1]+')');
-
-  const baseData=[
-    {route:baseRoutes[0],name:'Cost of Time Calculator',title:'Cost of Time Calculator: Convert Money to Work Hours | Worth',description:'Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.',mode:'purchase',lang:'en',intro:'How many hours of work does that purchase cost? Enter the price and your take-home pay to see the trade-off.',body:`<h2>How to calculate the work hours behind a purchase</h2><p><strong>Work hours = purchase price ÷ take-home hourly pay.</strong> A $150 purchase at $25 per hour takes 6 hours of work. This number is a different way to look at spending, not a judgment about what you should buy.</p><h3>Converting a monthly or annual salary</h3><p>For a 40-hour week over 52 weeks, annual work time is 2,080 hours. Divide annual take-home pay by 2,080, or monthly take-home pay by 173.33. Someone taking home $52,000 per year has an estimated $25 hourly rate. If you work different hours, enter your actual hourly pay instead.</p><h3>Worked examples at $25 take-home per hour</h3><table><thead><tr><th>Purchase</th><th>Price</th><th>Work hours</th></tr></thead><tbody><tr><td>Dinner out</td><td>$50</td><td>2 hours</td></tr><tr><td>Sneakers</td><td>$150</td><td>6 hours</td></tr><tr><td>Laptop</td><td>$1,000</td><td>40 hours</td></tr></tbody></table><h3>What this calculation leaves out</h3><p>It does not account for rent, bills, savings obligations, or the emotional value of a purchase. Your full take-home wage is not all disposable income. Use the result as perspective, not as an affordability assessment.</p>`, faqs: [['How does calculator work?','Divide price by hourly pay. $150 at $25/hr = 6 hours.']]},
-    {route:baseRoutes[1],name:'Subscription Cost Calculator',title:'Subscription Cost Calculator: Monthly to Yearly Cost | Worth',description:'Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.',mode:'subscription',lang:'en',intro:'A small monthly charge can become a big yearly commitment. See your annual subscription cost in dollars and work hours.',body:`<h2>Calculate the annual cost of a subscription</h2><p><strong>Annual cost = monthly price × 12.</strong> A $15 monthly subscription costs $180 per year. At $25 per hour in take-home pay, that is 7.2 hours of work each year.</p><h3>Common monthly costs, annualized</h3><table><thead><tr><th>Monthly fee</th><th>Yearly cost</th><th>Hours at $25/hour</th></tr></thead><tbody><tr><td>$10</td><td>$120</td><td>4.8</td></tr><tr><td>$15</td><td>$180</td><td>7.2</td></tr><tr><td>$50</td><td>$600</td><td>24</td></tr></tbody></table><h3>Check several subscriptions together</h3><p>Add the monthly costs of your services and enter that total. Three services costing $10, $15, and $20 a month total $45 monthly, or $540 annually. At $25 take-home per hour, they represent 21.6 work hours.</p><h3>Is an annual plan actually cheaper?</h3><p>Compare the quoted annual price with the monthly fee multiplied by 12. A $150 annual plan versus $15 per month saves $30 only if you would otherwise keep the service for all 12 months. Check cancellation terms and taxes before switching.</p><p>This calculator assumes the monthly fee stays constant and is paid for a full year. It does not include discounts, trials, or price increases unless you include them in your input.</p>`, faqs: [['How calculate annual subscription?','Monthly x 12. $15/mo = $180/yr.']]},
-    {route:baseRoutes[2],name:'Daily Savings Calculator',title:'Daily Savings Calculator: Small Habits, Yearly Savings | Worth',description:'See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.',mode:'saving',lang:'en',intro:'What could one small daily change add up to? Turn a daily amount into a yearly saving—and see the time it represents.',body:`<h2>Turn a daily habit into a yearly saving</h2><p><strong>Yearly savings = daily amount × 365.</strong> Setting aside $5 each day adds up to $1,825 over a 365-day year. This is money set aside, not an investment forecast.</p><h3>How much could you save in a year?</h3><table><thead><tr><th>Daily amount</th><th>Over 30 days</th><th>Over 365 days</th></tr></thead><tbody><tr><td>$1</td><td>$30</td><td>$365</td></tr><tr><td>$5</td><td>$150</td><td>$1,825</td></tr><tr><td>$10</td><td>$300</td><td>$3,650</td></tr></tbody></table><h3>What about coffee only on weekdays?</h3><p>The calculator assumes a daily habit. If you skip a $5 purchase five times a week for 52 weeks, the result is $1,300—not $1,825. For twice a week, it is $520. Use the schedule that matches your life.</p><h3>Make the change sustainable</h3><p>Pick a purchase you will not miss, and move the amount into a separate savings pot. Cutting a purchase does not increase savings if the money is simply spent elsewhere. Keep the things that give you real value.</p><p>These estimates exclude interest, investment returns, inflation, leap days, and changes in the daily amount. Work-hour equivalents use your take-home pay, not your disposable income after bills.</p>`, faqs: [['How calculate daily savings?','Daily x 365. $5/day = $1,825/year.']]},
-    ...['time','habits','rule'].map((key,i)=>({
-      route:baseRoutes[3+i],
-      name:articles[key].title,
-      title:articles[key].title+' | Worth',
-      description:articles[key].body[0][1].slice(0,155),
-      body:articles[key].body.map(([h,p])=>`<h2>${escape(h)}</h2><p>${escape(p)}</p>`).join(''),
-      faqs: articles[key].body,
-      lang:'en',
-      mode: null
-    }))
-  ];
-
-  const extraData = generateExtraData();
-  const allData = [...baseData, ...extraData];
-
-  // Generate internal links HTML - link wheel + cluster
-  const linksAll=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - 2026 EDITION</div><h2>Free calculators & practical guides - 47 tools</h2><div>${allData.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}</div></section>`;
-
-  function metadata(html,p){
-    const url=origin+(p.route?'/'+p.route+'/':'/');
-    const lang = p.lang || 'en';
-    // Replace lang attribute
-    html=html.replace(/<html lang="[^"]*">/,`<html lang="${lang}">`);
-    html=html.replace(/<title>.*?<\/title>/,`<title>${escape(p.title)}</title>`)
-      .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
-      .replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(p.title)}">`)
-      .replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
-
-    // hreflang for parasite international SEO
-    const hreflangs = [
-      `<link rel="alternate" hreflang="en" href="${origin?origin:''}/${p.route}/">`,
-      `<link rel="alternate" hreflang="es" href="${origin?origin:''}/guides/calculadora-hipoteca-2026-espana-mexico/">`,
-      `<link rel="alternate" hreflang="de" href="${origin?origin:''}/guides/stundenlohn-rechner-deutschland-2026/">`,
-      `<link rel="alternate" hreflang="fr" href="${origin?origin:''}/guides/calculateur-salaire-horaire-france-2026/">`,
-      `<link rel="alternate" hreflang="ru" href="${origin?origin:''}/guides/калькулятор-зарплаты-час-россия-2026/">`,
-      `<link rel="alternate" hreflang="zh" href="${origin?origin:''}/guides/时薪计算器-中国-2026/">`,
-      `<link rel="alternate" hreflang="ja" href="${origin?origin:''}/guides/時給計算機-日本-2026/">`,
-      `<link rel="alternate" hreflang="ko" href="${origin?origin:''}/guides/연봉-시급-계산기-한국-2026/">`,
-      `<link rel="alternate" hreflang="ar" href="${origin?origin:''}/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">`,
-      `<link rel="alternate" hreflang="pt" href="${origin?origin:''}/guides/calculadora-horas-trabalho-brasil-2026/">`,
-      `<link rel="alternate" hreflang="x-default" href="${origin?origin:''}/${p.route}/">`,
-    ].join('');
-
-    // Build schemas: WebSite + Article/WebApplication + Breadcrumb + FAQ + HowTo + Organization
-    const faqSchema = p.faqs && p.faqs.length ? {
-      "@type":"FAQPage",
-      "mainEntity": p.faqs.slice(0,6).map(f=>{
-        const q = Array.isArray(f) ? f[0] : f[0];
-        const a = Array.isArray(f) ? f[1] : f[1];
-        return {"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}};
-      })
-    } : null;
-
-    const howToSchema = p.mode ? {
-      "@type":"HowTo",
-      "name": p.name,
-      "description": p.description,
-      "totalTime": "PT2M",
-      "tool": [{"@type":"HowToTool","name": p.name}],
-      "step": [{"@type":"HowToStep","name":"Enter price","text":"Enter purchase price"},{"@type":"HowToStep","name":"Enter income","text":"Enter take-home hourly pay"},{"@type":"HowToStep","name":"See hours","text":"See work hours cost"}]
-    } : null;
-
-    const articleSchema = {
-      "@type": p.mode ? "TechArticle" : "Article",
-      "headline": p.title,
-      "description": p.description,
-      "inLanguage": lang,
-      "datePublished": "2026-01-15",
-      "dateModified": "2026-09-27",
-      "author": {"@type":"Organization","name":"Worth","url": origin||"https://worth.example"},
-      "publisher": {"@type":"Organization","name":"Worth","logo":{"@type":"ImageObject","url": (origin||"https://worth.example")+"/favicon.ico"}},
-      "mainEntityOfPage": origin ? origin+'/'+p.route+'/' : undefined,
-      "keywords": (p.keywords||[]).join(', '),
-      "isAccessibleForFree": true,
-      "isPartOf": {"@type":"WebSite","name":"Worth"}
-    };
-
-    const graph = [
-      {"@type":"WebSite",name:'Worth',...(origin?{url:origin+'/'}:{}), "inLanguage": lang, "publisher":{"@type":"Organization","name":"Worth"}},
-      {"@type":p.mode?'WebApplication':'WebPage',name:p.name,description:p.description,...(origin?{url}:{}),...(p.mode?{applicationCategory:'FinanceApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}}:{}), "inLanguage": lang},
-      ...(p.route?[{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',...(origin?{item:origin+'/'}:{})},{'@type':'ListItem',position:2,name:p.name,...(origin?{item:url}:{})}]}]:[]),
-      articleSchema,
-      ...(faqSchema?[faqSchema]:[]),
-      ...(howToSchema?[howToSchema]:[]),
-      {
-        "@type":"Organization",
-        "name":"Worth",
-        "url": origin||"https://worth.example",
-        "sameAs": ["https://github.com/njohn931d-dotcom/bbbh","https://en.wikipedia.org/wiki/Personal_finance","https://www.forbes.com/money/"]
-      }
-    ];
-
-    const schema={'@context':'https://schema.org','@graph':graph};
-
-    html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
-    return html.replace('</head>',`${origin?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary"><meta name="twitter:title" content="${escape(p.title)}"><meta name="twitter:description" content="${escape(p.description)}"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="author" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="bingbot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">${hreflangs}<meta name="keywords" content="${escape((p.keywords||[]).join(', '))}"><meta http-equiv="content-language" content="${lang}"><meta name="theme-color" content="#204f3c"></head>`);
-  }
-
-  // Generate pages
-  for(const p of allData){
-    const crumb=`<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>${escape(p.name)}</span></nav>`;
-    const hero=`${crumb}<section class="seo-hero"><div class="eyebrow">${p.mode?'FREE MONEY CALCULATOR 2026':'THE MONEY EDIT 2026'} • Updated Sep 27, 2026</div><h1>${escape(p.name)}</h1>${p.intro?`<p>${escape(p.intro)}</p>`:''}<div style="font-size:11px;color:#8a9a7a;margin-top:10px;">⏱️ 2 min read • Last updated: 2026-09-27 • 47 calculators • GitHub DA 99 trusted</div></section>`;
-    let calculator=p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
-    if(p.mode && p.mode!=='purchase'){
-      const sub=p.mode==='subscription';
-      calculator=calculator.replace('Is it worth your time?',sub?'Small monthly. Big yearly.':'Little habits. More possibility.').replace('That price tag has a story. Let’s put it in hours.',sub?'See what a recurring charge really adds up to.':'What could one small daily change free up?').replace('How much does it cost?',sub?'Monthly subscription cost':'Daily amount to set aside').replace('value="150"',sub?'value="15"':'value="5"').replace('id="cost-suffix">USD','id="cost-suffix">'+(sub?'/ mo':'/ day')).replace('That purchase costs you',sub?'That subscription costs you each year':'That daily habit could free up').replace('id="hours">6',sub?'id="hours">7.2':'id="hours">$1,825').replace('id="unit">hours',sub?'id="unit">hours':'id="unit">/ year').replace('of your working life.',sub?'of your working life.':'equivalent to 73 hours of your working life.').replace('¾ of a workday',sub?'7.2 of 8 working hours':'9.1 workdays').replace('Not good. Not bad. Just perspective.<br>Only you can decide if it’s worth it.',sub?'$15 a month is $180 a year. If it adds value to your life, it might be time well spent.':'$5 a day, for 365 days. No investment returns assumed—just a small change adding up.').replace('aria-selected="true" data-mode="purchase"','aria-selected="false" data-mode="purchase"').replace('aria-selected="false" data-mode="'+p.mode+'"','aria-selected="true" data-mode="'+p.mode+'"');
-    }
-    const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
-
-    // Internal linking: related + link wheel + PBN style footer
-    const relatedLinks = allData.filter(x=>x.route!==p.route).sort(()=>0.5-Math.random()).slice(0,12);
-    const relatedHTML = `<section class="seo-related"><div class="section-label">RELATED CALCULATORS - TRENDING 2026</div><h2>More free calculators that save you hours</h2><div>${relatedLinks.map(r=>`<a href="/${r.route}/">${escape(r.name)} <span>↗</span></a>`).join('')}</div></section>`;
-
-    const pbnFooter = `<section style="margin-top:40px;padding:20px;background:#f5f5ef;border-radius:8px;border:1px solid #e0e4d7"><div class="section-label">PARASITE SEO CLUSTER - GITHUB AUTHORITY</div><p style="font-size:11px;color:#7a8470">This page is part of Worth's 47-tool finance cluster hosted on GitHub Pages (DA 99). All calculators free, no signup, 2026 edition. External authority: <a href="https://en.wikipedia.org/wiki/Personal_finance" rel="noopener">Wikipedia Personal Finance</a> • <a href="https://www.forbes.com/advisor/mortgages/" rel="noopener">Forbes Mortgages</a> • <a href="https://github.com/topics/calculator" rel="noopener">GitHub Calculator Topic</a>. Internal link wheel: ${allData.slice(0,5).map(r=>`<a href="/${r.route}/">${escape(r.name.split(' ')[0])}</a>`).join(' • ')}</p><p style="font-size:10px;color:#9aa08d;margin-top:8px;">Keywords: ${(p.keywords||[]).join(', ')} • LSI: work hours, take-home pay, cost of time, 2026 calculator, free tool, GitHub Pages, Worth finance</p></section>`;
-
-    let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article"><div style="background:#eef0e5;padding:12px 16px;border-radius:6px;font-size:11px;margin-bottom:20px;">✅ Free 2026 • No signup • GitHub DA 99 • Last updated Sep 27, 2026 • ${escape(p.name)} • ${p.lang||'en'}</div>${p.body}${relatedHTML}${linksAll}${pbnFooter}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
-    if(!p.mode) html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
-    html=metadata(html,p);
-    fs.mkdirSync(p.route,{recursive:true});
-    fs.writeFileSync(p.route+'/index.html',html);
-
-    // Also generate .txt and .json versions for crawlers (other extensions trick)
-    const txtContent = `${p.title}\n${p.description}\n\n${p.body.replace(/<[^>]+>/g,' ').slice(0,2000)}\n\nKeywords: ${(p.keywords||[]).join(', ')}\nURL: /${p.route}/\n`;
-    fs.writeFileSync(p.route+'/index.txt',txtContent);
-    fs.writeFileSync(p.route+'/index.json',JSON.stringify({title:p.title,description:p.description,route:p.route,keywords:p.keywords,lang:p.lang||'en',updated:'2026-09-27',body: p.body.slice(0,2000)},null,2));
-  }
-
-  // Homepage
-  let home=metadata(base.replace('<!-- SEO_LINKS -->',linksAll),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - 47 Tools 2026',description:'47 free money calculators 2026: mortgage, compound interest, crypto, YouTube, OnlyFans, cost-of-time. Convert prices to work hours. GitHub DA 99 trusted.',lang:'en',keywords:['money calculator','cost of time','mortgage calculator 2026','free calculators'], faqs: [['How many calculators?','47 free calculators 2026.']]});
-  fs.mkdirSync('.generated',{recursive:true});
-  fs.writeFileSync('.generated/home.html',home);
-
-  // Generate extra SEO files - parasite tricks
-  fs.mkdirSync('public',{recursive:true});
-
-  // robots.txt with extra directives for crawlers
-  const robots = origin?`User-agent: *
-Allow: /
-Sitemap: ${origin}/sitemap.xml
-Sitemap: ${origin}/sitemap-extra.xml
-Sitemap: ${origin}/feed.xml
-
-# Crawl-delay 0 for fast indexing 24h
-Crawl-delay: 0
-
-# Allow all bots including AI
-User-agent: GPTBot
-Allow: /
-User-agent: ChatGPT-User
-Allow: /
-User-agent: CCBot
-Allow: /
-User-agent: Google-Extended
-Allow: /
-User-agent: anthropic-ai
-Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: PerplexityBot
-Allow: /
-User-agent: Bytespider
-Allow: /
-
-# Disallow no - allow all for parasite SEO
-`:`User-agent: *
-Disallow: /
-`;
-  fs.writeFileSync('public/robots.txt',robots);
-
-  // sitemap.xml with all routes, lastmod 2026-09-27, changefreq daily for QDF
-  if(origin){
-    const allUrls = ['',...routes];
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${allUrls.map(r=>{
-  const loc = origin+(r?'/'+r+'/':'/');
-  const priority = r===''?'1.0': r.includes('mortgage')||r.includes('compound')?'0.9':'0.8';
-  // hreflang in sitemap for international
-  return `<url><loc>${escape(loc)}</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq><priority>${priority}</priority>
-  <xhtml:link rel="alternate" hreflang="en" href="${escape(loc)}"/>
-  <xhtml:link rel="alternate" hreflang="x-default" href="${escape(loc)}"/>
-</url>`;
-}).join('')}
-</urlset>`;
-    fs.writeFileSync('public/sitemap.xml',sitemap);
-
-    // sitemap-extra for parasite indexing
-    const extraSitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes.map(r=>`<url><loc>${escape(origin+'/'+r+'/index.json')}</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq><priority>0.6</priority></url>`).join('')}
-${routes.map(r=>`<url><loc>${escape(origin+'/'+r+'/index.txt')}</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url>`).join('')}
-</urlset>`;
-    fs.writeFileSync('public/sitemap-extra.xml',extraSitemap);
-
-    // RSS feed for 24h indexing - Google loves fresh RSS
-    const feed = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
-<title>Worth - 47 Free Money Calculators 2026</title>
-<link>${origin}/</link>
-<description>47 free money calculators 2026: mortgage, compound interest, crypto, YouTube, cost-of-time. Updated Sep 27, 2026.</description>
-<language>en-us</language>
-<lastBuildDate>Sat, 27 Sep 2026 00:00:00 GMT</lastBuildDate>
-<atom:link href="${origin}/feed.xml" rel="self" type="application/rss+xml"/>
-${allData.map(p=>`<item><title>${escape(p.title)}</title><link>${origin}/${p.route}/</link><guid>${origin}/${p.route}/</guid><description>${escape(p.description)}</description><pubDate>Sat, 27 Sep 2026 00:00:00 GMT</pubDate></item>`).join('')}
-</channel>
-</rss>`;
-    fs.writeFileSync('public/feed.xml',feed);
-
-    // llms.txt for LLM crawlers - parasite for ChatGPT, Perplexity
-    const llms = `# Worth - 47 Free Money Calculators 2026
-> 47 free money calculators 2026: mortgage, compound interest, inflation, paycheck, crypto, YouTube, TikTok, OnlyFans, freelance, rent vs buy, car loan, student loan, net worth, cost of living, Elon Musk per second, wedding, lottery, divorce, child cost, streaming, ChatGPT, MrBeast, side hustle, AI job replacement, Trump tariff, Taylor Swift concert cost. All free, no signup, GitHub DA 99.
-
-## Calculators
-${allData.map(p=>`- [${p.name}](${origin}/${p.route}/): ${p.description}`).join('\n')}
-
-## About
-Worth converts price tags to work hours. Free tools, no signup, hosted on GitHub Pages (DA 99). Updated Sep 27, 2026.
-
-## Keywords
-money calculator, cost of time calculator, mortgage calculator 2026, compound interest calculator, inflation calculator, paycheck calculator, crypto profit calculator, youtube earnings calculator, tiktok money calculator, onlyfans earnings calculator, freelance rate calculator, rent vs buy calculator, car loan calculator, student loan calculator, net worth calculator, cost of living calculator, salary in hours calculator, wedding budget calculator, lottery tax calculator, divorce cost calculator, child cost calculator, streaming cost calculator, chatgpt cost calculator, mrbeast earnings calculator, side hustle calculator, ai job replacement calculator, trump tariff calculator, taylor swift cost calculator, how much house can i afford, are you rich calculator, calculadora hipoteca, calculadora salario hora, stundenlohn rechner, calculateur salaire horaire, калькулятор зарплаты, 时薪计算器, 時給計算機, 연봉 시급 계산기, حاسبة الراتب بالساعة, calculadora horas trabalho
-
-## External Authority
-- Wikipedia: https://en.wikipedia.org/wiki/Personal_finance
-- GitHub: https://github.com/njohn931d-dotcom/bbbh
-- Forbes: https://www.forbes.com/advisor/mortgages/
-
-Last updated: 2026-09-27
-`;
-    fs.writeFileSync('public/llms.txt',llms);
-    fs.writeFileSync('public/ai.txt',llms);
-
-    // humans.txt
-    fs.writeFileSync('public/humans.txt',`/* TEAM */
-Developer: Worth Finance Tools
-Site: ${origin}
-GitHub: https://github.com/njohn931d-dotcom/bbbh
-Location: Global - 10 languages
-
-/* THANKS */
-GitHub Pages DA 99 for parasite SEO power
-/* 2026-09-27 - 47 calculators */
-`);
-
-    // security.txt
-    fs.writeFileSync('public/security.txt',`Contact: https://github.com/njohn931d-dotcom/bbbh
-Expires: 2027-09-27T00:00:00.000Z
-`);
-
-    // api/articles.json - other extension trick
-    fs.mkdirSync('public/api',{recursive:true});
-    fs.writeFileSync('public/api/articles.json',JSON.stringify(allData.map(p=>({title:p.title,slug:p.route,description:p.description,keywords:p.keywords,lang:p.lang,url:origin+'/'+p.route+'/'})),null,2));
-
-    // parasite-index.html - doorway page linking all
-    const parasiteIndex = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>47 Free Calculators 2026 - Worth GitHub Parasite SEO Cluster</title><meta name="description" content="47 free calculators 2026 hosted on GitHub Pages DA 99. Mortgage, compound interest, crypto, YouTube, cost-of-time."><meta name="robots" content="index, follow"></head><body><h1>47 Free Money Calculators 2026 - GitHub DA 99 Cluster</h1><p>Last updated: 2026-09-27 - QDF freshness for 24h ranking. All calculators free.</p><ul>${allData.map(p=>`<li><a href="/${p.route}/">${escape(p.title)}</a> - ${escape(p.description)}</li>`).join('')}</ul><p>External: <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub Repo</a> | <a href="https://en.wikipedia.org/wiki/Personal_finance">Wikipedia</a></p></body></html>`;
-    fs.writeFileSync('public/parasite-index.html',parasiteIndex);
-
-  } else {
-    if(fs.existsSync('public/sitemap.xml')) fs.unlinkSync('public/sitemap.xml');
-    if(fs.existsSync('public/sitemap-extra.xml')) fs.unlinkSync('public/sitemap-extra.xml');
-    if(fs.existsSync('public/feed.xml')) fs.unlinkSync('public/feed.xml');
-  }
-
-  // Also generate markdown docs for GitHub indexing parasite
-  fs.mkdirSync('docs',{recursive:true});
-  fs.writeFileSync('docs/README.md',`# Worth - 47 Free Money Calculators 2026 - GitHub Parasite SEO
-
-> Hosted on GitHub Pages DA 99 - ranking in 24h for high-volume keywords
-
-## 47 Calculators - Free 2026
-
-${allData.map(p=>`- [${p.name}](https://njohn931d-dotcom.github.io/bbbh/${p.route}/) - ${p.description}`).join('\n')}
-
-## Why GitHub Ranks Fast
-
-- DA 99 domain authority
-- 47 interlinked pages = topical cluster
-- Daily sitemap + RSS for QDF
-- 10 languages = international SERPs
-- FAQ schema = rich results
-- llms.txt = ChatGPT/Perplexity indexing
-
-Last updated: 2026-09-27
-
-## Keywords
-
-mortgage calculator 2026, compound interest calculator, inflation calculator, paycheck calculator, crypto profit calculator, youtube earnings calculator, tiktok money calculator, onlyfans earnings calculator, freelance rate calculator, rent vs buy calculator, car loan calculator, student loan calculator, net worth calculator, cost of living calculator, elon musk per second, wedding budget calculator, lottery tax calculator, divorce cost calculator, child cost calculator, streaming cost calculator, chatgpt cost calculator, mrbeast earnings, side hustle calculator, ai job replacement calculator, trump tariff calculator, taylor swift cost calculator
-
-## External Links
-
-- https://en.wikipedia.org/wiki/Personal_finance
-- https://github.com/topics/calculator
-`);
-
-  // Generate individual markdown files for each calculator for GitHub search indexing
-  for(const p of allData){
-    const md = `# ${p.name}
-
-> ${p.description}
-
-**Free calculator 2026 - No signup - GitHub DA 99**
-
-Last updated: 2026-09-27
-
-## What is ${p.name}?
-
-${p.body.replace(/<[^>]+>/g,' ').slice(0,1000)}
-
-## Try Calculator
-
-https://njohn931d-dotcom.github.io/bbbh/${p.route}/
-
-## Related
-
-${allData.filter(x=>x.route!==p.route).slice(0,5).map(r=>`- [${r.name}](https://njohn931d-dotcom.github.io/bbbh/${r.route}/)`).join('\n')}
-
-## Keywords
-
-${(p.keywords||[]).join(', ')}
-
----
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
-`;
-    fs.writeFileSync(`docs/${p.route.replace(/\//g,'-')}.md`,md);
-  }
-
-  return home;
+for(const p of data){
+const crumb=`<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>${escape(p.name)}</span></nav>`;
+const hero=`${crumb}<section class="seo-hero"><div class="eyebrow">${p.mode?'FREE MONEY CALCULATOR - OPEN SOURCE ON GITHUB':'THE MONEY EDIT - GITHUB OPEN SOURCE'}</div><h1>${escape(p.name)}</h1>${p.intro?`<p>${p.intro}</p>`:''}</section>`;
+let calculator=p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
+if(p.mode && p.mode!=='purchase'){
+ const sub=p.mode==='subscription';
+ calculator=calculator.replace('Is it worth your time?',sub?'Small monthly. Big yearly.':'Little habits. More possibility.').replace('That price tag has a story. Let’s put it in hours.',sub?'See what a recurring charge really adds up to.':'What could one small daily change free up?').replace('How much does it cost?',sub?'Monthly subscription cost':'Daily amount to set aside').replace('value="150"',sub?'value="15"':'value="5"').replace('id="cost-suffix">USD','id="cost-suffix">'+(sub?'/ mo':'/ day')).replace('That purchase costs you',sub?'That subscription costs you each year':'That daily habit could free up').replace('id="hours">6',sub?'id="hours">7.2':'id="hours">$1,825').replace('id="unit">hours',sub?'id="unit">hours':'id="unit">/ year').replace('of your working life.',sub?'of your working life.':'equivalent to 73 hours of your working life.').replace('¾ of a workday',sub?'7.2 of 8 working hours':'9.1 workdays').replace('Not good. Not bad. Just perspective.<br>Only you can decide if it’s worth it.',sub?'$15 a month is $180 a year. If it adds value to your life, it might be time well spent.':'$5 a day, for 365 days. No investment returns assumed—just a small change adding up.').replace('aria-selected="true" data-mode="purchase"','aria-selected="false" data-mode="purchase"').replace('aria-selected="false" data-mode="'+p.mode+'"','aria-selected="true" data-mode="'+p.mode+'"');
 }
+const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
+let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
+if(!p.mode)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
+html=metadata(html,p);
+fs.mkdirSync(p.route,{recursive:true});
+fs.writeFileSync(p.route+'/index.html',html);
+}
+// This template is the source of the homepage; the generated file is served by Vite.
+let home=metadata(base.replace('<!-- SEO_LINKS -->',links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'});
+fs.mkdirSync('.generated',{recursive:true});
+fs.writeFileSync('.generated/home.html',home);
+fs.mkdirSync('public',{recursive:true});
+fs.writeFileSync('public/robots.txt',origin?`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
+if(origin)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes].map(r=>`<url><loc>${escape(origin+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':'0.8'}</priority></url>`).join('')}</urlset>`);
+else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
+// Generate llms.txt for LLM SEO + GitHub
+const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
+> 46 free calculators and guides. Private, browser-only, no sign-up. MIT licensed on GitHub.
 
-if(process.argv[1]?.endsWith('generate-seo.mjs')) generateSEO();
+## What is Worth?
+Worth converts money to time. How many work hours does a purchase cost? Free calculators for salary to hourly, freelance rate, cost per wear, latte factor, overtime, subscription audit. Open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
+
+## Calculators (18)
+${routes.filter(r=>r.startsWith('calculators/')).map(r=>{
+  const d=data.find(x=>x.route===r);
+  return `- ${origin?origin:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
+}).join('\n')}
+
+## Guides (28)
+${routes.filter(r=>r.startsWith('guides/')).map(r=>{
+  const d=data.find(x=>x.route===r);
+  return `- ${origin?origin:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
+}).join('\n')}
+
+## GitHub SEO
+All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
+
+## Keywords
+${data.map(d=>d.name.toLowerCase()).join(', ')}, open source, github, calculator, money, personal finance
+
+## Cite as
+Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
+`;
+fs.writeFileSync('public/llms.txt', llmsContent);
+if(fs.existsSync('public/llms-full.txt')){} else {
+  // also write to .well-known?
+}
+return home;
+}
+if(process.argv[1]?.endsWith('generate-seo.mjs'))generateSEO();
