@@ -18,62 +18,66 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-      
+
       - name: Install deps
         run: npm ci
-      
+
+      # Serial by design: the test files share generated output, so the npm
+      # script pins --test-concurrency=1. Do not parallelise these files.
       - name: Test (133 URLs)
         run: |
-          set +e
-          npm test > /tmp/test.log 2>&1
-          status=$?
-          cat /tmp/test.log
-          if [ "$status" -ne 0 ]; then
-            echo "--- full test log ---"
-            cat /tmp/test.log
-            tail -c 3500 /tmp/test.log | sed 's/%/%25/g' | tr '\n' '@' | sed 's/@/%0A/g' > /tmp/msg.txt
-            echo "::error::$(cat /tmp/msg.txt)"
-          fi
-          exit "$status"
+          set -o pipefail
+          npm test 2>&1 | tee /tmp/test.log
 
       - name: Upload test log on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-log-${{ github.run_id }}
           path: /tmp/test.log
           retention-days: 7
-      
+
       - name: Generate markdown mirrors (40 articles)
         run: node scripts/generate-articles-md.mjs
-      
+
       - name: Build production (requires SITE_URL)
         env:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
-      
+
       - name: Verify dist (133 pages)
         run: |
-          ls -R dist | head -n 40
-          echo "Sitemap URLs: $(grep -o '<loc>' dist/sitemap.xml | wc -l)"
-          echo "Guide pages: $(find dist/articles -name index.html | wc -l)"
-          echo "llms.txt exists: $(ls -lh dist/llms.txt)"
-          echo "feed.xml items: $(grep -o '<item>' dist/feed.xml | wc -l)"
+          urls=$(grep -o '<loc>' dist/sitemap.xml | wc -l)
+          pages=$(find dist -name index.html | wc -l)
+          guides=$(find dist/articles -name index.html | wc -l)
+          feeds=$(grep -o '<item>' dist/feed.xml | wc -l)
+          noindex=$(grep -rl noindex dist --include=index.html | wc -l)
+          echo "Sitemap URLs: $urls"
+          echo "Pages built:  $pages"
+          echo "Guide pages:  $guides"
+          echo "feed.xml items: $feeds"
+          ls -lh dist/llms.txt
           test -f dist/articles/index.html
           test -f dist/articles/work-hours/price-to-hours-formula/index.html
           test -f dist/sitemap.xml
-      
+          test "$urls" -eq 133
+          test "$pages" -eq 133
+          test "$guides" -eq 46
+          test "$feeds" -eq 86
+          test "$noindex" -eq 0
+          echo "dist verified: 133 URLs, 46 guide pages, 0 noindex"
+
       - name: Setup Pages
-        uses: actions/configure-pages@v5
-      
+        uses: actions/configure-pages@v6
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -86,4 +90,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
