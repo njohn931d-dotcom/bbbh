@@ -79,6 +79,7 @@ jobs:
           test -f dist/404.html && echo "✓ 404.html SPA fallback ($(stat -c%s dist/404.html) bytes)" || echo "✗ missing 404.html"
           test -f dist/.nojekyll && echo "✓ .nojekyll" || echo "✗ missing .nojekyll"
           test -f dist/manifest.json && echo "✓ manifest.json" || echo "✗ missing manifest"
+          echo "Manifest start_url: $(grep -o '"start_url": "[^"]*"' dist/manifest.json || true)"
           echo ""
           echo "=== CRITICAL FILES ==="
           test -f dist/index.html && echo "✓ index.html"
@@ -107,6 +108,8 @@ jobs:
           test "$noindex" -eq 0 || (echo "FAIL: noindex $noindex != 0" && exit 1)
           test -f dist/404.html || (echo "FAIL: missing 404.html" && exit 1)
           test -f dist/manifest.json || (echo "FAIL: missing manifest.json" && exit 1)
+          grep -q '"start_url": "/bbbh/"' dist/manifest.json || (echo "FAIL: manifest start_url is not project-scoped" && exit 1)
+          grep -q '"url": "/bbbh/calculators/cost-of-time/"' dist/manifest.json || (echo "FAIL: manifest shortcuts are not project-scoped" && exit 1)
           test -f dist/sitemap.xml
           test -f dist/robots.txt
           test -f dist/feed.xml
