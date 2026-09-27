@@ -55,12 +55,13 @@ export const routes = [
 
 export function generateSEO() {
 const raw = process.env.SITE_URL;
-let origin='';
-if(raw){const u=new URL(raw);if(!['https:','http:'].includes(u.protocol)||u.pathname!=='/'||u.search||u.hash)throw Error('SITE_URL must be a site origin, e.g. https://your-domain.com');origin=u.origin;}
-if(process.env.REQUIRE_SITE_URL && !origin)throw Error('Set SITE_URL to your production origin before a production build.');
+let origin='',basePath='',siteUrl='';
+if(raw){const u=new URL(raw);if(!['https:','http:'].includes(u.protocol)||u.search||u.hash||u.username||u.password)throw Error('SITE_URL must be a public site URL without query or fragment, e.g. https://your-domain.com or https://username.github.io/repository');origin=u.origin;basePath=u.pathname.replace(/\/$/,'');siteUrl=origin+basePath;}
+if(process.env.REQUIRE_SITE_URL && !siteUrl)throw Error('Set SITE_URL to your production site URL before a production build.');
 const base=fs.readFileSync('index.html','utf8');
 const articles=vm.runInNewContext('('+fs.readFileSync('app.js','utf8').match(/const articles=(\{.*?\});\ndocument/s)[1]+')');
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
+const prefixInternalLinks=html=>basePath?html.replace(/(<a\b[^>]*\bhref=")\/(?!\/)/g,(_,prefix)=>prefix+basePath+'/'):html;
 
 // Helper to make GitHub CTA block
 const githubCTA = (calcName) => `
@@ -866,26 +867,26 @@ ${githubCTA('save $1000 guide')}
 const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}</div></section>`;
 
 function metadata(html,p){
-const url=origin+(p.route?'/'+p.route+'/':'/');
+const url=siteUrl+(p.route?'/'+p.route+'/':'/');
 html=html.replace(/<title>.*?<\/title>/,`<title>${escape(p.title)}</title>`)
 .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
 .replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(p.title)}">`)
 .replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
-const baseUrl = origin ? origin + '/' : '';
-const webSiteObj = origin ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
+const baseUrl = siteUrl ? siteUrl + '/' : '';
+const webSiteObj = siteUrl ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
 const pageObj = {'@type':p.mode?'WebApplication':'WebPage',name:p.name,description:p.description};
-if(origin) pageObj.url = origin + (p.route?'/'+p.route+'/':'/');
+if(siteUrl) pageObj.url = url;
 if(p.mode){pageObj.applicationCategory='FinanceApplication';pageObj.operatingSystem='Any';pageObj.offers={'@type':'Offer',price:'0',priceCurrency:'USD'};pageObj.isAccessibleForFree=true;pageObj.codeRepository='https://github.com/njohn931d-dotcom/bbbh';}
 let graph = [webSiteObj, pageObj];
 if(p.route){
   const bc = {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home'},{'@type':'ListItem',position:2,name:p.name}]};
-  if(origin){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=origin+'/'+p.route+'/';}
+  if(siteUrl){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=url;}
   graph.push(bc);
 }
 graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
-return html.replace('</head>',`${origin?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth"><meta property="og:image" content="${origin?origin:''}/og.png"></head>`);
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth"></head>`);
 }
 
 for(const p of data){
@@ -899,17 +900,17 @@ if(p.mode && p.mode!=='purchase'){
 const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
 let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
 if(!p.mode)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
-html=metadata(html,p);
+html=prefixInternalLinks(metadata(html,p));
 fs.mkdirSync(p.route,{recursive:true});
 fs.writeFileSync(p.route+'/index.html',html);
 }
 // This template is the source of the homepage; the generated file is served by Vite.
-let home=metadata(base.replace('<!-- SEO_LINKS -->',links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'});
+let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'}));
 fs.mkdirSync('.generated',{recursive:true});
 fs.writeFileSync('.generated/home.html',home);
 fs.mkdirSync('public',{recursive:true});
-fs.writeFileSync('public/robots.txt',origin?`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
-if(origin)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes].map(r=>`<url><loc>${escape(origin+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':'0.8'}</priority></url>`).join('')}</urlset>`);
+fs.writeFileSync('public/robots.txt',siteUrl?`User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
+if(siteUrl)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':'0.8'}</priority></url>`).join('')}</urlset>`);
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub
 const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
@@ -921,13 +922,13 @@ Worth converts money to time. How many work hours does a purchase cost? Free cal
 ## Calculators (18)
 ${routes.filter(r=>r.startsWith('calculators/')).map(r=>{
   const d=data.find(x=>x.route===r);
-  return `- ${origin?origin:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
+  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
 }).join('\n')}
 
 ## Guides (28)
 ${routes.filter(r=>r.startsWith('guides/')).map(r=>{
   const d=data.find(x=>x.route===r);
-  return `- ${origin?origin:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
+  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
 }).join('\n')}
 
 ## GitHub SEO

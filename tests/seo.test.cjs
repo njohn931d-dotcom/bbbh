@@ -19,4 +19,20 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  assert.equal(titles.size,47);assert.equal(descriptions.size,47);assert.match(fs.readFileSync('public/robots.txt','utf8'),/Sitemap: https:\/\/worth.example\/sitemap.xml/);
  }finally{execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:''}});}
 });
+test('GitHub Pages project path is applied to links, assets, canonicals, and discovery files',()=>{
+ try {
+ const site='https://njohn931d-dotcom.github.io/bbbh';
+ execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:site}});
+ const home=new JSDOM(fs.readFileSync('.generated/home.html','utf8')).window.document;
+ assert.equal(home.querySelector('link[rel=canonical]').href,site+'/');
+ assert.ok(home.querySelector('a[href="/bbbh/calculators/cost-of-time/"]'));
+ assert.ok(home.querySelector('a[href="/bbbh/guides/how-much-is-time-worth/"]'));
+ const guide=new JSDOM(fs.readFileSync('guides/how-much-is-time-worth/index.html','utf8')).window.document;
+ assert.equal(guide.querySelector('link[rel=canonical]').href,site+'/guides/how-much-is-time-worth/');
+ assert.ok([...guide.querySelectorAll('a[href^="/"]')].every(a=>a.getAttribute('href').startsWith('/bbbh/')));
+ assert.ok(fs.readFileSync('public/sitemap.xml','utf8').includes(site+'/guides/'));
+ assert.ok(fs.readFileSync('public/robots.txt','utf8').includes(site+'/sitemap.xml'));
+ assert.ok(fs.readFileSync('public/llms.txt','utf8').includes(site+'/calculators/'));
+ } finally {execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:''}});}
+});
 test('unconfigured previews are noindex and cannot pass production guard',()=>{const html=fs.readFileSync('.generated/home.html','utf8');assert.match(html,/noindex, nofollow/);assert.equal(fs.existsSync('public/sitemap.xml'),false);assert.throws(()=>execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:'',REQUIRE_SITE_URL:'1'},stdio:'pipe'}));});
