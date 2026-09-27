@@ -37,21 +37,21 @@
       "short_name": "Cost of Time",
       "description": "Convert purchase price to work hours",
       "url": "/calculators/cost-of-time/",
-      "icons": [{ "src": "/manifest.json", "sizes": "192x192" }]
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
     },
     {
       "name": "Subscription Calculator",
       "short_name": "Subscriptions",
       "description": "Monthly to yearly subscription cost",
       "url": "/calculators/subscription-cost/",
-      "icons": [{ "src": "/manifest.json", "sizes": "192x192" }]
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
     },
     {
       "name": "Daily Savings Calculator",
       "short_name": "Savings",
       "description": "Small daily savings yearly total",
       "url": "/calculators/daily-savings/",
-      "icons": [{ "src": "/manifest.json", "sizes": "192x192" }]
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
     }
   ],
   "related_applications": [],

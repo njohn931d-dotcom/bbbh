@@ -110,6 +110,9 @@ jobs:
           test -f dist/manifest.json || (echo "FAIL: missing manifest.json" && exit 1)
           grep -q '"start_url": "/bbbh/"' dist/manifest.json || (echo "FAIL: manifest start_url is not project-scoped" && exit 1)
           grep -q '"url": "/bbbh/calculators/cost-of-time/"' dist/manifest.json || (echo "FAIL: manifest shortcuts are not project-scoped" && exit 1)
+          # Every icon src must be an image (data URI or asset), never the manifest itself
+          node -e "const m=require('./dist/manifest.json'); const srcs=[...(m.icons||[]),...((m.shortcuts||[]).flatMap(s=>s.icons||[]))].map(i=>i.src); const bad=srcs.filter(s=>!/^data:image\/|^\/bbbh\/.*\.(png|svg|jpg|webp)$/i.test(s)); if(bad.length){console.error('FAIL: non-image manifest icon src: '+bad.join(', '));process.exit(1);} console.log('\u2713 manifest icons valid ('+srcs.length+' srcs, '+((m.shortcuts||[]).length)+' shortcuts)');"
+          node -e "JSON.parse(require('fs').readFileSync('dist/manifest.json','utf8')); console.log('\u2713 manifest.json is valid JSON')"
           test -f dist/sitemap.xml
           test -f dist/robots.txt
           test -f dist/feed.xml
