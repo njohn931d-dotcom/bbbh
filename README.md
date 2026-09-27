@@ -73,6 +73,7 @@ The build fails loudly on a missing field, a duplicate slug, an unknown cluster 
 - `scripts/generate-articles-md.mjs` creates Markdown mirrors under `articles/` for GitHub browsing.
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, and `GITHUB_SEO.md` document the article plan. Treat projected keyword volumes and ranking outcomes in planning docs as unverified hypotheses, not measured traffic or guarantees.
 - Root-level `llms.txt`, `ai.txt`, `feed.xml` and `sitemap.xml` are GitHub-browsable copies of the files the production build generates into `public/`; refresh them from a production build when their content changes.
+- **Google Search Console verification** uses the `google-site-verification` meta tag in `index.html`, the single template every generated page is built from. It therefore ships on all 135 built pages (homepage, calculators, guides, articles, helper pages). Verify the URL-prefix property `https://njohn931d-dotcom.github.io/bbbh/` in Search Console; a test asserts the tag survives generation so a template refactor cannot silently break verification. Only one Google account should hold it — a second tag would need a second `<meta>` line.
 
 ## dev.to backlinks
 

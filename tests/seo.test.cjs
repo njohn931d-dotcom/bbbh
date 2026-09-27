@@ -91,3 +91,37 @@ test('unconfigured previews are noindex and cannot pass production guard',()=>{
   assert.equal(fs.existsSync('public/sitemap.xml'),false);
   assert.throws(()=>execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:'',REQUIRE_SITE_URL:'1'},stdio:'pipe'}));
 });
+test('google site verification tag survives into the homepage and every generated page',()=>{
+  const TOKEN='sEQ7B0Jr4_LTKoRdaLwvcSx25iX5ZvZ-LMwB1EZODnY';
+  const TAG=new RegExp('<meta name="google-site-verification" content="'+TOKEN+'">','g');
+  const count=(html)=>(html.match(TAG)||[]).length;
+
+  // 1. The source template, which the generators and Vite both read.
+  const template=fs.readFileSync('index.html','utf8');
+  assert.equal(count(template),1,'index.html must contain the verification tag exactly once');
+
+  // 2. The file Vite serves as the homepage.
+  execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
+  const home=fs.readFileSync('.generated/home.html','utf8');
+  assert.equal(count(home),1,'the served homepage lost the verification tag');
+
+  // 2b. The static helper pages copied straight from public/.
+  for(const staticFile of ['public/40-articles-index.html','public/parasite-index.html','scripts/generate-tracked-parasite.mjs']){
+    assert.ok(fs.existsSync(staticFile),'missing '+staticFile);
+    assert.equal(count(fs.readFileSync(staticFile,'utf8')),1,staticFile+' must carry the verification tag exactly once');
+  }
+
+  // 3. Every page the sitemap advertises, so the tag cannot be dropped from a
+  //    template in a refactor while verification still appears to work.
+  const sitemap=fs.readFileSync('public/sitemap.xml','utf8');
+  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
+  assert.ok(urls.length>=80,'expected the generated sitemap to list every page');
+  for(const url of urls){
+    const rawPathname=new URL(url).pathname;
+    let path=rawPathname;
+    try{path=decodeURIComponent(rawPathname);}catch{};
+    const filePath=path==='/'?'.generated/home.html':'.'+path+'index.html';
+    const html=fs.existsSync(filePath)?fs.readFileSync(filePath,'utf8'):fs.readFileSync('.'+rawPathname+'index.html','utf8');
+    assert.equal(count(html),1,'missing verification tag on '+url);
+  }
+});
