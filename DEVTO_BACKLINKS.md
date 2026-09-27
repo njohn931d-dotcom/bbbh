@@ -4,6 +4,12 @@ Publishes curated cross-posts to dev.to that link back to
 `https://njohn931d-dotcom.github.io/bbbh/`, and audits the dev.to links you
 already have.
 
+This is the execution layer for the **Dev.to** row of
+[content/SYNDICATION.md](content/SYNDICATION.md): own-domain-first, canonical
+where supported, and a disclosure that the tools are the author's own. Read that
+file for the rules this pipeline follows (adapted posts, one contextual link plus
+one sibling link, no bulk cross-posting).
+
 Status: **built and dry-run verified; nothing has been published to dev.to yet.**
 The first live run needs one manual step from you (the API key secret, below),
 because a repository secret cannot be created by an automation token — GitHub
@@ -77,13 +83,13 @@ DEVTO_API_KEY=... node scripts/devto-publish.mjs --audit   # backlink inventory
 
 ## The 5 posts
 
-All 3,242 words were written for dev.to's audience — build write-ups, cost math,
+All 3,247 words were written for dev.to's audience — build write-ups, cost math,
 and implementation notes — not republished SEO filler. Two are canonicalized to
 the matching page on the site; three are originals that link back in the body.
 
 | # | Post | Tags | Canonical | Site links |
 | --- | --- | --- | --- | --- |
-| 1 | No framework, no database, 87 static pages | webdev, javascript, node, showdev | — (original) | 2 |
+| 1 | No framework, no database, 133 static pages | webdev, javascript, node, showdev | — (original) | 2 |
 | 2 | Your salary is not your hourly rate | freelance, career, productivity, money | freelance-rate-calculator-2026 | 3 |
 | 3 | Pricing your AI subscriptions in billable hours | ai, productivity, devtools, money | chatgpt-cost-calculator-2026 | 3 |
 | 4 | Shareable calculator state with no backend | javascript, webdev, frontend, web | — (original) | 2 |
@@ -132,6 +138,12 @@ Sensible pace:
 
 ## Re-running, editing, adding
 
+- **The canonical pages are already live.** Posts 2 and 3 point canonical at
+  `calculators/freelance-rate-calculator-2026/` and
+  `calculators/chatgpt-cost-calculator-2026/`, both deployed and in the live
+  sitemap. Per SYNDICATION.md, never syndicate a page that is not shipped and
+  crawlable first — `npm test` enforces that the canonical URL is a route the
+  build actually produces.
 - **Re-running is safe.** Posts already on dev.to are skipped, matched by
   canonical URL *and* by normalized title, so an edited headline does not create
   a second copy. `--force` overrides this and will create a duplicate — don't.
@@ -156,6 +168,16 @@ Sensible pace:
 | `429` | rate limited | the script backs off and retries automatically, up to 4 times |
 | Posts published without covers | site deploy not finished, so the image URL 404s | let the Pages deploy finish, then re-run — text is not re-created |
 | `Missing secret` in Actions | `DEVTO_API_KEY` not added to the repo | Step 1 above |
+
+## Where this runs, and one GitHub quirk
+
+Publishing needs a host with real internet access and your key. Two options:
+
+- **GitHub Actions** (`.github/workflows/devto-publish.yml`): a `workflow_dispatch`
+  workflow only becomes dispatchable once its file exists on the **default
+  branch**, so this button appears in the Actions UI after this branch is merged
+  to `main`. Until then, use the local command.
+- **Local**: `DEVTO_API_KEY=... npm run devto:publish` from a clone, any machine.
 
 ## Honest framing
 

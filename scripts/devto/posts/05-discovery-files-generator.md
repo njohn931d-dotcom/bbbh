@@ -29,7 +29,7 @@ The important line is the one that throws. If the origin is missing, a build sho
 
 ## mistake #1: the preview origin
 
-I deployed a preview build once and every one of the 87 pages shipped with a canonical URL pointing at the preview host. In Google's words, all 87 pages were claiming to be duplicates of a site that only I could reach.
+I deployed a preview build once and every one of the 133 pages shipped with a canonical URL pointing at the preview host. In Google's words, all 133 pages were claiming to be duplicates of a site that only I could reach.
 
 Two fixes, both cheap:
 
@@ -66,7 +66,7 @@ The failure mode of all three files is staleness: a page is removed, the sitemap
 - every generated page has a unique title and description
 - every canonical URL matches the deployment origin
 
-Measured output from the last production build: 87 URLs in the sitemap, 87 HTML files on disk, 32 KB of JS and CSS total.
+Measured output from the last production build: 133 URLs in the sitemap, 133 HTML files on disk, 36 KB of JS and CSS total.
 
 ## See it working
 

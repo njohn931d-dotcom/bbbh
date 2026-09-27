@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { articleRoutes, articles as guideArticles } from './articles.mjs';
 
 export const extraRoutes = [
   'calculators/mortgage-calculator-2026',
@@ -89,7 +90,7 @@ const mainRoutes = [
   'guides/how-long-save-1000'
 ];
 
-const allRoutesForSitemap = [...baseRoutes, ...mainRoutes, ...extraRoutes];
+const allRoutesForSitemap = [...baseRoutes, ...mainRoutes, ...extraRoutes, ...articleRoutes];
 
 function buildSimpleBody(name, desc) {
   const today = '2026-09-27';
@@ -113,26 +114,26 @@ export function generateParasiteSEO() {
   const githubCTA = (calcName) => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source on GitHub</strong> — This ' + calcName + ' calculator is free, private, and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source</a></p></div>';
 
   const allRoutes = [...baseRoutes, ...mainRoutes, ...extraRoutes];
-  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '</div></section>';
+  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a></div></section>';
 
   function metadata(html, p) {
     const url = siteUrl + (p.route ? '/' + p.route + '/' : '/');
     const lang = p.lang || 'en';
     html = html.replace(/<html lang="[^"]*">/, '<html lang="' + lang + '">');
     html = html.replace(/<title>.*?<\/title>/, '<title>' + escape(p.title) + '</title>').replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escape(p.description) + '">').replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="' + escape(p.title) + '">').replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">');
-    const hreflangs = [
-      '<link rel="alternate" hreflang="en" href="' + (siteUrl ? siteUrl : '') + '/' + p.route + '/">',
-      '<link rel="alternate" hreflang="es" href="' + (siteUrl ? siteUrl : '') + '/guides/calculadora-hipoteca-2026-espana-mexico/">',
-      '<link rel="alternate" hreflang="de" href="' + (siteUrl ? siteUrl : '') + '/guides/stundenlohn-rechner-deutschland-2026/">',
-      '<link rel="alternate" hreflang="fr" href="' + (siteUrl ? siteUrl : '') + '/guides/calculateur-salaire-horaire-france-2026/">',
-      '<link rel="alternate" hreflang="ru" href="' + (siteUrl ? siteUrl : '') + '/guides/калькулятор-зарплаты-час-россия-2026/">',
-      '<link rel="alternate" hreflang="zh" href="' + (siteUrl ? siteUrl : '') + '/guides/时薪计算器-中国-2026/">',
-      '<link rel="alternate" hreflang="ja" href="' + (siteUrl ? siteUrl : '') + '/guides/時給計算機-日本-2026/">',
-      '<link rel="alternate" hreflang="ko" href="' + (siteUrl ? siteUrl : '') + '/guides/연봉-시급-계산기-한국-2026/">',
-      '<link rel="alternate" hreflang="ar" href="' + (siteUrl ? siteUrl : '') + '/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">',
-      '<link rel="alternate" hreflang="pt" href="' + (siteUrl ? siteUrl : '') + '/guides/calculadora-horas-trabalho-brasil-2026/">',
-      '<link rel="alternate" hreflang="x-default" href="' + (siteUrl ? siteUrl : '') + '/' + p.route + '/">',
-    ].join('');
+    const hreflangs = siteUrl ? [
+      '<link rel="alternate" hreflang="en" href="' + siteUrl + '/' + p.route + '/">',
+      '<link rel="alternate" hreflang="es" href="' + siteUrl + '/guides/calculadora-hipoteca-2026-espana-mexico/">',
+      '<link rel="alternate" hreflang="de" href="' + siteUrl + '/guides/stundenlohn-rechner-deutschland-2026/">',
+      '<link rel="alternate" hreflang="fr" href="' + siteUrl + '/guides/calculateur-salaire-horaire-france-2026/">',
+      '<link rel="alternate" hreflang="ru" href="' + siteUrl + '/guides/калькулятор-зарплаты-час-россия-2026/">',
+      '<link rel="alternate" hreflang="zh" href="' + siteUrl + '/guides/时薪计算器-中国-2026/">',
+      '<link rel="alternate" hreflang="ja" href="' + siteUrl + '/guides/時給計算機-日本-2026/">',
+      '<link rel="alternate" hreflang="ko" href="' + siteUrl + '/guides/연봉-시급-계산기-한국-2026/">',
+      '<link rel="alternate" hreflang="ar" href="' + siteUrl + '/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">',
+      '<link rel="alternate" hreflang="pt" href="' + siteUrl + '/guides/calculadora-horas-trabalho-brasil-2026/">',
+      '<link rel="alternate" hreflang="x-default" href="' + siteUrl + '/' + p.route + '/">',
+    ].join('') : '';
     const schema = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -186,7 +187,7 @@ export function generateParasiteSEO() {
 
   fs.mkdirSync('public', { recursive: true });
   if (siteUrl) {
-    const allUrls = ['', ...allRoutes];
+    const allUrls = ['', ...allRoutes, ...articleRoutes];
     const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allUrls.map(r => '<url><loc>' + escape(siteUrl + (r ? '/' + r + '/' : '/')) + '</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq></url>').join('') + '\n</urlset>';
     fs.writeFileSync('public/sitemap.xml', sitemap);
   }

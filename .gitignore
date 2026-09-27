@@ -2,10 +2,20 @@ node_modules/
 dist/
 
 .generated/
-calculators/
-guides/
+/calculators/
+/guides/
+# Guide pages generated from content/articles/*.md (the articles/*.md mirrors stay tracked)
+/articles/index.html
+/articles/work-hours/
+/articles/subscriptions/
+/articles/saving-habits/
+/articles/pay-and-rates/
+/articles/spending-decisions/
 public/robots.txt
 public/sitemap.xml
+public/feed.xml
+public/llms.txt
+public/ai.txt
 
 .next/
 .env
