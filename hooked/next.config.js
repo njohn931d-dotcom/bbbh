@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
+const path = require('path')
+
 const nextConfig = {
-  experimental: { typedRoutes: false },
+  typedRoutes: false,
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   async headers() {
     return [
       {
