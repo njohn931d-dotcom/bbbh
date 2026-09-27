@@ -9,7 +9,13 @@
     "test": "node --test tests/*.test.cjs",
     "build:production": "REQUIRE_SITE_URL=1 vite build",
     "dev:hooked": "npm --prefix hooked run dev",
-    "build:hooked": "npm --prefix hooked run build"
+    "build:hooked": "npm --prefix hooked run build",
+    "devto:check": "node scripts/devto-publish.mjs --check",
+    "devto:list": "node scripts/devto-publish.mjs --list",
+    "devto:audit": "node scripts/devto-publish.mjs --audit",
+    "devto:dry": "node scripts/devto-publish.mjs --dry-run",
+    "devto:render": "node scripts/devto-publish.mjs --offline",
+    "devto:publish": "node scripts/devto-publish.mjs --state published"
   },
   "devDependencies": {
     "jsdom": "^30.1.1",

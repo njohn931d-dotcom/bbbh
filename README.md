@@ -42,6 +42,25 @@ Preview builds are noindex and robots-disallowed; do not deploy those as product
 - `scripts/generate-articles-md.mjs` creates Markdown mirrors under `articles/`.
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, and `GITHUB_SEO.md` document the article plan. Treat projected keyword volumes and ranking outcomes in planning docs as unverified hypotheses, not measured traffic or guarantees.
 
+## dev.to backlinks
+
+Five curated cross-posts (3,200 words, written for dev.to's audience) publish to
+dev.to and link back to this site. See [DEVTO_BACKLINKS.md](DEVTO_BACKLINKS.md)
+for the pipeline, the one-time `DEVTO_API_KEY` secret, and the cadence that keeps
+the account safe.
+
+```sh
+node scripts/devto-publish.mjs --offline   # render check, no key needed
+npm run devto:check                        # verify the key (needs DEVTO_API_KEY)
+npm run devto:dry                          # print payloads, create nothing
+npm run devto:publish                      # publish live (idempotent)
+npm run devto:audit                        # which dev.to posts link back here
+```
+
+Re-running never creates a duplicate: posts already on dev.to are matched by
+canonical URL and by normalized title. A dev.to API key has authoring scope only,
+so it cannot enumerate third-party backlinks — `--audit` covers your own articles.
+
 ## Privacy and assumptions
 
 Calculations run in the browser. Shared URL fragments include entered numbers; the UI warns before sharing. Pay conversions assume 2,080 hours per year; subscription estimates multiply monthly cost by 12; daily savings multiply by 365. These are perspective tools, not affordability assessments or financial advice.
