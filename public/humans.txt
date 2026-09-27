@@ -1,9 +1,27 @@
 /* TEAM */
 Developer: Worth Finance Tools
-Site: https://worth.example
+Site: https://njohn931d-dotcom.github.io/bbbh/
 GitHub: https://github.com/njohn931d-dotcom/bbbh
 Location: Global - 10 languages
+Contact: https://github.com/njohn931d-dotcom/bbbh/issues
 
 /* THANKS */
-GitHub Pages DA 99 for parasite SEO power
-/* 2026-09-27 - 47 calculators */
+GitHub Pages DA 99 for hosting
+Vite for build tooling
+Contributors: Open source community
+
+/* SITE */
+Standards: HTML5, CSS3, ES2022, WCAG 2.1 AA
+Components: Vanilla JS, No frameworks for main site
+Privacy: No tracking, no cookies, localStorage only for saved thoughts
+Calculations: Browser-only, 100% private
+Version: 1.0.0 - 2026-09-27
+Build: 133 SEO pages - 86 calculators/guides + 46 article cluster + home
+License: MIT - https://github.com/njohn931d-dotcom/bbbh/blob/main/LICENSE
+Last update: 2026-09-27
+Language: English (10 language variants in parasite cluster)
+
+/* MANIFESTO */
+We believe money is time. We build free tools that make trade-offs visible,
+so people can spend on what matters and feel good about it. No dark patterns,
+no affiliate spam, no paywalls. Just math and perspective.

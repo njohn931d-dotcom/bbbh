@@ -890,7 +890,8 @@ if(p.route){
 graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth"></head>`);
+const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'16\' fill=\'%23204f3c\'/%3E%3Ctext x=\'13\' y=\'46\' font-size=\'44\' fill=\'%23d9edb2\' font-family=\'serif\'%3Ew%3C/text%3E%3C/svg%3E">';
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt"></head>`);
 }
 
 for(const p of data){
@@ -915,8 +916,36 @@ fs.writeFileSync('.generated/home.html',home);
 // Guide pages, cluster hubs and the guides index are generated from content/articles/*.md.
 generateArticles({ template: base, origin, basePath });
 fs.mkdirSync('public',{recursive:true});
-fs.writeFileSync('public/robots.txt',siteUrl?`User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
-if(siteUrl)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
+const robotsContent = siteUrl ? `User-agent: *
+Allow: /
+Sitemap: ${siteUrl}/sitemap.xml
+Sitemap: ${siteUrl}/feed.xml
+
+# LLM Crawlers - Allow for AI discoverability
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Bytespider
+Allow: /
+
+Crawl-delay: 0
+` : 'User-agent: *\nDisallow: /\n';
+fs.writeFileSync('public/robots.txt', robotsContent);
+if(siteUrl) {
+  const today = new Date().toISOString().split('T')[0];
+  fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
+} 
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub
 const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
