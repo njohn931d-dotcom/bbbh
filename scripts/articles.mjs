@@ -262,8 +262,10 @@ const METHODOLOGY = `<section class="methodology"><div class="section-label">HOW
 export function generateArticles({ template, origin, basePath = '' }) {
   linkBase = basePath === '/' ? '' : basePath;
   // Remove only the pages this pipeline owns; articles/*.md mirrors stay in place.
-  fs.rmSync(path.join(OUT_DIR, 'index.html'), { force: true });
-  for (const cluster of clusters) fs.rmSync(path.join(OUT_DIR, cluster.slug), { recursive: true, force: true });
+  // maxRetries covers the case where another generator run is writing at the same time.
+  const rm = { recursive: true, force: true, maxRetries: 5, retryDelay: 50 };
+  fs.rmSync(path.join(OUT_DIR, 'index.html'), { force: true, maxRetries: 5, retryDelay: 50 });
+  for (const cluster of clusters) fs.rmSync(path.join(OUT_DIR, cluster.slug), rm);
 
   // ---- Article pages -------------------------------------------------------
   for (const article of articles) {
