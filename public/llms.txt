@@ -1,0 +1,64 @@
+# Worth - Free Money Calculators (Open Source on GitHub)
+> 46 free calculators and guides. Private, browser-only, no sign-up. MIT licensed on GitHub.
+
+## What is Worth?
+Worth converts money to time. How many work hours does a purchase cost? Free calculators for salary to hourly, freelance rate, cost per wear, latte factor, overtime, subscription audit. Open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
+
+## Calculators (18)
+- https://worth.example/calculators/cost-of-time/ - Cost of Time Calculator - Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.
+- https://worth.example/calculators/subscription-cost/ - Subscription Cost Calculator - Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.
+- https://worth.example/calculators/daily-savings/ - Daily Savings Calculator - See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.
+- https://worth.example/calculators/salary-to-hourly/ - Salary to Hourly Calculator - Convert annual salary to hourly rate instantly. Formula: salary ÷ 2080. Free, open-source calculator with overtime and after-tax adjustments. GitHub source.
+- https://worth.example/calculators/hourly-to-salary/ - Hourly to Salary Calculator - Convert hourly wage to annual salary: hourly × 2080. Free calculator shows monthly, weekly, after-tax. Open source on GitHub.
+- https://worth.example/calculators/freelance-rate/ - Freelance Hourly Rate Calculator - Freelance rate calculator: (salary + expenses + profit) ÷ billable hours. Includes taxes, benefits, PTO. Free, open source on GitHub.
+- https://worth.example/calculators/cost-per-wear/ - Cost Per Wear Calculator - Cost per wear = price ÷ wears. Calculate true clothing value. $200 jacket worn 100 times = $2/wear. Free open source calculator.
+- https://worth.example/calculators/cost-per-use/ - Cost Per Use Calculator - Cost per use = price ÷ uses. Calculate true value of gadgets, tools, memberships. Free calculator, open source on GitHub.
+- https://worth.example/calculators/overtime-pay/ - Overtime Pay Calculator - Calculate overtime pay: time and a half = 1.5× hourly. Double time = 2×. Free calculator with weekly, biweekly. Open source.
+- https://worth.example/calculators/after-tax-income/ - After Tax Income Calculator - Calculate take-home pay after federal, state, FICA. Enter gross salary, get net hourly, monthly. Free, open source GitHub.
+- https://worth.example/calculators/commute-cost/ - Cost of Commuting Calculator - Commute cost calculator: gas + time + wear + lost wages. 1 hour commute = $12,500/year in time alone. Free, GitHub open source.
+- https://worth.example/calculators/latte-factor/ - Latte Factor Calculator - Latte factor calculator: daily $5 habit = $1,825/year. See 10, 30 year total. Free calculator, open source on GitHub.
+- https://worth.example/calculators/gym-cost-per-visit/ - Gym Cost Per Visit Calculator - Gym cost per visit = monthly fee ÷ visits. $50/month ÷ 4 visits = $12.50/visit. Free calculator, open source GitHub.
+- https://worth.example/calculators/streaming-cost/ - Streaming Cost Calculator - Streaming calculator: Netflix + Spotify + Hulu annual cost and hours worked. Average American $1,200/yr. Free GitHub open source.
+- https://worth.example/calculators/car-ownership-cost/ - True Cost of Car Ownership Calculator - True car cost calculator: payment + gas + insurance + maintenance ÷ hours driven. Average $0.70/mile. Free, open source GitHub.
+- https://worth.example/calculators/time-to-save/ - How Long to Save Calculator - How long to save $1000? Enter daily saving, hourly rate. See days, work hours needed. Free calculator GitHub open source.
+- https://worth.example/calculators/paycheck-breakdown/ - Paycheck Breakdown Calculator - Paycheck breakdown: rent = 12 hours, groceries = 4 hours. See where work hours go. Free calculator, open source GitHub.
+- https://worth.example/calculators/buy-vs-rent-hourly/ - Buy vs Rent Hourly Calculator - Buy vs rent calculator: mortgage + maintenance vs rent, cost per hour lived. Free, open source on GitHub.
+
+## Guides (28)
+- https://worth.example/guides/hourly-pay/ - How to calculate what an hour of your life is worth - Your salary is one number. The money available to spend is another. Start with your pay after taxes and deductions, then divide it by the number of hours y
+- https://worth.example/guides/small-purchases/ - The small purchases that aren’t actually small - A $5 coffee is a $5 coffee. Every day for a year, it is $1,825. Neither framing is more correct, but seeing both helps you make a choice instead of followi
+- https://worth.example/guides/24-hour-rule/ - The 24-hour rule: a little space before you spend - For a nonessential purchase, wait a day before buying. Put it on a list, close the tab, and come back tomorrow. The point is not to make spending difficult
+- https://worth.example/guides/how-much-is-time-worth/ - How Much Is Your Time Worth? - How much is your time worth? Take-home pay ÷ real hours including commute. Average American $19/hr real. Free calculator + GitHub source.
+- https://worth.example/guides/stop-impulse-buying/ - How to Stop Impulse Buying - Stop impulse buying: 24-hour rule, cost per hour, remove cards. Average American $5,400/yr impulse. Guide + free GitHub calculator.
+- https://worth.example/guides/subscription-audit/ - How to Audit Subscriptions - Subscription audit checklist: find $500+ yearly savings. Free template, open source on GitHub. Step-by-step guide.
+- https://worth.example/guides/latte-factor-explained/ - Latte Factor Explained - Latte factor explained: $5/day at 7% = $1M in 50 years. Formula, examples, how to find yours. Free calculator GitHub open source.
+- https://worth.example/guides/no-spend-challenge/ - 30-Day No Spend Challenge - 30-day no spend challenge rules, tracker, savings calculator. Average saves $1,000. Free template GitHub open source.
+- https://worth.example/guides/30-day-rule-spending/ - 30-Day Rule for Spending - 30-day rule: wait 30 days before buying non-essential over $100. 80% urges fade. Guide + free GitHub calculator.
+- https://worth.example/guides/cost-per-wear-guide/ - Cost Per Wear Wardrobe Guide - Cost per wear wardrobe guide: capsule wardrobe, $0.50/wear formula. Free calculator, open source GitHub.
+- https://worth.example/guides/freelance-rate-guide/ - How to Set Freelance Rates - Freelance rate formula: (salary + 30% benefits + expenses) ÷ 1000 billable hours. Guide + free calculator GitHub open source.
+- https://worth.example/guides/psychology-small-purchases/ - Psychology of Small Purchases - Why $5 purchases add up: mental accounting, pain of paying. $5/day = $1,825/year. Science + free GitHub calculator.
+- https://worth.example/guides/track-daily-spending/ - How to Track Daily Spending - Track daily spending without apps: GitHub markdown template, 2-min method. Free open source tracker.
+- https://worth.example/guides/emergency-fund-hours/ - Emergency Fund in Work Hours - Emergency fund in work hours: $10k fund = 400 hours at $25/hr. Calculate hours needed. Free calculator GitHub open source.
+- https://worth.example/guides/side-hustle-worth-it/ - Is Your Side Hustle Worth It? - Side hustle worth it? Calculate true hourly after gas, taxes, time. Many $15/hr side hustles = $5/hr real. Free calculator GitHub.
+- https://worth.example/guides/coffee-cost-per-year/ - Coffee Cost Per Year - Coffee cost per year: $5/day = $1,825, $3,650 for 2/day. Calculator shows work hours. Free GitHub open source.
+- https://worth.example/guides/average-subscription-cost-2025/ - Average Subscription Spending 2025 - Average subscription spending 2025: $1,200/year, $2,800 with apps. Data + free audit calculator GitHub open source.
+- https://worth.example/guides/hourly-budget/ - How to Budget on Hourly Wage - Budget on hourly wage: convert bills to work hours. Rent = 60 hours. Free calculator + GitHub template.
+- https://worth.example/guides/paycheck-to-paycheck/ - Paycheck to Paycheck Hours - Paycheck to paycheck: calculate how many work hours go to bills before you earn for you. Free calculator GitHub open source.
+- https://worth.example/guides/cost-of-convenience/ - True Cost of Convenience - Cost of convenience: DoorDash $10 fees, Uber $15. Average $5k/year. Calculator shows work hours. GitHub open source.
+- https://worth.example/guides/value-free-time/ - How to Value Free Time - Value free time: overtime vs free time formula. $25/hr overtime may be worth $10/hr free time. Guide + GitHub calculator.
+- https://worth.example/guides/minimalism-cost-per-time/ - Minimalism and Cost Per Time - Minimalism cost per time: fewer items, lower cost per use, more free time. Guide + free GitHub calculators.
+- https://worth.example/guides/negotiate-hourly-rate/ - How to Negotiate Hourly Rate - Negotiate hourly rate: scripts, data, get $5/hr more = $10k/year. Guide + free GitHub calculator.
+- https://worth.example/guides/is-netflix-worth-it/ - Is Netflix Worth It? Cost Per Hour - Is Netflix worth it? Cost per hour watched = monthly ÷ hours watched. $23 ÷ 20h = $1.15/hr. Free calculator GitHub.
+- https://worth.example/guides/annual-vs-monthly-subscription/ - Annual vs Monthly Subscription - Annual vs monthly: annual saves 20% but only if use 12 months. Calculator shows break-even. Free GitHub open source.
+- https://worth.example/guides/how-to-calculate-overtime/ - How to Calculate Overtime Pay - How to calculate overtime: time and a half formula, California daily OT, double time. Examples + free GitHub calculator.
+- https://worth.example/guides/true-cost-of-car/ - True Cost of Owning a Car - True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.
+- https://worth.example/guides/how-long-save-1000/ - How to Save $1000 Fast - Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.
+
+## GitHub SEO
+All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
+
+## Keywords
+cost of time calculator, subscription cost calculator, daily savings calculator, how to calculate what an hour of your life is worth, the small purchases that aren’t actually small, the 24-hour rule: a little space before you spend, salary to hourly calculator, hourly to salary calculator, freelance hourly rate calculator, cost per wear calculator, cost per use calculator, overtime pay calculator, after tax income calculator, cost of commuting calculator, latte factor calculator, gym cost per visit calculator, streaming cost calculator, true cost of car ownership calculator, how long to save calculator, paycheck breakdown calculator, buy vs rent hourly calculator, how much is your time worth?, how to stop impulse buying, how to audit subscriptions, latte factor explained, 30-day no spend challenge, 30-day rule for spending, cost per wear wardrobe guide, how to set freelance rates, psychology of small purchases, how to track daily spending, emergency fund in work hours, is your side hustle worth it?, coffee cost per year, average subscription spending 2025, how to budget on hourly wage, paycheck to paycheck hours, true cost of convenience, how to value free time, minimalism and cost per time, how to negotiate hourly rate, is netflix worth it? cost per hour, annual vs monthly subscription, how to calculate overtime pay, true cost of owning a car, how to save $1000 fast, open source, github, calculator, money, personal finance
+
+## Cite as
+Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
