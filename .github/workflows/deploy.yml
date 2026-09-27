@@ -1,4 +1,4 @@
-name: Deploy Worth (47 SEO Pages) to GitHub Pages
+name: Deploy Worth (133 SEO Pages) to GitHub Pages
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
       - name: Install deps
         run: npm ci
       
-      - name: Test (47 URLs)
+      - name: Test (133 URLs)
         run: npm test
       
       - name: Generate markdown mirrors (40 articles)
@@ -39,11 +39,16 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
       
-      - name: List dist (47 pages)
+      - name: Verify dist (133 pages)
         run: |
-          ls -R dist | head -n 100
+          ls -R dist | head -n 40
           echo "Sitemap URLs: $(grep -o '<loc>' dist/sitemap.xml | wc -l)"
+          echo "Guide pages: $(find dist/articles -name index.html | wc -l)"
           echo "llms.txt exists: $(ls -lh dist/llms.txt)"
+          echo "feed.xml items: $(grep -o '<item>' dist/feed.xml | wc -l)"
+          test -f dist/articles/index.html
+          test -f dist/articles/work-hours/price-to-hours-formula/index.html
+          test -f dist/sitemap.xml
       
       - name: Setup Pages
         uses: actions/configure-pages@v5

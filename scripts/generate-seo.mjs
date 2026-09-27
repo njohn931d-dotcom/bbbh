@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
+export { articleRoutes };
 
 export const routes = [
   // original 6
@@ -864,7 +866,9 @@ ${githubCTA('save $1000 guide')}
 }
 ];
 
-const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}</div></section>`;
+const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
+// Five collections of eight guides each, written as Markdown in content/articles/ and rendered to static HTML.
+const guidesHub=`<section class="seo-related cluster-link" id="guides"><div class="section-label">THE MONEY EDIT</div><h2>${guideArticles.length} free guides to what things really cost</h2><p class="cluster-blurb">Short, practical answers built on one question: what does this cost me in hours of work? Every guide shows the arithmetic and the assumptions behind it.</p><div class="hub-grid">${guideClusters.map(c=>`<a class="hub-card" href="/articles/${c.slug}/"><span class="hub-kicker">${escape(c.label)}</span><h3>${escape(c.name)}</h3><p>${escape(c.blurb)}</p><span class="hub-more">${guideArticles.filter(a=>a.cluster===c.slug).length} guides <span>→</span></span></a>`).join('')}</div></section>`;
 
 function metadata(html,p){
 const url=siteUrl+(p.route?'/'+p.route+'/':'/');
@@ -905,12 +909,14 @@ fs.mkdirSync(p.route,{recursive:true});
 fs.writeFileSync(p.route+'/index.html',html);
 }
 // This template is the source of the homepage; the generated file is served by Vite.
-let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'}));
+let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'}));
 fs.mkdirSync('.generated',{recursive:true});
 fs.writeFileSync('.generated/home.html',home);
+// Guide pages, cluster hubs and the guides index are generated from content/articles/*.md.
+generateArticles({ template: base, origin, basePath });
 fs.mkdirSync('public',{recursive:true});
 fs.writeFileSync('public/robots.txt',siteUrl?`User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
-if(siteUrl)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':'0.8'}</priority></url>`).join('')}</urlset>`);
+if(siteUrl)fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub
 const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
@@ -940,7 +946,19 @@ ${data.map(d=>d.name.toLowerCase()).join(', ')}, open source, github, calculator
 ## Cite as
 Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
 `;
-fs.writeFileSync('public/llms.txt', llmsContent);
+if(siteUrl){
+  const llmsWithGuides = llmsContent + '\n' + articleLlmsLines(origin, basePath).join('\n');
+  fs.writeFileSync('public/llms.txt', llmsWithGuides);
+  fs.writeFileSync('public/ai.txt', llmsWithGuides);
+  const feedItems=[...data.map(d=>({title:d.name,link:siteUrl+'/'+d.route+'/',description:d.description})),...articleFeedItems(origin, basePath)];
+  fs.writeFileSync('public/feed.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>Worth — money calculators and guides</title><link>${siteUrl}/</link><description>Free calculators and ${guideArticles.length} guides that turn prices into hours of work, annualise recurring costs and show what small amounts add up to.</description><language>en</language>${feedItems.map(i=>`
+  <item><title>${escape(i.title)}</title><link>${i.link}</link><guid>${i.link}</guid><description>${escape(i.description)}</description>${i.date?`<pubDate>${new Date(i.date).toUTCString()}</pubDate>`:''}</item>`).join('')}
+</channel></rss>
+`);
+} else {
+  for(const file of ['public/llms.txt','public/ai.txt','public/feed.xml'])if(fs.existsSync(file))fs.unlinkSync(file);
+}
 if(fs.existsSync('public/llms-full.txt')){} else {
   // also write to .well-known?
 }

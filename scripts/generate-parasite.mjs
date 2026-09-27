@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { articleRoutes, articles as guideArticles } from './articles.mjs';
 
 export const extraRoutes = [
   'calculators/mortgage-calculator-2026',
@@ -89,7 +90,7 @@ const mainRoutes = [
   'guides/how-long-save-1000'
 ];
 
-const allRoutesForSitemap = [...baseRoutes, ...mainRoutes, ...extraRoutes];
+const allRoutesForSitemap = [...baseRoutes, ...mainRoutes, ...extraRoutes, ...articleRoutes];
 
 function buildSimpleBody(name, desc) {
   const today = '2026-09-27';
@@ -113,7 +114,7 @@ export function generateParasiteSEO() {
   const githubCTA = (calcName) => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source on GitHub</strong> — This ' + calcName + ' calculator is free, private, and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source</a></p></div>';
 
   const allRoutes = [...baseRoutes, ...mainRoutes, ...extraRoutes];
-  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '</div></section>';
+  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a></div></section>';
 
   function metadata(html, p) {
     const url = siteUrl + (p.route ? '/' + p.route + '/' : '/');
@@ -186,7 +187,7 @@ export function generateParasiteSEO() {
 
   fs.mkdirSync('public', { recursive: true });
   if (siteUrl) {
-    const allUrls = ['', ...allRoutes];
+    const allUrls = ['', ...allRoutes, ...articleRoutes];
     const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allUrls.map(r => '<url><loc>' + escape(siteUrl + (r ? '/' + r + '/' : '/')) + '</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq></url>').join('') + '\n</urlset>';
     fs.writeFileSync('public/sitemap.xml', sitemap);
   }
