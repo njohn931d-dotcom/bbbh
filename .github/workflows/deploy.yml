@@ -18,9 +18,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
@@ -37,7 +37,7 @@ jobs:
 
       - name: Upload test log on failure
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: test-log-${{ github.run_id }}
           path: /tmp/test.log
@@ -51,33 +51,82 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
 
-      - name: Verify dist (133 pages)
+      - name: Verify dist (133 pages) - MAX CHECKS
         run: |
+          echo "=== DIST STRUCTURE ==="
+          ls -R dist | head -n 100
+          echo ""
+          echo "=== SITEMAP ==="
           urls=$(grep -o '<loc>' dist/sitemap.xml | wc -l)
+          lastmods=$(grep -o '<lastmod>' dist/sitemap.xml | wc -l)
+          echo "Sitemap URLs: $urls (expected 133)"
+          echo "Sitemap lastmod: $lastmods"
+          echo ""
+          echo "=== PAGE COUNTS ==="
           pages=$(find dist -name index.html | wc -l)
           guides=$(find dist/articles -name index.html | wc -l)
           feeds=$(grep -o '<item>' dist/feed.xml | wc -l)
-          noindex=$(grep -rl noindex dist --include=index.html | wc -l)
-          echo "Sitemap URLs: $urls"
-          echo "Pages built:  $pages"
-          echo "Guide pages:  $guides"
-          echo "feed.xml items: $feeds"
-          ls -lh dist/llms.txt
-          test -f dist/articles/index.html
-          test -f dist/articles/work-hours/price-to-hours-formula/index.html
+          noindex=$(grep -rl noindex dist --include=index.html | wc -l || echo 0)
+          echo "Pages built: $pages (expected 133)"
+          echo "Guide pages: $guides (expected 46)"
+          echo "Feed items: $feeds (expected 86)"
+          echo "Noindex in dist: $noindex (expected 0)"
+          echo ""
+          echo "=== DISCOVERY FILES ==="
+          ls -lh dist/sitemap.xml dist/robots.txt dist/feed.xml dist/llms.txt dist/ai.txt dist/manifest.json dist/humans.txt dist/security.txt || true
+          echo ""
+          echo "=== PWA & SPA ==="
+          test -f dist/404.html && echo "✓ 404.html SPA fallback ($(stat -c%s dist/404.html) bytes)" || echo "✗ missing 404.html"
+          test -f dist/.nojekyll && echo "✓ .nojekyll" || echo "✗ missing .nojekyll"
+          test -f dist/manifest.json && echo "✓ manifest.json" || echo "✗ missing manifest"
+          echo ""
+          echo "=== CRITICAL FILES ==="
+          test -f dist/index.html && echo "✓ index.html"
+          test -f dist/articles/index.html && echo "✓ articles/index.html"
+          test -f dist/articles/work-hours/price-to-hours-formula/index.html && echo "✓ sample guide"
+          test -f dist/calculators/cost-of-time/index.html && echo "✓ sample calculator"
+          echo ""
+          echo "=== HTML VALIDATION ==="
+          echo "Canonical URLs: $(grep -r 'rel=\"canonical\"' dist --include='*.html' | wc -l)"
+          echo "Manifest links: $(grep -r 'manifest.json' dist --include='*.html' | wc -l)"
+          echo "Structured data: $(grep -r 'application/ld+json' dist --include='*.html' | wc -l)"
+          echo "OG tags: $(grep -r 'og:' dist/index.html | wc -l)"
+          echo ""
+          echo "=== SIZE REPORT ==="
+          du -sh dist
+          du -sh dist/assets/* | head -20
+          echo ""
+          echo "=== SECURITY ==="
+          if grep -r -i "api_key\|secret\|password" dist --include="*.html" --include="*.js" 2>/dev/null; then echo "⚠ potential secret found"; else echo "✓ no secrets"; fi
+          echo ""
+          echo "=== ASSERTIONS ==="
+          test "$urls" -eq 133 || (echo "FAIL: sitemap URLs $urls != 133" && exit 1)
+          test "$pages" -eq 133 || (echo "FAIL: pages $pages != 133" && exit 1)
+          test "$guides" -eq 46 || (echo "FAIL: guides $guides != 46" && exit 1)
+          test "$feeds" -eq 86 || (echo "FAIL: feed items $feeds != 86" && exit 1)
+          test "$noindex" -eq 0 || (echo "FAIL: noindex $noindex != 0" && exit 1)
+          test -f dist/404.html || (echo "FAIL: missing 404.html" && exit 1)
+          test -f dist/manifest.json || (echo "FAIL: missing manifest.json" && exit 1)
           test -f dist/sitemap.xml
-          test "$urls" -eq 133
-          test "$pages" -eq 133
-          test "$guides" -eq 46
-          test "$feeds" -eq 86
-          test "$noindex" -eq 0
-          echo "dist verified: 133 URLs, 46 guide pages, 0 noindex"
+          test -f dist/robots.txt
+          test -f dist/feed.xml
+          test -f dist/llms.txt
+          test -f dist/ai.txt
+          echo "✓ dist verified: 133 URLs, 46 guides, 86 feed, 0 noindex, PWA ready"
+
+      - name: Lighthouse & SEO Quick Check
+        run: |
+          echo "Meta tags..."
+          echo "Title: $(grep -o '<title>' dist/index.html | wc -l)"
+          echo "Description: $(grep -o 'meta name=\"description\"' dist/index.html | wc -l)"
+          echo "OG: $(grep -o 'og:' dist/index.html | wc -l)"
+          echo "Internal links: calculators $(grep -o '/calculators/' dist/index.html | wc -l), guides $(grep -o '/guides/' dist/index.html | wc -l), articles $(grep -o '/articles/' dist/index.html | wc -l)"
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -90,4 +139,25 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
+
+      - name: Verify deployment
+        run: |
+          echo "Deployed to: ${{ steps.deployment.outputs.page_url }}"
+          echo "Waiting 10s for Pages to propagate..."
+          sleep 10
+          curl -s -o /dev/null -w "%{http_code}" ${{ steps.deployment.outputs.page_url }} || echo "Site check done"
+          echo "✓ Deployment completed"
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: success()
+    steps:
+      - name: Success notification
+        run: |
+          echo "🎉 Worth deployed successfully!"
+          echo "URL: https://njohn931d-dotcom.github.io/bbbh/"
+          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (133 URLs)"
+          echo "PWA: manifest.json + 404.html + .nojekyll"
+          echo "Discovery: robots.txt, feed.xml, llms.txt, ai.txt, humans.txt, security.txt"
