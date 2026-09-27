@@ -48,6 +48,23 @@ export default defineConfig({
             fs.writeFileSync(nojekyll, '');
             console.log('✓ Ensured dist/.nojekyll');
           }
+          // Scope the PWA manifest to the site's base path. public/manifest.json is
+          // written root-relative so preview builds at "/" stay correct, but on a
+          // project path (e.g. /bbbh/) an unscoped start_url, scope and shortcut
+          // would resolve to the domain root instead of the site.
+          const manifestPath = resolve('dist/manifest.json');
+          if (fs.existsSync(manifestPath) && base !== '/') {
+            const original = fs.readFileSync(manifestPath, 'utf8');
+            const scoped = original.replace(
+              /("(?:start_url|scope|url|src)"\s*:\s*")\/(?!\/)/g,
+              `$1${base}`
+            );
+            if (scoped !== original) {
+              JSON.parse(scoped); // fail the build rather than emit invalid JSON
+              fs.writeFileSync(manifestPath, scoped);
+              console.log(`✓ Scoped dist/manifest.json to ${base}`);
+            }
+          }
           // Verify critical files
           const checks = [
             'dist/sitemap.xml',
