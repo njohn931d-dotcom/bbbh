@@ -33,7 +33,7 @@ npm test
 npm run build
 ```
 
-`npm run dev` and `npm test` regenerate the guide pages from `content/articles/*.md`, so run them when the guide sources change. Preview builds are noindex and robots-disallowed, and discovery files (`sitemap.xml`, `feed.xml`, `llms.txt`, `ai.txt`) are removed rather than shipped with placeholder URLs; do not deploy a preview as production. The separate HOOKED Next.js application under `hooked/` is not deployed by this Pages workflow.
+`npm run dev` and `npm test` regenerate the guide pages from `content/articles/*.md`, so run them when the guide sources change. The test script pins `--test-concurrency=1`: the test files each regenerate the same shared output (`.generated/`, `public/sitemap.xml`, `public/robots.txt`, `public/feed.xml`, `public/llms.txt`, `public/ai.txt`) and a preview build deletes the discovery files, so running them in parallel makes the suite fail intermittently depending on the runner's CPU count. Keep it serial. Preview builds are noindex and robots-disallowed, and discovery files (`sitemap.xml`, `feed.xml`, `llms.txt`, `ai.txt`) are removed rather than shipped with placeholder URLs; do not deploy a preview as production. The separate HOOKED Next.js application under `hooked/` is not deployed by this Pages workflow.
 
 ## Content engine: 40 guides
 
