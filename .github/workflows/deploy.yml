@@ -2,7 +2,7 @@ name: Deploy Worth (47 SEO Pages) to GitHub Pages
 
 on:
   push:
-    branches: [main, arena/01a0e4e8-bbbh]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
