@@ -2,7 +2,7 @@ name: Deploy Worth (47 SEO Pages) to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, arena/01a0e4e8-bbbh]
   workflow_dispatch:
 
 permissions:
@@ -36,7 +36,7 @@ jobs:
       
       - name: Build production (requires SITE_URL)
         env:
-          SITE_URL: ${{ vars.SITE_URL || 'https://worth.example' }}
+          SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
       
       - name: List dist (47 pages)
