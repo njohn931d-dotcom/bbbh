@@ -95,6 +95,26 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 - `scripts/generate-articles-md.mjs` — Markdown mirrors under `articles/` for GitHub browsing
 - `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest, hashed assets, security headers
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, `GITHUB_SEO.md` — article plan (treat volumes as hypotheses)
+- **Google Search Console verification** — `google-site-verification` meta tag lives in `index.html`, the single template every generated page is built from, so it ships on every built page (homepage, tools, guides, articles, helper pages). Verify the URL-prefix property `https://njohn931d-dotcom.github.io/bbbh/`; a test asserts the tag survives generation. One Google account per tag — a second needs its own `<meta>` line.
+
+## 🔗 dev.to backlinks
+
+Five curated cross-posts (3,200 words, written for dev.to's audience) publish to
+dev.to and link back to this site. See [DEVTO_BACKLINKS.md](DEVTO_BACKLINKS.md)
+for the pipeline, the one-time `DEVTO_API_KEY` secret, and the cadence that keeps
+the account safe.
+
+```sh
+node scripts/devto-publish.mjs --offline   # render check, no key needed
+npm run devto:check                        # verify the key (needs DEVTO_API_KEY)
+npm run devto:dry                          # print payloads, create nothing
+npm run devto:publish                      # publish live (idempotent)
+npm run devto:audit                        # which dev.to posts link back here
+```
+
+Re-running never creates a duplicate: posts already on dev.to are matched by
+canonical URL and by normalized title. A dev.to API key has authoring scope only,
+so it cannot enumerate third-party backlinks — `--audit` covers your own articles.
 
 ## 🔒 Privacy & Assumptions
 

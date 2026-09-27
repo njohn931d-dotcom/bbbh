@@ -1,0 +1,95 @@
+name: Publish dev.to backlink posts
+
+# Creates the curated cross-posts in scripts/devto/posts/ on dev.to.
+#
+# Setup (one time): repo Settings -> Secrets and variables -> Actions ->
+# New repository secret -> name DEVTO_API_KEY, value your key from
+# https://dev.to/settings/extensions ("DEV API Keys").
+#
+# Safe to re-run: articles already on dev.to (matched by canonical URL or
+# normalized title) are skipped, so this never creates a duplicate post.
+
+on:
+  workflow_dispatch:
+    inputs:
+      state:
+        description: "Publish as public posts or as unpublished drafts"
+        type: choice
+        options: [published, draft]
+        default: published
+      dry_run:
+        description: "Dry run: print payloads, create nothing"
+        type: boolean
+        default: false
+      limit:
+        description: "Publish at most N posts (blank = all pending)"
+        type: string
+        default: ""
+      only:
+        description: "Comma-separated post keys (blank = all), e.g. url-fragment-state"
+        type: string
+        default: ""
+      delay:
+        description: "Milliseconds between posts (don't lower this; dev.to rate limits)"
+        type: string
+        default: "4000"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devto-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check that DEVTO_API_KEY exists
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: |
+          if [ -z "$DEVTO_API_KEY" ]; then
+            echo "::error title=Missing secret::Add DEVTO_API_KEY under Settings -> Secrets and variables -> Actions. Create the key at https://dev.to/settings/extensions (DEV API Keys)."
+            exit 1
+          fi
+
+      - name: Verify key
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: node scripts/devto-publish.mjs --check
+
+      - name: Show what already exists
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: node scripts/devto-publish.mjs --list
+
+      - name: Publish posts
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          STATE: ${{ inputs.state }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          LIMIT: ${{ inputs.limit }}
+          ONLY: ${{ inputs.only }}
+          DELAY: ${{ inputs.delay }}
+        run: |
+          args=(--state "$STATE" --delay "$DELAY" --report devto-report.json)
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ -n "$LIMIT" ]; then args+=(--limit "$LIMIT"); fi
+          if [ -n "$ONLY" ]; then args+=(--only "$ONLY"); fi
+          node scripts/devto-publish.mjs "${args[@]}"
+
+      - name: Upload run report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devto-report
+          path: devto-report.json
+          if-no-files-found: ignore
+          retention-days: 30
