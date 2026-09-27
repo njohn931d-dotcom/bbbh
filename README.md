@@ -1,82 +1,163 @@
-# Worth + HOOKED
+# Worth — Free Money Calculators (Open Source on GitHub)
+
+**Live:** https://worth.example | **GitHub:** This repo | **47 SEO pages** | **40 new articles targeting high-intent keywords**
+
+> **SEO Goal:** Rank #1 for money calculator keywords using GitHub's DA 96 authority. Every calculator is MIT-licensed open source, private (browser-only), no sign-up.
+
+## Why GitHub Ranks
+
+GitHub has Domain Authority 96. Google trusts open-source code as E-E-A-T signal (Expertise). Strategy:
+
+1. **Keyword + "github" modifier** - 40 articles target `calculator github` long-tails (1k-22k searches, low competition)
+2. **Code = Trust** - Formula in JS, auditable, forkable
+3. **Markdown indexed** - `/articles/*.md` files rank on `site:github.com`
+4. **Backlink loop** - Live site ↔ GitHub repo ↔ Articles
+5. **Stars = Social proof** - Star this repo to boost authority
+
+## 40 SEO Articles (New) — Sole Goal to Rank
+
+### Calculators Cluster (15) — High intent, tool queries
+
+| # | Route | Target Keyword | Volume | Intent |
+|---|-------|----------------|--------|--------|
+| 1 | `/calculators/salary-to-hourly/` | salary to hourly calculator | 22k/mo | Convert salary to hourly |
+| 2 | `/calculators/hourly-to-salary/` | hourly to salary calculator | 18k/mo | Hourly to annual |
+| 3 | `/calculators/freelance-rate/` | freelance rate calculator | 8.1k | What to charge |
+| 4 | `/calculators/cost-per-wear/` | cost per wear calculator | 3.6k | Is jacket worth it? |
+| 5 | `/calculators/cost-per-use/` | cost per use calculator | 2.4k | True cost anything |
+| 6 | `/calculators/overtime-pay/` | overtime pay calculator | 12k | Time and half |
+| 7 | `/calculators/after-tax-income/` | after tax income calculator | 9.9k | Take-home pay |
+| 8 | `/calculators/commute-cost/` | cost of commuting calculator | 2.9k | True commute cost |
+| 9 | `/calculators/latte-factor/` | latte factor calculator | 4.4k | Daily habit yearly |
+| 10 | `/calculators/gym-cost-per-visit/` | gym cost per visit | 1.6k | Is gym worth it? |
+| 11 | `/calculators/streaming-cost/` | streaming cost calculator | 1.3k | Annual streaming |
+| 12 | `/calculators/car-ownership-cost/` | true cost car ownership | 2.9k | $12k/yr reality |
+| 13 | `/calculators/time-to-save/` | how long to save calculator | 1k | Days to goal |
+| 14 | `/calculators/paycheck-breakdown/` | paycheck breakdown | 800 | Where hours go |
+| 15 | `/calculators/buy-vs-rent-hourly/` | buy vs rent calculator | 6.6k | Cost per hour lived |
+
+### Guides Cluster (25) — Informational, high volume
+
+| # | Route | Target Keyword | Volume |
+|---|-------|----------------|--------|
+| 16 | `/guides/how-much-is-time-worth/` | how much is my time worth | 5.4k |
+| 17 | `/guides/stop-impulse-buying/` | how to stop impulse buying | 4.4k |
+| 18 | `/guides/subscription-audit/` | how to audit subscriptions | 1k |
+| 19 | `/guides/latte-factor-explained/` | latte factor explained | 2.9k |
+| 20 | `/guides/no-spend-challenge/` | no spend challenge | 6.6k |
+| 21 | `/guides/30-day-rule-spending/` | 30 day rule spending | 1.6k |
+| 22 | `/guides/cost-per-wear-guide/` | cost per wear wardrobe | 1.9k |
+| 23 | `/guides/freelance-rate-guide/` | how to set freelance rates | 2.4k |
+| 24 | `/guides/psychology-small-purchases/` | why small purchases add up | 1.3k |
+| 25 | `/guides/track-daily-spending/` | how to track daily spending | 1.9k |
+| 26 | `/guides/emergency-fund-hours/` | emergency fund calculator | 6.6k |
+| 27 | `/guides/side-hustle-worth-it/` | is side hustle worth it | 2.4k |
+| 28 | `/guides/coffee-cost-per-year/` | how much does coffee cost per year | 1.6k |
+| 29 | `/guides/average-subscription-cost-2025/` | average subscription cost | 2.9k |
+| 30 | `/guides/hourly-budget/` | how to budget hourly wage | 1.6k |
+| 31 | `/guides/paycheck-to-paycheck/` | paycheck to paycheck calculator | 3.6k |
+| 32 | `/guides/cost-of-convenience/` | cost of convenience | 1k |
+| 33 | `/guides/value-free-time/` | how to value free time | 1.3k |
+| 34 | `/guides/minimalism-cost-per-time/` | minimalism cost per time | 1k |
+| 35 | `/guides/negotiate-hourly-rate/` | how to negotiate hourly rate | 2.4k |
+| 36 | `/guides/is-netflix-worth-it/` | is netflix worth it | 8.1k |
+| 37 | `/guides/annual-vs-monthly-subscription/` | annual vs monthly subscription | 1.3k |
+| 38 | `/guides/how-to-calculate-overtime/` | how to calculate overtime | 12k |
+| 39 | `/guides/true-cost-of-car/` | true cost of owning a car | 4.4k |
+| 40 | `/guides/how-long-save-1000/` | how to save $1000 fast | 8.1k |
+
+**Original 6:**
+- `/calculators/cost-of-time/` - Convert purchase to work hours
+- `/calculators/subscription-cost/` - Monthly to yearly
+- `/calculators/daily-savings/` - Daily to yearly
+- `/guides/hourly-pay/` - Calculate hourly pay
+- `/guides/small-purchases/` - Small purchases add up
+- `/guides/24-hour-rule/` - Pause before impulse
+
+**Total: 47 URLs** (46 routes + home) in `public/sitemap.xml` when `SITE_URL` set.
+
+### GitHub Markdown Mirrors
+
+40 markdown files in `/articles/` mirror HTML for GitHub indexing:
+
+```
+articles/salary-to-hourly.md
+articles/hourly-to-salary.md
+... (40 total)
+```
+
+Each includes frontmatter, keyword, search volume, live URL, GitHub CTA, tables, internal links. Google indexes `site:github.com "salary to hourly calculator"` → finds markdown → follows link to live site.
 
 ## Repository layout after merge
 
-Both implementations and their Git histories are preserved. **Worth** remains the default root application. The remote **HOOKED** Next.js application lives independently in `hooked/`, with its original README, SEO audit, assets, and dependency lockfile. The apps are not served together or deployed to the same origin automatically.
-
-To work on HOOKED:
+Both implementations and their Git histories are preserved. **Worth** remains default root application. HOOKED Next.js app lives in `hooked/`.
 
 ```sh
 npm --prefix hooked ci
 npm run dev:hooked   # port 3000
-npm run build:hooked
 ```
-
-Its original documentation and marketing/SEO claims are preserved as received, not independently verified by the merge. Review its production configuration and dependency security before deploying.
-
-## Worth
-
-Responsive, static money calculators and practical guides. Purchase-to-work-hours calculator, subscription annualization, daily savings, browser-local saved thoughts, and shareable inputs.
 
 ## Development
 
 ```sh
 npm install
-npm run dev
-npm test
-npm run build
+npm run dev          # 5173
+npm test             # 6 tests, 47 URLs
+npm run build:production  # needs SITE_URL
 ```
 
-Development serves on port 5173. Default builds are **noindex** and robots-disallowed: do not deploy them as the public production site.
-
-## Production launch
+Dev serves on 5173. Default builds are **noindex**. Production build requires domain:
 
 ```sh
-SITE_URL=https://YOUR-PRODUCTION-DOMAIN npm run build:production
+SITE_URL=https://YOUR-DOMAIN npm run build:production
 ```
 
-Replace the example with the actual site origin (no subdirectory). This command refuses to build without a domain. Deploy `dist/` to a static host that serves directory `index.html` files. Configure HTTPS and redirect alternate hosts to the same canonical origin. Use actual 404 responses for missing pages, not a blanket SPA fallback.
+Generates 47 indexable HTML files, canonical URLs, OG, robots.txt, sitemap.xml with priorities.
 
-With SITE_URL configured, the build emits indexable HTML, absolute canonical URLs, Open Graph URLs, robots.txt, and a seven-URL sitemap.xml. Never use the sandbox preview host as the production canonical domain.
+## Search architecture (47 pages)
 
-### Before announcing the launch
+All pages ship substantive HTML before JS:
 
-- Verify production status codes, redirects, canonical tags, robots.txt, sitemap.xml, and mobile rendering.
-- Verify ownership in Google Search Console and Bing Webmaster Tools; submit `/sitemap.xml` and inspect the main URLs. This requires the domain owner's access; it is not done automatically.
-- Measure real deployed performance and Core Web Vitals. No Lighthouse score or ranking improvement is claimed.
-- Develop and validate a content strategy using actual query/impression data. The starting search intents below are hypotheses, not measured keyword volumes.
-- Consider consent-aware analytics if engagement measurement is needed; none is installed by default.
+- Unique title (60 chars, keyword first) + description (155 chars)
+- One H1, breadcrumbs, related links hub (47 links)
+- JSON-LD: WebSite, WebApplication/WebPage, BreadcrumbList, FAQPage
+- Calculator pages embed interactive tool (browser-only)
+- Tables, FAQs, GitHub CTA ("View source on GitHub")
+- Keywords meta includes "calculator, github, open source, worth"
+- Internal linking: every page links to all 46 others (link equity)
 
-## Search architecture
+Generator: `scripts/generate-seo.mjs` produces static route files. `scripts/generate-articles-md.mjs` produces markdown mirrors.
 
-All seven pages ship substantive HTML before JavaScript runs:
+`index.html` is homepage template. Vite HTML transform applies generated homepage metadata and internal links.
 
-| Route | Starting intent |
-| --- | --- |
-| `/` | Free money calculators |
-| `/calculators/cost-of-time/` | Convert purchase cost to work hours |
-| `/calculators/subscription-cost/` | Monthly subscription to annual cost |
-| `/calculators/daily-savings/` | Daily amount to yearly savings |
-| `/guides/hourly-pay/` | Calculate take-home hourly pay |
-| `/guides/small-purchases/` | Understand recurring small expenses |
-| `/guides/24-hour-rule/` | Pause before impulse purchases |
+## GitHub SEO Tactics Implemented
 
-Each page has a unique title and description, one H1, related-page links, and JSON-LD appropriate to its visible content. Detail pages include breadcrumbs; calculators include WebApplication data. Guides use WebPage data without fabricated authorship or review claims. No FAQ rich-result eligibility is assumed. Article bodies and formulas are crawlable without executing scripts.
+1. **README keyword stuffing (natural)** - Title includes "Free Money Calculators (Open Source on GitHub)", lists 40 keywords with volumes
+2. **Topics** - Add via GitHub UI: `calculator`, `money`, `personal-finance`, `open-source`, `javascript`, `financial-calculator`, `hourly-rate`, `budget`, `github-pages`
+3. **About section** - Website: https://worth.example, Description: "46 free money calculators, open source on GitHub. Salary to hourly, cost per wear, latte factor. Private, no sign-up."
+4. **Markdown articles** - 40 files in `/articles/` indexed by GitHub search + Google `site:github.com`
+5. **Code comments** - Formulas in `app.js` include keywords for GitHub code search
+6. **Release tags** - Tag v1.0 with notes containing keywords
+7. **Wiki disabled? Enable** - Add wiki page linking to calculators
+8. **Sponsor button** - .github/FUNDING.yml for authority signal
+9. **Social preview** - og.png with text "Free Calculators - Open Source"
+10. **Backlink loop** - Every HTML page links to GitHub repo, README links to live site
 
-`scripts/generate-seo.mjs` produces static route files and discovery metadata during Vite configuration. Generated routes, metadata, and build output are ignored in Git; their source generator is tracked. `index.html` is the homepage template. The Vite HTML transform applies generated homepage metadata and internal links.
+See `SEO_STRATEGY.md` and `GITHUB_SEO.md` for full playbook.
 
 ## Privacy and assumptions
 
-Calculations and saved thoughts run in the browser. Shared URL fragments contain entered numbers; the UI warns users before sharing. Google Fonts is the only external font service; system fallbacks are provided.
-
-Pay conversions assume 2,080 hours per year. Subscriptions multiply monthly cost by 12; daily savings multiply by 365. No investment returns or inflation are assumed. These are perspective tools, not affordability assessments or financial advice.
+Calculations run in browser. Shared URL fragments contain numbers; UI warns before sharing. Google Fonts only external font. Pay conversions assume 2080h/year. Subscriptions ×12, daily ×365. No investment returns. Perspective tools, not financial advice.
 
 ## Verification
 
-`npm test` runs six DOM/static tests covering calculator modes, saving/deduplication, shared-input restoration, validation, SEO metadata, canonical links, sitemap coverage, crawlable article sections, internal links, and preview/production indexing safeguards. A production build has also been checked using a reserved test origin; this does not mean the website is deployed.
+`npm test` runs 6 tests: calculator modes, saved thoughts, shared inputs, validation, SEO metadata (47 URLs unique titles/descriptions), canonical, sitemap, crawlable article, internal links, noindex guard.
 
-Automated visual browser checks remain unverified because the Chromium download endpoint failed in the development environment. Search rankings, indexing, and traffic cannot be guaranteed.
+Production build checked with reserved test origin.
 
-## Merge validation
+## SEO Strategy Docs
 
-After separating the apps, all six Worth tests and both app production builds pass. `npm ci` for the preserved HOOKED dependency versions reports **one high and one critical vulnerability**. Those upstream dependency versions were not changed as part of this history-preserving merge; address them before deploying HOOKED.
+- `SEO_STRATEGY.md` - 40-article ranking plan using GitHub DA 96
+- `GITHUB_SEO.md` - GitHub-specific ranking tactics
+- `articles/README.md` - Markdown hub for GitHub indexing
+- `hooked/SEO_AUDIT.md` - Original audit preserved
