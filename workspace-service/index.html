@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f4ee" />
+    <meta
+      name="description"
+      content="Set up browser-accessible Linux development and QA workspaces in your own cloud account, with a documented handoff."
+    />
+    <title>Forge Workspace — remote workspaces, set up right</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site-config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Forge Workspace home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M5 5h22v7H13v4h11v7H13v4H5V5Z" fill="currentColor" />
+              <path d="M21 5h6v7h-6z" fill="#B8F36A" />
+            </svg>
+          </span>
+          <span class="brand-name">FORGE<span> / WORKSPACE</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#offer">The offer</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <a class="button button-dark header-cta" href="#contact">
+          Scope a pilot
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" /></svg>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero section-pad" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> REMOTE WORKSPACE SETUP / PAID PILOTS</p>
+            <h1>A ready-to-work Linux desktop.<br /><span>Without another ops project.</span></h1>
+            <p class="hero-lede">
+              Browser-accessible development and QA workspaces, configured in your cloud account and handed over with a clear runbook.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-lime" href="#contact">
+                Talk about a pilot
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" /></svg>
+              </a>
+              <a class="text-link" href="#offer">See what’s included <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="hero-assurance">
+              <span class="assurance-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.3 2.8 8.1 7 9.5 4.2-1.4 7-5.2 7-9.5V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></svg>
+              </span>
+              <p><strong>Your cloud account.</strong> Your infrastructure bill stays with your provider.</p>
+            </div>
+          </div>
+
+          <div class="hero-art" aria-label="Illustration of a configured browser-based Linux workspace">
+            <div class="art-glow"></div>
+            <div class="workspace-window">
+              <div class="window-topbar">
+                <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="window-title"><span class="window-title-dot"></span> forge / workspace setup</div>
+                <div class="topbar-menu" aria-hidden="true">•••</div>
+              </div>
+              <div class="workspace-content">
+                <aside class="workspace-rail" aria-hidden="true">
+                  <div class="rail-logo">F</div>
+                  <div class="rail-icon rail-icon-active"><span></span></div>
+                  <div class="rail-icon"><span></span></div>
+                  <div class="rail-icon"><span></span></div>
+                  <div class="rail-bottom"><span></span></div>
+                </aside>
+                <div class="workspace-main">
+                  <div class="workspace-heading">
+                    <div>
+                      <p class="micro-label">DEVELOPMENT ENVIRONMENT</p>
+                      <h2>Team workspace</h2>
+                    </div>
+                    <span class="status-pill"><i></i> CONFIGURED</span>
+                  </div>
+                  <div class="browser-card">
+                    <div class="browser-bar">
+                      <div class="browser-address"><span class="lock-icon" aria-hidden="true">⌑</span> workspace.your-team.dev</div>
+                      <span class="access-label">ACCESS CONTROL</span>
+                    </div>
+                    <div class="terminal-card">
+                      <div class="terminal-head"><span>TERMINAL</span><span>bash — 80 × 24</span></div>
+                      <div class="terminal-body">
+                        <p><span class="terminal-muted">forge@workspace</span><span class="terminal-path">:~$</span> ./start-workspace</p>
+                        <p class="terminal-success"><span aria-hidden="true">✓</span> Environment ready</p>
+                        <p><span class="terminal-muted">forge@workspace</span><span class="terminal-path">:~$</span> <span class="cursor">&nbsp;</span></p>
+                      </div>
+                    </div>
+                    <div class="workspace-tools">
+                      <span><i class="tool-dot tool-green"></i> Tooling</span>
+                      <span><i class="tool-dot tool-purple"></i> Access</span>
+                      <span><i class="tool-dot tool-orange"></i> Runbook</span>
+                    </div>
+                  </div>
+                  <div class="workspace-bottom"><span>HANDOFF CHECKLIST</span><span>03 <b>/</b> 03 <i>✓</i></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="floating-note">
+              <span class="note-check" aria-hidden="true">✓</span>
+              <span><strong>Ready to hand over</strong><small>Setup notes included</small></span>
+              <span class="note-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div class="art-caption"><span></span> A sample workspace view</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="audience-strip" aria-label="Who the service is for">
+        <div class="container audience-inner">
+          <p>MADE FOR SMALL TEAMS THAT NEED</p>
+          <div class="audience-list">
+            <span><i class="audience-symbol">↗</i> Agency onboarding</span>
+            <span><i class="audience-symbol">⌘</i> Repeatable dev setups</span>
+            <span><i class="audience-symbol">◉</i> Browser-based QA</span>
+            <span><i class="audience-symbol">✳</i> Training cohorts</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="offer-section section-pad" id="offer">
+        <div class="container">
+          <div class="section-heading offer-heading">
+            <div>
+              <p class="eyebrow">START SMALL. MAKE IT REPEATABLE.</p>
+              <h2>One good workspace<br />beats ten setup docs.</h2>
+            </div>
+            <p class="section-intro">Start with a scoped pilot in infrastructure you control. If it works for your team, build from there.</p>
+          </div>
+
+          <div class="offer-grid">
+            <article class="offer-card offer-card-featured">
+              <div class="offer-card-top">
+                <span class="offer-number">01 / THE PILOT</span>
+                <span class="featured-label">START HERE</span>
+              </div>
+              <h3>Workspace setup</h3>
+              <p class="offer-description">A focused setup for one team workflow, scoped and quoted before kickoff.</p>
+              <div class="offer-rule"></div>
+              <ul class="check-list">
+                <li><span>✓</span> Environment and toolset configured</li>
+                <li><span>✓</span> Access approach reviewed together</li>
+                <li><span>✓</span> Setup notes and runbook</li>
+                <li><span>✓</span> Handoff session with your team</li>
+              </ul>
+              <div class="offer-card-bottom">
+                <span class="price-note">One-time · fixed scope</span>
+                <a class="circle-link" href="#contact" data-package="Workspace setup pilot" aria-label="Ask about a workspace setup pilot">↗</a>
+              </div>
+            </article>
+
+            <article class="offer-card">
+              <div class="offer-card-top"><span class="offer-number">02 / THE ROLLOUT</span><span class="offer-line"></span></div>
+              <h3>Team rollout</h3>
+              <p class="offer-description">Adapt the pilot into a repeatable onboarding path for more people or workflows.</p>
+              <div class="offer-rule"></div>
+              <ul class="check-list">
+                <li><span>✓</span> Reusable workspace configuration</li>
+                <li><span>✓</span> Joiner and leaver checklist</li>
+                <li><span>✓</span> Team-facing setup guide</li>
+                <li><span>✓</span> Scope agreed before changes</li>
+              </ul>
+              <div class="offer-card-bottom">
+                <span class="price-note">Quoted to fit your team</span>
+                <a class="circle-link" href="#contact" data-package="Team rollout" aria-label="Ask about a team rollout">↗</a>
+              </div>
+            </article>
+
+            <article class="offer-card">
+              <div class="offer-card-top"><span class="offer-number">03 / ONGOING</span><span class="offer-line"></span></div>
+              <h3>Care &amp; updates</h3>
+              <p class="offer-description">Optional follow-up for planned changes, maintenance, and keeping docs useful.</p>
+              <div class="offer-rule"></div>
+              <ul class="check-list">
+                <li><span>✓</span> Agreed maintenance window</li>
+                <li><span>✓</span> Small changes by prior scope</li>
+                <li><span>✓</span> Clear support hours and limits</li>
+                <li><span>✓</span> No surprise cloud charges</li>
+              </ul>
+              <div class="offer-card-bottom">
+                <span class="price-note">Optional monthly support</span>
+                <a class="circle-link" href="#contact" data-package="Care and updates" aria-label="Ask about care and updates">↗</a>
+              </div>
+            </article>
+          </div>
+          <p class="offer-footnote"><span>↳</span> No hidden hosting fee. Cloud infrastructure is created in your account and billed by your provider.</p>
+        </div>
+      </section>
+
+      <section class="principles-section section-pad">
+        <div class="container principles-grid">
+          <div class="principles-copy">
+            <p class="eyebrow eyebrow-light">NO BLACK BOX</p>
+            <h2>Useful on day one.<br /><span>Understandable after handoff.</span></h2>
+            <p>The goal isn’t to lock you into another platform. It’s to leave your team with a working setup, clear ownership, and enough documentation to keep moving.</p>
+            <a class="light-link" href="#how-it-works">See the three-step process <span aria-hidden="true">↘</span></a>
+          </div>
+          <div class="principles-list">
+            <article>
+              <span class="principle-icon">01</span>
+              <div><h3>Your account, your call</h3><p>You control the cloud account, access decisions, and ongoing infrastructure spend.</p></div>
+              <span class="principle-mark" aria-hidden="true">↗</span>
+            </article>
+            <article>
+              <span class="principle-icon">02</span>
+              <div><h3>Scope before spend</h3><p>Agree the deliverables, timeline, and fee before work starts. No surprise build-out.</p></div>
+              <span class="principle-mark" aria-hidden="true">↗</span>
+            </article>
+            <article>
+              <span class="principle-icon">03</span>
+              <div><h3>Handoff is part of the work</h3><p>Get setup notes and a walkthrough—not just a login and a “good luck.”</p></div>
+              <span class="principle-mark" aria-hidden="true">↗</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="process-section section-pad" id="how-it-works">
+        <div class="container">
+          <div class="section-heading process-heading">
+            <div><p class="eyebrow">A SMALL, CLEAR ENGAGEMENT</p><h2>From “could this work?”<br />to a useful handoff.</h2></div>
+            <p class="section-intro">No long discovery phase. First we understand the workflow and decide if a small pilot makes sense.</p>
+          </div>
+          <div class="process-grid">
+            <article class="process-step">
+              <span class="process-index">01</span>
+              <div class="process-icon process-icon-a" aria-hidden="true">⌕</div>
+              <h3>Scope</h3>
+              <p>We map the users, tools, access needs, and what a successful pilot looks like. You get a written scope and quote.</p>
+              <span class="step-meta">30 MIN INTRO CALL</span>
+            </article>
+            <article class="process-step">
+              <span class="process-index">02</span>
+              <div class="process-icon process-icon-b" aria-hidden="true">⌘</div>
+              <h3>Set up</h3>
+              <p>With your approval, the agreed workspace is configured in your account. Any access or spend decisions stay with you.</p>
+              <span class="step-meta">CUSTOMER-OWNED CLOUD</span>
+            </article>
+            <article class="process-step">
+              <span class="process-index">03</span>
+              <div class="process-icon process-icon-c" aria-hidden="true">↗</div>
+              <h3>Hand off</h3>
+              <p>Your team gets the runbook, a walkthrough, and clear next steps for support or a wider rollout.</p>
+              <span class="step-meta">DOCUMENTED DELIVERY</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section section-pad" id="faq">
+        <div class="container faq-grid">
+          <div class="faq-intro">
+            <p class="eyebrow">GOOD QUESTIONS</p>
+            <h2>Clear expectations<br />make better pilots.</h2>
+            <p>Still not sure if this fits? Send a short note and we’ll figure out whether it’s a match before discussing a project.</p>
+            <a class="text-link" href="#contact">Ask a question <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="faq-list">
+            <details open>
+              <summary>Is this a hosted product or a setup service?<span aria-hidden="true"></span></summary>
+              <p>It’s a setup service. The pilot is configured in an account you control; this site does not sell or host shared workspaces.</p>
+            </details>
+            <details>
+              <summary>How much does a pilot cost?<span aria-hidden="true"></span></summary>
+              <p>It depends on the scope and environment. You’ll receive a fixed quote before any work begins, and your cloud provider bills infrastructure directly to you.</p>
+            </details>
+            <details>
+              <summary>Does this guarantee security or compliance?<span aria-hidden="true"></span></summary>
+              <p>No blanket security or compliance guarantee is made. Access requirements and risks must be reviewed for each project. Regulated or sensitive workloads need qualified security and legal review before use.</p>
+            </details>
+            <details>
+              <summary>What happens after the pilot?<span aria-hidden="true"></span></summary>
+              <p>You can keep using the setup in your account, ask for a separately scoped rollout, or end the engagement. Ongoing support is optional and agreed in writing.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section section-pad" id="contact">
+        <div class="container contact-grid">
+          <div class="contact-copy">
+            <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> LET’S MAKE A SMALL PILOT USEFUL</p>
+            <h2>Tell us what your team needs to get moving.</h2>
+            <p>Share the rough shape of the problem. We’ll reply with a few questions and, if it’s a fit, a clear pilot scope.</p>
+            <div class="contact-promise">
+              <span class="promise-check" aria-hidden="true">✓</span>
+              <div><strong>No payment details. No commitment.</strong><span>Just a first conversation about fit and scope.</span></div>
+            </div>
+          </div>
+
+          <form class="contact-form" id="inquiry-form">
+            <div class="form-heading"><span>01 — PROJECT INQUIRY</span><span class="form-required">* REQUIRED</span></div>
+            <div class="field-row">
+              <label class="field"><span>Your name <b>*</b></span><input name="name" autocomplete="name" placeholder="Alex Morgan" required /></label>
+              <label class="field"><span>Work email <b>*</b></span><input name="email" type="email" autocomplete="email" placeholder="alex@company.com" required /></label>
+            </div>
+            <div class="field-row">
+              <label class="field"><span>Team or company</span><input name="company" autocomplete="organization" placeholder="Company name" /></label>
+              <label class="field"><span>Team size</span>
+                <select name="teamSize">
+                  <option value="">Choose one</option>
+                  <option>Just me</option>
+                  <option>2–5 people</option>
+                  <option>6–15 people</option>
+                  <option>16+ people</option>
+                </select>
+              </label>
+            </div>
+            <label class="field"><span>What are you looking for?</span>
+              <select name="interest" id="interest">
+                <option value="Workspace setup pilot">Workspace setup pilot</option>
+                <option value="Team rollout">Team rollout</option>
+                <option value="Care and updates">Care and updates</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </label>
+            <label class="field"><span>A little about the workflow <b>*</b></span><textarea name="message" rows="3" placeholder="Who needs a workspace, and what do they need to do in it?" required></textarea></label>
+            <button class="button button-lime form-submit" type="submit">Prepare my inquiry <span aria-hidden="true">↗</span></button>
+            <p class="form-privacy">This starter has no server-side lead storage. Your details stay in your browser until you choose to send an email.</p>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <a class="brand footer-brand" href="#top" aria-label="Forge Workspace home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5 5h22v7H13v4h11v7H13v4H5V5Z" fill="currentColor" /><path d="M21 5h6v7h-6z" fill="#B8F36A" /></svg></span>
+          <span class="brand-name">FORGE<span> / WORKSPACE</span></span>
+        </a>
+        <p>Practical workspace setup.<br />Clear ownership from day one.</p>
+        <a href="#top" class="back-top">BACK TO TOP <span aria-hidden="true">↑</span></a>
+      </div>
+      <div class="container footer-bottom"><span>© <span id="current-year">2026</span> Forge Workspace</span><span>Independent setup service · Not a hosted platform</span></div>
+    </footer>
+  </body>
+</html>
