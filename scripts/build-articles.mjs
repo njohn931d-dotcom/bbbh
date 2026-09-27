@@ -42,6 +42,9 @@ const MONEY_SITE_URL = (process.env.MONEY_SITE_URL || '').replace(/\/+$/, '');
 const SITE_NAME = 'Worth Guides';
 const PUBLISHER = 'Worth';
 const ORG = 'Worth Editorial';
+// Google Search Console verification — must stay in <head> on every page to
+// keep the property verified. Do not remove; rotate here if ever re-verified.
+const GOOGLE_SITE_VERIFICATION = 'sEQ7B0Jr4_LTKoRdaLwvcSx25iX5ZvZ-LMwB1EZODnY';
 const INDEXNOW_KEY = 'b7f3c2a91e4d48f0a6c5e8d1f9b2a743';
 
 /** Cluster (silo) definitions — order matters for hub rendering. */
@@ -227,6 +230,7 @@ function page({ title, desc, path, depth, body, ld = [], crumbs = '', extraHead 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="author" content="${PUBLISHER}">
+<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}">
 <meta name="robots" content="${path === '404.html' ? 'noindex,follow' : 'index,follow,max-image-preview:large'}">
 <link rel="canonical" href="${url}">
 <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}" href="${pre}feed.xml">

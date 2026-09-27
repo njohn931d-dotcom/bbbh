@@ -46,6 +46,10 @@ Design principles behind the set:
   phrasing, rendered as crawlable HTML *and* `FAQPage` JSON-LD.
 - **Freshness signal:** `datePublished`/`dateModified` in schema + `<lastmod>`
   in the sitemap; schedule quarterly content refreshes.
+- **Google Search Console verification:** the `google-site-verification` meta
+  tag is baked into the page template (constant in
+  `scripts/build-articles.mjs`) so it ships with every build of the homepage —
+  never remove it or verification lapses.
 
 ## 3. On-page mechanics (implemented in `scripts/build-articles.mjs`)
 
