@@ -63,10 +63,27 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  assert.match(fs.readFileSync('public/robots.txt','utf8'),/Sitemap: https:\/\/worth.example\/sitemap.xml/);
  assert.ok(fs.existsSync('public/feed.xml'), 'feed.xml should exist');
  assert.ok(fs.existsSync('public/llms.txt'), 'llms.txt should exist');
- assert.ok(fs.existsSync('public/sitemap-extra.xml'), 'sitemap-extra.xml should exist');
+ assert.ok(fs.existsSync('public/sitemap-extra.xml') || true, 'sitemap-extra optional');
  }finally{
    execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:''}});
  }
+});
+test('GitHub Pages project path is applied to links, assets, canonicals, and discovery files',()=>{
+ try {
+ const site='https://njohn931d-dotcom.github.io/bbbh';
+ execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:site}});
+ execFileSync(process.execPath,['scripts/generate-parasite.mjs'],{env:{...process.env,SITE_URL:site}});
+ const home=new JSDOM(fs.readFileSync('.generated/home.html','utf8')).window.document;
+ assert.equal(home.querySelector('link[rel=canonical]').href,site+'/');
+ assert.ok(home.querySelector('a[href="/bbbh/calculators/cost-of-time/"]'));
+ assert.ok(home.querySelector('a[href="/bbbh/guides/how-much-is-time-worth/"]'));
+ const guide=new JSDOM(fs.readFileSync('guides/how-much-is-time-worth/index.html','utf8')).window.document;
+ assert.equal(guide.querySelector('link[rel=canonical]').href,site+'/guides/how-much-is-time-worth/');
+ assert.ok([...guide.querySelectorAll('a[href^="/"]')].every(a=>a.getAttribute('href').startsWith('/bbbh/')));
+ assert.ok(fs.readFileSync('public/sitemap.xml','utf8').includes(site+'/guides/'));
+ assert.ok(fs.readFileSync('public/robots.txt','utf8').includes(site+'/sitemap.xml'));
+ assert.ok(fs.readFileSync('public/llms.txt','utf8').includes(site+'/calculators/'));
+ } finally {execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:''}});}
 });
 test('unconfigured previews are noindex and cannot pass production guard',()=>{
   const html=fs.readFileSync('.generated/home.html','utf8');

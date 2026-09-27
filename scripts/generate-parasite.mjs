@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import vm from 'node:vm';
 
 export const extraRoutes = [
   'calculators/mortgage-calculator-2026',
@@ -99,14 +98,17 @@ function buildSimpleBody(name, desc) {
 
 export function generateParasiteSEO() {
   const raw = process.env.SITE_URL;
-  let origin = '';
+  let origin = '', basePath = '', siteUrl = '';
   if (raw) {
     const u = new URL(raw);
-    if (!['https:', 'http:'].includes(u.protocol) || u.pathname !== '/' || u.search || u.hash) throw Error('SITE_URL must be a site origin');
+    if (!['https:', 'http:'].includes(u.protocol) || u.search || u.hash || u.username || u.password) throw Error('SITE_URL must be a public site URL without query or fragment, e.g. https://your-domain.com or https://username.github.io/repository');
     origin = u.origin;
+    basePath = u.pathname.replace(/\/$/, '');
+    siteUrl = origin + basePath;
   }
   const base = fs.readFileSync('index.html', 'utf8');
   const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+  const prefixInternalLinks = html => basePath ? html.replace(/(<a\b[^>]*\bhref=")\/(?!\/)/g, (_, prefix) => prefix + basePath + '/') : html;
 
   const githubCTA = (calcName) => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source on GitHub</strong> — This ' + calcName + ' calculator is free, private, and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source</a></p></div>';
 
@@ -114,36 +116,36 @@ export function generateParasiteSEO() {
   const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '</div></section>';
 
   function metadata(html, p) {
-    const url = origin + (p.route ? '/' + p.route + '/' : '/');
+    const url = siteUrl + (p.route ? '/' + p.route + '/' : '/');
     const lang = p.lang || 'en';
     html = html.replace(/<html lang="[^"]*">/, '<html lang="' + lang + '">');
     html = html.replace(/<title>.*?<\/title>/, '<title>' + escape(p.title) + '</title>').replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escape(p.description) + '">').replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="' + escape(p.title) + '">').replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">');
     const hreflangs = [
-      '<link rel="alternate" hreflang="en" href="' + (origin ? origin : '') + '/' + p.route + '/">',
-      '<link rel="alternate" hreflang="es" href="' + (origin ? origin : '') + '/guides/calculadora-hipoteca-2026-espana-mexico/">',
-      '<link rel="alternate" hreflang="de" href="' + (origin ? origin : '') + '/guides/stundenlohn-rechner-deutschland-2026/">',
-      '<link rel="alternate" hreflang="fr" href="' + (origin ? origin : '') + '/guides/calculateur-salaire-horaire-france-2026/">',
-      '<link rel="alternate" hreflang="ru" href="' + (origin ? origin : '') + '/guides/калькулятор-зарплаты-час-россия-2026/">',
-      '<link rel="alternate" hreflang="zh" href="' + (origin ? origin : '') + '/guides/时薪计算器-中国-2026/">',
-      '<link rel="alternate" hreflang="ja" href="' + (origin ? origin : '') + '/guides/時給計算機-日本-2026/">',
-      '<link rel="alternate" hreflang="ko" href="' + (origin ? origin : '') + '/guides/연봉-시급-계산기-한국-2026/">',
-      '<link rel="alternate" hreflang="ar" href="' + (origin ? origin : '') + '/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">',
-      '<link rel="alternate" hreflang="pt" href="' + (origin ? origin : '') + '/guides/calculadora-horas-trabalho-brasil-2026/">',
-      '<link rel="alternate" hreflang="x-default" href="' + (origin ? origin : '') + '/' + p.route + '/">',
+      '<link rel="alternate" hreflang="en" href="' + (siteUrl ? siteUrl : '') + '/' + p.route + '/">',
+      '<link rel="alternate" hreflang="es" href="' + (siteUrl ? siteUrl : '') + '/guides/calculadora-hipoteca-2026-espana-mexico/">',
+      '<link rel="alternate" hreflang="de" href="' + (siteUrl ? siteUrl : '') + '/guides/stundenlohn-rechner-deutschland-2026/">',
+      '<link rel="alternate" hreflang="fr" href="' + (siteUrl ? siteUrl : '') + '/guides/calculateur-salaire-horaire-france-2026/">',
+      '<link rel="alternate" hreflang="ru" href="' + (siteUrl ? siteUrl : '') + '/guides/калькулятор-зарплаты-час-россия-2026/">',
+      '<link rel="alternate" hreflang="zh" href="' + (siteUrl ? siteUrl : '') + '/guides/时薪计算器-中国-2026/">',
+      '<link rel="alternate" hreflang="ja" href="' + (siteUrl ? siteUrl : '') + '/guides/時給計算機-日本-2026/">',
+      '<link rel="alternate" hreflang="ko" href="' + (siteUrl ? siteUrl : '') + '/guides/연봉-시급-계산기-한국-2026/">',
+      '<link rel="alternate" hreflang="ar" href="' + (siteUrl ? siteUrl : '') + '/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">',
+      '<link rel="alternate" hreflang="pt" href="' + (siteUrl ? siteUrl : '') + '/guides/calculadora-horas-trabalho-brasil-2026/">',
+      '<link rel="alternate" hreflang="x-default" href="' + (siteUrl ? siteUrl : '') + '/' + p.route + '/">',
     ].join('');
     const schema = {
       '@context': 'https://schema.org',
       '@graph': [
-        { '@type': 'WebSite', name: 'Worth', ...(origin ? { url: origin + '/' } : {}), inLanguage: lang },
-        { '@type': p.mode ? 'WebApplication' : 'WebPage', name: p.name, description: p.description, ...(origin ? { url } : {}), ...(p.mode ? { applicationCategory: 'FinanceApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, codeRepository: 'https://github.com/njohn931d-dotcom/bbbh' } : {}), inLanguage: lang },
-        ...(p.route ? [{ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(origin ? { item: origin + '/' } : {}) }, { '@type': 'ListItem', position: 2, name: p.name, ...(origin ? { item: url } : {}) }] }] : []),
+        { '@type': 'WebSite', name: 'Worth', ...(siteUrl ? { url: siteUrl + '/' } : {}), inLanguage: lang },
+        { '@type': p.mode ? 'WebApplication' : 'WebPage', name: p.name, description: p.description, ...(siteUrl ? { url } : {}), ...(p.mode ? { applicationCategory: 'FinanceApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, codeRepository: 'https://github.com/njohn931d-dotcom/bbbh' } : {}), inLanguage: lang },
+        ...(p.route ? [{ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(siteUrl ? { item: siteUrl + '/' } : {}) }, { '@type': 'ListItem', position: 2, name: p.name, ...(siteUrl ? { item: url } : {}) }] }] : []),
         { '@type': p.mode ? 'TechArticle' : 'Article', headline: p.title, description: p.description, inLanguage: lang, datePublished: '2026-01-15', dateModified: '2026-09-27', author: { '@type': 'Organization', name: 'Worth' }, publisher: { '@type': 'Organization', name: 'Worth' }, keywords: (p.keywords || []).join(', '), isAccessibleForFree: true, codeRepository: 'https://github.com/njohn931d-dotcom/bbbh' },
         { '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Is this free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes free open source' } }] },
-        { '@type': 'Organization', name: 'Worth', url: origin || 'https://worth.example', sameAs: ['https://github.com/njohn931d-dotcom/bbbh', 'https://en.wikipedia.org/wiki/Personal_finance'] }
+        { '@type': 'Organization', name: 'Worth', url: siteUrl || 'https://worth.example', sameAs: ['https://github.com/njohn931d-dotcom/bbbh', 'https://en.wikipedia.org/wiki/Personal_finance'] }
       ]
     };
     html = html.replace(/<script type="application\/ld\+json">.*?<\/script>/s, '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
-    return html.replace('</head>', (origin ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' : '<meta name="robots" content="noindex, nofollow">') + '<meta name="twitter:card" content="summary"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">' + hreflangs + '<meta name="keywords" content="' + escape((p.keywords || []).join(', ')) + '"></head>');
+    return html.replace('</head>', (siteUrl ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' : '<meta name="robots" content="noindex, nofollow">') + '<meta name="twitter:card" content="summary"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">' + hreflangs + '<meta name="keywords" content="' + escape((p.keywords || []).join(', ')) + '"></head>');
   }
 
   const data = extraRoutes.map(route => {
@@ -175,19 +177,17 @@ export function generateParasiteSEO() {
     const pbnFooter = '<section style="margin-top:40px;padding:20px;background:#f5f5ef;border-radius:8px;border:1px solid #e0e4d7"><div class="section-label">PARASITE SEO CLUSTER - GITHUB DA 99 - ' + allRoutes.length + ' TOOLS</div><p style="font-size:11px;color:#7a8470">Part of Worth ' + allRoutes.length + '-tool cluster hosted on GitHub Pages DA 99. Open source MIT. External: <a href="https://en.wikipedia.org/wiki/Personal_finance">Wikipedia</a> • <a href="https://github.com/topics/calculator">GitHub Calculator</a> • <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub Source</a></p></section>';
     let html = base.replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + '<article class="seo-article"><div style="background:#eef0e5;padding:12px 16px;border-radius:6px;font-size:11px;margin-bottom:20px;">Free 2026 • GitHub DA 99 • ' + escape(p.name) + '</div>' + p.body + relatedHTML + linksAll + pbnFooter + faq + '</main>').replace('<body>', '<body data-mode="' + (p.mode || '') + '">').replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"');
     if (!p.mode) html = html.replace(/<button class="saved-button"[\s\S]*?<\/button>/, '<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>', '');
-    html = metadata(html, p);
+    html = prefixInternalLinks(metadata(html, p));
     fs.mkdirSync(p.route, { recursive: true });
     fs.writeFileSync(p.route + '/index.html', html);
     fs.writeFileSync(p.route + '/index.txt', p.title + '\n' + p.description + '\n');
     fs.writeFileSync(p.route + '/index.json', JSON.stringify({ title: p.title, route: p.route }, null, 2));
   }
 
-  // Do not overwrite home here, main generator does home
-  // But ensure public files include all routes
   fs.mkdirSync('public', { recursive: true });
-  if (origin) {
+  if (siteUrl) {
     const allUrls = ['', ...allRoutes];
-    const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allUrls.map(r => '<url><loc>' + escape(origin + (r ? '/' + r + '/' : '/')) + '</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq></url>').join('') + '\n</urlset>';
+    const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allUrls.map(r => '<url><loc>' + escape(siteUrl + (r ? '/' + r + '/' : '/')) + '</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq></url>').join('') + '\n</urlset>';
     fs.writeFileSync('public/sitemap.xml', sitemap);
   }
 }
