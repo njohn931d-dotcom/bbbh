@@ -146,7 +146,8 @@ export function generateParasiteSEO() {
       ]
     };
     html = html.replace(/<script type="application\/ld\+json">.*?<\/script>/s, '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
-    return html.replace('</head>', (siteUrl ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' : '<meta name="robots" content="noindex, nofollow">') + '<meta name="twitter:card" content="summary"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">' + hreflangs + '<meta name="keywords" content="' + escape((p.keywords || []).join(', ')) + '"></head>');
+    const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="author" href="/humans.txt">';
+    return html.replace('</head>', (siteUrl ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' : '<meta name="robots" content="noindex, nofollow">') + '<meta name="twitter:card" content="summary_large_image"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">' + hreflangs + manifestLink + '<meta name="keywords" content="' + escape((p.keywords || []).join(', ')) + '"></head>');
   }
 
   const data = extraRoutes.map(route => {

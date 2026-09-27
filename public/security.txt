@@ -1,2 +1,6 @@
-Contact: https://github.com/njohn931d-dotcom/bbbh
+Contact: https://github.com/njohn931d-dotcom/bbbh/security/advisories/new
+Contact: https://github.com/njohn931d-dotcom/bbbh/issues
 Expires: 2027-09-27T00:00:00.000Z
+Acknowledgments: https://github.com/njohn931d-dotcom/bbbh/blob/main/SECURITY.md
+Preferred-Languages: en
+Canonical: https://njohn931d-dotcom.github.io/bbbh/.well-known/security.txt

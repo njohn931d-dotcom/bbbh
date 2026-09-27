@@ -1,0 +1,59 @@
+{
+  "name": "Worth — Free Money Calculators",
+  "short_name": "Worth",
+  "description": "Turn any purchase into hours of work. Free cost-of-time, subscription, and savings calculators. Open source, private, no sign-up.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#faf9f5",
+  "theme_color": "#204f3c",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23204f3c'/%3E%3Ctext x='13' y='46' font-size='44' fill='%23d9edb2' font-family='serif'%3Ew%3C/text%3E%3C/svg%3E",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%23204f3c'/%3E%3Ctext x='40' y='138' font-size='132' fill='%23d9edb2' font-family='serif'%3Ew%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23204f3c'/%3E%3Ctext x='100' y='368' font-size='360' fill='%23d9edb2' font-family='serif'%3Ew%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "any",
+  "shortcuts": [
+    {
+      "name": "Cost of Time Calculator",
+      "short_name": "Cost of Time",
+      "description": "Convert purchase price to work hours",
+      "url": "/calculators/cost-of-time/",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Subscription Calculator",
+      "short_name": "Subscriptions",
+      "description": "Monthly to yearly subscription cost",
+      "url": "/calculators/subscription-cost/",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Daily Savings Calculator",
+      "short_name": "Savings",
+      "description": "Small daily savings yearly total",
+      "url": "/calculators/daily-savings/",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 192 192%27%3E%3Crect width=%27192%27 height=%27192%27 rx=%2732%27 fill=%27%23204f3c%27/%3E%3Ctext x=%2740%27 y=%27138%27 font-size=%27132%27 fill=%27%23d9edb2%27 font-family=%27serif%27%3Ew%3C/text%3E%3C/svg%3E", "sizes": "192x192", "type": "image/svg+xml" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
