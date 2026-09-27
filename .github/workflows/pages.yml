@@ -1,0 +1,91 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Every push and PR: prove the 53 pages build and pass the content checks.
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build with a reserved test origin
+        run: npm run build:production
+        env:
+          SITE_URL: https://worth.example
+      - name: Verify page count and discovery files
+        run: |
+          set -e
+          pages=$(find dist -name 'index.html' | wc -l)
+          echo "Built $pages index.html files"
+          test "$pages" -ge 53
+          test -f dist/sitemap.xml
+          test -f dist/robots.txt
+          test -f dist/feed.xml
+          test -f dist/llms.txt
+          grep -q "worth.example" dist/sitemap.xml
+          test "$(grep -o '<loc>' dist/sitemap.xml | wc -l)" -eq 53
+          # No page may ship the preview noindex tag.
+          ! grep -rl 'noindex, nofollow' dist
+
+  # Only on main: publish.
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: qa
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+
+      - name: Resolve canonical origin
+        id: origin
+        run: |
+          if [ -n "${{ vars.SITE_URL }}" ]; then
+            echo "url=${{ vars.SITE_URL }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
+            echo "url=https://${{ github.repository_owner }}.github.io" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Set a repository variable SITE_URL to your canonical origin (for example https://www.your-domain.com) before deploying. Project Pages URLs such as https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }} are not supported because the site emits root-absolute URLs."
+            exit 1
+          fi
+
+      - name: Build indexable site
+        run: npm run build:production
+        env:
+          SITE_URL: ${{ steps.origin.outputs.url }}
+
+      - name: Add custom domain
+        if: vars.CNAME != ''
+        run: echo "${{ vars.CNAME }}" > dist/CNAME
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

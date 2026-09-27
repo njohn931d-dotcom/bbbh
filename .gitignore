@@ -2,8 +2,11 @@ node_modules/
 dist/
 
 .generated/
-calculators/
-guides/
+/calculators/
+/guides/
+/articles/
+public/feed.xml
+public/llms.txt
 public/robots.txt
 public/sitemap.xml
 
