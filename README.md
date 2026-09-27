@@ -18,13 +18,13 @@ Worth is a static site of browser-based money calculators and practical guides. 
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
 - **SEO max** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **133 pages** — all static HTML, unique titles/descriptions, validated by 12 tests
+- **133 pages** — all static HTML, unique titles/descriptions, validated by 20 tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 12 tests, 133 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — 20 tests, 133 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
 4. Verify dist: 133 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
@@ -55,7 +55,7 @@ Live discovery files:
 ```sh
 npm ci
 npm run dev          # http://localhost:5173
-npm test             # 12 tests
+npm test             # 20 tests
 npm run build        # preview (noindex)
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production  # production
 ```

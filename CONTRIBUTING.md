@@ -7,7 +7,7 @@ Worth is open source (MIT) — 133 SEO pages of free money calculators.
 ```sh
 npm ci
 npm run dev    # http://localhost:5173
-npm test       # 12 tests, 133 URL validation
+npm test       # 20 tests, 133 URL validation
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
 ```
 
@@ -38,7 +38,7 @@ Markdown support: `##`/`###`, paragraphs, `-` and `1.` lists, pipe tables, `>` c
 
 ## Tests
 
-- `tests/*.test.cjs` — 12 tests
+- `tests/*.test.cjs` — 20 tests
 - Validates: calculations, localStorage, frontmatter, HTML escaping, canonical URLs, unique metadata, internal links, orphans, sitemap coverage, preview noindex, project path prefixing
 - Run `npm test` before PR
 
