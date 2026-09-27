@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
-import { generateSEO, routes } from './scripts/generate-seo.mjs';
+import { generateSEO, routes as mainRoutes } from './scripts/generate-seo.mjs';
+import { generateParasiteSEO, extraRoutes } from './scripts/generate-parasite.mjs';
 const rawSiteURL = process.env.SITE_URL;
 const base = rawSiteURL ? `${new URL(rawSiteURL).pathname.replace(/\/$/,'')}/` : '/';
 generateSEO();
+generateParasiteSEO();
+const routes = [...mainRoutes, ...extraRoutes];
 export default defineConfig({
  base,
  plugins: [{ name: 'static-seo-home', transformIndexHtml: { order:'pre', handler(html, ctx) { return ctx.filename === resolve('index.html') ? fs.readFileSync('.generated/home.html','utf8') : html; } } }],
