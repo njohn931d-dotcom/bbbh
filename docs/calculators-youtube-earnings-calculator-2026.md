@@ -1,30 +1,41 @@
-# YouTube Earnings Calculator 2026: How Much YouTubers Make
+# YouTube Earnings Per Hour Calculator
 
-> YouTube earnings calculator 2026: how much YouTubers make per 1k, 1M views. RPM by niche. MrBeast, finance, gaming. Free tool.
+> Estimate YouTube AdSense income from views and RPM, then divide by the hours you spend making videos. 2026 RPM table by niche and an hourly-rate check.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/youtube-earnings-calculator-2026/
 
-Last updated: 2026-09-27
+## Revenue formula
 
-## What is YouTube Earnings Calculator 2026: How Much YouTubers Make?
+Earnings = (monetized views ÷ 1,000) × RPM. RPM (revenue per mille) is what you keep after YouTube’s 45% cut. A channel with 500,000 views a month at a $4 RPM earns $2,000.
 
-  YouTube earnings calculator 2026: how much YouTubers make per 1k, 1M views. RPM by niche. MrBeast, finance, gaming. Free tool.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    YouTube RPM by Niche 2026 (Finance $25 vs Gaming $2)    MrBeast Math: $2M Per Video But $1.5M Cost     YouTube RPM by Niche 2026 (Finance $25 vs Gaming $2)  Finance RPM $15-30 per 1k views. Tech $8-15. Education $6-12. Entertainment $2-5. Gaming $1-4. Finance 10x gaming. 1M finance views = $20k, gaming = $2k.  MrBeast Math: $2M Per Video But $1.5M Cost  MrBeast 100M views = $500k AdSense (RPM $5) but $1.5M production cost. Profit from sponsors $2M. Net $1M/video.   LSI Keywords: youtube earnings calculator, how much youtubers make, youtube money calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much does YouTube pay per 1000 views 2026?  $2-$30 depending niche. Avg $4. Finance $20, gaming $2.  How much for 1 million views?
+| Monthly views | RPM | AdSense revenue | Hourly rate at 60 h/month |
+| --- | --- | --- | --- |
+| 100,000 | $2 | $200 | $3.33 |
+| 500,000 | $4 | $2,000 | $33 |
+| 1,000,000 | $4 | $4,000 | $67 |
+| 1,000,000 | $12 | $12,000 | $200 |
 
-## Try Calculator
+## Turning it into an hourly rate
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/youtube-earnings-calculator-2026/
+Divide revenue by production hours. If those 500,000 views took 4 videos at 15 hours each, $2,000 ÷ 60 hours = $33 per hour. Most small channels land below minimum wage on this measure for the first year or two.
 
-## Related
+## Typical 2026 RPMs
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Finance and software channels see $8–$20 RPM; gaming and vlogs often $1–$3; Shorts under $0.10. Sponsorships and affiliate income usually exceed AdSense once a channel passes ~50,000 subscribers.
 
-## Keywords
+## FAQ
 
-youtube earnings calculator, how much youtubers make, youtube money calculator 2026
+**How much does YouTube pay per 1,000 views?**
+
+Creators typically keep $1–$5 per 1,000 monetized views; finance and tech niches can reach $10–$20.
+
+**What is the difference between CPM and RPM?**
+
+CPM is what advertisers pay per 1,000 ad impressions; RPM is what the creator receives per 1,000 video views after the platform’s share.
+
+**How do I calculate my YouTube hourly rate?**
+
+Divide monthly revenue by hours spent scripting, filming, editing, and publishing.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

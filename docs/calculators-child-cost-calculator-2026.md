@@ -1,30 +1,41 @@
-# Cost of Raising Child Calculator 2026: $310k Shocking Truth
+# Cost of Raising a Child in Work Hours
 
-> Cost of raising child calculator 2026: $310k per child to 18, not college. See work-hours cost. Free 2026 tool.
+> Convert the monthly cost of a child into hours of work. 2026 cost estimates by age from USDA-based figures, childcare share, and total to age 18.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/child-cost-calculator-2026/
 
-Last updated: 2026-09-27
+## Monthly cost to hours
 
-## What is Cost of Raising Child Calculator 2026: $310k Shocking Truth?
+Hours = monthly child costs ÷ take-home hourly pay. The USDA’s inflation-adjusted estimate for a middle-income family is about $1,500 per month per child, or 50 hours a month at $30 per hour: more than a full working week.
 
-  Cost of raising child calculator 2026: $310k per child to 18, not college. See work-hours cost. Free 2026 tool.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    USDA 2026: $310k Per Child to 18 (Not College)    College Extra $100k-$300k Per Child     USDA 2026: $310k Per Child to 18 (Not College)  Housing $110k, food $60k, childcare $50k, transport $30k, healthcare $25k, education $20k, other $15k. $310k = $17,222/year = $1,435/mo. At $35/hr = 8,857 hours = 4.4 work-years per child. Two kids = 8.8 work-years.  College Extra $100k-$300k Per Child  Public $100k 4yr, private $300k 4yr 2026. Total per child $410k-$610k with college. Two kids college = $1M.   LSI Keywords: cost of raising child calculator, how much child cost 2026, cost of child   Frequently Asked Questions (FAQ) - People Also Ask  How much does it cost to raise child 2026?  $310k to 18, $410k-$610k with college. $1,435/mo.  How many work hours per child?  
+| Age band | Typical monthly cost | Hours/month at $30/hr |
+| --- | --- | --- |
+| 0–2 (with daycare) | $2,300 | 77 h |
+| 3–5 (with preschool) | $2,000 | 67 h |
+| 6–11 | $1,300 | 43 h |
+| 12–17 | $1,500 | 50 h |
 
-## Try Calculator
+## Total to age 18
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/child-cost-calculator-2026/
+$1,500 × 12 × 18 ≈ $324,000 before college. In hours that is 10,800, or 5.2 working years. Childcare dominates ages 0–4 at $1,000–$2,500 a month in most metros; housing and food dominate later.
 
-## Related
+## What shifts the number
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Second children cost roughly 25% less each through shared housing and hand-me-downs. Location, childcare choice, and whether one parent reduces hours matter more than any spending tactic.
 
-## Keywords
+## FAQ
 
-cost of raising child calculator, how much child cost 2026, cost of child
+**How much does it cost to raise a child in 2026?**
+
+Roughly $300,000–$330,000 to age 18 for a middle-income US family, about $1,500 a month on average.
+
+**What is the biggest expense?**
+
+Housing overall, and childcare during the first five years.
+
+**How do I measure child costs in hours?**
+
+Divide monthly child-related spending by your after-tax hourly pay.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

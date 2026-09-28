@@ -1,30 +1,41 @@
-# Calculadora Horas Trabalho Brasil 2026: R$30/hora Líquido
+# Calculadora de salário por hora 2026 (Brasil)
 
-> Calculadora horas trabalho Brasil 2026: R$30/hora quanto líquido, iPhone quantas horas. Grátis 2026.
+> Converta salário mensal em valor por hora pela regra das 220 horas da CLT. Salário mínimo 2026 (R$ 1.621), tabela líquida e preços em horas de trabalho.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-horas-trabalho-brasil-2026/
 
-Last updated: 2026-09-27
+## A fórmula da CLT
 
-## What is Calculadora Horas Trabalho Brasil 2026: R$30/hora Líquido?
+Valor-hora = salário mensal ÷ 220. A jornada de 44 horas semanais equivale a 220 horas mensais pela CLT. Um salário de R$ 3.500 dá R$ 15,91 por hora bruto. Descontando INSS e IRRF, o líquido fica em torno de R$ 3.100, ou R$ 14,09 por hora.
 
-  Calculadora horas trabalho Brasil 2026: R$30/hora quanto líquido, iPhone quantas horas. Grátis 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    R$30/h Bruto = R$5,040/mês = R$3,800 Líquido 2026 (25% Impostos)    iPhone Quantas Horas 2026 Brasil     R$30/h Bruto = R$5,040/mês = R$3,800 Líquido 2026 (25% Impostos)  Brasil impostos 25% avg. R$30*168h=R$5,040 bruto=R$3,800 líquido=R$22.61/h líquido.  iPhone Quantas Horas 2026 Brasil  iPhone R$8,000 / R$22.61 = 353 horas = 44 dias trabalho.   LSI Keywords: calculadora horas trabalho, quanto ganho por hora brasil, salario por hora 2026 brasil   Frequently Asked Questions (FAQ) - People Also Ask  Quanto sobra R$30/h 2026 Brasil?  R$22.61/h líquido, R$3,800/mês líquido.  iPhone quantas horas Brasil?  353 horas a R$30/h bruto. 
+| Salário bruto | Valor-hora bruto (220 h) | Líquido estimado | Valor-hora líquido |
+| --- | --- | --- | --- |
+| R$ 1.621 (mínimo) | R$ 7,37 | R$ 1.500 | R$ 6,82 |
+| R$ 3.500 | R$ 15,91 | R$ 3.100 | R$ 14,09 |
+| R$ 6.000 | R$ 27,27 | R$ 4.900 | R$ 22,27 |
+| R$ 10.000 | R$ 45,45 | R$ 7.600 | R$ 34,55 |
 
-## Try Calculator
+## Referências 2026
 
-https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-horas-trabalho-brasil-2026/
+O salário mínimo de 2026 é R$ 1.621, ou R$ 7,37 por hora. O rendimento médio real do trabalho está perto de R$ 3.500. Para decidir compras, use o valor-hora líquido, não o bruto.
 
-## Related
+## Preço em horas
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Divida o preço pelo valor-hora líquido. Um celular de R$ 3.000 a R$ 14,09 por hora custa 213 horas, quase um mês inteiro de trabalho. A calculadora acima faz essa conta na hora.
 
-## Keywords
+## FAQ
 
-calculadora horas trabalho, quanto ganho por hora brasil, salario por hora 2026 brasil
+**Como calcular o valor da hora de trabalho?**
+
+Divida o salário mensal por 220 para jornada de 44 horas semanais, ou por 200 para 40 horas.
+
+**Qual o salário mínimo em 2026?**
+
+R$ 1.621 por mês, R$ 7,37 por hora.
+
+**Uso o salário bruto ou líquido?**
+
+O líquido, que é o dinheiro que efetivamente entra na conta.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

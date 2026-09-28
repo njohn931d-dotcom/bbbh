@@ -1,30 +1,42 @@
-# Wedding Budget Calculator 2026: Average $35k = 1,400 Hours Work
+# Wedding Cost in Hours of Work Calculator
 
-> Wedding budget calculator 2026: average wedding cost $35k, breakdown. See work-hours cost. Free 2026 calculator.
+> Turn a wedding budget into the hours of work it takes to pay for it. 2026 average cost breakdown by category, per-guest math, and a savings timeline.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/wedding-budget-calculator-2026/
 
-Last updated: 2026-09-27
+## Budget to hours
 
-## What is Wedding Budget Calculator 2026: Average $35k = 1,400 Hours Work?
+Hours = total wedding cost ÷ combined take-home hourly pay. The average US wedding ran about $33,000 in 2025. For a couple earning $55 per hour after tax together, that is 600 hours, or 15 weeks of both people’s full-time work.
 
-  Wedding budget calculator 2026: average wedding cost $35k, breakdown. See work-hours cost. Free 2026 calculator.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Average US Wedding 2026: $35k = 1,000 Hours at $35/hr    $5k vs $35k vs $100k Wedding Happiness Same     Average US Wedding 2026: $35k = 1,000 Hours at $35/hr  Venue $12k, catering $8k, photo $4k, dress $2k, ring $6k, other $3k. $35k = 1,000 hours work = 6 months full-time. 50% couples go into debt.  $5k vs $35k vs $100k Wedding Happiness Same  Study: wedding cost not correlated with marriage success. $5k wedding same divorce rate as $100k. $35k = 1 year honeymoon travel instead.   LSI Keywords: wedding budget calculator, how much wedding cost 2026, average wedding cost   Frequently Asked Questions (FAQ) - People Also Ask  How much does average wedding cost 2026?  $35k US average, $50k NYC/LA, $15k small.  How many work hours is a wedding?  $35k at $35/hr = 1,
+| Category | Share of $33,000 | Cost | Hours at $55/hr (couple) |
+| --- | --- | --- | --- |
+| Venue + catering | 45% | $14,850 | 270 h |
+| Photography + video | 12% | $3,960 | 72 h |
+| Attire + rings | 12% | $3,960 | 72 h |
+| Music, flowers, décor | 18% | $5,940 | 108 h |
+| Everything else | 13% | $4,290 | 78 h |
 
-## Try Calculator
+## Per-guest cost
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/wedding-budget-calculator-2026/
+Venue, catering, and bar scale with the guest list at roughly $150–$300 per person. Cutting 30 guests from 130 saves $4,500–$9,000, or 80–160 hours of work.
 
-## Related
+## Saving for it
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Months to save = cost ÷ monthly savings. $33,000 at $1,500 a month is 22 months. Dividing the plan into categories keeps any one line, usually catering at 40–50%, from swallowing the rest.
 
-## Keywords
+## FAQ
 
-wedding budget calculator, how much wedding cost 2026, average wedding cost
+**What does the average wedding cost in 2026?**
+
+Roughly $33,000 in the US excluding the honeymoon; medians are lower, around $10,000–$15,000.
+
+**How much does each wedding guest cost?**
+
+Typically $150–$300 once venue, food, drinks, rentals, and invitations are included.
+
+**How do I turn a wedding budget into hours?**
+
+Divide the total by the couple’s combined after-tax hourly pay.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

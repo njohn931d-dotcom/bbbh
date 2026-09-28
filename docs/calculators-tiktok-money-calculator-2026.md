@@ -1,30 +1,41 @@
-# TikTok Money Calculator 2026: Viral Earnings Per View
+# TikTok Creator Earnings Per Hour Calculator
 
-> TikTok money calculator 2026: Creator Fund, Creativity Program, gifts. How much TikTokers make per 1M views. Free 2026.
+> Estimate TikTok Creator Rewards income from views and turn it into an hourly rate. 2026 payout ranges, brand deal benchmarks, and a worked table.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/tiktok-money-calculator-2026/
 
-Last updated: 2026-09-27
+## Creator Rewards math
 
-## What is TikTok Money Calculator 2026: Viral Earnings Per View?
+Earnings ≈ qualified views ÷ 1,000 × RPM. The Creator Rewards Program pays roughly $0.40–$1.00 per 1,000 qualified views on videos over one minute. 2 million qualified views a month at $0.60 is $1,200.
 
-  TikTok money calculator 2026: Creator Fund, Creativity Program, gifts. How much TikTokers make per 1M views. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    TikTok Pay 2026: $0.02-$0.04 Per 1k Views (Worse Than YouTube)    How Charli D'Amelio Makes $17M But Not From Views     TikTok Pay 2026: $0.02-$0.04 Per 1k Views (Worse Than YouTube)  Creativity Program Beta: $0.50-$1 per 1k qualified views (&gt;1min). Old Creator Fund $0.02. 1M views = $20-$1,000. TikTok pays 10x less than YouTube.  How Charli D'Amelio Makes $17M But Not From Views  Charli: 1B views/year = $500k from TikTok. $16.5M from sponsors, merch, TV. Views are marketing, not income.   LSI Keywords: tiktok money calculator, tiktok earnings calculator, how much tiktok pays 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much TikTok pays per 1M views 2026?  $20-$1000. Avg $500 with new program if videos >1min.  Can you make money on 
+| Monthly qualified views | RPM | Program earnings | Hourly at 80 h/month |
+| --- | --- | --- | --- |
+| 500,000 | $0.50 | $250 | $3.13 |
+| 2,000,000 | $0.60 | $1,200 | $15 |
+| 5,000,000 | $0.80 | $4,000 | $50 |
+| 10,000,000 | $0.80 | $8,000 | $100 |
 
-## Try Calculator
+## Hourly rate reality
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/tiktok-money-calculator-2026/
+If those 2 million views come from 40 videos at 2 hours each, $1,200 ÷ 80 hours = $15 per hour. Brand deals change the picture: a creator with 100,000 followers commonly charges $500–$2,000 per sponsored post.
 
-## Related
+## Comparing platforms
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Per view, TikTok pays a fraction of long-form YouTube. Per hour of production, short vertical video can still win because each clip takes far less time. Measure both and compare in hours.
 
-## Keywords
+## FAQ
 
-tiktok money calculator, tiktok earnings calculator, how much tiktok pays 2026
+**How much does TikTok pay per 1,000 views?**
+
+Roughly $0.40 to $1.00 for qualified views under the Creator Rewards Program; Shorts-style clips under a minute usually earn nothing.
+
+**How many followers do I need to earn on TikTok?**
+
+10,000 followers and 100,000 views in the last 30 days for the rewards program; brand deals can start earlier.
+
+**How do I calculate my TikTok hourly rate?**
+
+Total monthly earnings ÷ hours spent filming, editing, and posting.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

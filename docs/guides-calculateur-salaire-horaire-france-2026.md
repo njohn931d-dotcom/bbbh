@@ -1,30 +1,41 @@
-# Calculateur Salaire Horaire France 2026: Brut Net
+# Calculateur de salaire horaire 2026
 
-> Calculateur salaire horaire France 2026: brut net, combien reste. €15/h = €1,800 net. Gratuit 2026.
+> Convertissez un salaire mensuel ou annuel en taux horaire brut et net. Formule 151,67 h, SMIC 2026, tableau par salaire et prix exprimés en heures de travail.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/calculateur-salaire-horaire-france-2026/
 
-Last updated: 2026-09-27
+## La formule
 
-## What is Calculateur Salaire Horaire France 2026: Brut Net?
+Taux horaire = salaire mensuel ÷ 151,67. Pour 35 heures par semaine, le mois compte 151,67 heures (35 × 52 ÷ 12). Un salaire de 2 600 € brut donne 17,14 € brut de l’heure ; le net, environ 78 % du brut dans le privé, fait 13,40 € de l’heure.
 
-  Calculateur salaire horaire France 2026: brut net, combien reste. €15/h = €1,800 net. Gratuit 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    €15/h Brut = €2,520/mois = €1,950 Net 2026 (23% Charges)    iPhone en Heures Travail France 2026     €15/h Brut = €2,520/mois = €1,950 Net 2026 (23% Charges)  France charges 23% salarié. €15/h * 151.67h (35h) = €2,275 brut = €1,760 net = €11.60/h net.  iPhone en Heures Travail France 2026  iPhone €1,200 / €11.60 = 103 heures = 13 jours travail.   LSI Keywords: calculateur salaire horaire, salaire brut net 2026, calcul heure france   Frequently Asked Questions (FAQ) - People Also Ask  Combien reste €15/h brut 2026 France?  €11.60/h net, €1,760/mois net.  Combien heures pour iPhone France?  103 heures à €15/h brut. 
+| Salaire mensuel brut | Taux horaire brut (151,67 h) | Net estimé/heure |
+| --- | --- | --- |
+| 1 801,80 € (SMIC) | 11,88 € | 9,40 € |
+| 2 600 € | 17,14 € | 13,40 € |
+| 3 500 € | 23,08 € | 18,00 € |
+| 5 000 € | 32,97 € | 25,70 € |
 
-## Try Calculator
+## SMIC et repères 2026
 
-https://njohn931d-dotcom.github.io/bbbh/guides/calculateur-salaire-horaire-france-2026/
+Le SMIC horaire brut est de 11,88 € (1 801,80 € mensuel brut, environ 1 426 € net). Le salaire net médian en France est d’environ 2 100 € par mois, soit 13,85 € net de l’heure.
 
-## Related
+## Un prix en heures de travail
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Divisez le prix par votre taux horaire net. Un smartphone à 1 000 € à 13,40 € net de l’heure coûte 75 heures, soit deux semaines de travail. Le calculateur ci-dessus fait cette division.
 
-## Keywords
+## FAQ
 
-calculateur salaire horaire, salaire brut net 2026, calcul heure france
+**Comment calculer son taux horaire ?**
+
+Divisez le salaire mensuel par 151,67 pour un temps plein à 35 heures.
+
+**Quel est le SMIC horaire en 2026 ?**
+
+11,88 € brut, soit environ 9,40 € net.
+
+**Faut-il utiliser le brut ou le net ?**
+
+Le net pour décider d’un achat : c’est l’argent réellement disponible.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

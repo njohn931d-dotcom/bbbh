@@ -1,30 +1,41 @@
-# Compound Interest Calculator: Retire Rich With $5/Day
+# Compound Interest in Hours Calculator
 
-> Compound interest calculator 2026: see how $5/day becomes $1M. Free retirement calculator with work-hours perspective. Instant results.
+> See what compound growth is worth in hours of work. Formula, a 7% growth table from $1,000 to $50,000, and how long money takes to double.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/compound-interest-calculator/
 
-Last updated: 2026-09-27
+## The compound interest formula
 
-## What is Compound Interest Calculator: Retire Rich With $5/Day?
+A = P × (1 + r/n)n·t. $10,000 at 7% compounded yearly for 20 years grows to $38,697. The $28,697 of growth at $30 per hour is 957 hours of work you did not have to do.
 
-  Compound interest is the 8th wonder. Einstein called it. $5/day at 10% for 50 years = $2.1M.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Formula: A = P(1+r/n)^(nt) - Simple But Powerful    $1, $5, $10/Day For 10-50 Years Table (Shocking)    Why 2026 Is Best Year To Start (AI Stocks, Index Funds)    Work Hours Perspective: What You Really Trade     Formula: A = P(1+r/n)^(nt) - Simple But Powerful  P=principal, r=rate, n=compounds per year, t=years. $5/day = $1,825/year. At 10% annual for 40 years: $809,745. At 12%: $1,364,000. Your $73k invested becomes $1.3M. That is 17x return.  $1, $5, $10/Day For 10-50 Years Table (Shocking)  The earlier you start, the crazier. Starting at 20 vs 30 = 2x more money with same contributions. Time &gt; amount.  Why 2026 Is Best Year To Start (AI Stocks, Index Funds)  2026 market: S&amp;P avg 10% last 30 years. AI stocks volatile but index funds safe. VOO, QQQ. Even 8% = life-changi
+| Starting amount | After 20 yr at 7% | Growth | Hours at $30/hr |
+| --- | --- | --- | --- |
+| $1,000 | $3,870 | $2,870 | 96 h |
+| $5,000 | $19,348 | $14,348 | 478 h |
+| $10,000 | $38,697 | $28,697 | 957 h |
+| $50,000 | $193,484 | $143,484 | 4,783 h |
 
-## Try Calculator
+## Rule of 72
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/compound-interest-calculator/
+Divide 72 by the annual rate to estimate doubling time: 72 ÷ 7 ≈ 10.3 years. At 4% it is 18 years; at 10% about 7. This is why starting earlier beats contributing more later.
 
-## Related
+## Turning growth into hours
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Enter the interest earned, not the whole balance, into the calculator above. That isolates the part you did not work for. Real returns vary year to year; 7% is a long-run nominal average for diversified stocks, not a promise.
 
-## Keywords
+## FAQ
 
-compound interest calculator, how to retire rich, $5 a day millionaire
+**How is compound interest calculated?**
+
+A = P(1 + r/n)^(nt). P is principal, r the annual rate, n compounding periods per year, t years.
+
+**How long does money take to double at 7%?**
+
+About 10.3 years using the rule of 72 (72 ÷ 7).
+
+**Why express growth in hours of work?**
+
+Because it makes the alternative concrete: 957 hours of growth is about 24 full working weeks you did not have to trade for the money.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -1,30 +1,41 @@
-# ChatGPT Cost Calculator 2026: $20/mo = $240/year Truth
+# AI Subscription Cost in Work Hours Calculator
 
-> ChatGPT cost calculator 2026: Plus, Team, Enterprise cost. Is $20/mo worth work-hours? Free calculator 2026.
+> Compare ChatGPT Plus, Pro, Claude, Gemini and Copilot prices in hours of work per year, and check whether the time an AI tool saves covers its cost.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/chatgpt-cost-calculator-2026/
 
-Last updated: 2026-09-27
+## Cost in hours
 
-## What is ChatGPT Cost Calculator 2026: $20/mo = $240/year Truth?
+Hours per year = monthly fee × 12 ÷ take-home hourly pay. ChatGPT Plus at $20 is $240 a year, 8 hours at $30 per hour. ChatGPT Pro at $200 is $2,400 a year, 80 hours: two full working weeks.
 
-  ChatGPT cost calculator 2026: Plus, Team, Enterprise cost. Is $20/mo worth work-hours? Free calculator 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    ChatGPT Plus $20/mo = $240/year = 6.8 Hours at $35/hr    Team $30/mo/user, Enterprise $60/mo/user. API $0.01/1k tokens. Heavy user $100/mo API.     ChatGPT Plus $20/mo = $240/year = 6.8 Hours at $35/hr  Is 6.8 hours/year worth ChatGPT? If saves 1hr/week = 52hrs/year = 7.6x ROI. Yes if you use. If not, waste.  Team $30/mo/user, Enterprise $60/mo/user. API $0.01/1k tokens. Heavy user $100/mo API.  undefined   LSI Keywords: chatgpt cost calculator, chatgpt plus worth it, how much chatgpt cost 2026   Frequently Asked Questions (FAQ) - People Also Ask  Is ChatGPT Plus worth $20/mo 2026?  If saves 2hr/month, yes. 2hr at $35/hr = $70 value for $20 cost.  How much ChatGPT cost per year?  Plus $240, Team $360, Enterprise $720. API $20-$200/mo depending usage. 
+| Plan (2026) | Monthly | Yearly | Hours/year at $30/hr | Minutes/month to break even |
+| --- | --- | --- | --- | --- |
+| ChatGPT Plus | $20 | $240 | 8 h | 40 min |
+| Claude Pro | $20 | $240 | 8 h | 40 min |
+| Gemini AI Pro | $19.99 | $240 | 8 h | 40 min |
+| ChatGPT Pro | $200 | $2,400 | 80 h | 6.7 h |
 
-## Try Calculator
+## The break-even test
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/chatgpt-cost-calculator-2026/
+A subscription pays for itself when hours saved per month × your hourly value > monthly fee. At $30 per hour, Plus needs to save 40 minutes a month; Pro needs to save nearly 7 hours a month. For most people Plus clears the bar easily and Pro does not.
 
-## Related
+## API instead of subscription
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Light users often spend under $5 a month on API pricing. Heavy daily users, or anyone who values the app interface, usually do better on a flat plan.
 
-## Keywords
+## FAQ
 
-chatgpt cost calculator, chatgpt plus worth it, how much chatgpt cost 2026
+**How much does ChatGPT cost in 2026?**
+
+Free tier, Plus at $20 a month, Pro at $200 a month; Team and Enterprise are priced per seat.
+
+**Is ChatGPT Plus worth it?**
+
+If it saves you more than about 40 minutes a month at a $30 hourly value, yes on pure arithmetic.
+
+**Should I pay per token instead?**
+
+API pay-as-you-go is cheaper for occasional use; flat plans win for daily heavy use.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

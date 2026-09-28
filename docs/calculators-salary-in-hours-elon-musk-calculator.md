@@ -1,30 +1,41 @@
-# Elon Musk Salary in Hours: How Many Lifetimes You Need
+# Your Purchases in Elon Musk Time Calculator
 
-> Elon Musk, Bezos, Taylor Swift earnings per second calculator. See how many hours you work vs they earn per second. Shocking 2026.
+> Compare what a purchase costs you in hours with what it costs Elon Musk in seconds, based on 2026 net worth growth. Formula and a side-by-side table.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/salary-in-hours-elon-musk-calculator/
 
-Last updated: 2026-09-27
+## How "per second" figures are calculated
 
-## What is Elon Musk Salary in Hours: How Many Lifetimes You Need?
+Earnings per second = annual net worth change ÷ 31,536,000 seconds. Musk’s net worth rose roughly $200 billion across 2024, about $6,340 per second on paper. It is unrealized stock value, not salary; in 2025 the same math ran negative for months.
 
-  Elon Musk, Bezos, Taylor Swift earnings per second calculator. See how many hours you work vs they earn per second. Shocking 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Elon Musk 2026: $12,000 Per Second, $720k Per Minute    Jeff Bezos $4,000/sec, Taylor Swift $2,000/sec, You $0.01/sec     Elon Musk 2026: $12,000 Per Second, $720k Per Minute  Musk net worth +$80B in 2024 = $2,536/second. 2026 estimate $12k/sec if Tesla + SpaceX up. You at $35/hr = $0.0097/sec. He makes 1,237,113x more per second. You work 1 year = he earns in 2.5 seconds.  Jeff Bezos $4,000/sec, Taylor Swift $2,000/sec, You $0.01/sec  Bezos $150B net / year = $4,756/sec. Taylor $1B year = $31/sec from Eras tour 2023-2024 but 2026 catalog $2k/sec. Your lifetime earnings $2M = Bezos 7 minutes.   LSI Keywords: elon musk earnings per second, how much elon musk makes per hour, jeff bezos per second   Frequently Asked Questions (FAQ) - People Also
+| Purchase | Your hours at $30/hr | Musk seconds at $6,340/s |
+| --- | --- | --- |
+| Coffee $5 | 10 min | 0.0008 s |
+| Laptop $1,200 | 40 h | 0.19 s |
+| Car $35,000 | 1,167 h | 5.5 s |
+| House $400,000 | 13,333 h | 63 s |
 
-## Try Calculator
+## Your purchases on both clocks
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/salary-in-hours-elon-musk-calculator/
+At $30 per hour a $1,200 laptop is 40 hours of your work. At $6,340 per second it is under a fifth of a second. The comparison is not about envy; it shows why prices mean different things at different incomes.
 
-## Related
+## A fairer comparison
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Median US household income is about $80,000, or roughly $38 an hour gross. Compare yourself with medians for your job and city rather than with a founder’s share price.
 
-## Keywords
+## FAQ
 
-elon musk earnings per second, how much elon musk makes per hour, jeff bezos per second
+**How much does Elon Musk make per second?**
+
+Using 2024 net worth growth of about $200 billion, roughly $6,300 per second; the number swings with Tesla and SpaceX valuations and can be negative.
+
+**Is that salary?**
+
+No. It is a change in stock value. His formal salary at Tesla has been $0 for years.
+
+**How do I compare my purchase in hours?**
+
+Divide the price by your take-home hourly pay.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

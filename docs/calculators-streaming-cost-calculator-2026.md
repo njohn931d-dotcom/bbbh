@@ -1,30 +1,42 @@
-# Streaming Cost Calculator 2026: $80/mo = $20k Over 20 Years
+# Streaming Bundle Cost in Work Hours 2026
 
-> Streaming cost calculator 2026: Netflix, Spotify, YouTube, all subscriptions real cost. See annual + work-hours. Free 2026.
+> Add up 2026 streaming prices (Netflix, Disney+, Max, Spotify and more) and convert the yearly total into hours of work. Price table and cut-list method.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost-calculator-2026/
 
-Last updated: 2026-09-27
+## Yearly cost in hours
 
-## What is Streaming Cost Calculator 2026: $80/mo = $20k Over 20 Years?
+Hours per year = monthly total × 12 ÷ take-home hourly pay. Five services at $78 a month total $936 a year, or 31 hours at $30 per hour, nearly four working days for television.
 
-  Streaming cost calculator 2026: Netflix, Spotify, YouTube, all subscriptions real cost. See annual + work-hours. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Average American Pays $80/mo Streaming = $960/year = $19,200 Over 20 Years    Work Hours: $81/mo = 27 Hours/Year at $35/hr = 540 Hours Over 20 Years     Average American Pays $80/mo Streaming = $960/year = $19,200 Over 20 Years  Netflix $15.49, Spotify $11.99, YouTube Premium $13.99, Disney $13.99, HBO $15.99, Apple TV $9.99 = $81.44/mo. $977/year. At 7% invested, 20 years = $40k lost.  Work Hours: $81/mo = 27 Hours/Year at $35/hr = 540 Hours Over 20 Years  You work 27 hours/year just for streaming. 540 hours over 20 years = 13.5 work-weeks.   LSI Keywords: streaming cost calculator, how much netflix cost yearly, subscription calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much does average person spend streaming 2026?  $80
+| Service (2026, ad-free) | Monthly | Yearly | Hours/year at $30/hr |
+| --- | --- | --- | --- |
+| Netflix Standard | $17.99 | $216 | 7.2 h |
+| Disney+ Premium | $18.99 | $228 | 7.6 h |
+| Max | $18.49 | $222 | 7.4 h |
+| Spotify Premium | $11.99 | $144 | 4.8 h |
+| All four | $67.46 | $810 | 27 h |
 
-## Try Calculator
+## 2026 price check
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost-calculator-2026/
+Ad-free tiers now cluster at $16–$20: Netflix Standard $17.99, Disney+ Premium $18.99, Max $18.49, Spotify Premium $11.99, YouTube Premium $13.99. Ad-supported plans run $8–$10 and roughly halve the bill.
 
-## Related
+## Cut list method
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Sort services by hours watched last month. Divide each fee by its hours to get a cost per viewing hour; anything above $3 per hour is a rotation candidate. Subscribe for a month, binge, cancel.
 
-## Keywords
+## FAQ
 
-streaming cost calculator, how much netflix cost yearly, subscription calculator 2026
+**How much do streaming services cost per year in 2026?**
+
+A typical household with four or five services pays $800–$1,000 a year on ad-free tiers.
+
+**How do I calculate cost per hour watched?**
+
+Divide the monthly fee by hours watched that month; $18 for 6 hours is $3 per hour.
+
+**What is the cheapest way to keep streaming?**
+
+Ad-supported tiers and rotating one or two services at a time instead of holding all of them.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

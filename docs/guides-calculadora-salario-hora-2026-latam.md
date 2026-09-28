@@ -1,30 +1,42 @@
-# Calculadora Salario por Hora 2026 LATAM: México Argentina Colombia
+# Calculadora de salario por hora 2026
 
-> Calculadora salario por hora 2026 LATAM: México, Argentina, Colombia, Chile. Convierte sueldo mensual a horas. Gratis 2026.
+> Convierte tu sueldo mensual o anual en salario por hora en México, Argentina, Colombia, Chile y España. Fórmulas, horas legales por país y tabla 2026.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-salario-hora-2026-latam/
 
-Last updated: 2026-09-27
+## Fórmula
 
-## What is Calculadora Salario por Hora 2026 LATAM: México Argentina Colombia?
+Salario por hora = sueldo mensual neto ÷ horas trabajadas al mes. Las horas mensuales dependen de la jornada legal: 48 h semanales en México (208 h/mes), 45 h en Chile y Colombia en 2026 (195 h), 40 h en España (173 h). Un sueldo neto de 15.000 MXN entre 208 horas son 72 MXN por hora.
 
-  Calculadora salario por hora 2026 LATAM: México, Argentina, Colombia, Chile. Convierte sueldo mensual a horas. Gratis 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Salario por Hora Fórmula: Sueldo Mensual / 160 Horas (LATAM)    Cuántas Horas Cuesta iPhone 2026 LATAM     Salario por Hora Fórmula: Sueldo Mensual / 160 Horas (LATAM)  México $15,000 MXN/mes = 94 MXN/hora = $5.2 USD/hora. Argentina $500k ARS = $3,125 ARS/hora = $3.5 USD/hora. Colombia $2M COP = $12,500 COP/hora = $3.1 USD/hora.  Cuántas Horas Cuesta iPhone 2026 LATAM  iPhone $1,200 USD. México $5.2/hr = 230 horas = 29 días trabajo. Argentina $3.5/hr = 342 horas = 42 días.   LSI Keywords: calculadora salario por hora, cuanto gano por hora, salario hora 2026   Frequently Asked Questions (FAQ) - People Also Ask  Cuánto gano por hora con $15,000 MXN?  94 MXN/hora = $5.2 USD/hora.  Cuántas horas trabajo cuesta iPhone LATAM?  230 horas México, 342 Argent
+| País | Jornada legal | Sueldo neto ejemplo | Por hora |
+| --- | --- | --- | --- |
+| México | 48 h/semana (208 h/mes) | 15.000 MXN | 72 MXN |
+| Colombia | 44 h/semana (191 h/mes) | 2.500.000 COP | 13.090 COP |
+| Chile | 44 h/semana (191 h/mes) | 700.000 CLP | 3.665 CLP |
+| Argentina | 48 h/semana (208 h/mes) | 900.000 ARS | 4.327 ARS |
+| España | 40 h/semana (173 h/mes) | 1.600 € | 9,25 € |
 
-## Try Calculator
+## Salario mínimo 2026 por hora
 
-https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-salario-hora-2026-latam/
+México: 315,04 MXN diarios, unos 39 MXN/hora. España: 1.184 € en 14 pagas, unos 8,87 €/hora. Colombia: 1.750.905 COP, unos 8.980 COP/hora. Chile: 529.000 CLP, unos 2.710 CLP/hora. Usa el neto real, no el bruto, para medir compras.
 
-## Related
+## Para qué sirve el número
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Cualquier precio dividido entre tu salario por hora se convierte en horas de trabajo. Un teléfono de 12.000 MXN a 72 MXN/hora son 167 horas: un mes entero. La calculadora de arriba hace esa división al instante.
 
-## Keywords
+## FAQ
 
-calculadora salario por hora, cuanto gano por hora, salario hora 2026
+**¿Cómo calculo mi salario por hora?**
+
+Divide el sueldo mensual neto entre las horas que trabajas al mes; para una jornada de 40 horas son 173,33 horas.
+
+**¿Uso el sueldo bruto o el neto?**
+
+El neto: es el dinero que realmente llega a tu cuenta y el que gastas.
+
+**¿Cuántas horas al mes tiene una jornada de 48 horas?**
+
+Aproximadamente 208 horas (48 × 52 ÷ 12).
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -6,7 +6,7 @@ Location: Global - 10 languages
 Contact: https://github.com/njohn931d-dotcom/bbbh/issues
 
 /* THANKS */
-GitHub Pages DA 99 for hosting
+GitHub Pages for hosting
 Vite for build tooling
 Contributors: Open source community
 
@@ -19,7 +19,7 @@ Version: 1.0.0 - 2026-09-27
 Build: 133 SEO pages - 86 calculators/guides + 46 article cluster + home
 License: MIT - https://github.com/njohn931d-dotcom/bbbh/blob/main/LICENSE
 Last update: 2026-09-27
-Language: English (10 language variants in parasite cluster)
+Language: English, plus salary-to-hourly guides in es, de, fr, ru, zh, ja, ko, ar, pt
 
 /* MANIFESTO */
 We believe money is time. We build free tools that make trade-offs visible,

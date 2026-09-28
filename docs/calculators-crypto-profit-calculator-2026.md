@@ -1,30 +1,41 @@
-# Crypto Profit Calculator 2026: Bitcoin Ethereum Gains
+# Crypto Profit in Hours of Work Calculator
 
-> Crypto profit calculator 2026: Bitcoin, Ethereum, Solana profit after tax. See how many work hours your crypto gains worth. Free.
+> Convert a crypto gain or loss into hours of work at your pay. Profit formula with fees, a break-even table, and how to think about volatility in time.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/crypto-profit-calculator-2026/
 
-Last updated: 2026-09-27
+## Profit formula
 
-## What is Crypto Profit Calculator 2026: Bitcoin Ethereum Gains?
+Profit = (sell price − buy price) × quantity − fees. Buying 0.1 BTC at $60,000 and selling at $68,000 with $40 in fees nets $760. At $30 per hour that is 25 hours of work, before capital gains tax.
 
-  Crypto profit calculator 2026: Bitcoin, Ethereum, Solana profit after tax. See how many work hours your crypto gains worth. Free.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    If You Bought $1k Bitcoin in 2010-2024 (Insane Returns)    Tax on Crypto 2026: IRS Takes 37%     If You Bought $1k Bitcoin in 2010-2024 (Insane Returns)  $1k BTC in 2010 = $1.8B in 2026 at $95k BTC. In 2015 $1k = $380k. In 2020 $1k at $8k BTC = $11,875 now. 2024 $1k at $42k = $2,261.  Tax on Crypto 2026: IRS Takes 37%  Short-term (&lt;1yr) taxed as income up to 37%. Long-term 0-20%. $100k gain short-term at 32% bracket = $32k tax. Long-term = $15k. Hold &gt;1 year saves $17k.   LSI Keywords: crypto profit calculator, bitcoin profit calculator, ethereum calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much if I invested $1000 in Bitcoin in 2010?  $1.8 billion in 2026 at $95k BTC. Yes billion.  Do you pay tax on crypto p
+| Position | Move | Profit before tax | Hours at $30/hr |
+| --- | --- | --- | --- |
+| $1,000 | +10% | $100 | 3.3 h |
+| $5,000 | +10% | $500 | 16.7 h |
+| $5,000 | −20% | −$1,000 | −33 h |
+| $20,000 | +25% | $5,000 | 167 h |
 
-## Try Calculator
+## Losses in hours
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/crypto-profit-calculator-2026/
+The same trade in reverse loses 25 hours plus fees. Run losses through the calculator too; people rarely translate drawdowns into time, which is why they feel smaller than they are.
 
-## Related
+## Taxes and break-even
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Short-term gains are taxed as ordinary income in the US. Break-even price = buy price × (1 + fee rate)2 ÷ 1, so a 0.5% fee each way needs about a 1% move to reach zero.
 
-## Keywords
+## FAQ
 
-crypto profit calculator, bitcoin profit calculator, ethereum calculator 2026
+**How do I calculate crypto profit?**
+
+Subtract total cost (buy price × quantity + fees) from total proceeds (sell price × quantity − fees).
+
+**Are crypto gains taxed?**
+
+In most countries yes. In the US, assets held under a year are taxed as ordinary income; over a year at long-term rates.
+
+**Why convert profit to hours?**
+
+It anchors a volatile number to something stable: 167 hours is a month of work, whether the coin doubled or you got lucky.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

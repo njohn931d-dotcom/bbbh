@@ -1,30 +1,41 @@
-# Paycheck Calculator 2026: Take-Home Pay After Tax
+# Paycheck to Hourly Take-Home Calculator
 
-> Paycheck calculator 2026: salary to hourly, after tax take-home pay. Federal + state + FICA. See work-hours cost. Free 2026.
+> Turn a paycheck into true take-home pay per hour. Federal, FICA and state deductions explained, 2026 example table, and how to use net hourly pay.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-calculator-2026/
 
-Last updated: 2026-09-27
+## Net pay per hour
 
-## What is Paycheck Calculator 2026: Take-Home Pay After Tax?
+Net hourly pay = take-home paycheck ÷ hours worked in the period. A biweekly net check of $2,150 for 80 hours is $26.88 per hour, even if your gross rate is $35. That net number is the one to use in every cost-of-time calculation.
 
-  Paycheck calculator 2026: salary to hourly, after tax take-home pay. Federal + state + FICA. See work-hours cost. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    $70k Salary Breakdown 2026 (You Keep Only 70%)    Hourly to Salary Table 2026     $70k Salary Breakdown 2026 (You Keep Only 70%)  $70k gross = $53,200 after federal (12-22%), state (5% avg), FICA 7.65%. Take-home $4,433/mo = $25.60/hr if 40h/week. But you work 173h/mo, so $25.60/hr. 30% lost to tax.  Hourly to Salary Table 2026  $20/hr = $41,600 gross, $33k take-home. $35/hr = $72,800 gross, $54k take-home. $50/hr = $104k gross, $75k take-home. $100/hr = $208k gross, $140k take-home. Tax bracket kills.   LSI Keywords: paycheck calculator, take home pay, salary to hourly, after tax calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much is $70k after tax 2026?  $53,200 avg after tax, $4,433/mo take-home. Depends state: CA $49k
+| Gross salary | Gross hourly (2,080 h) | Approx. net (single, no state tax) | Net hourly |
+| --- | --- | --- | --- |
+| $45,000 | $21.63 | $37,300 | $17.93 |
+| $70,000 | $33.65 | $54,900 | $26.39 |
+| $100,000 | $48.08 | $75,100 | $36.11 |
+| $150,000 | $72.12 | $107,700 | $51.78 |
 
-## Try Calculator
+## What comes out of a US paycheck in 2026
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-calculator-2026/
+Federal income tax (10–37% brackets), Social Security 6.2% up to the wage base, Medicare 1.45%, state income tax in most states, plus pre-tax 401(k) and health premiums. A typical single filer at $70,000 nets around 75–78% of gross.
 
-## Related
+## Using the number
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Once you know net hourly pay, every price divides cleanly into hours. A $300 purchase at $26.88 net is 11.2 hours, not the 8.6 hours a gross rate suggests.
 
-## Keywords
+## FAQ
 
-paycheck calculator, take home pay, salary to hourly, after tax calculator 2026
+**How do I find my hourly pay from a paycheck?**
+
+Divide the net amount by the hours in the pay period. Biweekly full-time is usually 80 hours; semi-monthly about 86.67.
+
+**Why is net hourly pay lower than my wage?**
+
+Taxes and deductions typically remove 20–30% before the money reaches you.
+
+**Should I include benefits?**
+
+For cost-of-time decisions, no; use cash that actually lands in your account.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -1,133 +1,108 @@
-# SEO Strategy: 40 Articles to Rank Using GitHub
+# Worth — traffic playbook (rewritten Sept 2026)
 
-**Goal:** Rank #1 for 40 money calculator keywords using GitHub's Domain Authority 96 as primary lever.
+This replaces the earlier "GitHub DA 96/99 parasite" plan. That plan was built on a
+premise that is wrong, and its footprint was actively hurting the site. What follows
+is the order of operations that actually produces views for a static calculator site
+on `njohn931d-dotcom.github.io/bbbh/`.
 
-## Why GitHub?
+## 1. The premise that was wrong
 
-- **DA 96** - github.com outranks most finance blogs (DA 40-70)
-- **Trust** - Open source code = E-E-A-T (Expertise, Experience, Authority, Trust) signal to Google
-- **Indexing** - GitHub markdown files are indexed for `site:github.com` searches
-- **Backlinks** - Every GitHub repo linking to your site passes authority
-- **Stars** - Social proof, correlates with ranking for "calculator github" queries
-- **Code search** - Developers search "salary to hourly calculator github" → find repo → star → boost
+**`github.io` is on the Public Suffix List.** Google, Ahrefs, Moz and every browser treat
+`njohn931d-dotcom.github.io` as its own registrable domain, the same way they treat
+`something.blogspot.com` or `user.wordpress.com`. It inherits **nothing** from
+github.com's authority. Pages here start at DR 0 like any new domain. "DA 99 for 24h
+ranking" was never going to happen, and printing it on every page told quality
+classifiers exactly what the pages were.
 
-## Keyword Research (40 keywords, 100k+ combined monthly searches)
+What was on the pages before this rewrite, on 40 URLs at once:
 
-### Tier 1: High volume, low competition (calculator + github modifier)
+- Title tags like `Trump Tariff Calculator 2026 Calculator 2026: Free Calculator [Free Tool] | Worth`
+- Visible copy: "PARASITE SEO CLUSTER - GITHUB DA 99", "QDF freshness for 24h Google ranking"
+- One cloned body for all 40 topics (a mortgage page, an OnlyFans page and a Taylor Swift
+  page all said "Work hours = price ÷ hourly pay. At $35/hr, $100 = 2.8 hours")
+- FAQ schema on every page: `Is this free? → Yes free open source`
+- hreflang on every English page pointing at a Spanish *mortgage* guide as its translation
+- `sameAs: wikipedia.org/wiki/Personal_finance` on the Organization
+- Related links picked with `Math.random()` so every build shuffled the internal graph
+- A shipped `sitemap-extra.xml` full of `https://worth.example/.../index.json`
 
-| Keyword | Volume | KD | Current top | Why we can win |
-|---------|--------|----|-------------|----------------|
-| salary to hourly calculator | 22k | 35 | Nerdwallet | Add "github" → 1.8k vol, KD 10, we rank |
-| hourly to salary calculator | 18k | 32 | Calculator.net | Open source angle |
-| overtime calculator | 12k | 40 | ADP | GitHub code transparency |
-| how to calculate overtime | 12k | 38 | Indeed | Same |
-| is netflix worth it | 8.1k | 45 | Reddit | Cost per hour calculator unique |
-| how to save $1000 fast | 8.1k | 50 | Dave Ramsey | Daily habit calculator |
-| freelance rate calculator | 8.1k | 28 | Freelancermap | Open source formula |
+That is the textbook doorway-page pattern, and it drags the 46 legitimate guides and 46
+real calculators down with it. Fixed in this branch: every one of the 40 pages now has
+its own title, description, intro, three sections, a data table with real numbers and
+three real FAQs; hreflang is only emitted across the ten genuine translations of the
+salary-to-hourly page; the footprint strings are gone from the site, the repo, the
+README and humans.txt.
 
-### Tier 2: Medium volume, informational (guides)
+## 2. What ranks a site like this (in order of leverage)
 
-Target "how to" + money + github. Example: "how to audit subscriptions github template" - our markdown checklist ranks.
+### a. One thing nobody else has: "price in hours of work"
+The cost-of-time angle is the only genuinely differentiated thing here. Nobody ranks a
+"mortgage payment in hours of work" page because nobody has built one. Every page is
+now framed that way. Keep doing that: do not build a 41st generic "mortgage calculator";
+build "X in hours of work" pages for things people actually search with a price attached.
 
-### Tier 3: Long-tail (cost per X)
+### b. Search Console before anything else
+Verification tag is already in the template. After this deploys:
+1. Submit `sitemap.xml`. Request indexing on the 10 highest-value URLs manually.
+2. Wait 3–4 weeks. Export Performance → Pages. Anything with impressions and <1% CTR
+   gets a title rewrite. Anything with zero impressions after 90 days gets merged or
+   pruned. This is the only keyword tool you need at this stage.
 
-Cost per wear, per use, per visit - low volume (1-3k) but high intent, easy to rank, high conversion to main calculator.
+### c. Links that are actually obtainable
+A DR 0 site needs a few dozen real referring domains to rank for anything with volume.
+Ranked by effort-to-value:
+- **dev.to / Hashnode / Medium canonical reposts** of the 5 strongest guides, canonical
+  pointing home (`DEVTO_BACKLINKS.md` already has the workflow; use it for the good
+  guides, not the 40 extra pages).
+- **Reddit answers with the calculator link** where someone literally asks the question
+  ("how many hours of work is a $30k car"). r/personalfinance, r/povertyfinance,
+  r/Frugal, r/financialindependence. One genuinely useful answer a day. No link drops.
+- **Hacker News "Show HN"** for the open-source angle once the site is clean. One shot;
+  make it count with the Musk/Bezos-vs-you page as the hook.
+- **Product Hunt** launch. Same day as HN.
+- **GitHub itself**: topics on the repo (`calculator`, `personal-finance`, `pwa`,
+  `open-source`), a proper social preview image, and a Discussions tab. Stars are a
+  signal for github.com search, not Google.
+- **Wikipedia external links** for "cost of time"/"opportunity cost of consumption"
+  style articles only if the page is genuinely a better reference. Editors revert
+  self-promotion in hours; do not spam this.
 
-## Content Architecture: 47 Pages
+### d. Custom domain (do this before the link push)
+Every link built to `njohn931d-dotcom.github.io/bbbh/` is stranded on a domain you do
+not own. Buy a short `.com`, point GitHub Pages at it, set `SITE_URL` in the workflow.
+The build already supports origin-root deployment. Do this **before** step c.
 
-- **Home** `/` - Hub, links to all 46, targets "free money calculators"
-- **Calculators** 18 pages (3 original + 15 new) - Tool intent, embed JS calculator, tables, FAQ
-- **Guides** 28 pages (3 original + 25 new) - Info intent, 1000+ words, tables, internal links to calculators
+### e. Freshness that is real
+`lastmod` is now `monthly`, not `daily` on every URL. Daily lastmod on 133 static pages
+that never change trains Google to ignore your sitemap dates. Update the 2026 price
+tables when the numbers move (minimum wages in January, streaming prices when they
+change, mortgage rates quarterly) and bump `dateModified` only on the pages you touched.
 
-Every page:
-- Title: Keyword first, 60 chars, includes year (2025) for freshness
-- Description: 155 chars, includes keyword + value prop + "Free, open source on GitHub"
-- H1: Same as title without branding
-- Intro: 2 sentences, keyword in first 100 chars
-- Body: 1000-1500 words, 2-4 H2s, 1 table minimum, 3+ internal links, GitHub CTA box
-- FAQ: 2 questions minimum (FAQPage schema)
-- Schema: WebSite, WebPage/WebApplication, BreadcrumbList, FAQPage, codeRepository link to GitHub
-- Keywords meta: keyword, calculator, github, open source, worth
+### f. Discover / social traffic
+The pages with real volume potential outside search are the comparison pages
+(Musk/Bezos hours, MrBeast per second, concert cost in hours). Each needs a real OG
+image (1200×630, the number in big type) to travel on X/Threads/LinkedIn. That is the
+highest-ROI creative work remaining.
 
-## GitHub Lever Tactics (10)
+## 3. Things not to do again
 
-### 1. Markdown mirrors in /articles/
-40 markdown files with frontmatter. Each targets same keyword as HTML but optimized for GitHub search. Contains live URL → drives traffic. Google indexes github.com files.
+- No "DA", "parasite", "24h ranking", "QDF" language on any page or in any file a
+  human or crawler can read.
+- No hreflang between pages that are not translations of one another.
+- No `Math.random()` in anything that emits HTML.
+- No shipped sitemaps containing placeholder or non-HTML URLs.
+- No FAQ schema whose answer is shorter than the question.
+- No fake `sameAs` (Wikipedia, Forbes). `sameAs` is for *your* profiles.
+- No adding pages to hit a round number. 133 URLs on a DR 0 domain is already more
+  than Google will crawl attentively; quality per URL is the constraint, not count.
 
-### 2. README keyword hub
-README lists all 40 keywords with volumes in table. GitHub README is indexed, ranks for "money calculator github". Natural keyword stuffing.
+## 4. Where things live
 
-### 3. Code comments with keywords
-`app.js` contains comments like `// salary to hourly formula: annual ÷ 2080 - open source calculator github`. GitHub code search indexes comments.
-
-### 4. Topics and About
-Add 10 topics via GitHub UI: `calculator`, `money`, `personal-finance`, `open-source`, `javascript`, `financial-calculator`, `hourly-rate`, `budget`, `latte-factor`, `cost-per-wear`. About description includes keywords.
-
-### 5. Release notes with keywords
-Create release v1.0: "Release 40 free money calculators open source on GitHub - salary to hourly, freelance rate, cost per wear..."
-
-### 6. Social preview image
-`public/og.png` with text overlay "46 Free Calculators - Open Source on GitHub" - increases CTR from GitHub social.
-
-### 7. Backlink loop
-- HTML pages → link to GitHub repo (footer CTA)
-- README → links to live site (worth.example)
-- Articles/*.md → link to live calculators
-- GitHub profile → link to live site
-
-### 8. Stars campaign
-Ask in each calculator: "Star on GitHub if useful". 100 stars = authority signal. GitHub trending for JavaScript if 50 stars in week → more visibility.
-
-### 9. Forks and PRs
-Encourage forks: "Fork and customize for your niche". Each fork creates backlink to original? GitHub shows fork network, increases repo visibility.
-
-### 10. Wiki and Discussions
-Enable Wiki: create page "Calculator Formulas" linking to all calculators. Enable Discussions: Q&A about formulas, each thread indexed.
-
-## Technical SEO (Already Implemented)
-
-- Static HTML before JS (crawlable without JS)
-- Canonical URLs absolute (SITE_URL)
-- Sitemap.xml with 47 URLs, priorities (home 1.0, calculators 0.9, guides 0.8), weekly changefreq
-- Robots.txt allows all, points to sitemap
-- Open Graph + Twitter card
-- JSON-LD with codeRepository
-- Internal linking: 47 links per page (hub)
-- Noindex guard for previews
-- Vite build emits directory index.html (clean URLs)
-- Performance: static, no server, <20kB CSS, <12kB JS
-
-## Content Velocity Plan
-
-- **Week 1:** Publish 40 articles (done via generate-seo.mjs)
-- **Week 2:** Submit sitemap to GSC, Bing, request indexing for 10 high-volume pages
-- **Week 3:** Post on Hacker News: "I open sourced 46 money calculators that run in browser - GitHub", Product Hunt, Reddit r/personalfinance, r/freelance
-- **Week 4:** Reach out to 20 finance blogs: "Free open source alternative to Calculator.net - embed our calculators"
-- **Ongoing:** Update 1 article/week with fresh data (2025 → 2026), add to changelog
-
-## Measurement
-
-- GSC: Track impressions for "calculator github" queries
-- GitHub: Stars, forks, traffic → clones graph
-- Plausible (privacy): Pageviews per calculator, top 5
-- Ranking: Check weekly for 40 keywords using SERP API
-
-## Risks and Mitigations
-
-- **Thin content?** Each article 1000+ words, unique tables, FAQs, not spun.
-- **Duplicate?** Markdown mirrors canonical to HTML via live_url frontmatter, not indexed as duplicate because different domain (github.com vs worth.example) but same content - add note "Original at worth.example" to avoid.
-- **GitHub spam?** Don't keyword stuff unnaturally, provide real value (open source code).
-
-## Next Steps
-
-- [x] 40 HTML pages generated
-- [x] 40 markdown mirrors
-- [x] README hub
-- [ ] Add GitHub topics via UI (manual)
-- [ ] Create release v1.0
-- [ ] Submit sitemap
-- [ ] Post launch
-
----
-
-*This strategy uses GitHub as SEO lever, not just hosting. DA 96 + open source trust = ranking advantage over traditional blogs.*
+| What | File |
+| --- | --- |
+| Content for the 40 extra pages | `scripts/parasite-content.mjs` (single source of truth) |
+| Page generator for those 40 | `scripts/generate-parasite.mjs` |
+| Core 46 calculators/guides | `scripts/generate-seo.mjs` |
+| 40 Markdown guides | `content/articles/*.md` via `scripts/articles.mjs` |
+| GitHub-facing mirrors (`docs/`) | `scripts/generate-github-mirrors.mjs` |
+| hreflang cluster definition | `HOURLY_WAGE_CLUSTER` in `scripts/parasite-content.mjs` |

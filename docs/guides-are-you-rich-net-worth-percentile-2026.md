@@ -1,30 +1,45 @@
-# Are You Rich? Net Worth Percentile Calculator 2026 Truth
+# Are You Rich? Net Worth and Income Percentiles 2026
 
-> Are you rich 2026? Net worth percentile by age, US. Top 10% = $1.2M, top 1% = $11M. Free guide 2026.
+> See where your income and net worth rank against US households in 2026, why median and average differ so much, and how to measure wealth in hours of work.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/are-you-rich-net-worth-percentile-2026/
 
-Last updated: 2026-09-27
+## Income percentiles
 
-## What is Are You Rich? Net Worth Percentile Calculator 2026 Truth?
+Household income around $80,000 is the US median. About $150,000 reaches the top 20%, $235,000 the top 10%, and roughly $600,000 the top 1%. Individual figures are lower: a single earner at $100,000 is already in the top 20% of workers.
 
-  Are you rich 2026? Net worth percentile by age, US. Top 10% = $1.2M, top 1% = $11M. Free guide 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Net Worth Percentiles 2026: $100k = Top 50%, $1M = Top 12%, $5M = Top 2%    Age Matters: 30yo $100k = Top 20%, 50yo $100k = Bottom 40%     Net Worth Percentiles 2026: $100k = Top 50%, $1M = Top 12%, $5M = Top 2%  Median US net worth $192k, mean $1M skewed by rich. $100k = median, $500k = top 25%, $1M = top 12%, $2M = top 5%, $5M = top 2%, $11M = top 1%.  Age Matters: 30yo $100k = Top 20%, 50yo $100k = Bottom 40%  At 30, $100k = top 20% great. At 50, $100k = bottom 40% behind. Need $500k at 50 to be top 25%.   LSI Keywords: are you rich calculator, net worth percentile, am i rich 2026   Frequently Asked Questions (FAQ) - People Also Ask  What net worth is rich 2026?  Top 10% $1.2M, top 5% $2.5M, top 1% $11M. Rich = top 5% $2.5M.  Is $500k net worth rich?  Top 25% overall, 
+| Percentile | Household income (2026 est.) | Household net worth | Net worth in hours at $35/hr |
+| --- | --- | --- | --- |
+| 50th (median) | $80,000 | $193,000 | 5,500 h |
+| 80th | $150,000 | $800,000 | 22,900 h |
+| 90th | $235,000 | $1,900,000 | 54,300 h |
+| 99th | $600,000 | $13,000,000 | 371,000 h |
 
-## Try Calculator
+## Net worth percentiles
 
-https://njohn931d-dotcom.github.io/bbbh/guides/are-you-rich-net-worth-percentile-2026/
+Median household net worth is about $193,000; the top 10% starts near $1.9 million and the top 1% around $13 million. The average, $1.06 million, is pulled up by the top; almost two thirds of households are below it.
 
-## Related
+## Rich in hours
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Divide net worth by take-home hourly pay. The median household at $193,000 and $35 per hour holds about 5,500 hours, under three working years. The top 10% at $1.9 million holds 54,000 hours, 26 years. That is the real definition of rich: years you no longer have to work.
 
-## Keywords
+## Feeling rich versus being rich
 
-are you rich calculator, net worth percentile, am i rich 2026
+Surveys find most people at the 90th percentile do not consider themselves wealthy, because comparison runs upward. Use the percentile tables to anchor to the distribution, then use the hours figure to anchor to your own life.
+
+## FAQ
+
+**What income is considered rich in the US?**
+
+Top 10% household income starts around $235,000; top 1% around $600,000.
+
+**What net worth puts you in the top 10%?**
+
+About $1.9 million per household, based on the Federal Reserve Survey of Consumer Finances adjusted to 2026.
+
+**Why is average net worth so much higher than median?**
+
+A small number of very wealthy households pull the average up; the median describes the typical household.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

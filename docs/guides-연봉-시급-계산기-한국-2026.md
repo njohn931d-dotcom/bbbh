@@ -1,30 +1,41 @@
-# 연봉 시급 계산기 한국 2026: 3만원/시급 실수령
+# 연봉 시급 계산기 2026
 
-> 연봉 시급 계산기 2026 한국: 3만원/시급 세후 얼마, 아이폰 몇시간. 무료2026도구.
+> 연봉이나 월급을 시급으로 바꾸는 공식(209시간), 2026년 최저시급 10,320원, 실수령 시급 표, 그리고 물건값을 근무시간으로 환산하는 방법.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/연봉-시급-계산기-한국-2026/
 
-Last updated: 2026-09-27
+## 계산 공식
 
-## What is 연봉 시급 계산기 한국 2026: 3만원/시급 실수령?
+시급 = 월급 ÷ 209시간. 주 40시간에 주휴 8시간을 더해 월 209시간이 법정 기준입니다. 연봉 4,000만 원은 월 333만 원, 세전 시급 약 15,950원. 4대 보험과 소득세를 빼면 실수령 약 292만 원, 실수령 시급 약 13,970원입니다.
 
-  연봉 시급 계산기 2026 한국: 3만원/시급 세후 얼마, 아이폰 몇시간. 무료2026도구.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    3만원/시급 = 504만원/월 = 420만원 실수령 2026 (세금 16%)    아이폰 몇시간 2026 한국     3만원/시급 = 504만원/월 = 420만원 실수령 2026 (세금 16%)  한국 세금 16% avg. 3만원*168시간=504만원총=420만원순=2.5만원/시급순.  아이폰 몇시간 2026 한국  아이폰 150만원 / 2.5만원 = 60시간 = 7.5일 노동.   LSI Keywords: 연봉 시급 계산기, 시급 계산기 한국, 한국 시급 2026   Frequently Asked Questions (FAQ) - People Also Ask  3만원/시급 실수령 얼마2026?  2.5만원/시급순, 420만원/월순.  아이폰 몇시간 한국?  60시간 3만원/시급총. 
+| 연봉 | 세전 시급 (209 h) | 실수령 월급 추정 | 실수령 시급 |
+| --- | --- | --- | --- |
+| 2,588만 원 (최저임금) | 10,320원 | 196만 원 | 9,380원 |
+| 3,600만 원 | 14,354원 | 266만 원 | 12,730원 |
+| 4,000만 원 | 15,949원 | 292만 원 | 13,970원 |
+| 6,000만 원 | 23,923원 | 418만 원 | 20,000원 |
 
-## Try Calculator
+## 2026년 최저시급과 기준
 
-https://njohn931d-dotcom.github.io/bbbh/guides/연봉-시급-계산기-한국-2026/
+2026년 최저시급은 10,320원, 월 환산 2,156,880원입니다. 임금근로자 중위 월급은 약 300만 원(세전 시급 약 14,350원). 소비 판단에는 실수령 시급을 사용하세요.
 
-## Related
+## 가격을 근무시간으로
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+가격 ÷ 실수령 시급 = 필요한 근무시간. 150만 원짜리 스마트폰은 시급 13,970원 기준 107시간, 거의 3주치 노동입니다. 위 계산기가 이 나눗셈을 바로 해줍니다.
 
-## Keywords
+## FAQ
 
-연봉 시급 계산기, 시급 계산기 한국, 한국 시급 2026
+**월급을 시급으로 어떻게 계산하나요?**
+
+월급을 209시간으로 나눕니다.
+
+**왜 209시간인가요?**
+
+주 40시간 근무에 유급 주휴 8시간을 더한 48시간 × 4.345주 ≈ 209시간이기 때문입니다.
+
+**2026년 최저시급은 얼마인가요?**
+
+10,320원입니다.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

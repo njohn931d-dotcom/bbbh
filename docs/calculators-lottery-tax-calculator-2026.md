@@ -1,30 +1,41 @@
-# Lottery Tax Calculator 2026: $100M Jackpot = $45M After Tax
+# Lottery Winnings After Tax in Work Hours
 
-> Lottery tax calculator 2026: Powerball, Mega Millions after tax. Lump sum vs annuity. See take-home. Free 2026.
+> See what a lottery prize is worth after federal and state tax, lump sum versus annuity, and how many years of work the net amount replaces.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/lottery-tax-calculator-2026/
 
-Last updated: 2026-09-27
+## From jackpot to bank account
 
-## What is Lottery Tax Calculator 2026: $100M Jackpot = $45M After Tax?
+Net lump sum ≈ advertised jackpot × ~0.50 cash value × (1 − 0.37 federal − state rate). A $100 million advertised Powerball has a cash value near $48 million; after 37% federal tax and, say, 5% state tax, about $28 million reaches you.
 
-  Lottery tax calculator 2026: Powerball, Mega Millions after tax. Lump sum vs annuity. See take-home. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    $100M Jackpot = $45M After Tax (55% Gone)    Lump Sum vs Annuity 2026: Lump Wins If Invest 7%+     $100M Jackpot = $45M After Tax (55% Gone)  $100M advertised annuity. Lump sum $52M cash. Federal 37% = $19.2M, state 5% avg $2.6M. You keep $30.2M annuity? No lump sum $52M - $21.8M tax = $30.2M. Wait 55% gone? Actually $100M annuity = $52M lump - 40% tax = $31M. Yes 69% gone from advertised.  Lump Sum vs Annuity 2026: Lump Wins If Invest 7%+  Annuity $100M over 30 years = $3.33M/year before tax. Lump $52M invested at 8% = $4.16M/year forever. Lump wins.   LSI Keywords: lottery tax calculator, how much tax lottery winnings, powerball after tax 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much tax on $100M lottery?  $45M-$55M total tax. You keep $
+| Advertised jackpot | Cash value (≈52%) | After 37% federal + 5% state | Working years at $30/hr |
+| --- | --- | --- | --- |
+| $1,000,000 | $1,000,000* | $580,000 | 9.3 yr |
+| $20,000,000 | $10,400,000 | $6,030,000 | 97 yr |
+| $100,000,000 | $52,000,000 | $30,160,000 | 483 yr |
+| $500,000,000 | $260,000,000 | $150,800,000 | 2,417 yr |
 
-## Try Calculator
+## Lump sum or annuity
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/lottery-tax-calculator-2026/
+The annuity pays the full advertised figure over 30 years, rising 5% annually, and is taxed each year. Lump sum wins if you can invest at more than roughly 4–5% after tax; annuity wins on discipline.
 
-## Related
+## Years of work replaced
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+$28 million ÷ $30 per hour = 933,000 hours, about 450 working years. Even a $1 million prize nets around $600,000 after tax: 20,000 hours, or ten years of full-time work.
 
-## Keywords
+## FAQ
 
-lottery tax calculator, how much tax lottery winnings, powerball after tax 2026
+**How much tax is taken from lottery winnings?**
+
+The US withholds 24% federal upfront, but prizes this size land in the 37% bracket; most states add 0–10.9%.
+
+**Is lump sum or annuity better?**
+
+Lump sum offers control and typically more if invested well; the annuity protects against overspending and locks in the full advertised amount.
+
+**Why convert winnings to hours of work?**
+
+It shows the scale honestly: a $1 million prize is about ten years of median-wage work after tax, not a lifetime.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

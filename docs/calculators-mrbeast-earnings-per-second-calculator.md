@@ -1,30 +1,41 @@
-# MrBeast Earnings Per Second Calculator 2026: $2k/Second?
+# MrBeast Earnings Per Second vs Your Pay
 
-> MrBeast earnings per second calculator 2026: how much MrBeast makes per second, per video. See work-hours vs yours. Free.
+> Estimate MrBeast’s 2026 income per second, hour, and day from reported revenue, and compare with your own hourly pay using the calculator.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/mrbeast-earnings-per-second-calculator/
 
-Last updated: 2026-09-27
+## Estimating creator income per second
 
-## What is MrBeast Earnings Per Second Calculator 2026: $2k/Second??
+Per second = annual revenue ÷ 31,536,000. Beast Industries reported about $473 million of revenue in 2024 with a stated goal of more than $1 billion for 2025. Revenue is not personal income; the company reinvests heavily and has posted losses. Even at $100 million of personal earnings the figure is about $3.17 per second, $11,400 per hour.
 
-  MrBeast earnings per second calculator 2026: how much MrBeast makes per second, per video. See work-hours vs yours. Free.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    MrBeast 2026: $50M-$80M/year = $1.58-$2.53/sec    Per Video: $2M Cost, $3M Revenue, $1M Profit     MrBeast 2026: $50M-$80M/year = $1.58-$2.53/sec  MrBeast YouTube AdSense $5M, Beast Burger $30M, Feastables $100M revenue $20M profit. Total $50M profit/year = $1.58/sec. You $35/hr = $0.0097/sec = 163x less.  Per Video: $2M Cost, $3M Revenue, $1M Profit  MrBeast videos cost $1M-$4M, views 100M = $500k AdSense + $2.5M sponsor. Profit $1M per video but reinvests.   LSI Keywords: mrbeast earnings per second, how much mrbeast makes, mrbeast per video earnings   Frequently Asked Questions (FAQ) - People Also Ask  How much MrBeast makes per second?  $1.58/sec profit, $6/sec revenue 2026.  How much MrBeast per video?  $1M profit per video avg after $2M cost. 
+| Purchase | Your hours at $30/hr | MrBeast time at $11,400/hr |
+| --- | --- | --- |
+| Coffee $5 | 10 min | 1.6 s |
+| Laptop $1,200 | 40 h | 6.3 min |
+| Car $35,000 | 1,167 h | 3.1 h |
+| House $400,000 | 13,333 h | 35 h |
 
-## Try Calculator
+## Where the money comes from
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/mrbeast-earnings-per-second-calculator/
+YouTube AdSense is a minority. Feastables snacks, Lunchly, brand sponsorships, and the Amazon show contribute far more. Videos with $1–$5 million budgets are financed by those streams, which is why per-view math understates the business.
 
-## Related
+## Your purchases on his clock
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+At $11,400 per hour, a $1,200 laptop is 6.3 minutes. At $30 per hour it is 40 hours. Use the comparison to put creator headlines in proportion, not as a benchmark.
 
-## Keywords
+## FAQ
 
-mrbeast earnings per second, how much mrbeast makes, mrbeast per video earnings
+**How much does MrBeast make per second?**
+
+Estimates based on $100 million of personal annual earnings give about $3 per second; company revenue is several times higher but is not his salary.
+
+**How much did Beast Industries make?**
+
+Reported revenue of roughly $473 million in 2024, with a target above $1 billion for 2025.
+
+**How do I compare my own pay?**
+
+Divide any price by your after-tax hourly pay to get your hours.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

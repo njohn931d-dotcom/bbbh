@@ -1,30 +1,41 @@
-# Car Loan Calculator 2026: Hidden Cost $15k Car = $35k Real
+# Car Payment in Hours of Work Calculator
 
-> Car loan calculator 2026: monthly payment, total interest, depreciation. See real cost per hour. Free 2026 calculator.
+> Turn a car payment into hours of work per month. Loan payment formula, a 2026 table at 7% for 36–72 months, and the total interest cost in time.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/car-loan-calculator-2026/
 
-Last updated: 2026-09-27
+## Payment to hours
 
-## What is Car Loan Calculator 2026: Hidden Cost $15k Car = $35k Real?
+Hours per month = car payment ÷ take-home hourly pay. A $650 payment at $28 per hour is 23 hours a month, nearly three full working days before insurance, fuel, and parking.
 
-  Car loan calculator 2026: monthly payment, total interest, depreciation. See real cost per hour. Free 2026 calculator.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS     $30k Car at 8% for 72 Months = $38,700 Total + $15k Depreciation    New vs Used 2026: Used Wins by $20k      $30k Car at 8% for 72 Months = $38,700 Total + $15k Depreciation  Monthly $538, total interest $8,700. But car worth $15k after 6 years. You paid $38,700 for $15k asset = $23,700 loss. At $30/hr = 790 hours = 19 weeks work gone.  New vs Used 2026: Used Wins by $20k  New $35k vs 3-year used $22k same model. New loses $13k year 1. Used loses $4k/year. Over 6 years, used saves $20k.   LSI Keywords: car loan calculator, how much car can i afford, car payment calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much car can I afford?  20/4/10 rule: 20% down, 4-year loan max, 10% income for car costs. $60k income = $500/mo max all 
+| $35,000 at 7% APR | Monthly payment | Total interest | Payment hours/month at $28 |
+| --- | --- | --- | --- |
+| 36 months | $1,081 | $3,910 | 38.6 h |
+| 48 months | $838 | $5,230 | 29.9 h |
+| 60 months | $693 | $6,580 | 24.8 h |
+| 72 months | $597 | $7,960 | 21.3 h |
 
-## Try Calculator
+## Loan payment formula
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/car-loan-calculator-2026/
+Payment = L × r ÷ (1 − (1 + r)−n). $35,000 at 7% APR over 60 months is $693 a month and $6,580 in total interest, which is 235 hours of work at $28 per hour spent purely on borrowing.
 
-## Related
+## Term length trade-off
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Stretching from 60 to 72 months cuts the payment by about $95 but adds roughly $1,400 of interest and leaves you underwater longer. Compare the total hours, not just the monthly figure.
 
-## Keywords
+## FAQ
 
-car loan calculator, how much car can i afford, car payment calculator 2026
+**How many hours of work should a car payment be?**
+
+A common rule keeps total car costs under 10–15% of take-home pay, roughly 17–26 hours of a 173-hour month.
+
+**How is a car loan payment calculated?**
+
+Payment = loan × monthly rate ÷ (1 − (1 + monthly rate)^−months).
+
+**Does a longer loan cost more?**
+
+Yes. Longer terms lower the payment but raise total interest, often by thousands of dollars.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

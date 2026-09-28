@@ -1,30 +1,41 @@
-# Side Hustle Calculator 2026: $500/mo = $6k/Year = 171 Hours
+# Side Hustle Real Hourly Rate Calculator
 
-> Side hustle calculator 2026: $500/mo side hustle real hourly after tax. See if worth work-hours. Free 2026 tool.
+> Find the true hourly rate of a side hustle after expenses, taxes and unpaid time. 2026 table for delivery, rideshare, tutoring and freelancing, plus a break-even check.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/side-hustle-calculator-2026/
 
-Last updated: 2026-09-27
+## The real hourly rate
 
-## What is Side Hustle Calculator 2026: $500/mo = $6k/Year = 171 Hours?
+Real rate = (revenue − expenses − tax) ÷ (paid hours + unpaid hours). Delivery driving that grosses $800 a month over 40 app hours looks like $20 per hour. Subtract $180 of fuel and wear, 25% tax, and 8 hours of waiting and admin, and it is $465 ÷ 48 = $9.70 per hour.
 
-  Side hustle calculator 2026: $500/mo side hustle real hourly after tax. See if worth work-hours. Free 2026 tool.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    $500/mo Side Hustle = $6k/year = But 10hr/week = $11.53/hr Real    Best Side Hustles 2026 by $/Hour: AI Automation $80/hr, Tutoring $40/hr, Uber $18/hr, Surveys $5/hr     $500/mo Side Hustle = $6k/year = But 10hr/week = $11.53/hr Real  $500/mo gross = $350 after tax (30%). If 40hr/mo (10hr/week) = $8.75/hr real. Less than $15 min wage in CA. Need $1k/mo for $17.50/hr.  Best Side Hustles 2026 by $/Hour: AI Automation $80/hr, Tutoring $40/hr, Uber $18/hr, Surveys $5/hr  AI automation side hustle best ROI 2026. Tutoring $40/hr. Uber $18/hr after gas. Surveys $5/hr waste.   LSI Keywords: side hustle calculator, is side hustle worth it, how much side hustle make 2026   Frequently Asked Questions (FAQ) - People Also Ask  Is $500/mo side hustle worth it?  Depends hou
+| Side hustle | Gross/hour | Costs + 25% tax | Unpaid time | Real rate |
+| --- | --- | --- | --- | --- |
+| Food delivery | $20 | $9 | 20% | $9.70 |
+| Rideshare | $24 | $12 | 15% | $10.40 |
+| Online tutoring | $35 | $9 | 10% | $23.60 |
+| Freelance design | $60 | $16 | 30% | $33.80 |
 
-## Try Calculator
+## Compare against your main job
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/side-hustle-calculator-2026/
+If your day-job take-home is $28 per hour and overtime or a raise is possible, a $9.70 hustle is a poor trade for the same hour. Hustles with low costs and repeat clients (tutoring, bookkeeping, specialized freelancing) usually clear $30–$60 real.
 
-## Related
+## Tax note
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+US self-employment income over $400 owes 15.3% SE tax plus income tax; quarterly estimates avoid penalties. Track mileage: the 2025 IRS rate is 70 cents per mile.
 
-## Keywords
+## FAQ
 
-side hustle calculator, is side hustle worth it, how much side hustle make 2026
+**How do I calculate my side hustle hourly rate?**
+
+Subtract expenses and tax from revenue, then divide by every hour spent including unpaid setup, travel, and admin.
+
+**Is a side hustle worth it?**
+
+Compare its real hourly rate with what an extra hour at your main job, or an hour of rest, is worth to you.
+
+**Do I pay tax on side income?**
+
+Yes. In the US, net self-employment income above $400 is taxable and subject to self-employment tax.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

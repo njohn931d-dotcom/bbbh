@@ -1,30 +1,45 @@
-# Cost of Time: Elon Musk vs Jeff Bezos vs You 2026 Shocking
+# Cost of Time: Musk, Bezos, and You in 2026
 
-> Cost of time calculator 2026: Elon Musk $12k/sec, Bezos $4k/sec, Taylor $2k/sec vs you $0.01/sec. Shocking work-hours comparison. Free.
+> What an hour is worth to the world’s richest people versus a median worker in 2026, how those figures are calculated, and why your own number matters more.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-time-elon-musk-jeff-bezos-2026/
 
-Last updated: 2026-09-27
+## How billionaire hourly figures are built
 
-## What is Cost of Time: Elon Musk vs Jeff Bezos vs You 2026 Shocking?
+Per hour = change in net worth over a period ÷ hours in that period. Musk’s net worth rose roughly $200 billion in 2024: about $22.8 million per hour. Bezos gained around $60 billion: $6.8 million per hour. Both are paper gains from share prices; in down years the same math is negative.
 
-  Cost of time calculator 2026: Elon Musk $12k/sec, Bezos $4k/sec, Taylor $2k/sec vs you $0.01/sec. Shocking work-hours comparison. Free.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Billionaire Per Second 2026: Elon $12k, Bezos $4k, You $0.01 (1M x Difference)    How Many Lifetimes to Match Elon 1 Year?     Billionaire Per Second 2026: Elon $12k, Bezos $4k, You $0.01 (1M x Difference)  Elon +$80B 2024 = $2,536/sec, 2026 est $12k/sec peak. Bezos $4,756/sec. You $35/hr = $0.0097/sec. Elon makes your annual salary in 0.8 seconds.  How Many Lifetimes to Match Elon 1 Year?  Elon $80B/year / $70k salary = 1,142,857 years. You need 14,285 lifetimes (80yr each) to match Elon 1 year.   LSI Keywords: elon musk per second, jeff bezos per second, cost of time billionaire   Frequently Asked Questions (FAQ) - People Also Ask  How much Elon Musk per second 2026?  $2,500-$12,000/sec avg $4k/sec long-term.  How many hours to match B
+| Person | Basis | Per hour | $1,200 laptop costs |
+| --- | --- | --- | --- |
+| Elon Musk | +$200B net worth, 2024 | $22.8M | 0.19 s |
+| Jeff Bezos | +$60B net worth, 2024 | $6.8M | 0.6 s |
+| Top 1% household | $600k income | $290 gross | 4.1 h |
+| Median US worker | $30/h gross, $24 net | $24 net | 50 h |
 
-## Try Calculator
+## The median worker
 
-https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-time-elon-musk-jeff-bezos-2026/
+US median hourly earnings for full-time workers are about $30 gross, $23–$25 after tax. That is the number every price in your life actually divides into. A $1,200 laptop is 50 working hours at $24; it is 0.19 seconds of Musk’s 2024 rate.
 
-## Related
+## Why the comparison is misleading, and still useful
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Wealth gains are not income; billionaires cannot spend share price without selling and paying tax. But the comparison shows what "cost of time" means: the same object costs radically different amounts of life depending on who is buying. The number that should change your behavior is yours.
 
-## Keywords
+## Compute your own
 
-elon musk per second, jeff bezos per second, cost of time billionaire
+Take-home pay ÷ hours worked = your hourly value. Include commuting and unpaid overtime for a true rate. Then use the calculator above on your next non-trivial purchase.
+
+## FAQ
+
+**How much does Elon Musk make per hour?**
+
+Roughly $22.8 million per hour based on 2024 net worth growth; it is unrealized stock value, not pay.
+
+**How much does Jeff Bezos make per hour?**
+
+About $6.8 million per hour on the same basis for 2024.
+
+**How do I calculate what my time is worth?**
+
+Divide take-home pay by total hours worked, including commute if you want a true rate.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

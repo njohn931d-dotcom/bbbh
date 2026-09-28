@@ -1,30 +1,41 @@
-# OnlyFans Earnings Calculator 2026: How Much Creators Make
+# Creator Subscription Income Per Hour Calculator
 
-> OnlyFans earnings calculator 2026: how much OnlyFans creators make. Average $180/mo, top 1% $10k+. Free calculator with tax.
+> Estimate subscription-platform income after the 20% platform fee and self-employment tax, then divide by hours worked. Formula, 2026 table, and tax notes.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/onlyfans-earnings-calculator-2026/
 
-Last updated: 2026-09-27
+## Gross to net
 
-## What is OnlyFans Earnings Calculator 2026: How Much Creators Make?
+Net = (subscribers × price + tips + PPV) × 0.80 − taxes. The platform keeps 20%. 300 subscribers at $9.99 gross $2,997; after the fee that is $2,398, and after roughly 30% combined income and self-employment tax, about $1,680.
 
-  OnlyFans earnings calculator 2026: how much OnlyFans creators make. Average $180/mo, top 1% $10k+. Free calculator with tax.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    OnlyFans Truth 2026: Average $180/mo, Median $0    OnlyFans Fee: 20% + Tax 30% = You Keep 50%     OnlyFans Truth 2026: Average $180/mo, Median $0  OnlyFans has 4M creators. Top 1% makes 33% of all money. Top 0.1% = $10k+/mo. Average $180/mo but median $0 because 70% make $0. Bop House creators $20k-$200k/mo.  OnlyFans Fee: 20% + Tax 30% = You Keep 50%  OnlyFans takes 20%. Then tax 30% avg. $10k gross = $8k after OF = $5,600 after tax. Need $18k gross for $10k take-home.   LSI Keywords: onlyfans earnings calculator, how much onlyfans creators make, onlyfans money calculator   Frequently Asked Questions (FAQ) - People Also Ask  How much does average OnlyFans make 2026?  $180/mo average, $0 median. Top 10% $1k/mo, top 1% $6k/mo.  How much do top OnlyF
+| Paid subscribers at $9.99 | Gross | After 20% fee | After ~30% tax | Hourly at 45 h |
+| --- | --- | --- | --- | --- |
+| 50 | $500 | $400 | $280 | $6.20 |
+| 300 | $2,997 | $2,398 | $1,680 | $37 |
+| 1,000 | $9,990 | $7,992 | $5,594 | $124 |
+| 5,000 | $49,950 | $39,960 | $27,972 | $622 |
 
-## Try Calculator
+## Hours are the hidden cost
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/onlyfans-earnings-calculator-2026/
+Content, messaging, and promotion commonly consume 30–60 hours a month. $1,680 ÷ 45 hours = $37 per hour. The median account earns under $200 a month, so run the numbers with your own subscriber count rather than headline figures.
 
-## Related
+## Tax treatment
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Creator income is self-employment income in the US: 15.3% SE tax on net profit plus ordinary income tax. Equipment, software, and a home-office share are deductible.
 
-## Keywords
+## FAQ
 
-onlyfans earnings calculator, how much onlyfans creators make, onlyfans money calculator
+**What percentage does OnlyFans take?**
+
+20% of all earnings, including subscriptions, tips, and pay-per-view messages.
+
+**Do creators pay self-employment tax?**
+
+Yes in the US: 15.3% on net profit in addition to income tax, filed on Schedule C.
+
+**How is hourly income calculated?**
+
+Net after-tax income ÷ total hours spent producing content, messaging, and marketing.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

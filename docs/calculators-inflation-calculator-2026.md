@@ -1,30 +1,41 @@
-# Inflation Calculator 2026: What $100 in 2000 Worth Today?
+# Inflation Cost in Work Hours Calculator
 
-> Inflation calculator 2026: see what $100 in 2000, 2010, 2020 worth today. Free CPI calculator with work-hours cost. Updated 2026.
+> Measure inflation in hours of work instead of percent. Formula, a table of common prices 2020 vs 2026, and how to check if your pay kept up.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/inflation-calculator-2026/
 
-Last updated: 2026-09-27
+## Inflation measured in your time
 
-## What is Inflation Calculator 2026: What $100 in 2000 Worth Today??
+Hours = price ÷ take-home hourly pay. If groceries that cost $100 in 2020 cost $126 in 2026 and your pay rose from $25 to $29, the basket went from 4.0 hours to 4.3 hours. Inflation only hurts when prices rise faster than your wage.
 
-  Inflation calculator 2026: see what $100 in 2000, 2010, 2020 worth today. Free CPI calculator with work-hours cost. Updated 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    CPI Formula: How Inflation Steals Your Hours    $100 Across Years Table (Depressing Truth)    What $100 Buys: 2000 vs 2026 Comparison     CPI Formula: How Inflation Steals Your Hours  Inflation 2000-2026 = 82% cumulative. $100 in 2000 needs $182 in 2026 to buy same. But wages only up 68%. You lost 14% purchasing power. At $25/hr, $100 in 2000 = 4 hours work. In 2026, $182 = 7.28 hours. You work 82% more for same stuff.  $100 Across Years Table (Depressing Truth)  2000 $100 = 2026 $182. 2010 $100 = 2026 $148. 2020 $100 = 2026 $122. Inflation 2020-2026 = 22% in 6 years. Fastest since 1980s.  What $100 Buys: 2000 vs 2026 Comparison  2000: 72 gallons gas, 2026: 48 gallons. 2000: 1 week groceries family, 2026: 3 days. 2000: 2 months Netflix (if exi
+| Item | 2020 price | 2026 price (est.) | Hours at $25 → $29/hr |
+| --- | --- | --- | --- |
+| Weekly groceries | $100 | $126 | 4.0 → 4.3 h |
+| Tank of gas | $35 | $46 | 1.4 → 1.6 h |
+| Used car | $20,000 | $27,000 | 800 → 931 h |
+| Streaming bundle | $30 | $45 | 1.2 → 1.6 h |
 
-## Try Calculator
+## Cumulative inflation formula
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/inflation-calculator-2026/
+Pricenow = Pricethen × (1 + i)years. Average 4% a year over six years compounds to about 26.5%, not 24%. The US CPI rose roughly 25% between early 2020 and 2025.
 
-## Related
+## Did your pay keep up?
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Divide your current hourly pay by your 2020 hourly pay. If the ratio is below the price ratio, your real hourly wage fell. Run both numbers through the calculator to see the gap in hours.
 
-## Keywords
+## FAQ
 
-inflation calculator, what is $100 worth today, inflation 2026, CPI calculator
+**How do I calculate inflation between two years?**
+
+Divide the later price by the earlier price and subtract 1. $126 ÷ $100 − 1 = 26% cumulative inflation.
+
+**What is a real wage?**
+
+Your pay adjusted for inflation. If pay rose 16% and prices 26%, your real wage fell about 8%.
+
+**Why measure inflation in hours?**
+
+Percentages hide the trade-off. Hours show whether a fixed basket now consumes more or less of your working life.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -1,30 +1,41 @@
-# Rent vs Buy Calculator 2026: Shocking Truth After 5 Years
+# Rent vs Buy in Hours of Work Calculator
 
-> Rent vs buy calculator 2026: see when buying loses money. 5-year rule, equity, opportunity cost. Free calculator 2026.
+> Compare renting and buying by the hours of work each costs per month. Full ownership cost formula, a 2026 table at 6.5% rates, and the break-even horizon.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/rent-vs-buy-calculator-2026/
 
-Last updated: 2026-09-27
+## Comparing like with like
 
-## What is Rent vs Buy Calculator 2026: Shocking Truth After 5 Years?
+Ownership cost = mortgage interest + property tax + insurance + maintenance (≈1% of value per year) + HOA − tax benefit. Principal repayment is savings, not cost. Rent cost = rent + renter’s insurance. Divide each by your take-home hourly pay.
 
-  Rent vs buy calculator 2026: see when buying loses money. 5-year rule, equity, opportunity cost. Free calculator 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    5-Year Rule 2026: If &lt;5 Years, Rent Wins    Opportunity Cost: $80k Down = $400k in 30 Years     5-Year Rule 2026: If &lt;5 Years, Rent Wins  Buying costs 6% to sell, 3% to buy = 9% round trip. On $400k = $36k lost. Need 5 years appreciation to cover. 2026 market flat, so rent wins if &lt;5 years.  Opportunity Cost: $80k Down = $400k in 30 Years  $80k down at 10% for 30 years = $1.39M. House equity after 30 years $400k + appreciation $300k = $700k. Renting + investing wins mathematically but behaviorally buying wins because people don't invest difference.   LSI Keywords: rent vs buy calculator, should i rent or buy 2026, rent vs buy   Frequently Asked Questions (FAQ) - People Also Ask  Is it better to rent or buy 2026?  If &lt;5 years, rent. If >7 year
+| Scenario | Unrecoverable monthly cost | Hours at $30/hr |
+| --- | --- | --- |
+| Rent at $2,000 | $2,000 | 67 h |
+| Rent at $2,400 | $2,400 | 80 h |
+| Own $400k home (yr 1) | $2,930 | 98 h |
+| Own $300k home (yr 1) | $2,200 | 73 h |
 
-## Try Calculator
+## A 2026 example
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/rent-vs-buy-calculator-2026/
+A $400,000 home with 10% down at 6.5% costs about $1,950 a month in interest early on, plus $500 tax, $150 insurance, and $330 maintenance: roughly $2,930 unrecoverable per month. Renting a similar home at $2,400 is cheaper by 18 hours a month at $30 per hour.
 
-## Related
+## When buying wins
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Ownership overtakes renting when appreciation and rent inflation outrun the extra unrecoverable cost, typically after 5–7 years in average markets. Shorter horizons usually favor renting once buying and selling costs (6–8%) are included.
 
-## Keywords
+## FAQ
 
-rent vs buy calculator, should i rent or buy 2026, rent vs buy
+**Is it cheaper to rent or buy in 2026?**
+
+In most US metros renting is cheaper month to month at 6–7% mortgage rates; buying wins over 5+ years if prices and rents keep rising.
+
+**What costs count as unrecoverable when owning?**
+
+Interest, property tax, insurance, maintenance, and HOA fees. Principal builds equity and is excluded.
+
+**How do I compare rent and buy in hours?**
+
+Divide each monthly unrecoverable cost by your after-tax hourly pay and compare the two hour totals.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

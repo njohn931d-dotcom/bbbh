@@ -1,30 +1,41 @@
-# Freelance Rate Calculator 2026: What To Charge Per Hour
+# Freelance Hourly Rate Calculator 2026
 
-> Freelance rate calculator 2026: what to charge per hour. Salary to freelance conversion. Taxes, bench time. Free tool 2026.
+> Work out a freelance hourly rate from a target salary, billable hours, overhead and tax. 2026 formula, a rate table from $50k to $150k, and a day-rate conversion.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate-calculator-2026/
 
-Last updated: 2026-09-27
+## The freelance rate formula
 
-## What is Freelance Rate Calculator 2026: What To Charge Per Hour?
+Rate = (target salary + overhead + benefits) ÷ billable hours ÷ (1 − tax rate). Target $80,000, add $12,000 overhead and $8,000 benefits, divide by 1,200 billable hours, then gross up for a 30% tax rate: $100,000 ÷ 1,200 ÷ 0.70 ≈ $119 per hour.
 
-  Freelance rate calculator 2026: what to charge per hour. Salary to freelance conversion. Taxes, bench time. Free tool 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    Salary to Freelance: Multiply by 2-3x Rule 2026    Freelance Tax 2026: 30% Gone     Salary to Freelance: Multiply by 2-3x Rule 2026  $70k salary = $33/hr gross. Freelance need $66-$100/hr to match after tax, no benefits, bench time. Formula: (salary/1000)*2 = hourly. $70k = $70*2 = $140k freelance need = $70/hr billable at 50% utilization.  Freelance Tax 2026: 30% Gone  Self-employment tax 15.3% + federal 22% = 37% gone. $100/hr = $63/hr take-home. Need $150/hr to keep $95/hr.   LSI Keywords: freelance rate calculator, what to charge freelance, hourly rate calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  What should I charge as freelancer 2026?  2-3x your old hourly. $35/hr salary = $70-$105/hr freelance.  How much is $50/hr fre
+| Target take-home | Overhead + benefits | Billable hours | Rate at 30% tax |
+| --- | --- | --- | --- |
+| $50,000 | $12,000 | 1,200 | $74/h |
+| $80,000 | $20,000 | 1,200 | $119/h |
+| $110,000 | $25,000 | 1,300 | $148/h |
+| $150,000 | $30,000 | 1,400 | $184/h |
 
-## Try Calculator
+## Why 1,200 billable hours, not 2,080
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate-calculator-2026/
+Admin, sales, invoicing, learning, sick days, and gaps between clients eat 35–45% of a freelance year. Most full-time freelancers bill 1,000–1,400 hours.
 
-## Related
+## Day rate and project pricing
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Day rate = hourly × 7 or 8 with a small discount for commitment. Project price = estimated hours × rate × 1.2 contingency. Never quote a project below the hours it will really take at your minimum rate.
 
-## Keywords
+## FAQ
 
-freelance rate calculator, what to charge freelance, hourly rate calculator 2026
+**How do I calculate my freelance hourly rate?**
+
+Add target salary, overhead, and benefits; divide by realistic billable hours; then divide by (1 − your tax rate).
+
+**What is a good freelance rate in 2026?**
+
+Experienced developers and designers in the US typically charge $75–$200 per hour; writers and VAs $30–$90. Your rate should cover a comparable salary plus 30–50%.
+
+**Should I charge hourly or per project?**
+
+Quote projects when scope is clear and you are fast; hourly when scope is open. Price both from the same underlying rate.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

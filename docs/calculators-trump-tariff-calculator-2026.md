@@ -1,30 +1,41 @@
-# Trump Tariff Calculator 2026: How Much Tariffs Cost You
+# Tariff Cost Per Household in Work Hours
 
-> Trump tariff calculator 2026: how much tariffs cost per family. China 60%, Mexico 25%. See work-hours cost. Free 2026.
+> Estimate the extra yearly cost of 2025–2026 US tariffs for your household and convert it into hours of work. Formula, price pass-through, and an example table.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/trump-tariff-calculator-2026/
 
-Last updated: 2026-09-27
+## How tariffs reach your receipt
 
-## What is Trump Tariff Calculator 2026: How Much Tariffs Cost You?
+Extra cost = import price × tariff rate × pass-through share. Tariffs are paid by importers and mostly passed to consumers; studies of the 2018–2019 rounds found pass-through near 100% for many goods. A $1,000 imported appliance under a 25% tariff with 90% pass-through costs $225 more.
 
-  Trump tariff calculator 2026: how much tariffs cost per family. China 60%, Mexico 25%. See work-hours cost. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    2026 Tariffs: China 60%, Mexico/Canada 25% = $3,000/Year Per Family Cost    Work Hours: $3k = 85 Hours at $35/hr = 2 Work-Weeks Just for Tariffs     2026 Tariffs: China 60%, Mexico/Canada 25% = $3,000/Year Per Family Cost  Tax Foundation: 60% China + 25% Mexico/Canada = $3,000/year extra per US family. $1,200 electronics, $800 clothes, $600 food, $400 other.  Work Hours: $3k = 85 Hours at $35/hr = 2 Work-Weeks Just for Tariffs  You work 2 weeks/year just to pay tariff tax. $3k = 85 hours.   LSI Keywords: trump tariff calculator, how much tariffs cost me, tariff cost calculator 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much do Trump tariffs cost me 2026?  $3,000/year per family avg. Low income $1,500, high income $5,000.  What product
+| Household spend on imports | Average effective tariff | Yearly extra cost | Hours at $30/hr |
+| --- | --- | --- | --- |
+| $5,000 | 15% | $675 (90% pass-through) | 22.5 h |
+| $10,000 | 15% | $1,350 | 45 h |
+| $10,000 | 25% | $2,250 | 75 h |
+| $20,000 | 20% | $3,600 | 120 h |
 
-## Try Calculator
+## Household estimates
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/trump-tariff-calculator-2026/
+Independent 2025 estimates of the average household cost of the tariff schedule ranged from roughly $1,200 to $2,400 a year depending on which rates held. At $30 per hour after tax, that is 40–80 hours of work: one to two weeks.
 
-## Related
+## Estimate your own
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Add up yearly spending on imported goods (electronics, clothing, cars, furniture, toys), apply the applicable rate for each category, and enter the total above. Spending mix matters: households that buy more goods than services feel more of it.
 
-## Keywords
+## FAQ
 
-trump tariff calculator, how much tariffs cost me, tariff cost calculator 2026
+**Who pays tariffs?**
+
+Importers pay at the border and pass most of the cost to consumers through prices.
+
+**How much do 2026 tariffs cost the average household?**
+
+Estimates cluster around $1,200–$2,400 a year depending on which rates are in force and how much a household spends on imported goods.
+
+**How do I convert tariff cost to hours?**
+
+Divide your estimated yearly extra cost by your after-tax hourly pay.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -1,30 +1,41 @@
-# Net Worth Calculator 2026: Are You Rich? Percentile Truth
+# Net Worth in Hours of Work Calculator
 
-> Net worth calculator 2026: are you rich? US net worth percentiles by age. See work-hours to reach top 10%. Free 2026.
+> Calculate net worth (assets minus liabilities) and express it as hours of your own labor. 2026 US median net worth by age and a step-by-step worksheet.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/net-worth-calculator-2026/
 
-Last updated: 2026-09-27
+## Net worth formula
 
-## What is Net Worth Calculator 2026: Are You Rich? Percentile Truth?
+Net worth = total assets − total liabilities. Assets: cash, investments, retirement accounts, home equity, vehicles at resale value. Liabilities: mortgage, loans, card balances. $180,000 in assets minus $120,000 owed is $60,000.
 
-  Net worth calculator 2026: are you rich? US net worth percentiles by age. See work-hours to reach top 10%. Free 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    US Net Worth Percentiles 2026 (Shocking Low)    How Many Hours To Top 10%? At $35/hr Need 28,571 Hours     US Net Worth Percentiles 2026 (Shocking Low)  Age 30: median $20k, top 10% $150k. Age 40: median $90k, top 10% $500k. Age 50: median $180k, top 10% $1M. Age 60: median $250k, top 10% $1.6M. Top 1% = $11M. You need $1M to be top 10% at 50.  How Many Hours To Top 10%? At $35/hr Need 28,571 Hours  $1M / $35 = 28,571 hours = 14 work-years full-time. But after tax and expenses, 28 work-years. Most never reach.   LSI Keywords: net worth calculator, am i rich, net worth percentile 2026, are you rich calculator   Frequently Asked Questions (FAQ) - People Also Ask  What net worth is top 10% 2026?  $1.2M overall, $500k at 40, $1M at 50, $1.6M at 60.  Am I rich
+| Age group | US median net worth (SCF 2022) | Hours at $30/hr |
+| --- | --- | --- |
+| Under 35 | $39,000 | 1,300 h |
+| 35–44 | $135,600 | 4,520 h |
+| 45–54 | $247,200 | 8,240 h |
+| 55–64 | $364,500 | 12,150 h |
 
-## Try Calculator
+## Hours of freedom
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/net-worth-calculator-2026/
+Divide net worth by your take-home hourly pay: $60,000 ÷ $30 = 2,000 hours, almost one full working year. Some people call this "hours of runway": how long you could stop trading time for money if spending matched income.
 
-## Related
+## Benchmarks
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+The 2022 Federal Reserve survey put US median household net worth at $192,700, with medians of $39,000 under 35 and $364,500 for ages 55–64. Averages are far higher because of the top 10%. Compare against the median for your age, not the mean.
 
-## Keywords
+## FAQ
 
-net worth calculator, am i rich, net worth percentile 2026, are you rich calculator
+**How do I calculate my net worth?**
+
+Add everything you own at current value and subtract everything you owe.
+
+**What is a good net worth by age?**
+
+Median US household net worth is about $39,000 under 35 and $364,500 at 55–64; a common target is 1× salary by 30 and 3× by 40.
+
+**Why measure net worth in hours?**
+
+It converts an abstract balance into time: 2,000 hours of net worth is one year of work you would not need to do.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

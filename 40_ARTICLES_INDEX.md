@@ -1,3 +1,5 @@
+> **Note (Sept 2026):** the "GitHub DA 96" premise below is incorrect — `github.io` is on the Public Suffix List, so `njohn931d-dotcom.github.io` inherits no authority from github.com. See `SEO_STRATEGY.md` for the current plan. Kept for history.
+
 # 40 SEO Articles — Index & GitHub Ranking Strategy
 
 **Repo:** https://github.com/njohn931d-dotcom/bbbh  

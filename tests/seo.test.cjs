@@ -9,7 +9,7 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  execFileSync(process.execPath,['scripts/generate-parasite.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
  const sitemap=fs.readFileSync('public/sitemap.xml','utf8');
  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
- // 6 base + 40 main + 40 parasite = 86 routes + home = 87 URLs
+ // 6 base + 40 main + 40 extra = 86 routes + home = 87 URLs (+46 article pages)
  assert.ok(urls.length>=86, `Expected at least 86 URLs, got ${urls.length}`);
  const titles=new Set();const descriptions=new Set();
  for(const url of urls){
@@ -63,7 +63,6 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  assert.match(fs.readFileSync('public/robots.txt','utf8'),/Sitemap: https:\/\/worth.example\/sitemap.xml/);
  assert.ok(fs.existsSync('public/feed.xml'), 'feed.xml should exist');
  assert.ok(fs.existsSync('public/llms.txt'), 'llms.txt should exist');
- assert.ok(fs.existsSync('public/sitemap-extra.xml') || true, 'sitemap-extra optional');
  }finally{
    execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:''}});
  }
@@ -106,7 +105,7 @@ test('google site verification tag survives into the homepage and every generate
   assert.equal(count(home),1,'the served homepage lost the verification tag');
 
   // 2b. The static helper pages copied straight from public/.
-  for(const staticFile of ['public/40-articles-index.html','public/parasite-index.html','scripts/generate-tracked-parasite.mjs']){
+  for(const staticFile of ['public/40-articles-index.html','scripts/generate-github-mirrors.mjs']){
     assert.ok(fs.existsSync(staticFile),'missing '+staticFile);
     assert.equal(count(fs.readFileSync(staticFile,'utf8')),1,staticFile+' must carry the verification tag exactly once');
   }

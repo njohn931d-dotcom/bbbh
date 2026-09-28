@@ -1,30 +1,46 @@
-# How Much YouTubers Really Make 2026: Shocking Truth by Niche
+# How Much YouTubers Really Make in 2026
 
-> How much YouTubers make 2026: RPM by niche $2-$30, MrBeast $50M/year, finance $20 RPM vs gaming $2. Free guide 2026.
+> Realistic 2026 YouTube income by channel size, from 1,000 to 10 million subscribers, with RPMs, sponsorship rates and the hourly pay most creators actually earn.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/how-much-youtubers-make-2026-shocking-truth/
 
-Last updated: 2026-09-27
+## The distribution is brutal
 
-## What is How Much YouTubers Really Make 2026: Shocking Truth by Niche?
+About 97% of YouTube channels never reach the 1,000-subscriber monetization threshold. Of those that do, most earn under $500 a month from ads. Income scales with views, RPM and, above all, off-platform revenue.
 
-  How much YouTubers make 2026: RPM by niche $2-$30, MrBeast $50M/year, finance $20 RPM vs gaming $2. Free guide 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    YouTube RPM 2026 Table: Finance $25, Tech $12, Gaming $2 (10x Difference)    How Much YouTubers Make: Nano to Mega 2026     YouTube RPM 2026 Table: Finance $25, Tech $12, Gaming $2 (10x Difference)  Finance $15-30 RPM, Tech $8-15, Education $6-12, Lifestyle $4-8, Entertainment $2-5, Gaming $1-4. 1M views finance = $20k, gaming = $2k. Choose niche = choose income.  How Much YouTubers Make: Nano to Mega 2026  Nano 10k subs $200/mo, Micro 100k $1,500/mo, Mid 500k $8k/mo, Mega 1M+ $20k-$100k/mo. Top 0.1% $1M+/mo.   LSI Keywords: how much youtubers make, youtube rpm by niche, youtuber salary 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much YouTube pays per 1k views 2026?  $2-$30 niche dependent. Avg $4.  How much 1M views worth 2026?  $2k-$30
+| Subscribers | Typical monthly views | AdSense at $4 RPM | With sponsors | Hourly at 120 h/month |
+| --- | --- | --- | --- | --- |
+| 1,000–10,000 | 20,000 | $80 | $150 | $1.25 |
+| 50,000 | 300,000 | $1,200 | $3,000 | $25 |
+| 100,000 | 1,000,000 | $4,000 | $10,000 | $83 |
+| 1,000,000 | 8,000,000 | $32,000 | $90,000 | $750 |
+| 10,000,000 | 60,000,000 | $240,000 | $700,000+ | $5,800 |
 
-## Try Calculator
+## AdSense by channel size
 
-https://njohn931d-dotcom.github.io/bbbh/guides/how-much-youtubers-make-2026-shocking-truth/
+Monthly AdSense ≈ monthly views ÷ 1,000 × RPM. A 100,000-subscriber channel typically gets 500,000–2 million views a month; at a $4 RPM that is $2,000–$8,000. Finance, tech and business channels earn 3–5× that per view; gaming and entertainment earn less.
 
-## Related
+## Sponsorships change everything
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Brand deals pay roughly $20–$50 per 1,000 expected views, five to ten times AdSense. A mid-size channel with two sponsors a month can double or triple its income. Merch, courses, and memberships add another layer for creators with loyal audiences.
 
-## Keywords
+## Per hour
 
-how much youtubers make, youtube rpm by niche, youtuber salary 2026
+Divide monthly income by production hours. A creator earning $4,000 who spends 120 hours a month makes $33 per hour, decent but not a lottery ticket. Below 50,000 subscribers the typical figure is under $10 per hour. Run your own numbers with the calculator above.
+
+## FAQ
+
+**How much does a YouTuber with 100k subscribers make?**
+
+Usually $2,000–$10,000 a month combining ads and sponsorships, depending on niche and upload rate.
+
+**How much does YouTube pay per view?**
+
+About $0.001–$0.005 per view after YouTube’s cut for most niches; up to $0.02 in finance and software.
+
+**Do most YouTubers make money?**
+
+No. The majority never reach monetization, and most monetized channels earn a few hundred dollars a month.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

@@ -1,30 +1,41 @@
-# AI Job Replacement Calculator 2026: Will AI Take Your Job?
+# AI Task Automation Hours Calculator
 
-> AI job replacement calculator 2026: will AI take your job? Risk by occupation, salary, work-hours saved. Free 2026 tool.
+> Estimate how many hours of your work week AI could automate, what those hours are worth, and how to redirect them. Task-level method with 2026 research figures.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/calculators/ai-job-replacement-calculator-2026/
 
-Last updated: 2026-09-27
+## Task-level, not job-level
 
-## What is AI Job Replacement Calculator 2026: Will AI Take Your Job??
+Automatable hours = Σ (hours per task × automation share). Studies from 2023–2025 (Goldman Sachs, Pew, Microsoft) suggest 25–30% of current work hours in exposed occupations could be automated or heavily assisted, but almost no job is 100% tasks. List your weekly tasks and rate each 0–100%.
 
-  AI job replacement calculator 2026: will AI take your job? Risk by occupation, salary, work-hours saved. Free 2026 tool.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    AI Risk by Job 2026: Data Entry 99%, Customer Service 85%, Coding 40%, Nurse 10%    Your Job $35/hr = AI Cost $0.10/hr. Company Saves 350x     AI Risk by Job 2026: Data Entry 99%, Customer Service 85%, Coding 40%, Nurse 10%  Frey &amp; Osborne 2013 study updated 2026: telemarketers 99%, accountants 94%, paralegals 94%, writers 45%, software devs 30%, managers 15%, nurses 10%, therapists 5%.  Your Job $35/hr = AI Cost $0.10/hr. Company Saves 350x  AI agent $0.10/hr vs you $35/hr. Company saves $34.90/hr = $72k/year per employee. Incentive huge.   LSI Keywords: will ai take my job calculator, ai job replacement calculator, ai risk by job 2026   Frequently Asked Questions (FAQ) - People Also Ask  Will AI replace my job 2026?  If data entry, customer servi
+| Task type | Typical automation share (2026) | On 10 h/week | Monthly value at $30/hr |
+| --- | --- | --- | --- |
+| Data entry, formatting | 80% | 8 h | $1,040 |
+| Drafting emails, summaries | 60% | 6 h | $780 |
+| Analysis and research | 40% | 4 h | $520 |
+| Meetings, negotiation, care | 10% | 1 h | $130 |
 
-## Try Calculator
+## What the hours are worth
 
-https://njohn931d-dotcom.github.io/bbbh/calculators/ai-job-replacement-calculator-2026/
+If 10 of your 40 weekly hours are drafting, summarizing, and data entry at 70% automatable, that is 7 hours a week, 30 a month. At $30 per hour it is $900 a month of labor value freed or displaced, depending on who captures it.
 
-## Related
+## Redirecting the time
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Workers who keep the value are the ones who move freed hours into tasks AI does poorly: judgment, relationships, physical work, accountability. Track your own ratio quarterly; it is a better signal than headlines.
 
-## Keywords
+## FAQ
 
-will ai take my job calculator, ai job replacement calculator, ai risk by job 2026
+**Will AI replace my job?**
+
+For most jobs AI changes the task mix rather than eliminating the role; roughly a quarter of hours in exposed occupations are automatable today.
+
+**How do I estimate my exposure?**
+
+List weekly tasks, estimate hours and an automation percentage for each, and sum the products.
+
+**What should I do with freed hours?**
+
+Shift into judgment-heavy, relationship-heavy, or physical tasks and learn to direct the tools.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh

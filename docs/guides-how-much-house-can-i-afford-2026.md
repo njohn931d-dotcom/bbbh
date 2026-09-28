@@ -1,30 +1,45 @@
-# How Much House Can You Afford in 2026? Shocking Truth
+# How Much House Can I Afford in 2026?
 
-> How much house can I afford 2026? $70k salary = $206k house. See 28/36 rule, work-hours cost. Free guide 2026.
+> Work out a 2026 home budget with the 28/36 rule, current 6–7% rates, and a salary-to-price table. Includes the payment-in-hours check most calculators skip.
 
-**Free calculator 2026 - No signup - GitHub DA 99**
+Live page: https://njohn931d-dotcom.github.io/bbbh/guides/how-much-house-can-i-afford-2026/
 
-Last updated: 2026-09-27
+## The 28/36 rule
 
-## What is How Much House Can You Afford in 2026? Shocking Truth?
+Housing payment ≤ 28% of gross monthly income; all debt ≤ 36%. On $90,000 a year, gross monthly income is $7,500, so the housing cap is $2,100 and total debt cap $2,700. Lenders sometimes stretch to 43–50% debt-to-income, which is how people end up house-poor.
 
-  How much house can I afford 2026? $70k salary = $206k house. See 28/36 rule, work-hours cost. Free guide 2026.  Last updated: 2026-09-27 - 2026 edition. Hosted on GitHub Pages (DA 99) for maximum trust.   TABLE OF CONTENTS    $70k Salary = $206k House Max 2026 (Not $400k)    Work Hours: $400k House = 76 Hours/Month = 9 Days Just Mortgage     $70k Salary = $206k House Max 2026 (Not $400k)  28% rule: $70k gross = $4,900 take-home, max $1,372 housing. At 6.8%, 30yr, $1,372 = $206k loan. With 20% down $257k house. Median US $412k = need $115k salary.  Work Hours: $400k House = 76 Hours/Month = 9 Days Just Mortgage  At $35/hr, $2,663/mo mortgage = 76 hours = 9.5 days work just house.   LSI Keywords: how much house can i afford, how much house can i afford 2026, house affordability 2026   Frequently Asked Questions (FAQ) - People Also Ask  How much house can I afford with $70k?  $206k loan, $257k house with 20% down.  What salary to afford $400k house?  $115k salary need. $90k with 20% dow
+| Gross salary | 28% housing cap | Approx. max price (6.5%, 10% down) | Payment hours at net pay |
+| --- | --- | --- | --- |
+| $60,000 | $1,400 | $175,000 | 61 h at $23 |
+| $90,000 | $2,100 | $280,000 | 66 h at $32 |
+| $120,000 | $2,800 | $385,000 | 68 h at $41 |
+| $180,000 | $4,200 | $600,000 | 72 h at $58 |
 
-## Try Calculator
+## From payment to price at 2026 rates
 
-https://njohn931d-dotcom.github.io/bbbh/guides/how-much-house-can-i-afford-2026/
+At 6.5% over 30 years each $100,000 borrowed costs about $632 a month in principal and interest. With $500 for tax and insurance inside the $2,100 cap, $1,600 of P&I supports roughly $253,000 of loan. Add a 10% down payment and the price ceiling is about $280,000.
 
-## Related
+## The hours check
 
-- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/)
-- [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/)
-- [Daily Savings Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/)
-- [How to calculate what an hour of your life is worth](https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/)
-- [The small purchases that aren’t actually small](https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/)
+Divide the full payment by take-home hourly pay: $2,100 ÷ $32 = 66 hours a month, 38% of a working month. If that number makes you wince, the rule is not the problem; the price is. Run it before you fall for a listing.
 
-## Keywords
+## Other costs that shrink the budget
 
-how much house can i afford, how much house can i afford 2026, house affordability 2026
+Closing costs of 2–5%, moving, immediate repairs, and 1% of value per year in maintenance. Keep three to six months of payments in reserve after closing.
+
+## FAQ
+
+**How much house can I afford on $90,000 a year?**
+
+Roughly $260,000–$300,000 at 2026 rates with 10% down and modest other debt, using the 28% rule.
+
+**What is the 28/36 rule?**
+
+Spend at most 28% of gross income on housing and 36% on all debt combined.
+
+**Should I use gross or net income?**
+
+Lenders use gross; you should sanity-check with net pay in hours, since that is what you actually live on.
 
 ---
-Hosted on GitHub Pages - DA 99 parasite SEO cluster - 47 tools
+Part of [Worth](https://njohn931d-dotcom.github.io/bbbh/), free open-source money calculators. Source: https://github.com/njohn931d-dotcom/bbbh
