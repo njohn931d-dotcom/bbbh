@@ -7,6 +7,7 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  try {
  execFileSync(process.execPath,['scripts/generate-seo.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
  execFileSync(process.execPath,['scripts/generate-parasite.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
+ execFileSync(process.execPath,['scripts/generate-wages.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
  const sitemap=fs.readFileSync('public/sitemap.xml','utf8');
  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
  // 6 base + 40 main + 40 parasite = 86 routes + home = 87 URLs

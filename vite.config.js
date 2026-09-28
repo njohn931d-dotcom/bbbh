@@ -3,15 +3,18 @@ import fs from 'node:fs';
 import { resolve } from 'node:path';
 import { generateSEO, routes as mainRoutes, articleRoutes } from './scripts/generate-seo.mjs';
 import { generateParasiteSEO, extraRoutes } from './scripts/generate-parasite.mjs';
+import { generateWages, wageRoutes } from './scripts/generate-wages.mjs';
 
 const rawSiteURL = process.env.SITE_URL;
 const base = rawSiteURL ? `${new URL(rawSiteURL).pathname.replace(/\/$/,'')}/` : '/';
 
-// Generate all SEO pages before build
+// Generate all SEO pages before build. Wages runs LAST: it rewrites the
+// merged master sitemap and extends llms.txt / ai.txt / feed.xml.
 generateSEO();
 generateParasiteSEO();
+generateWages();
 
-const routes = [...mainRoutes, ...extraRoutes, ...articleRoutes];
+const routes = [...mainRoutes, ...extraRoutes, ...articleRoutes, ...wageRoutes];
 
 export default defineConfig({
   base,

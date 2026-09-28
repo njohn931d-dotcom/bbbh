@@ -866,7 +866,7 @@ ${githubCTA('save $1000 guide')}
 }
 ];
 
-const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
+const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/wages/">Wage conversion tables: hourly ↔ salary <span>↗</span></a><a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
 // Five collections of eight guides each, written as Markdown in content/articles/ and rendered to static HTML.
 const guidesHub=`<section class="seo-related cluster-link" id="guides"><div class="section-label">THE MONEY EDIT</div><h2>${guideArticles.length} free guides to what things really cost</h2><p class="cluster-blurb">Short, practical answers built on one question: what does this cost me in hours of work? Every guide shows the arithmetic and the assumptions behind it.</p><div class="hub-grid">${guideClusters.map(c=>`<a class="hub-card" href="/articles/${c.slug}/"><span class="hub-kicker">${escape(c.label)}</span><h3>${escape(c.name)}</h3><p>${escape(c.blurb)}</p><span class="hub-more">${guideArticles.filter(a=>a.cluster===c.slug).length} guides <span>→</span></span></a>`).join('')}</div></section>`;
 

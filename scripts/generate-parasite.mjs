@@ -114,7 +114,7 @@ export function generateParasiteSEO() {
   const githubCTA = (calcName) => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source on GitHub</strong> — This ' + calcName + ' calculator is free, private, and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source</a></p></div>';
 
   const allRoutes = [...baseRoutes, ...mainRoutes, ...extraRoutes];
-  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a></div></section>';
+  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '<a href="/wages/">Wage conversion tables <span>↗</span></a>' + '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a></div></section>';
 
   function metadata(html, p) {
     const url = siteUrl + (p.route ? '/' + p.route + '/' : '/');

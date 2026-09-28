@@ -4,7 +4,7 @@
 
 **Status:** Published successfully from `main`. GitHub Pages is configured to use GitHub Actions.
 
-The deployment workflow tests the project, generates the Markdown article mirrors, builds the static site with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`, and deploys the 133 sitemap URLs (homepage, 86 calculator/guide routes, and 46 guide-cluster pages rendered from `content/articles/*.md`). Future changes merged to `main` trigger a new deployment.
+The deployment workflow tests the project, generates the Markdown article mirrors, builds the static site with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`, and deploys the 419 sitemap URLs (homepage, 86 calculator/guide routes, 46 guide-cluster pages rendered from `content/articles/*.md`, and the 286-page 13-language wage-conversion cluster), then pings IndexNow for instant indexing. Future changes merged to `main` trigger a new deployment.
 
 ## Verify
 

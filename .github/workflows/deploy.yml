@@ -1,4 +1,4 @@
-name: Deploy Worth (133 SEO Pages) to GitHub Pages
+name: Deploy Worth SEO site to GitHub Pages
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
 
       # Serial by design: the test files share generated output, so the npm
       # script pins --test-concurrency=1. Do not parallelise these files.
-      - name: Test (133 URLs)
+      - name: Test (all URLs)
         run: |
           set -o pipefail
           npm test 2>&1 | tee /tmp/test.log
@@ -51,7 +51,7 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
 
-      - name: Verify dist (133 pages) - MAX CHECKS
+      - name: Verify dist (all pages) - MAX CHECKS
         run: |
           echo "=== DIST STRUCTURE ==="
           ls -R dist | head -n 100
@@ -59,7 +59,7 @@ jobs:
           echo "=== SITEMAP ==="
           urls=$(grep -o '<loc>' dist/sitemap.xml | wc -l)
           lastmods=$(grep -o '<lastmod>' dist/sitemap.xml | wc -l)
-          echo "Sitemap URLs: $urls (expected 133)"
+          echo "Sitemap URLs: $urls"
           echo "Sitemap lastmod: $lastmods"
           echo ""
           echo "=== PAGE COUNTS ==="
@@ -67,9 +67,9 @@ jobs:
           guides=$(find dist/articles -name index.html | wc -l)
           feeds=$(grep -o '<item>' dist/feed.xml | wc -l)
           noindex=$(grep -rl noindex dist --include=index.html | wc -l || echo 0)
-          echo "Pages built: $pages (expected 133)"
+          echo "Pages built: $pages"
           echo "Guide pages: $guides (expected 46)"
-          echo "Feed items: $feeds (expected 86)"
+          echo "Feed items: $feeds"
           echo "Noindex in dist: $noindex (expected 0)"
           echo ""
           echo "=== DISCOVERY FILES ==="
@@ -101,11 +101,19 @@ jobs:
           if grep -r -i "api_key\|secret\|password" dist --include="*.html" --include="*.js" 2>/dev/null; then echo "⚠ potential secret found"; else echo "✓ no secrets"; fi
           echo ""
           echo "=== ASSERTIONS ==="
-          test "$urls" -eq 133 || (echo "FAIL: sitemap URLs $urls != 133" && exit 1)
-          test "$pages" -eq 133 || (echo "FAIL: pages $pages != 133" && exit 1)
+          # Counts are self-consistent and the wage cluster is present, so the
+          # gate cannot rot when the programmatic clusters grow.
+          test "$urls" -eq "$pages" || (echo "FAIL: sitemap URLs $urls != pages $pages" && exit 1)
+          test "$pages" -ge 360 || (echo "FAIL: only $pages pages built" && exit 1)
           test "$guides" -eq 46 || (echo "FAIL: guides $guides != 46" && exit 1)
-          test "$feeds" -eq 86 || (echo "FAIL: feed items $feeds != 86" && exit 1)
+          test "$feeds" -ge 300 || (echo "FAIL: feed items $feeds < 300" && exit 1)
           test "$noindex" -eq 0 || (echo "FAIL: noindex $noindex != 0" && exit 1)
+          test -f dist/wages/25-an-hour-is-how-much-a-year/index.html || (echo "FAIL: missing EN wage page" && exit 1)
+          test -f dist/wages/index.html || (echo "FAIL: missing /wages/ hub" && exit 1)
+          test -f dist/es/salarios/15-dolares-la-hora-al-ano/index.html || (echo "FAIL: missing ES wage page" && exit 1)
+          test -f dist/ko/급여/index.html || (echo "FAIL: missing KO hub" && exit 1)
+          grep -q 'hreflang="es"' dist/wages/15-an-hour-is-how-much-a-year/index.html || (echo "FAIL: hreflang twins missing" && exit 1)
+          test -f dist/2233bac88003a4bee490d8f4080e7d7b.txt || (echo "FAIL: missing IndexNow key file" && exit 1)
           test -f dist/404.html || (echo "FAIL: missing 404.html" && exit 1)
           test -f dist/manifest.json || (echo "FAIL: missing manifest.json" && exit 1)
           grep -q '"start_url": "/bbbh/"' dist/manifest.json || (echo "FAIL: manifest start_url is not project-scoped" && exit 1)
@@ -118,7 +126,7 @@ jobs:
           test -f dist/feed.xml
           test -f dist/llms.txt
           test -f dist/ai.txt
-          echo "✓ dist verified: 133 URLs, 46 guides, 86 feed, 0 noindex, PWA ready"
+          echo "✓ dist verified: $pages URLs, 46 guides, $feeds feed items, 0 noindex, PWA ready"
 
       - name: Lighthouse & SEO Quick Check
         run: |
@@ -155,6 +163,12 @@ jobs:
           curl -s -o /dev/null -w "%{http_code}" ${{ steps.deployment.outputs.page_url }} || echo "Site check done"
           echo "✓ Deployment completed"
 
+      - name: IndexNow ping (Bing / Yandex / Seznam / Naver instant indexing)
+        env:
+          SITE_URL: https://njohn931d-dotcom.github.io/bbbh
+        run: |
+          node scripts/ping-indexnow.mjs "${{ steps.deployment.outputs.page_url }}sitemap.xml" || echo "IndexNow ping failed (non-fatal)"
+
   notify:
     runs-on: ubuntu-latest
     needs: deploy
@@ -164,6 +178,6 @@ jobs:
         run: |
           echo "🎉 Worth deployed successfully!"
           echo "URL: https://njohn931d-dotcom.github.io/bbbh/"
-          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (133 URLs)"
+          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml"
           echo "PWA: manifest.json + 404.html + .nojekyll"
           echo "Discovery: robots.txt, feed.xml, llms.txt, ai.txt, humans.txt, security.txt"
