@@ -6,7 +6,7 @@ search_volume: "2,900/mo"
 type: "guide"
 slug: "latte-factor-explained"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/guides/latte-factor-explained/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "latte factor explained" (2,900/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com latte factor explained`.
 
-**Live Calculator:** [https://worth.example/guides/latte-factor-explained/](https://worth.example/guides/latte-factor-explained/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/](https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -29,7 +29,7 @@ $5×365=$1,825/yr at 7%: 10yr $25k, 30yr $184k, 50yr $738k.
 
 Find: track 7 days, highlight didn't enjoy, sum daily avg, annualize.
 
-Live: https://worth.example/guides/latte-factor-explained/
+Live: https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/
 
 ---
 
@@ -47,11 +47,11 @@ Live: https://worth.example/guides/latte-factor-explained/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

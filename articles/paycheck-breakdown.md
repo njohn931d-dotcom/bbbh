@@ -6,7 +6,7 @@ search_volume: "800/mo"
 type: "calculator"
 slug: "paycheck-breakdown"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/calculators/paycheck-breakdown/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "paycheck breakdown calculator" (800/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com paycheck breakdown calculator`.
 
-**Live Calculator:** [https://worth.example/calculators/paycheck-breakdown/](https://worth.example/calculators/paycheck-breakdown/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/](https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -32,7 +32,7 @@ $4,333/mo take-home ($25/hr):
 
 If bills >173h (40h/week), need raise or cut.
 
-Live: https://worth.example/calculators/paycheck-breakdown/
+Live: https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/
 
 ---
 
@@ -50,11 +50,11 @@ Live: https://worth.example/calculators/paycheck-breakdown/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

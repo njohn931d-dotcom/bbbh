@@ -1,6 +1,6 @@
 # Worth Articles — 40 SEO Articles Open Source on GitHub
 
-**Live site:** https://worth.example | **Repo:** https://github.com/njohn931d-dotcom/bbbh
+**Live site:** https://njohn931d-dotcom.github.io/bbbh/ | **Repo:** https://github.com/njohn931d-dotcom/bbbh
 
 This folder contains 40 markdown mirrors of our SEO-optimized calculators and guides. Each file is indexed by Google via `site:github.com` and drives traffic to live calculators.
 

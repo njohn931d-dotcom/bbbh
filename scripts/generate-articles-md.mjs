@@ -1,4 +1,17 @@
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// The live origin every mirror links back to. Read from package.json
+// "homepage" - the one place the deployed URL is declared - rather than a
+// literal here, so a domain move is a single edit. Deliberately NOT read from
+// SITE_URL: these files are committed, so their output must not depend on
+// whatever happens to be exported in the shell that regenerated them.
+const pkg = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'package.json'), 'utf8'));
+const SITE = String(pkg.homepage || '').replace(/\/+$/, '');
+if (!/^https:\/\/[^/]+/.test(SITE) || /\.example\b/.test(SITE)) {
+  throw new Error(`package.json "homepage" must be the live site URL (got ${JSON.stringify(pkg.homepage)}); the markdown mirrors link back to it.`);
+}
 
 // Same 40 articles data (simplified from generate-seo.mjs)
 const articles = [
@@ -26,7 +39,7 @@ Hourly = Annual ÷ 2080 (40h × 52w). Monthly ÷ 173.33. Real hourly = Take-home
 ## GitHub SEO
 Search "salary to hourly calculator github" - 1,800 searches, low competition. Our MIT-licensed JS ranks because GitHub DA 96. Fork: https://github.com/njohn931d-dotcom/bbbh
 
-Live: https://worth.example/calculators/salary-to-hourly/
+Live: ${SITE}/calculators/salary-to-hourly/
 `
   },
   {
@@ -49,7 +62,7 @@ Annual = Hourly × 40 × 52. At 35h: ×1820.
 ## Take-home trap
 $25/hr gross ≈ $18.50 take-home after tax. Use take-home in cost-of-time calculator for honest purchase power.
 
-Live: https://worth.example/calculators/hourly-to-salary/
+Live: ${SITE}/calculators/hourly-to-salary/
 GitHub: https://github.com/njohn931d-dotcom/bbbh`
   },
   {
@@ -67,7 +80,7 @@ Example $75k employee → freelancer needs $108k ÷ 1000h = $108/hr minimum.
 ## GitHub angle
 "freelance rate calculator github" = 1,200/mo, low KD. Code transparency = trust = rank.
 
-Live: https://worth.example/calculators/freelance-rate/`
+Live: ${SITE}/calculators/freelance-rate/`
   },
   {
     slug: 'cost-per-wear',
@@ -87,7 +100,7 @@ CPW = Price ÷ Wears. Lower = better.
 
 Goal < $1/wear basics. Sustainable fashion + calculator = high shareability on GitHub.
 
-Live: https://worth.example/calculators/cost-per-wear/`
+Live: ${SITE}/calculators/cost-per-wear/`
   },
   {
     slug: 'cost-per-use',
@@ -103,7 +116,7 @@ CPU for everything: (Price + maintenance) ÷ uses.
 - Peloton $1973/yr ÷ 100 rides = $19.73/ride
 - Kindle $200 ÷ 50 books = $4/book
 
-Live: https://worth.example/calculators/cost-per-use/`
+Live: ${SITE}/calculators/cost-per-use/`
   },
   {
     slug: 'overtime-pay',
@@ -117,7 +130,7 @@ Time and a half = Hourly ×1.5 × OT hours over 40/week. CA: over 8h/day also 1.
 
 $25/hr, 10h OT = $375 extra but 10h free time lost. Effective hourly for 50h week = $27.50, not $37.50.
 
-Live: https://worth.example/calculators/overtime-pay/`
+Live: ${SITE}/calculators/overtime-pay/`
   },
   {
     slug: 'after-tax-income',
@@ -131,7 +144,7 @@ Take-home = Gross - Federal - State - FICA 7.65%
 
 $50k gross → $41,375 take-home → $19.89/hr real. Use take-home in cost-of-time for honest perspective.
 
-Live: https://worth.example/calculators/after-tax-income/`
+Live: ${SITE}/calculators/after-tax-income/`
   },
   {
     slug: 'commute-cost',
@@ -145,7 +158,7 @@ Annual = (Gas + Parking + Maintenance) + (Commute hours × Hourly × 2 × workda
 
 1h each way, $25/hr, 20mi = $82/day = $19,776/year. $500/mo more rent closer saves $13k + 480h.
 
-Live: https://worth.example/calculators/commute-cost/`
+Live: ${SITE}/calculators/commute-cost/`
   },
   {
     slug: 'latte-factor',
@@ -165,7 +178,7 @@ Yearly = Daily ×365. $5/day at 7% = $92k in 30yr, $738k 50yr.
 
 Find yours: track 7 days, circle meh purchases.
 
-Live: https://worth.example/calculators/latte-factor/`
+Live: ${SITE}/calculators/latte-factor/`
   },
   {
     slug: 'gym-cost-per-visit',
@@ -179,7 +192,7 @@ Monthly ÷ visits. $30/mo ÷12 = $2.50/visit worth. $60 ÷2 = $30/visit not wort
 
 Avg member goes 4.5x/mo but pays for daily.
 
-Live: https://worth.example/calculators/gym-cost-per-visit/`
+Live: ${SITE}/calculators/gym-cost-per-visit/`
   },
   {
     slug: 'streaming-cost',
@@ -193,7 +206,7 @@ Deloitte: 4 services avg. $15 each = $720/yr video + music $144 + apps $360 = $1
 
 4 services = 28.8h work at $25/hr.
 
-Live: https://worth.example/calculators/streaming-cost/`
+Live: ${SITE}/calculators/streaming-cost/`
   },
   {
     slug: 'car-ownership-cost',
@@ -207,7 +220,7 @@ Depreciation $4,500 + Insurance $1,800 + Gas $2,100 + Maintenance $1,200.
 
 $12k ÷ 500h driving (15k miles @30mph) = $24/hr to sit in car.
 
-Live: https://worth.example/calculators/car-ownership-cost/`
+Live: ${SITE}/calculators/car-ownership-cost/`
   },
   {
     slug: 'time-to-save',
@@ -221,7 +234,7 @@ Goal ÷ daily = days. Goal ÷ hourly = work hours.
 
 $1,000 goal: $5/day =200 days, $10/day=100 days. Work hours @ $25 =40h always.
 
-Live: https://worth.example/calculators/time-to-save/`
+Live: ${SITE}/calculators/time-to-save/`
   },
   {
     slug: 'paycheck-breakdown',
@@ -241,7 +254,7 @@ $4,333/mo take-home ($25/hr):
 
 If bills >173h (40h/week), need raise or cut.
 
-Live: https://worth.example/calculators/paycheck-breakdown/`
+Live: ${SITE}/calculators/paycheck-breakdown/`
   },
   {
     slug: 'buy-vs-rent-hourly',
@@ -257,7 +270,7 @@ $2,000 rent vs $2,900 own ($500k home): rent $5/hr, buy $7.25/hr minus $1.50 equ
 
 Add 10h/mo maintenance time.
 
-Live: https://worth.example/calculators/buy-vs-rent-hourly/`
+Live: ${SITE}/calculators/buy-vs-rent-hourly/`
   },
   // GUIDES
   {
@@ -277,7 +290,7 @@ Pay $30 for 1h cleaning? If real $16.81, yes - gain time worth more. If real $50
 
 GitHub SEO: target "how much is my time worth calculator github" 1,900/mo low difficulty. Stars = authority.
 
-Live: https://worth.example/guides/how-much-is-time-worth/`
+Live: ${SITE}/guides/how-much-is-time-worth/`
   },
   {
     slug: 'stop-impulse-buying',
@@ -294,7 +307,7 @@ Slickdeals: 5 impulse buys/week × $20 = $5,200/yr =208h at $25.
 2. Cost per hour pause - $150 shoes =6h work
 3. Remove stored cards - 15s friction = -30% impulse
 
-Live: https://worth.example/guides/stop-impulse-buying/`
+Live: ${SITE}/guides/stop-impulse-buying/`
   },
   {
     slug: 'subscription-audit',
@@ -313,7 +326,7 @@ Live: https://worth.example/guides/stop-impulse-buying/`
 4. Cancel 2, downgrade 1
 5. Calendar 90d repeat
 
-Live: https://worth.example/guides/subscription-audit/`
+Live: ${SITE}/guides/subscription-audit/`
   },
   {
     slug: 'latte-factor-explained',
@@ -330,7 +343,7 @@ $5×365=$1,825/yr at 7%: 10yr $25k, 30yr $184k, 50yr $738k.
 
 Find: track 7 days, highlight didn't enjoy, sum daily avg, annualize.
 
-Live: https://worth.example/guides/latte-factor-explained/`
+Live: ${SITE}/guides/latte-factor-explained/`
   },
   {
     slug: 'no-spend-challenge',
@@ -345,7 +358,7 @@ Allowed: bills, groceries, gas, medical. Not allowed: dining out, shopping, ente
 ## Savings
 Week1 $200, W2 $250, W3 $300, W4 $250 = $1k =40h @ $25.
 
-Live: https://worth.example/guides/no-spend-challenge/`
+Live: ${SITE}/guides/no-spend-challenge/`
   },
   {
     slug: '30-day-rule-spending',
@@ -359,7 +372,7 @@ Live: https://worth.example/guides/no-spend-challenge/`
 
 Template in GitHub repo: Date | Item | Price | Hours | Still want?
 
-Live: https://worth.example/guides/30-day-rule-spending/`
+Live: ${SITE}/guides/30-day-rule-spending/`
   },
   {
     slug: 'cost-per-wear-guide',
@@ -373,7 +386,7 @@ Live: https://worth.example/guides/30-day-rule-spending/`
 
 Future purchases need 50+ wears min.
 
-Live: https://worth.example/guides/cost-per-wear-guide/`
+Live: ${SITE}/guides/cost-per-wear-guide/`
   },
   {
     slug: 'freelance-rate-guide',
@@ -389,7 +402,7 @@ $75k employee = $108k needed ÷1000 billable (realistic) = $108/hr min. 2000 bil
 
 Billable %: beginner 40-50% =800-1000h/yr, expert 70%=1400h.
 
-Live: https://worth.example/guides/freelance-rate-guide/`
+Live: ${SITE}/guides/freelance-rate-guide/`
   },
   {
     slug: 'psychology-small-purchases',
@@ -403,7 +416,7 @@ Mental accounting: $5 feels different than $500, doesn't sum. Pain of paying: ca
 
 Fix: annualize every daily with daily savings calculator, convert to work hours with cost-of-time.
 
-Live: https://worth.example/guides/psychology-small-purchases/`
+Live: ${SITE}/guides/psychology-small-purchases/`
   },
   {
     slug: 'track-daily-spending',
@@ -421,7 +434,7 @@ Date | Amount | What | Feeling | Hours
 
 Joy=keep, meh/regret=latte factor.
 
-Live: https://worth.example/guides/track-daily-spending/`
+Live: ${SITE}/guides/track-daily-spending/`
   },
   {
     slug: 'emergency-fund-hours',
@@ -435,7 +448,7 @@ Live: https://worth.example/guides/track-daily-spending/`
 
 Find $2,325/yr via sub audit $500 + latte $1,825 =93h @ $25.
 
-Live: https://worth.example/guides/emergency-fund-hours/`
+Live: ${SITE}/guides/emergency-fund-hours/`
   },
   {
     slug: 'side-hustle-worth-it',
@@ -451,7 +464,7 @@ Formula: (Gross - Expenses - Extra taxes) ÷ (Active + Inactive hours)
 
 Include commute, waiting, admin. Compare to overtime or raise negotiation.
 
-Live: https://worth.example/guides/side-hustle-worth-it/`
+Live: ${SITE}/guides/side-hustle-worth-it/`
   },
   {
     slug: 'coffee-cost-per-year',
@@ -471,7 +484,7 @@ Twice daily = $3,650. Home brew $0.50/day=$182/yr savings $1,643=65h.
 
 Keep if joy/ritual, cut if unconscious.
 
-Live: https://worth.example/guides/coffee-cost-per-year/`
+Live: ${SITE}/guides/coffee-cost-per-year/`
   },
   {
     slug: 'average-subscription-cost-2025',
@@ -487,7 +500,7 @@ Breakdown: video 4 services $60=$720, music $12=$144, news/apps $30=$360, gym $5
 
 Why underestimate: small amounts, different cards, free→paid forgotten.
 
-Live: https://worth.example/guides/average-subscription-cost-2025/`
+Live: ${SITE}/guides/average-subscription-cost-2025/`
   },
   {
     slug: 'hourly-budget',
@@ -507,7 +520,7 @@ Method:
 
 If bills 180h >173h, need raise or cut commute or minimalism.
 
-Live: https://worth.example/guides/hourly-budget/`
+Live: ${SITE}/guides/hourly-budget/`
   },
   {
     slug: 'paycheck-to-paycheck',
@@ -523,7 +536,7 @@ If rent+bills=160h and work 173h, only 13h for savings/fun=7.5%.
 
 Break cycle: audit subs 20h + latte 73h + no spend 40h/mo.
 
-Live: https://worth.example/guides/paycheck-to-paycheck/`
+Live: ${SITE}/guides/paycheck-to-paycheck/`
   },
   {
     slug: 'cost-of-convenience',
@@ -542,7 +555,7 @@ DoorDash $5.99 fee +15% service +$5 tip =$13 extra on $20 order. 2x/week=$1,352/
 
 Worth if real hourly $50 and saves 1h, $13<$50 value.
 
-Live: https://worth.example/guides/cost-of-convenience/`
+Live: ${SITE}/guides/cost-of-convenience/`
   },
   {
     slug: 'value-free-time',
@@ -558,7 +571,7 @@ Take OT if OT rate > value free time. Value = hourly × multiplier 0.5-2.
 
 $25 wage burnt out multiplier 2 = free time $50/hr worth. OT $37.50 < $50, decline.
 
-Live: https://worth.example/guides/value-free-time/`
+Live: ${SITE}/guides/value-free-time/`
   },
   {
     slug: 'minimalism-cost-per-time',
@@ -574,7 +587,7 @@ Own 100 vs 1000 things: less cleaning, decision, maintenance. Cost per time = (P
 
 Start: 30-day minimalism day1 1 item, day2 2 items... day30 30 items =465 removed.
 
-Live: https://worth.example/guides/minimalism-cost-per-time/`
+Live: ${SITE}/guides/minimalism-cost-per-time/`
   },
   {
     slug: 'negotiate-hourly-rate',
@@ -590,7 +603,7 @@ Script market data: "Based on Glassdoor $30-35/hr, I'm at $25 with [achievements
 
 10min ask = potential $10k/yr hourly for asking = $60k/hr.
 
-Live: https://worth.example/guides/negotiate-hourly-rate/`
+Live: ${SITE}/guides/negotiate-hourly-rate/`
   },
   {
     slug: 'is-netflix-worth-it',
@@ -611,7 +624,7 @@ Monthly ÷ hours watched.
 
 Rule: if cost/hr >$3 and alternatives, pause. Rotate monthly.
 
-Live: https://worth.example/guides/is-netflix-worth-it/`
+Live: ${SITE}/guides/is-netflix-worth-it/`
   },
   {
     slug: 'annual-vs-monthly-subscription',
@@ -632,7 +645,7 @@ Break-even = Annual ÷ Monthly = months needed.
 
 Annual often non-refundable. Monthly first 3mo then annual if still use.
 
-Live: https://worth.example/guides/annual-vs-monthly-subscription/`
+Live: ${SITE}/guides/annual-vs-monthly-subscription/`
   },
   {
     slug: 'how-to-calculate-overtime',
@@ -649,7 +662,7 @@ Examples $20/hr:
 - CA 12h day: 8×$20=$160 +4×$30=$120 total $280
 - CA 14h day: $160+$120+2×$40=$80 total $360
 
-Live: https://worth.example/guides/how-to-calculate-overtime/`
+Live: ${SITE}/guides/how-to-calculate-overtime/`
   },
   {
     slug: 'true-cost-of-car',
@@ -665,7 +678,7 @@ Depreciation kills: new $35k loses $7k first year, $4.5k/yr avg first 5y.
 
 IRS $0.67/mile 2024 close. 15k miles=$10k cost. Uber 15k @ $1.50=$22.5k, owning cheaper if drive much, but 5k miles Uber cheaper.
 
-Live: https://worth.example/guides/true-cost-of-car/`
+Live: ${SITE}/guides/true-cost-of-car/`
   },
   {
     slug: 'how-long-save-1000',
@@ -686,7 +699,7 @@ Audit subs $200 + latte $150 + no spend $300 + sell stuff $350 = $1k.
 
 $1k @ $25/hr =40h work. Saving $1k =40h freedom.
 
-Live: https://worth.example/guides/how-long-save-1000/`
+Live: ${SITE}/guides/how-long-save-1000/`
   }
 ];
 
@@ -700,7 +713,7 @@ search_volume: "${a.searchVolume}"
 type: "${a.type}"
 slug: "${a.slug}"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/"
+live_url: "${SITE}/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -711,7 +724,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "${a.keyword}" (${a.searchVolume}) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching \`site:github.com ${a.keyword}\`.
 
-**Live Calculator:** [https://worth.example/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/](https://worth.example/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/)
+**Live Calculator:** [${SITE}/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/](${SITE}/${a.type === 'calculator' ? 'calculators' : 'guides'}/${a.slug}/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -733,11 +746,11 @@ ${a.body}
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](${SITE}/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](${SITE}/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](${SITE}/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](${SITE}/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](${SITE}/)
 
 ## Why GitHub Ranks
 

@@ -6,7 +6,7 @@ search_volume: "2,900/mo"
 type: "calculator"
 slug: "commute-cost"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/calculators/commute-cost/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "cost of commuting calculator" (2,900/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com cost of commuting calculator`.
 
-**Live Calculator:** [https://worth.example/calculators/commute-cost/](https://worth.example/calculators/commute-cost/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/](https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -26,7 +26,7 @@ Annual = (Gas + Parking + Maintenance) + (Commute hours × Hourly × 2 × workda
 
 1h each way, $25/hr, 20mi = $82/day = $19,776/year. $500/mo more rent closer saves $13k + 480h.
 
-Live: https://worth.example/calculators/commute-cost/
+Live: https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/
 
 ---
 
@@ -44,11 +44,11 @@ Live: https://worth.example/calculators/commute-cost/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 
