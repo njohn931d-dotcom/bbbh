@@ -148,7 +148,6 @@ Sitemap: ${origin}/sitemap-40.xml
 Sitemap: ${origin}/sitemap-extra.xml
 Sitemap: ${origin}/feed.xml
 
-Crawl-delay: 0
 
 User-agent: GPTBot
 Allow: /

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome } from './cluster-content.mjs';
 import vm from 'node:vm';
 import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
 export { articleRoutes };
@@ -66,6 +67,16 @@ const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').repla
 const prefixInternalLinks=html=>basePath?html.replace(/(<a\b[^>]*\bhref=")\/(?!\/)/g,(_,prefix)=>prefix+basePath+'/'):html;
 
 // Helper to make GitHub CTA block
+// Append the brand only when it does not collide with the title's last word,
+// so we never emit "…is worth | Worth".
+const withBrand = title => {
+  const words = title.toLowerCase().replace(/[^\p{L}\s\d]/gu, ' ').split(/\s+/).filter(Boolean);
+  if (words[words.length - 1] === 'worth') return title;
+  // Google truncates near 60 characters. A brand suffix that pushes the
+  // keyword half of the title out of view costs more than it identifies.
+  return title.length + 8 <= 65 ? title + ' | Worth' : title;
+};
+
 const githubCTA = (calcName) => `
 <div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0">
 <p><strong>Open source on GitHub</strong> — This ${calcName} calculator is free, private (runs in your browser), and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source on GitHub</a> • Star it to support free financial tools. No sign-up, no tracking.</p>
@@ -75,7 +86,7 @@ const data=[
 {route:routes[0],name:'Cost of Time Calculator',title:'Cost of Time Calculator: Convert Money to Work Hours | Worth',description:'Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.',mode:'purchase',intro:'How many hours of work does that purchase cost? Enter the price and your take-home pay to see the trade-off.',body:`<h2>How to calculate the work hours behind a purchase</h2><p><strong>Work hours = purchase price ÷ take-home hourly pay.</strong> A $150 purchase at $25 per hour takes 6 hours of work. This number is a different way to look at spending, not a judgment about what you should buy. Worth's open-source calculator runs 100% in your browser - <a href="https://github.com/njohn931d-dotcom/bbbh">source on GitHub</a>.</p><h3>Converting a monthly or annual salary</h3><p>For a 40-hour week over 52 weeks, annual work time is 2,080 hours. Divide annual take-home pay by 2,080, or monthly take-home pay by 173.33. Someone taking home $52,000 per year has an estimated $25 hourly rate. If you work different hours, enter your actual hourly pay instead.</p><h3>Worked examples at $25 take-home per hour</h3><table><thead><tr><th>Purchase</th><th>Price</th><th>Work hours</th></tr></thead><tbody><tr><td>Dinner out</td><td>$50</td><td>2 hours</td></tr><tr><td>Sneakers</td><td>$150</td><td>6 hours</td></tr><tr><td>Laptop</td><td>$1,000</td><td>40 hours</td></tr></tbody></table><h3>What this calculation leaves out</h3><p>It does not account for rent, bills, savings obligations, or the emotional value of a purchase. Your full take-home wage is not all disposable income. Use the result as perspective, not as an affordability assessment.</p>${githubCTA('cost of time')}`},
 {route:routes[1],name:'Subscription Cost Calculator',title:'Subscription Cost Calculator: Monthly to Yearly Cost | Worth',description:'Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.',mode:'subscription',intro:'A small monthly charge can become a big yearly commitment. See your annual subscription cost in dollars and work hours.',body:`<h2>Calculate the annual cost of a subscription</h2><p><strong>Annual cost = monthly price × 12.</strong> A $15 monthly subscription costs $180 per year. At $25 per hour in take-home pay, that is 7.2 hours of work each year. Our calculator is open source on GitHub - free forever.</p><h3>Common monthly costs, annualized</h3><table><thead><tr><th>Monthly fee</th><th>Yearly cost</th><th>Hours at $25/hour</th></tr></thead><tbody><tr><td>$10</td><td>$120</td><td>4.8</td></tr><tr><td>$15</td><td>$180</td><td>7.2</td></tr><tr><td>$50</td><td>$600</td><td>24</td></tr></tbody></table><h3>Check several subscriptions together</h3><p>Add the monthly costs of your services and enter that total. Three services costing $10, $15, and $20 a month total $45 monthly, or $540 annually. At $25 take-home per hour, they represent 21.6 work hours.</p><h3>Is an annual plan actually cheaper?</h3><p>Compare the quoted annual price with the monthly fee multiplied by 12. A $150 annual plan versus $15 per month saves $30 only if you would otherwise keep the service for all 12 months. Check cancellation terms and taxes before switching.</p>${githubCTA('subscription cost')}`},
 {route:routes[2],name:'Daily Savings Calculator',title:'Daily Savings Calculator: Small Habits, Yearly Savings | Worth',description:'See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.',mode:'saving',intro:'What could one small daily change add up to? Turn a daily amount into a yearly saving—and see the time it represents.',body:`<h2>Turn a daily habit into a yearly saving</h2><p><strong>Yearly savings = daily amount × 365.</strong> Setting aside $5 each day adds up to $1,825 over a 365-day year. This is money set aside, not an investment forecast. Open source calculator - <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub</a>.</p><h3>How much could you save in a year?</h3><table><thead><tr><th>Daily amount</th><th>Over 30 days</th><th>Over 365 days</th></tr></thead><tbody><tr><td>$1</td><td>$30</td><td>$365</td></tr><tr><td>$5</td><td>$150</td><td>$1,825</td></tr><tr><td>$10</td><td>$300</td><td>$3,650</td></tr></tbody></table><h3>What about coffee only on weekdays?</h3><p>The calculator assumes a daily habit. If you skip a $5 purchase five times a week for 52 weeks, the result is $1,300—not $1,825. For twice a week, it is $520. Use the schedule that matches your life.</p><h3>Make the change sustainable</h3><p>Pick a purchase you will not miss, and move the amount into a separate savings pot. Cutting a purchase does not increase savings if the money is simply spent elsewhere. Keep the things that give you real value.</p>${githubCTA('daily savings')}`},
-...['time','habits','rule'].map((key,i)=>({route:routes[3+i],name:articles[key].title,title:articles[key].title+' | Worth',description:articles[key].body[0][1].slice(0,155),body:articles[key].body.map(([h,p])=>`<h2>${escape(h)}</h2><p>${escape(p)}</p>`).join('') + githubCTA('Worth')})),
+...['time','habits','rule'].map((key,i)=>({route:routes[3+i],name:articles[key].title,title:withBrand(articles[key].title),description:articles[key].body[0][1].slice(0,155),body:articles[key].body.map(([h,p])=>`<h2>${escape(h)}</h2><p>${escape(p)}</p>`).join('') + githubCTA('Worth')})),
 // NEW 40 ARTICLES
 {
 route: 'calculators/salary-to-hourly',
@@ -872,9 +883,10 @@ const guidesHub=`<section class="seo-related cluster-link" id="guides"><div clas
 
 function metadata(html,p){
 const url=siteUrl+(p.route?'/'+p.route+'/':'/');
-html=html.replace(/<title>.*?<\/title>/,`<title>${escape(p.title)}</title>`)
+const pageTitle=withBrand(p.title);
+html=html.replace(/<title>.*?<\/title>/,`<title>${escape(pageTitle)}</title>`)
 .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
-.replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(p.title)}">`)
+.replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(pageTitle)}">`)
 .replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
 const baseUrl = siteUrl ? siteUrl + '/' : '';
 const webSiteObj = siteUrl ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
@@ -890,8 +902,28 @@ if(p.route){
 graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
+/**
+ * hreflang for pages that have real translations.
+ *
+ * The cluster generator emits these for the pages it renders, but a translated
+ * page whose English counterpart is rendered here (salary-to-hourly) would
+ * otherwise have no way to point back. hreflang must be reciprocal, so both
+ * sides have to declare the pair.
+ */
+const hreflangFor = (route, site) => {
+  if (!site || !TRANSLATION_MAP[route]) return '';
+  const links = [`<link rel="alternate" hreflang="en" href="${site}/${route}/">`];
+  for (const t of TRANSLATION_MAP[route]) {
+    links.push(`<link rel="alternate" hreflang="${t.lang}" href="${site}/${t.route}/">`);
+  }
+  // x-default is the English page itself, so a visitor with no language
+  // preference is never dropped onto a translation.
+  links.push(`<link rel="alternate" hreflang="x-default" href="${site}/${route}/">`);
+  return links.join('');
+};
+
 const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'16\' fill=\'%23204f3c\'/%3E%3Ctext x=\'13\' y=\'46\' font-size=\'44\' fill=\'%23d9edb2\' font-family=\'serif\'%3Ew%3C/text%3E%3C/svg%3E">';
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt"></head>`);
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website">${siteUrl?`<meta property="og:image" content="${escape(siteUrl+'/og-image.png')}"><meta name="twitter:image" content="${escape(siteUrl+'/og-image.png')}">`:''}<meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt">${hreflangFor(p.route, siteUrl)}</head>`);
 }
 
 for(const p of data){
@@ -910,7 +942,12 @@ fs.mkdirSync(p.route,{recursive:true});
 fs.writeFileSync(p.route+'/index.html',html);
 }
 // This template is the source of the homepage; the generated file is served by Vite.
-let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',title:'Free Money Calculators: Work Hours, Subscriptions & Savings | Worth - Open Source on GitHub',description:'46 free money calculators and guides - open source on GitHub. Convert salary to hourly, calculate cost per wear, audit subscriptions, latte factor. Private, no sign-up.'}));
+// Counts are derived from the route lists so the homepage cannot advertise a
+// number that has drifted away from what the site actually serves.
+const toolCount=[...routes,...extraRoutesForHome].filter(r=>r.startsWith('calculators/')||r.startsWith('guides/')).length;
+let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',
+  title:'Free Money Calculators: Work Hours, Cost & Savings | Worth',
+  description:`${toolCount} free money calculators and guides: salary to hourly, mortgage, compound interest, subscription audit and more. Runs in your browser, no sign-up, open source.`}));
 fs.mkdirSync('.generated',{recursive:true});
 fs.writeFileSync('.generated/home.html',home);
 // Guide pages, cluster hubs and the guides index are generated from content/articles/*.md.
@@ -939,7 +976,6 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Crawl-delay: 0
 ` : 'User-agent: *\nDisallow: /\n';
 fs.writeFileSync('public/robots.txt', robotsContent);
 if(siteUrl) {

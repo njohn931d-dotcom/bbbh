@@ -1,101 +1,39 @@
 import fs from 'node:fs';
 import { articleRoutes, articles as guideArticles } from './articles.mjs';
+import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } from './cluster-content.mjs';
 
-export const extraRoutes = [
-  'calculators/mortgage-calculator-2026',
-  'calculators/compound-interest-calculator',
-  'calculators/inflation-calculator-2026',
-  'calculators/paycheck-calculator-2026',
-  'calculators/crypto-profit-calculator-2026',
-  'calculators/youtube-earnings-calculator-2026',
-  'calculators/tiktok-money-calculator-2026',
-  'calculators/onlyfans-earnings-calculator-2026',
-  'calculators/freelance-rate-calculator-2026',
-  'calculators/rent-vs-buy-calculator-2026',
-  'calculators/car-loan-calculator-2026',
-  'calculators/student-loan-calculator-2026',
-  'calculators/net-worth-calculator-2026',
-  'calculators/cost-of-living-calculator-2026',
-  'calculators/salary-in-hours-elon-musk-calculator',
-  'calculators/wedding-budget-calculator-2026',
-  'calculators/lottery-tax-calculator-2026',
-  'calculators/divorce-cost-calculator-2026',
-  'calculators/child-cost-calculator-2026',
-  'calculators/streaming-cost-calculator-2026',
-  'calculators/chatgpt-cost-calculator-2026',
-  'calculators/mrbeast-earnings-per-second-calculator',
-  'calculators/side-hustle-calculator-2026',
-  'calculators/ai-job-replacement-calculator-2026',
-  'calculators/trump-tariff-calculator-2026',
-  'calculators/taylor-swift-concert-cost-calculator',
-  'guides/how-much-house-can-i-afford-2026',
-  'guides/are-you-rich-net-worth-percentile-2026',
-  'guides/calculadora-hipoteca-2026-espana-mexico',
-  'guides/calculadora-salario-hora-2026-latam',
-  'guides/stundenlohn-rechner-deutschland-2026',
-  'guides/calculateur-salaire-horaire-france-2026',
-  'guides/калькулятор-зарплаты-час-россия-2026',
-  'guides/时薪计算器-中国-2026',
-  'guides/時給計算機-日本-2026',
-  'guides/연봉-시급-계산기-한국-2026',
-  'guides/حاسبة-الراتب-بالساعة-السعودية-2026',
-  'guides/calculadora-horas-trabalho-brasil-2026',
-  'guides/how-much-youtubers-make-2026-shocking-truth',
-  'guides/cost-of-time-elon-musk-jeff-bezos-2026',
-];
+/**
+ * Renders the tool cluster: one page per route in cluster-content.mjs, each
+ * with its own title, description, formula, worked example and FAQ.
+ *
+ * The previous implementation derived a page's name by title-casing its slug
+ * and then appended "2026" to it, which produced titles like
+ * "Mortgage Calculator 2026 2026" and H1s like
+ * "Mortgage Calculator 2026 Calculator 2026". It also rendered every page from
+ * one shared body template, gave all of them the same hreflang fan-out to ten
+ * unrelated URLs, and asserted a Wikipedia sameAs the site does not own.
+ * Those are fixed here; see scripts/seo-audit.mjs for the checks that catch
+ * them if they ever come back.
+ */
 
-export const routes = [...extraRoutes];
+// Route lists come from generate-seo.mjs so the sitemap can never drift out of
+// sync with the pages the build actually produces. Duplicating this list here
+// previously left five built pages missing from sitemap.xml.
+import { routes as seoRoutes } from './generate-seo.mjs';
 
-const baseRoutes = ['calculators/cost-of-time','calculators/subscription-cost','calculators/daily-savings','guides/hourly-pay','guides/small-purchases','guides/24-hour-rule'];
-const mainRoutes = [
-  'calculators/salary-to-hourly',
-  'calculators/hourly-to-salary',
-  'calculators/freelance-rate',
-  'calculators/cost-per-wear',
-  'calculators/cost-per-use',
-  'calculators/overtime-pay',
-  'calculators/after-tax-income',
-  'calculators/commute-cost',
-  'calculators/latte-factor',
-  'calculators/gym-cost-per-visit',
-  'calculators/streaming-cost',
-  'calculators/car-ownership-cost',
-  'calculators/time-to-save',
-  'calculators/paycheck-breakdown',
-  'calculators/buy-vs-rent-hourly',
-  'guides/how-much-is-time-worth',
-  'guides/stop-impulse-buying',
-  'guides/subscription-audit',
-  'guides/latte-factor-explained',
-  'guides/no-spend-challenge',
-  'guides/30-day-rule-spending',
-  'guides/cost-per-wear-guide',
-  'guides/freelance-rate-guide',
-  'guides/psychology-small-purchases',
-  'guides/track-daily-spending',
-  'guides/emergency-fund-hours',
-  'guides/side-hustle-worth-it',
-  'guides/coffee-cost-per-year',
-  'guides/average-subscription-cost-2025',
-  'guides/hourly-budget',
-  'guides/paycheck-to-paycheck',
-  'guides/cost-of-convenience',
-  'guides/value-free-time',
-  'guides/minimalism-cost-per-time',
-  'guides/negotiate-hourly-rate',
-  'guides/is-netflix-worth-it',
-  'guides/annual-vs-monthly-subscription',
-  'guides/how-to-calculate-overtime',
-  'guides/true-cost-of-car',
-  'guides/how-long-save-1000'
-];
+/** Pages that predate the cluster and already have hand-written content. */
+const baseRoutes = seoRoutes;
 
-const allRoutesForSitemap = [...baseRoutes, ...mainRoutes, ...extraRoutes, ...articleRoutes];
+/**
+ * Every route this module is responsible for. Exported because vite.config.js
+ * feeds it to the build as a rollup input — a route that renders a file but is
+ * not in this list would never be built.
+ */
+export const extraRoutes = [...CLUSTER_ROUTES];
 
-function buildSimpleBody(name, desc) {
-  const today = '2026-09-27';
-  return '<h2>What is ' + name + '?</h2><p>' + desc + ' Last updated: ' + today + ' - 2026 edition. Hosted on GitHub Pages DA 99.</p><h2>Formula</h2><p>Work hours = price divided by hourly pay. At $35/hr, $100 = 2.8 hours. This calculator shows monthly, yearly, and work hours cost.</p><h2>2026 Table</h2><table><thead><tr><th>Amount</th><th>Monthly</th><th>Yearly</th><th>Hours at $35/hr</th></tr></thead><tbody><tr><td>$100</td><td>$100</td><td>$1200</td><td>34h</td></tr><tr><td>$500</td><td>$500</td><td>$6000</td><td>171h</td></tr></tbody></table><h2>FAQ</h2><h3>Is this free?</h3><p>Yes, free, no signup, open source on GitHub.</p><h3>How many hours does it cost?</h3><p>Use calculator: price divided by hourly pay.</p>';
-}
+/** Date the cluster content was last genuinely revised. */
+const CONTENT_UPDATED = '2026-09-27';
+const CONTENT_PUBLISHED = '2026-01-15';
 
 export function generateParasiteSEO() {
   const raw = process.env.SITE_URL;
@@ -111,85 +49,320 @@ export function generateParasiteSEO() {
   const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
   const prefixInternalLinks = html => basePath ? html.replace(/(<a\b[^>]*\bhref=")\/(?!\/)/g, (_, prefix) => prefix + basePath + '/') : html;
 
-  const githubCTA = (calcName) => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source on GitHub</strong> — This ' + calcName + ' calculator is free, private, and open source. <a href="https://github.com/njohn931d-dotcom/bbbh" target="_blank" rel="noopener">View source</a></p></div>';
+  /**
+   * Append the brand name only when it does not collide with the last word of
+   * the title. "…is worth | Worth" reads badly, and a title that stutters is a
+   * small quality signal against the page for no gain in impressions.
+   */
+  const withBrand = title => {
+    const words = title.toLowerCase().replace(/[^\p{L}\s\d]/gu, ' ').split(/\s+/).filter(Boolean);
+    const last = words[words.length - 1];
+    return last === 'worth' ? title : `${title} | Worth`;
+  };
 
-  const allRoutes = [...baseRoutes, ...mainRoutes, ...extraRoutes];
-  const linksAll = '<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE - ' + (allRoutes.length+1) + ' TOOLS</div><h2>Free calculators & practical guides - ' + (allRoutes.length+1) + ' tools</h2><div>' + allRoutes.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a></div></section>';
+  const githubCTA = label => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source</strong> — this ' + escape(label) + ' runs entirely in your browser. No account, no tracking, no data leaves the page. <a href="' + REPO_URL + '" target="_blank" rel="noopener">Read the source</a></p></div>';
 
-  function metadata(html, p) {
-    const url = siteUrl + (p.route ? '/' + p.route + '/' : '/');
-    const lang = p.lang || 'en';
-    html = html.replace(/<html lang="[^"]*">/, '<html lang="' + lang + '">');
-    html = html.replace(/<title>.*?<\/title>/, '<title>' + escape(p.title) + '</title>').replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escape(p.description) + '">').replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="' + escape(p.title) + '">').replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">');
-    const hreflangs = siteUrl ? [
-      '<link rel="alternate" hreflang="en" href="' + siteUrl + '/' + p.route + '/">',
-      '<link rel="alternate" hreflang="es" href="' + siteUrl + '/guides/calculadora-hipoteca-2026-espana-mexico/">',
-      '<link rel="alternate" hreflang="de" href="' + siteUrl + '/guides/stundenlohn-rechner-deutschland-2026/">',
-      '<link rel="alternate" hreflang="fr" href="' + siteUrl + '/guides/calculateur-salaire-horaire-france-2026/">',
-      '<link rel="alternate" hreflang="ru" href="' + siteUrl + '/guides/калькулятор-зарплаты-час-россия-2026/">',
-      '<link rel="alternate" hreflang="zh" href="' + siteUrl + '/guides/时薪计算器-中国-2026/">',
-      '<link rel="alternate" hreflang="ja" href="' + siteUrl + '/guides/時給計算機-日本-2026/">',
-      '<link rel="alternate" hreflang="ko" href="' + siteUrl + '/guides/연봉-시급-계산기-한국-2026/">',
-      '<link rel="alternate" hreflang="ar" href="' + siteUrl + '/guides/حاسبة-الراتب-بالساعة-السعودية-2026/">',
-      '<link rel="alternate" hreflang="pt" href="' + siteUrl + '/guides/calculadora-horas-trabalho-brasil-2026/">',
-      '<link rel="alternate" hreflang="x-default" href="' + siteUrl + '/' + p.route + '/">',
-    ].join('') : '';
-    const schema = {
-      '@context': 'https://schema.org',
-      '@graph': [
-        { '@type': 'WebSite', name: 'Worth', ...(siteUrl ? { url: siteUrl + '/' } : {}), inLanguage: lang },
-        { '@type': p.mode ? 'WebApplication' : 'WebPage', name: p.name, description: p.description, ...(siteUrl ? { url } : {}), ...(p.mode ? { applicationCategory: 'FinanceApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, codeRepository: 'https://github.com/njohn931d-dotcom/bbbh' } : {}), inLanguage: lang },
-        ...(p.route ? [{ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(siteUrl ? { item: siteUrl + '/' } : {}) }, { '@type': 'ListItem', position: 2, name: p.name, ...(siteUrl ? { item: url } : {}) }] }] : []),
-        { '@type': p.mode ? 'TechArticle' : 'Article', headline: p.title, description: p.description, inLanguage: lang, datePublished: '2026-01-15', dateModified: '2026-09-27', author: { '@type': 'Organization', name: 'Worth' }, publisher: { '@type': 'Organization', name: 'Worth' }, keywords: (p.keywords || []).join(', '), isAccessibleForFree: true, codeRepository: 'https://github.com/njohn931d-dotcom/bbbh' },
-        { '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Is this free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes free open source' } }] },
-        { '@type': 'Organization', name: 'Worth', url: siteUrl || 'https://worth.example', sameAs: ['https://github.com/njohn931d-dotcom/bbbh', 'https://en.wikipedia.org/wiki/Personal_finance'] }
-      ]
-    };
-    html = html.replace(/<script type="application\/ld\+json">.*?<\/script>/s, '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
-    const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="author" href="/humans.txt">';
-    return html.replace('</head>', (siteUrl ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' : '<meta name="robots" content="noindex, nofollow">') + '<meta name="twitter:card" content="summary_large_image"><meta property="og:type" content="website"><meta property="og:site_name" content="Worth"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="googlebot" content="index, follow"><link rel="sitemap" type="application/xml" href="/sitemap.xml">' + hreflangs + manifestLink + '<meta name="keywords" content="' + escape((p.keywords || []).join(', ')) + '"></head>');
-  }
+  /** All tools that exist site-wide, for the "everything else" link list. */
+  const everyRoute = [...new Set([...baseRoutes, ...extraRoutes, ...articleRoutes])];
 
-  const data = extraRoutes.map(route => {
-    const name = route.split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    const title = name + ' 2026: Free Calculator [Free Tool] | Worth';
-    const desc = 'Free ' + name + ' calculator 2026: monthly, yearly, work hours cost. Open source on GitHub DA 99. No signup.';
-    const isCalc = route.startsWith('calculators/');
+  /** Human label for a route, used as link text. */
+  const labelFor = route => (getContent(route)?.h1) || route.split('/').pop().replace(/-/g, ' ');
+
+  // ------------------------------------------------------------- page model
+
+  const pages = CLUSTER_ROUTES.map(route => {
+    const c = getContent(route);
+    if (!c) throw new Error(`No content defined for route: ${route}`);
     return {
       route,
-      name: name + ' Calculator 2026',
-      title,
-      description: desc,
-      mode: isCalc ? 'purchase' : null,
-      lang: route.includes('calculadora-hipoteca') || route.includes('calculadora-salario') ? 'es' : route.includes('stundenlohn') ? 'de' : route.includes('calculateur') ? 'fr' : route.includes('калькулятор') ? 'ru' : route.includes('时薪') ? 'zh' : route.includes('時給') ? 'ja' : route.includes('연봉') ? 'ko' : route.includes('حاسبة') ? 'ar' : route.includes('horas-trabalho') ? 'pt' : 'en',
-      keywords: [name.toLowerCase(), name.toLowerCase() + ' 2026', 'free calculator', 'github'],
-      intro: desc,
-      body: buildSimpleBody(name, desc) + githubCTA(name),
-      faqs: [['Is this free?', 'Yes free open source'], ['How many hours?', 'Price divided by hourly pay']]
+      content: c,
+      lang: c.lang || 'en',
+      dir: c.dir || null,
+      h1: c.h1,
+      title: withBrand(c.title),
+      description: c.desc,
+      isTool: c.intent === 'tool',
     };
   });
 
-  for (const p of data) {
-    const crumb = '<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>' + escape(p.name) + '</span></nav>';
-    const hero = crumb + '<section class="seo-hero"><div class="eyebrow">FREE MONEY CALCULATOR 2026 - OPEN SOURCE • Updated Sep 27, 2026</div><h1>' + escape(p.name) + '</h1><p>' + escape(p.intro) + '</p><div style="font-size:11px;color:#8a9a7a;margin-top:10px;">Last updated: 2026-09-27 • ' + allRoutes.length + ' calculators • GitHub DA 99</div></section>';
-    let calculator = p.mode ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '';
-    const faq = p.mode ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
-    const relatedLinks = allRoutes.filter(r => r !== p.route).sort(() => 0.5 - Math.random()).slice(0, 12);
-    const relatedHTML = '<section class="seo-related"><div class="section-label">RELATED CALCULATORS - ' + allRoutes.length + ' TOOLS</div><h2>More free calculators</h2><div>' + relatedLinks.map(r => '<a href="/' + r + '/">' + escape(r.split('/').pop().replace(/-/g, ' ')) + ' <span>↗</span></a>').join('') + '</div></section>';
-    const pbnFooter = '<section style="margin-top:40px;padding:20px;background:#f5f5ef;border-radius:8px;border:1px solid #e0e4d7"><div class="section-label">PARASITE SEO CLUSTER - GITHUB DA 99 - ' + allRoutes.length + ' TOOLS</div><p style="font-size:11px;color:#7a8470">Part of Worth ' + allRoutes.length + '-tool cluster hosted on GitHub Pages DA 99. Open source MIT. External: <a href="https://en.wikipedia.org/wiki/Personal_finance">Wikipedia</a> • <a href="https://github.com/topics/calculator">GitHub Calculator</a> • <a href="https://github.com/njohn931d-dotcom/bbbh">GitHub Source</a></p></section>';
-    let html = base.replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + '<article class="seo-article"><div style="background:#eef0e5;padding:12px 16px;border-radius:6px;font-size:11px;margin-bottom:20px;">Free 2026 • GitHub DA 99 • ' + escape(p.name) + '</div>' + p.body + relatedHTML + linksAll + pbnFooter + faq + '</main>').replace('<body>', '<body data-mode="' + (p.mode || '') + '">').replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"');
-    if (!p.mode) html = html.replace(/<button class="saved-button"[\s\S]*?<\/button>/, '<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>', '');
-    html = prefixInternalLinks(metadata(html, p));
-    fs.mkdirSync(p.route, { recursive: true });
-    fs.writeFileSync(p.route + '/index.html', html);
-    fs.writeFileSync(p.route + '/index.txt', p.title + '\n' + p.description + '\n');
-    fs.writeFileSync(p.route + '/index.json', JSON.stringify({ title: p.title, route: p.route }, null, 2));
+  // ---------------------------------------------------------------- helpers
+
+  /** Render one content entry's body: formula, table, notes, FAQ. */
+  function renderBody(c) {
+    const parts = [];
+
+    parts.push(
+      '<h2>' + escape(c.formula.name) + '</h2>' +
+      '<p><strong>' + escape(c.formula.expr) + '</strong></p>' +
+      '<p>' + c.formula.plain + '</p>'
+    );
+
+    if (c.assumptions) {
+      parts.push('<h3>Worked example</h3><p><em>Assumptions: ' + escape(c.assumptions) + '</em></p>');
+    }
+
+    if (c.table) {
+      parts.push(
+        '<div style="overflow-x:auto"><table><thead><tr>' +
+        c.table.head.map(h => '<th scope="col">' + escape(h) + '</th>').join('') +
+        '</tr></thead><tbody>' +
+        c.table.rows.map(row => '<tr>' + row.map(cell => '<td>' + escape(cell) + '</td>').join('') + '</tr>').join('') +
+        '</tbody></table></div>'
+      );
+    }
+
+    if (c.notes?.length) {
+      parts.push('<h2>What the numbers do not tell you</h2><ul>' +
+        c.notes.map(n => '<li>' + n + '</li>').join('') + '</ul>');
+    }
+
+    if (c.caveat) {
+      parts.push('<h3>Before you rely on this</h3><p>' + escape(c.caveat) + '</p>');
+    }
+
+    if (c.faqs?.length) {
+      parts.push('<h2 id="faq">Frequently asked questions</h2>' +
+        c.faqs.map(([q, a], i) => '<h3>' + escape(q) + '</h3><p>' + a + '</p>').join(''));
+    }
+
+    return parts.join('');
   }
 
-  fs.mkdirSync('public', { recursive: true });
+  /**
+   * Relevant links only. The old build picked 12 links at random with
+   * `sort(() => 0.5 - Math.random())`, which made the output differ on every
+   * build and put an arbitrary set of pages on every page.
+   */
+  function renderLinks(c) {
+    const seen = new Set();
+    const pick = [];
+    for (const r of [...(c.related || []), ...(c.links || [])]) {
+      if (seen.has(r) || r === c.route) continue;
+      if (!everyRoute.includes(r)) continue;
+      seen.add(r);
+      pick.push(r);
+      if (pick.length >= 6) break;
+    }
+    if (!pick.length) return '';
+    return '<section class="seo-related"><h2>Related tools</h2><div>' +
+      pick.map(r => '<a href="/' + r + '/">' + escape(labelFor(r)) + ' <span>↗</span></a>').join('') +
+      '</div></section>';
+  }
+
+  /** The full "every tool" list, collapsed behind a heading. */
+  function renderAllTools() {
+    return '<section class="seo-related"><h2>All ' + everyRoute.length + ' calculators and guides</h2><div>' +
+      everyRoute.map(r => '<a href="/' + r + '/">' + escape(labelFor(r)) + ' <span>↗</span></a>').join('') +
+      '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a>' +
+      '</div></section>';
+  }
+
+  /** An honest footer. No link-wheel language, no borrowed-authority links. */
+  function renderFooter() {
+    return '<section class="colophon" style="margin-top:40px;padding:20px;background:#f5f5ef;border-radius:8px;border:1px solid #e0e4d7">' +
+      '<div class="section-label">ABOUT THIS TOOL</div>' +
+      '<p style="font-size:12px;color:#5c6650;margin:0">Worth is free, open source and runs entirely in your browser — no account, no tracking, and nothing you type is sent anywhere. ' +
+      'Figures are worked examples, not quotes, and the <a href="' + REPO_URL + '" target="_blank" rel="noopener">source is on GitHub</a> under the MIT licence. ' +
+      'Corrections are welcome as pull requests.</p></section>';
+  }
+
+  // --------------------------------------------------------------- metadata
+
+  function metadata(html, p) {
+    const url = siteUrl + '/' + p.route + '/';
+    const lang = p.lang;
+
+    // Document language and text direction. A page that declares lang="de"
+    // while its body is English is a signal we were getting wrong, not right.
+    html = html.replace(/<html lang="[^"]*"/, '<html lang="' + lang + '"' + (p.dir ? ' dir="' + p.dir + '"' : ''));
+
+    html = html
+      .replace(/<title>[\s\S]*?<\/title>/, '<title>' + escape(p.title) + '</title>')
+      .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escape(p.description) + '">')
+      .replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="' + escape(p.title) + '">')
+      .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">');
+
+    /*
+     * hreflang: self, plus whichever real translations exist for this page.
+     * Works in both directions — an English page lists its translations, and a
+     * translated page lists the English page it is a translation of — so every
+     * pair is reciprocal. The previous build pointed all 40 pages at the same
+     * 10 unrelated foreign URLs, which is invalid and which Google discards
+     * wholesale, taking the legitimate annotations down with it.
+     */
+    const hreflangs = siteUrl ? (() => {
+      const links = [`<link rel="alternate" hreflang="${lang}" href="${siteUrl}/${p.route}/">`];
+      for (const t of TRANSLATION_MAP[p.route] || []) {
+        links.push(`<link rel="alternate" hreflang="${t.lang}" href="${siteUrl}/${t.route}/">`);
+      }
+      // Reverse direction: a translated page declares the page it translates,
+      // and x-default points at the English original so a visitor with no
+      // language preference is not dropped onto a translated page.
+      const parent = p.content.translationOf;
+      const isTranslation = parent && TRANSLATION_MAP[parent]?.some(t => t.route === p.route);
+      if (isTranslation) {
+        links.push(`<link rel="alternate" hreflang="en" href="${siteUrl}/${parent}/">`);
+      }
+      const xDefault = isTranslation ? parent : p.route;
+      links.push(`<link rel="alternate" hreflang="x-default" href="${siteUrl}/${xDefault}/">`);
+      return links.join('');
+    })() : '';
+
+    const schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          name: 'Worth',
+          ...(siteUrl ? { url: siteUrl + '/' } : {}),
+          inLanguage: lang,
+        },
+        {
+          '@type': p.isTool ? 'WebApplication' : 'WebPage',
+          name: p.h1,
+          description: p.description,
+          ...(siteUrl ? { url } : {}),
+          inLanguage: lang,
+          ...(p.isTool ? {
+            applicationCategory: 'FinanceApplication',
+            operatingSystem: 'Any',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            isAccessibleForFree: true,
+            codeRepository: REPO_URL,
+          } : {}),
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', ...(siteUrl ? { item: siteUrl + '/' } : {}) },
+            { '@type': 'ListItem', position: 2, name: p.h1, ...(siteUrl ? { item: url } : {}) },
+          ],
+        },
+        {
+          '@type': 'TechArticle',
+          headline: p.h1,
+          description: p.description,
+          inLanguage: lang,
+          datePublished: CONTENT_PUBLISHED,
+          dateModified: CONTENT_UPDATED,
+          author: { '@type': 'Organization', name: 'Worth' },
+          publisher: { '@type': 'Organization', name: 'Worth' },
+          isAccessibleForFree: true,
+          codeRepository: REPO_URL,
+          license: 'https://opensource.org/licenses/MIT',
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: p.content.faqs.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') },
+          })),
+        },
+        {
+          '@type': 'Organization',
+          name: 'Worth',
+          ...(siteUrl ? { url: siteUrl + '/' } : {}),
+          // Only profiles this site actually controls. Claiming a Wikipedia
+          // page as an identity reference is a false statement about who we
+          // are, and it is the kind of thing that earns a manual action.
+          sameAs: [REPO_URL],
+        },
+      ],
+    };
+
+    html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+      '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
+
+    const head = siteUrl
+      ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' +
+        // Absolute, so link unfurlers that refuse to resolve relative URLs
+        // still render a card instead of a bare text link.
+        '<meta property="og:image" content="' + escape(siteUrl + '/og-image.png') + '">' +
+        '<meta name="twitter:image" content="' + escape(siteUrl + '/og-image.png') + '">'
+      : '<meta name="robots" content="noindex, nofollow">';
+
+    return html.replace('</head>',
+      head +
+      '<meta name="twitter:card" content="summary_large_image">' +
+      '<meta property="og:type" content="website">' +
+      '<meta property="og:site_name" content="Worth">' +
+      '<meta property="og:locale" content="' + lang + '">' +
+      '<meta name="robots" content="index, follow, max-image-preview:large">' +
+      '<link rel="sitemap" type="application/xml" href="/sitemap.xml">' +
+      hreflangs +
+      '<link rel="manifest" href="/manifest.json">' +
+      '<meta name="theme-color" content="#204f3c">' +
+      '<meta name="apple-mobile-web-app-capable" content="yes">' +
+      '<link rel="author" href="/humans.txt">' +
+      '</head>');
+  }
+
+  // ----------------------------------------------------------------- render
+
+  for (const p of pages) {
+    const c = p.content;
+    const crumbLabel = escape(p.h1);
+
+    const crumb = '<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>' + crumbLabel + '</span></nav>';
+
+    const hero = crumb +
+      '<section class="seo-hero">' +
+      '<h1>' + crumbLabel + '</h1>' +
+      '<p>' + escape(c.intro) + '</p>' +
+      '<div style="font-size:11px;color:#8a9a7a;margin-top:10px">Updated ' + CONTENT_UPDATED + ' · free, no sign-up</div>' +
+      '</section>';
+
+    // Reuse the real interactive calculator section on tool pages only.
+    const calculator = p.isTool ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '';
+    const faqSection = p.isTool ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
+
+    const body =
+      '<article class="seo-article">' +
+      renderBody(c) +
+      githubCTA(p.h1.toLowerCase()) +
+      renderLinks(c) +
+      '</article>' +
+      renderAllTools() +
+      renderFooter() +
+      faqSection;
+
+    let html = base.replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + body + '</main>')
+      .replace('<body>', '<body data-mode="' + (p.isTool ? 'purchase' : '') + '">')
+      .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"');
+
+    if (!p.isTool) {
+      html = html.replace(/<button class="saved-button"[\s\S]*?<\/button>/, '<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>')
+        .replace('<script type="module" src="/app.js"></script>', '');
+    }
+
+    html = prefixInternalLinks(metadata(html, p));
+
+    fs.mkdirSync(p.route, { recursive: true });
+    // Note: no index.txt / index.json twins. They were near-duplicate URLs of
+    // the same page competing with it in the index for no benefit.
+    fs.writeFileSync(p.route + '/index.html', html);
+  }
+
+  // ---------------------------------------------------------------- sitemap
+
   if (siteUrl) {
-    const allUrls = ['', ...allRoutes, ...articleRoutes];
-    const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allUrls.map(r => '<url><loc>' + escape(siteUrl + (r ? '/' + r + '/' : '/')) + '</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq></url>').join('') + '\n</urlset>';
+    const allUrls = ['', ...baseRoutes, ...extraRoutes, ...articleRoutes];
+    const unique = [...new Set(allUrls)];
+    const sitemap =
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+      unique.map(r => {
+        const loc = escape(siteUrl + (r ? '/' + r + '/' : '/'));
+        const entry = getContent(r);
+        // Only the homepage is genuinely updated as often as "weekly"; the rest
+        // are long-lived reference pages.
+        const freq = !r ? 'weekly' : 'monthly';
+        const priority = !r ? '1.0' : entry ? '0.8' : '0.6';
+        return `<url><loc>${loc}</loc><lastmod>${CONTENT_UPDATED}</lastmod><changefreq>${freq}</changefreq><priority>${priority}</priority></url>`;
+      }).join('\n') +
+      '\n</urlset>\n';
+    fs.mkdirSync('public', { recursive: true });
     fs.writeFileSync('public/sitemap.xml', sitemap);
   }
 }
