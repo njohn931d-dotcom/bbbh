@@ -11,6 +11,18 @@
  * Generated HTML is ignored in Git (see .gitignore). Edit the Markdown, never the output.
  */
 import fs from 'node:fs';
+/**
+ * Append the site name only when it fits and does not stutter against the last
+ * word of the title. Google truncates around 60 characters, so a brand suffix
+ * that pushes the keyword half out of view costs more than it identifies.
+ */
+const withBrand = (title, brand) => {
+  const words = title.toLowerCase().replace(/[^\p{L}\s\d]/gu, ' ').split(/\s+/).filter(Boolean);
+  if (words[words.length - 1] === brand.toLowerCase()) return title;
+  const suffixed = `${title} | ${brand}`;
+  return suffixed.length <= 65 ? suffixed : title;
+};
+
 import path from 'node:path';
 
 export const CONTENT_DIR = 'content/articles';
@@ -186,7 +198,12 @@ function pageShell({ template, origin, route, title, description, bodyClass, mai
     .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"')
     .replace('<script type="module" src="/app.js"></script>', '')
     .replace('</head>', `${origin
-      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">`
+      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">` +
+        // Absolute image URLs: several link unfurlers refuse to resolve a
+        // relative og:image and fall back to a bare text card.
+        `<meta property="og:image" content="${escapeHtml(origin + '/og-image.png')}">` +
+        `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">` +
+        `<meta name="twitter:image" content="${escapeHtml(origin + '/og-image.png')}">`
       : '<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"></head>`);
   // Article pages are static: swap the saved-thoughts button and the in-page nav for site links.
   html = html
@@ -291,7 +308,7 @@ export function generateArticles({ template, origin, basePath = '' }) {
       template,
       origin,
       route,
-      title: article.title.includes('Worth') ? article.title : `${article.title} | ${SITE_NAME}`,
+      title: withBrand(article.title, SITE_NAME),
       description: article.description,
       main,
       schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail }),

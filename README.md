@@ -3,31 +3,35 @@
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
-[![133 Pages](https://img.shields.io/badge/SEO%20Pages-133-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
+[![142 Pages](https://img.shields.io/badge/SEO%20Pages-142-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 133 URLs | **Guides:** 40 | **Calculators:** 86 | **PWA:** Yes | **Open Source:** MIT
+**Sitemap:** 142 URLs | **Tools:** 95 | **Guides:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **133 indexable URLs**: the homepage, 86 calculator and guide routes, and 46 guide-cluster pages (a guides index, five collection hubs and 40 long-form guides) rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator and guide routes, and 46 long-form guides rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
+
+Every page carries its own formula, worked example and FAQ. Ten pages are genuine translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
 ## ✨ Features
 
-- **46 calculators** — cost of time, subscription, daily savings, salary→hourly, freelance rate, cost-per-wear, overtime, etc.
-- **40 guides** — hand-written, 5 clusters, tables with real math
-- **40-tool 2026 cluster** — multilingual (EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT) parasite SEO on GitHub Pages DA 99
+- **95 calculators and guides** — cost of time, subscription, salary→hourly, mortgage, compound interest, freelance rate, overtime, streaming audit, and more
+- **46 long-form guides** — hand-written, 5 clusters, tables with real math
+- **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
-- **SEO max** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml
+- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
+- **Audited build** — `npm run seo:audit` checks all 142 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **133 pages** — all static HTML, unique titles/descriptions, validated by 20 tests
+- **142 pages** — all static HTML, unique titles/descriptions, validated by 31 tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 20 tests, 133 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — 31 tests, 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
-4. Verify dist: 133 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
+4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
+5. `npm run seo:audit` — fails the deploy on any SEO error
 5. Deploy to GitHub Pages + verify + notify
 
 For manual production build:
@@ -40,11 +44,11 @@ SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
 
 Live discovery files:
 
-- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 133 URLs with priority & lastmod
+- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 142 URLs with priority & lastmod
 - [Robots](https://njohn931d-dotcom.github.io/bbbh/robots.txt) — LLM crawler friendly
 - [LLM index](https://njohn931d-dotcom.github.io/bbbh/llms.txt) — for AI search
 - [AI index](https://njohn931d-dotcom.github.io/bbbh/ai.txt)
-- [Guides index](https://njohn931d-dotcom.github.io/bbbh/articles/) — 40 guides
+- [Guides index](https://njohn931d-dotcom.github.io/bbbh/articles/) — 46 guides
 - [RSS feed](https://njohn931d-dotcom.github.io/bbbh/feed.xml) — 86+ items
 - [Manifest](https://njohn931d-dotcom.github.io/bbbh/manifest.json) — PWA
 - [Humans](https://njohn931d-dotcom.github.io/bbbh/humans.txt)
@@ -55,7 +59,7 @@ Live discovery files:
 ```sh
 npm ci
 npm run dev          # http://localhost:5173
-npm test             # 20 tests
+npm test             # 31 tests
 npm run build        # preview (noindex)
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production  # production
 ```
@@ -87,11 +91,13 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 
 ## 🔍 Search Architecture
 
-- Static HTML for all 133 routes before JS
+- Static HTML for all 142 routes before JS
 - Unique title/description, canonical, breadcrumbs, internal links
 - 46 guide pages add `Article`/`CollectionPage` + `BreadcrumbList` JSON-LD
 - `scripts/generate-seo.mjs` — base routes + guides, sitemap, robots, RSS, llms.txt, ai.txt
-- `scripts/generate-parasite.mjs` — 40-route 2026 multilingual cluster
+- `scripts/cluster-content.mjs` — per-page formulas, worked examples and FAQs for the 49-page cluster
+- `scripts/generate-parasite.mjs` — renders that cluster, plus 10 real translations with reciprocal hreflang
+- `scripts/seo-audit.mjs` — audits `dist/`; exits non-zero on any error and gates the deploy
 - `scripts/generate-articles-md.mjs` — Markdown mirrors under `articles/` for GitHub browsing
 - `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest, hashed assets, security headers
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, `GITHUB_SEO.md` — article plan (treat volumes as hypotheses)
@@ -153,17 +159,16 @@ npm run serve:static      # zero-dependency dev server for the static projects
 
 Scope rules that keep the Pages deploy green:
 
-- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 133
-  indexable pages and `deploy.yml` asserts that count, so the sibling projects stay
+- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 142
+  indexable pages and `deploy.yml` asserts that derived count, so the sibling projects stay
   outside `dist/`. Affiliate Income Lab targets its own domain (`affiliateincomelab.com`,
   set by the `SITE`/`BASE` constants in `affiliate-marketing/tools/build.py`); Forge
   Workspace is served from its own directory.
 - **Root discovery files belong to Worth** — `sitemap.xml`, `robots.txt`, `llms.txt`,
-  `ai.txt`, `feed.xml`, `sitemap-40.xml`, `40-articles-index.html` and `parasite-seo/`
-  are generated by `scripts/generate-tracked-parasite.mjs`.
+  `ai.txt` and `feed.xml` are generated by `scripts/generate-seo.mjs`.
 - **`affiliate-marketing/tools/build.py` writes its sitemap inside its own package**
   (`affiliate-marketing/sitemap.xml`) and never to the repository root, so a content
-  rebuild cannot overwrite Worth's 133-URL sitemap.
+  rebuild cannot overwrite Worth's 142-URL sitemap.
 - `server.js` and the root `404.html` exist to preview all four projects locally.
 
 Before publishing Forge Workspace, set a real `contactEmail` in
@@ -180,4 +185,4 @@ MIT — see [LICENSE](LICENSE)
 
 ## 🙏 Credits
 
-Built with Vite, hosted on GitHub Pages DA 99, fonts DM Sans + Manrope, open source community.
+Built with Vite, hosted on GitHub Pages, fonts DM Sans + Manrope, open source community.

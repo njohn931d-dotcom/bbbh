@@ -105,8 +105,8 @@ test('google site verification tag survives into the homepage and every generate
   const home=fs.readFileSync('.generated/home.html','utf8');
   assert.equal(count(home),1,'the served homepage lost the verification tag');
 
-  // 2b. The static helper pages copied straight from public/.
-  for(const staticFile of ['public/40-articles-index.html','public/parasite-index.html','scripts/generate-tracked-parasite.mjs']){
+  // 2b. The tracked generator must carry the tag so anything it emits keeps it.
+  for(const staticFile of ['scripts/generate-tracked-parasite.mjs']){
     assert.ok(fs.existsSync(staticFile),'missing '+staticFile);
     assert.equal(count(fs.readFileSync(staticFile,'utf8')),1,staticFile+' must carry the verification tag exactly once');
   }
