@@ -116,6 +116,18 @@ Re-running never creates a duplicate: posts already on dev.to are matched by
 canonical URL and by normalized title. A dev.to API key has authoring scope only,
 so it cannot enumerate third-party backlinks — `--audit` covers your own articles.
 
+## 📈 Max traffic & ranking test
+
+[TRAFFIC_AND_RANKING_TEST.md](TRAFFIC_AND_RANKING_TEST.md) documents the load and
+SEO audit of this repo and the live site. Results: the static app serves ~3,000
+req/s with zero errors up to 500 concurrent connections (GitHub Pages' edge is the
+real ceiling, ~5 M pageviews/month of soft bandwidth); all 133 pages now ship full
+social share cards via [public/og.jpg](public/og.jpg); `robots.txt` declares all
+three sitemaps; fonts load as 2 variable-font requests instead of 14. The report
+also lists the two-minute GitHub settings (description, topics, social preview,
+discussions) that must be applied manually — the automation token cannot edit repo
+metadata.
+
 ## 🔒 Privacy & Assumptions
 
 - Calculations in browser, no server

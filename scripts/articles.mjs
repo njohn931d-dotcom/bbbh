@@ -186,7 +186,7 @@ function pageShell({ template, origin, route, title, description, bodyClass, mai
     .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"')
     .replace('<script type="module" src="/app.js"></script>', '')
     .replace('</head>', `${origin
-      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">`
+      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}"><meta property="og:image" content="${escapeHtml(origin)}/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Worth — free money calculators that show what things cost in hours of your life"><meta name="twitter:image" content="${escapeHtml(origin)}/og.jpg">`
       : '<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"></head>`);
   // Article pages are static: swap the saved-thoughts button and the in-page nav for site links.
   html = html

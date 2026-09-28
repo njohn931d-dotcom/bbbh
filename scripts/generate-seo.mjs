@@ -872,6 +872,7 @@ const guidesHub=`<section class="seo-related cluster-link" id="guides"><div clas
 
 function metadata(html,p){
 const url=siteUrl+(p.route?'/'+p.route+'/':'/');
+const ogImage=siteUrl?`${siteUrl}/og.jpg`:'';
 html=html.replace(/<title>.*?<\/title>/,`<title>${escape(p.title)}</title>`)
 .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
 .replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(p.title)}">`)
@@ -891,7 +892,7 @@ graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this 
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
 const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'16\' fill=\'%23204f3c\'/%3E%3Ctext x=\'13\' y=\'46\' font-size=\'44\' fill=\'%23d9edb2\' font-family=\'serif\'%3Ew%3C/text%3E%3C/svg%3E">';
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt"></head>`);
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image">${ogImage?`<meta property="og:image" content="${ogImage}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Worth — free money calculators that show what things cost in hours of your life"><meta name="twitter:image" content="${ogImage}">`:''}<meta property="og:site_name" content="Worth"><meta property="og:type" content="website"><meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt"></head>`);
 }
 
 for(const p of data){
@@ -919,6 +920,7 @@ fs.mkdirSync('public',{recursive:true});
 const robotsContent = siteUrl ? `User-agent: *
 Allow: /
 Sitemap: ${siteUrl}/sitemap.xml
+Sitemap: ${siteUrl}/sitemap-extra.xml
 Sitemap: ${siteUrl}/feed.xml
 
 # LLM Crawlers - Allow for AI discoverability
