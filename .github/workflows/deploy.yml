@@ -1,4 +1,4 @@
-name: Deploy Worth (133 SEO Pages) to GitHub Pages
+name: Deploy Worth to GitHub Pages
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
 
       # Serial by design: the test files share generated output, so the npm
       # script pins --test-concurrency=1. Do not parallelise these files.
-      - name: Test (133 URLs)
+      - name: Test
         run: |
           set -o pipefail
           npm test 2>&1 | tee /tmp/test.log
@@ -43,7 +43,7 @@ jobs:
           path: /tmp/test.log
           retention-days: 7
 
-      - name: Generate markdown mirrors (40 articles)
+      - name: Generate markdown mirrors
         run: node scripts/generate-articles-md.mjs
 
       - name: Build production (requires SITE_URL)
@@ -51,15 +51,22 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
 
-      - name: Verify dist (133 pages) - MAX CHECKS
+      - name: SEO audit (blocks deploy on error)
+        run: node scripts/seo-audit.mjs
+
+      - name: Verify dist - MAX CHECKS
         run: |
+          # Derived from the content model, not hardcoded, so the expected
+          # count cannot drift away from what the build actually produces.
+          expected=$(node scripts/expected-urls.mjs)
+          echo "Expected URLs (derived from content): $expected"
           echo "=== DIST STRUCTURE ==="
           ls -R dist | head -n 100
           echo ""
           echo "=== SITEMAP ==="
           urls=$(grep -o '<loc>' dist/sitemap.xml | wc -l)
           lastmods=$(grep -o '<lastmod>' dist/sitemap.xml | wc -l)
-          echo "Sitemap URLs: $urls (expected 133)"
+          echo "Sitemap URLs: $urls (expected $expected)"
           echo "Sitemap lastmod: $lastmods"
           echo ""
           echo "=== PAGE COUNTS ==="
@@ -67,7 +74,7 @@ jobs:
           guides=$(find dist/articles -name index.html | wc -l)
           feeds=$(grep -o '<item>' dist/feed.xml | wc -l)
           noindex=$(grep -rl noindex dist --include=index.html | wc -l || echo 0)
-          echo "Pages built: $pages (expected 133)"
+          echo "Pages built: $pages (expected $expected)"
           echo "Guide pages: $guides (expected 46)"
           echo "Feed items: $feeds (expected 86)"
           echo "Noindex in dist: $noindex (expected 0)"
@@ -101,8 +108,8 @@ jobs:
           if grep -r -i "api_key\|secret\|password" dist --include="*.html" --include="*.js" 2>/dev/null; then echo "⚠ potential secret found"; else echo "✓ no secrets"; fi
           echo ""
           echo "=== ASSERTIONS ==="
-          test "$urls" -eq 133 || (echo "FAIL: sitemap URLs $urls != 133" && exit 1)
-          test "$pages" -eq 133 || (echo "FAIL: pages $pages != 133" && exit 1)
+          test "$urls" -eq "$expected" || (echo "FAIL: sitemap URLs $urls != $expected" && exit 1)
+          test "$pages" -eq "$expected" || (echo "FAIL: pages $pages != $expected" && exit 1)
           test "$guides" -eq 46 || (echo "FAIL: guides $guides != 46" && exit 1)
           test "$feeds" -eq 86 || (echo "FAIL: feed items $feeds != 86" && exit 1)
           test "$noindex" -eq 0 || (echo "FAIL: noindex $noindex != 0" && exit 1)

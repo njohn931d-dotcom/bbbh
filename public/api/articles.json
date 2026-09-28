@@ -1,528 +1,996 @@
 [
   {
+    "title": "Free Money Calculators: Work Hours, Cost & Savings | Worth",
+    "slug": "",
+    "description": "95 free money calculators and guides: salary to hourly, mortgage, compound interest, subscription audit and more. Runs in your browser, no sign-up, open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/"
+  },
+  {
     "title": "Cost of Time Calculator: Convert Money to Work Hours | Worth",
     "slug": "calculators/cost-of-time",
     "description": "Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.",
     "lang": "en",
-    "url": "https://worth.example/calculators/cost-of-time/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/"
   },
   {
     "title": "Subscription Cost Calculator: Monthly to Yearly Cost | Worth",
     "slug": "calculators/subscription-cost",
     "description": "Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.",
     "lang": "en",
-    "url": "https://worth.example/calculators/subscription-cost/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/"
   },
   {
     "title": "Daily Savings Calculator: Small Habits, Yearly Savings | Worth",
     "slug": "calculators/daily-savings",
     "description": "See how saving $1, $5, or $10 a day adds up over a year. Calculate simple daily savings without assumed investment returns or interest.",
     "lang": "en",
-    "url": "https://worth.example/calculators/daily-savings/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/"
   },
   {
-    "title": "How to calculate what an hour of your life is worth | Worth",
+    "title": "How to calculate what an hour of your life is worth",
     "slug": "guides/hourly-pay",
     "description": "Your salary is one number. The money available to spend is another. Start with your pay after taxes and deductions, then divide it by the number of hours y",
     "lang": "en",
-    "url": "https://worth.example/guides/hourly-pay/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/hourly-pay/"
   },
   {
     "title": "The small purchases that aren’t actually small | Worth",
     "slug": "guides/small-purchases",
     "description": "A $5 coffee is a $5 coffee. Every day for a year, it is $1,825. Neither framing is more correct, but seeing both helps you make a choice instead of followi",
     "lang": "en",
-    "url": "https://worth.example/guides/small-purchases/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/small-purchases/"
   },
   {
     "title": "The 24-hour rule: a little space before you spend | Worth",
     "slug": "guides/24-hour-rule",
     "description": "For a nonessential purchase, wait a day before buying. Put it on a list, close the tab, and come back tomorrow. The point is not to make spending difficult",
     "lang": "en",
-    "url": "https://worth.example/guides/24-hour-rule/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/24-hour-rule/"
   },
   {
-    "title": "Mortgage Calculator 2026: Monthly Payment + Affordability [Free]",
+    "title": "Salary to Hourly Calculator: Convert Salary to Hourly Rate",
+    "slug": "calculators/salary-to-hourly",
+    "description": "Convert annual salary to hourly rate instantly. Formula: salary ÷ 2080. Free, open-source calculator with overtime and after-tax adjustments. GitHub source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/"
+  },
+  {
+    "title": "Hourly to Salary Calculator: Hourly Wage to Annual Income | Worth",
+    "slug": "calculators/hourly-to-salary",
+    "description": "Convert hourly wage to annual salary: hourly × 2080. Free calculator shows monthly, weekly, after-tax. Open source on GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/"
+  },
+  {
+    "title": "Freelance Rate Calculator: What Should I Charge Per Hour? | Worth",
+    "slug": "calculators/freelance-rate",
+    "description": "Freelance rate calculator: (salary + expenses + profit) ÷ billable hours. Includes taxes, benefits, PTO. Free, open source on GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate/"
+  },
+  {
+    "title": "Cost Per Wear Calculator: Is That $200 Jacket Worth It? | Worth",
+    "slug": "calculators/cost-per-wear",
+    "description": "Cost per wear = price ÷ wears. Calculate true clothing value. $200 jacket worn 100 times = $2/wear. Free open source calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-wear/"
+  },
+  {
+    "title": "Cost Per Use Calculator: True Cost of Anything (Formula) | Worth",
+    "slug": "calculators/cost-per-use",
+    "description": "Cost per use = price ÷ uses. Calculate true value of gadgets, tools, memberships. Free calculator, open source on GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/"
+  },
+  {
+    "title": "Overtime Pay Calculator: Time and a Half, Double Time | Worth",
+    "slug": "calculators/overtime-pay",
+    "description": "Calculate overtime pay: time and a half = 1.5× hourly. Double time = 2×. Free calculator with weekly, biweekly. Open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/"
+  },
+  {
+    "title": "After Tax Income Calculator: Take-Home Pay Calculator (2025)",
+    "slug": "calculators/after-tax-income",
+    "description": "Calculate take-home pay after federal, state, FICA. Enter gross salary, get net hourly, monthly. Free, open source GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/after-tax-income/"
+  },
+  {
+    "title": "Cost of Commuting Calculator: True Hourly and Yearly Cost | Worth",
+    "slug": "calculators/commute-cost",
+    "description": "Commute cost calculator: gas + time + wear + lost wages. 1 hour commute = $12,500/year in time alone. Free, GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/commute-cost/"
+  },
+  {
+    "title": "Latte Factor Calculator: How $5 a Day Becomes $1M | Worth",
+    "slug": "calculators/latte-factor",
+    "description": "Latte factor calculator: daily $5 habit = $1,825/year. See 10, 30 year total. Free calculator, open source on GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/latte-factor/"
+  },
+  {
+    "title": "Gym Membership Cost Per Visit Calculator: Is It Worth It? | Worth",
+    "slug": "calculators/gym-cost-per-visit",
+    "description": "Gym cost per visit = monthly fee ÷ visits. $50/month ÷ 4 visits = $12.50/visit. Free calculator, open source GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/gym-cost-per-visit/"
+  },
+  {
+    "title": "Streaming Cost Calculator: Annual Subscriptions Cost | Worth",
+    "slug": "calculators/streaming-cost",
+    "description": "Streaming calculator: Netflix + Spotify + Hulu annual cost and hours worked. Average American $1,200/yr. Free GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/streaming-cost/"
+  },
+  {
+    "title": "True Cost of Car Ownership Calculator: $12k/Year Reality | Worth",
+    "slug": "calculators/car-ownership-cost",
+    "description": "True car cost calculator: payment + gas + insurance + maintenance ÷ hours driven. Average $0.70/mile. Free, open source GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/car-ownership-cost/"
+  },
+  {
+    "title": "How Long to Save Calculator: Hours & Days to Goal | Worth",
+    "slug": "calculators/time-to-save",
+    "description": "How long to save $1000? Enter daily saving, hourly rate. See days, work hours needed. Free calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/time-to-save/"
+  },
+  {
+    "title": "Paycheck Hours Breakdown: Where Your 40 Hours Really Go | Worth",
+    "slug": "calculators/paycheck-breakdown",
+    "description": "Paycheck breakdown: rent = 12 hours, groceries = 4 hours. See where work hours go. Free calculator, open source GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-breakdown/"
+  },
+  {
+    "title": "Buy vs Rent Calculator: Cost Per Hour of Home Ownership | Worth",
+    "slug": "calculators/buy-vs-rent-hourly",
+    "description": "Buy vs rent calculator: mortgage + maintenance vs rent, cost per hour lived. Free, open source on GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/buy-vs-rent-hourly/"
+  },
+  {
+    "title": "How Much Is My Time Worth? Calculate True Hourly Value (2025)",
+    "slug": "guides/how-much-is-time-worth",
+    "description": "How much is your time worth? Take-home pay ÷ real hours including commute. Average American $19/hr real. Free calculator + GitHub source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/how-much-is-time-worth/"
+  },
+  {
+    "title": "How to Stop Impulse Buying: 11 Science-Backed Strategies | Worth",
+    "slug": "guides/stop-impulse-buying",
+    "description": "Stop impulse buying: 24-hour rule, cost per hour, remove cards. Average American $5,400/yr impulse. Guide + free GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/stop-impulse-buying/"
+  },
+  {
+    "title": "How to Audit Subscriptions: Find $500+ Hidden Costs | Worth",
+    "slug": "guides/subscription-audit",
+    "description": "Subscription audit checklist: find $500+ yearly savings. Free template, open source on GitHub. Step-by-step guide.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/subscription-audit/"
+  },
+  {
+    "title": "Latte Factor Explained: How $5 a Day Becomes $1M | Worth",
+    "slug": "guides/latte-factor-explained",
+    "description": "Latte factor explained: $5/day at 7% = $1M in 50 years. Formula, examples, how to find yours. Free calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/latte-factor-explained/"
+  },
+  {
+    "title": "30-Day No Spend Challenge: Rules, Tracker and Save $1,000 | Worth",
+    "slug": "guides/no-spend-challenge",
+    "description": "30-day no spend challenge rules, tracker, savings calculator. Average saves $1,000. Free template GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/no-spend-challenge/"
+  },
+  {
+    "title": "30-Day Rule for Spending: Stop Impulse Buys Over $100 | Worth",
+    "slug": "guides/30-day-rule-spending",
+    "description": "30-day rule: wait 30 days before buying non-essential over $100. 80% urges fade. Guide + free GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/30-day-rule-spending/"
+  },
+  {
+    "title": "Cost Per Wear: Build a Wardrobe That Costs $0.50 Per Wear | Worth",
+    "slug": "guides/cost-per-wear-guide",
+    "description": "Cost per wear wardrobe guide: capsule wardrobe, $0.50/wear formula. Free calculator, open source GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/cost-per-wear-guide/"
+  },
+  {
+    "title": "How to Set Freelance Rates: Taxes, Benefits and PTO Formula",
+    "slug": "guides/freelance-rate-guide",
+    "description": "Freelance rate formula: (salary + 30% benefits + expenses) ÷ 1000 billable hours. Guide + free calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/freelance-rate-guide/"
+  },
+  {
+    "title": "Why Small Purchases Add Up: The Psychology of Spending | Worth",
+    "slug": "guides/psychology-small-purchases",
+    "description": "Why $5 purchases add up: mental accounting, pain of paying. $5/day = $1,825/year. Science + free GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/psychology-small-purchases/"
+  },
+  {
+    "title": "Track Daily Spending Without Budgeting Apps (Template) | Worth",
+    "slug": "guides/track-daily-spending",
+    "description": "Track daily spending without apps: GitHub markdown template, 2-min method. Free open source tracker.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/track-daily-spending/"
+  },
+  {
+    "title": "Emergency Fund Calculator: Work Hours Needed | Worth",
+    "slug": "guides/emergency-fund-hours",
+    "description": "Emergency fund in work hours: $10k fund = 400 hours at $25/hr. Calculate hours needed. Free calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/"
+  },
+  {
+    "title": "Is Your Side Hustle Worth It? Calculate True Hourly Rate | Worth",
+    "slug": "guides/side-hustle-worth-it",
+    "description": "Side hustle worth it? Calculate true hourly after gas, taxes, time. Many $15/hr side hustles = $5/hr real. Free calculator GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/side-hustle-worth-it/"
+  },
+  {
+    "title": "How Much Does Coffee Cost Per Year? $5 Daily = $1,825 | Worth",
+    "slug": "guides/coffee-cost-per-year",
+    "description": "Coffee cost per year: $5/day = $1,825, $3,650 for 2/day. Calculator shows work hours. Free GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/coffee-cost-per-year/"
+  },
+  {
+    "title": "Average American Subscription Spending 2025: $1,200+/Year | Worth",
+    "slug": "guides/average-subscription-cost-2025",
+    "description": "Average subscription spending 2025: $1,200/year, $2,800 with apps. Data + free audit calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/"
+  },
+  {
+    "title": "How to Budget on Hourly Wage: Paycheck to Hours Method | Worth",
+    "slug": "guides/hourly-budget",
+    "description": "Budget on hourly wage: convert bills to work hours. Rent = 60 hours. Free calculator + GitHub template.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/hourly-budget/"
+  },
+  {
+    "title": "Paycheck to Paycheck: How Many Hours for Bills? | Worth",
+    "slug": "guides/paycheck-to-paycheck",
+    "description": "Paycheck to paycheck: calculate how many work hours go to bills before you earn for you. Free calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/paycheck-to-paycheck/"
+  },
+  {
+    "title": "True Cost of Convenience: Food Delivery and Uber Fees | Worth",
+    "slug": "guides/cost-of-convenience",
+    "description": "Cost of convenience: DoorDash $10 fees, Uber $15. Average $5k/year. Calculator shows work hours. GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-convenience/"
+  },
+  {
+    "title": "How to Value Free Time: Is Overtime Worth It? (Formula) | Worth",
+    "slug": "guides/value-free-time",
+    "description": "Value free time: overtime vs free time formula. $25/hr overtime may be worth $10/hr free time. Guide + GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/value-free-time/"
+  },
+  {
+    "title": "Minimalism and Cost Per Time: Buy Less, Value More | Worth",
+    "slug": "guides/minimalism-cost-per-time",
+    "description": "Minimalism cost per time: fewer items, lower cost per use, more free time. Guide + free GitHub calculators.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/minimalism-cost-per-time/"
+  },
+  {
+    "title": "How to Negotiate Hourly Rate: Scripts to Get +$5/hr | Worth",
+    "slug": "guides/negotiate-hourly-rate",
+    "description": "Negotiate hourly rate: scripts, data, get $5/hr more = $10k/year. Guide + free GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/negotiate-hourly-rate/"
+  },
+  {
+    "title": "Is Netflix Worth It? Cost Per Hour Watched Calculator | Worth",
+    "slug": "guides/is-netflix-worth-it",
+    "description": "Is Netflix worth it? Cost per hour watched = monthly ÷ hours watched. $23 ÷ 20h = $1.15/hr. Free calculator GitHub.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/is-netflix-worth-it/"
+  },
+  {
+    "title": "Annual vs Monthly Subscription: Which Saves More? (Math) | Worth",
+    "slug": "guides/annual-vs-monthly-subscription",
+    "description": "Annual vs monthly: annual saves 20% but only if use 12 months. Calculator shows break-even. Free GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/annual-vs-monthly-subscription/"
+  },
+  {
+    "title": "How to Calculate Overtime Pay: Formula and Rules | Worth",
+    "slug": "guides/how-to-calculate-overtime",
+    "description": "How to calculate overtime: time and a half formula, California daily OT, double time. Examples + free GitHub calculator.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/how-to-calculate-overtime/"
+  },
+  {
+    "title": "True Cost of Owning a Car: $12,000/Year Reality | Worth",
+    "slug": "guides/true-cost-of-car",
+    "description": "True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/"
+  },
+  {
+    "title": "How to Save $1,000 Fast: Habit Calculator and 30-Day Plan | Worth",
+    "slug": "guides/how-long-save-1000",
+    "description": "Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/how-long-save-1000/"
+  },
+  {
+    "title": "Mortgage Calculator: Monthly Payment & Total Interest | Worth",
     "slug": "calculators/mortgage-calculator-2026",
-    "description": "Free mortgage calculator 2026: monthly payment, total interest, affordability. See how much house you can afford at 2026 rates. Instant results.",
-    "keywords": [
-      "mortgage calculator",
-      "how much house can i afford",
-      "mortgage rates 2026",
-      "monthly payment"
-    ],
+    "description": "Work out your monthly mortgage payment, total interest and payoff date from loan amount, rate and term. Free, private, runs in your browser.",
     "lang": "en",
-    "url": "https://worth.example/calculators/mortgage-calculator-2026/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/mortgage-calculator-2026/"
   },
   {
-    "title": "Compound Interest Calculator 2026: $5/Day = $1M? [Free Tool]",
-    "slug": "calculators/compound-interest-calculator",
-    "description": "Compound interest calculator 2026: see how $5/day becomes $1M. Free retirement calculator with work-hours perspective. Instant results.",
-    "keywords": [
-      "compound interest calculator",
-      "how to retire rich",
-      "$5 a day millionaire"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/compound-interest-calculator/"
-  },
-  {
-    "title": "Inflation Calculator 2026: $100 in 2000 = $182 Today [Shocking]",
-    "slug": "calculators/inflation-calculator-2026",
-    "description": "Inflation calculator 2026: see what $100 in 2000, 2010, 2020 worth today. Free CPI calculator with work-hours cost. Updated 2026.",
-    "keywords": [
-      "inflation calculator",
-      "what is $100 worth today",
-      "inflation 2026",
-      "CPI calculator"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/inflation-calculator-2026/"
-  },
-  {
-    "title": "Paycheck Calculator 2026: $70k Salary = $4,900 Take-Home? [Free]",
-    "slug": "calculators/paycheck-calculator-2026",
-    "description": "Paycheck calculator 2026: salary to hourly, after tax take-home pay. Federal + state + FICA. See work-hours cost. Free 2026.",
-    "keywords": [
-      "paycheck calculator",
-      "take home pay",
-      "salary to hourly",
-      "after tax calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/paycheck-calculator-2026/"
-  },
-  {
-    "title": "Crypto Profit Calculator 2026: BTC ETH SOL Profit [Free Tool]",
-    "slug": "calculators/crypto-profit-calculator-2026",
-    "description": "Crypto profit calculator 2026: Bitcoin, Ethereum, Solana profit after tax. See how many work hours your crypto gains worth. Free.",
-    "keywords": [
-      "crypto profit calculator",
-      "bitcoin profit calculator",
-      "ethereum calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/crypto-profit-calculator-2026/"
-  },
-  {
-    "title": "YouTube Money Calculator 2026: How Much Per 1M Views? [Free]",
-    "slug": "calculators/youtube-earnings-calculator-2026",
-    "description": "YouTube earnings calculator 2026: how much YouTubers make per 1k, 1M views. RPM by niche. MrBeast, finance, gaming. Free tool.",
-    "keywords": [
-      "youtube earnings calculator",
-      "how much youtubers make",
-      "youtube money calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/youtube-earnings-calculator-2026/"
-  },
-  {
-    "title": "TikTok Earnings Calculator 2026: How Much Per 1M Views? [Free]",
-    "slug": "calculators/tiktok-money-calculator-2026",
-    "description": "TikTok money calculator 2026: Creator Fund, Creativity Program, gifts. How much TikTokers make per 1M views. Free 2026.",
-    "keywords": [
-      "tiktok money calculator",
-      "tiktok earnings calculator",
-      "how much tiktok pays 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/tiktok-money-calculator-2026/"
-  },
-  {
-    "title": "OnlyFans Money Calculator 2026: Avg Creator $180/mo Truth [Free]",
-    "slug": "calculators/onlyfans-earnings-calculator-2026",
-    "description": "OnlyFans earnings calculator 2026: how much OnlyFans creators make. Average $180/mo, top 1% $10k+. Free calculator with tax.",
-    "keywords": [
-      "onlyfans earnings calculator",
-      "how much onlyfans creators make",
-      "onlyfans money calculator"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/onlyfans-earnings-calculator-2026/"
-  },
-  {
-    "title": "Freelance Rate Calculator 2026: $50/hr = $30/hr Real [Free]",
-    "slug": "calculators/freelance-rate-calculator-2026",
-    "description": "Freelance rate calculator 2026: what to charge per hour. Salary to freelance conversion. Taxes, bench time. Free tool 2026.",
-    "keywords": [
-      "freelance rate calculator",
-      "what to charge freelance",
-      "hourly rate calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/freelance-rate-calculator-2026/"
-  },
-  {
-    "title": "Rent vs Buy Calculator 2026: When Buying Loses Money [Free]",
-    "slug": "calculators/rent-vs-buy-calculator-2026",
-    "description": "Rent vs buy calculator 2026: see when buying loses money. 5-year rule, equity, opportunity cost. Free calculator 2026.",
-    "keywords": [
-      "rent vs buy calculator",
-      "should i rent or buy 2026",
-      "rent vs buy"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/rent-vs-buy-calculator-2026/"
-  },
-  {
-    "title": "Car Loan Calculator 2026: $30k Car Costs $52k Truth [Free]",
-    "slug": "calculators/car-loan-calculator-2026",
-    "description": "Car loan calculator 2026: monthly payment, total interest, depreciation. See real cost per hour. Free 2026 calculator.",
-    "keywords": [
-      "car loan calculator",
-      "how much car can i afford",
-      "car payment calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/car-loan-calculator-2026/"
-  },
-  {
-    "title": "Student Loan Calculator 2026: $50k = 2,500 Work Hours [Free]",
-    "slug": "calculators/student-loan-calculator-2026",
-    "description": "Student loan calculator 2026: monthly payment, total interest, forgiveness. See work-hours cost. Free 2026 tool.",
-    "keywords": [
-      "student loan calculator",
-      "student loan forgiveness 2026",
-      "student loan payment"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/student-loan-calculator-2026/"
-  },
-  {
-    "title": "Net Worth Calculator 2026: Are You Top 10%? [Free Tool]",
-    "slug": "calculators/net-worth-calculator-2026",
-    "description": "Net worth calculator 2026: are you rich? US net worth percentiles by age. See work-hours to reach top 10%. Free 2026.",
-    "keywords": [
-      "net worth calculator",
-      "am i rich",
-      "net worth percentile 2026",
-      "are you rich calculator"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/net-worth-calculator-2026/"
-  },
-  {
-    "title": "Cost of Living Calculator 2026: $100k in NYC = $45k Texas [Free]",
-    "slug": "calculators/cost-of-living-calculator-2026",
-    "description": "Cost of living calculator 2026: NYC vs Texas vs Dubai vs London. See real salary after rent, tax. Free 2026 tool.",
-    "keywords": [
-      "cost of living calculator",
-      "nyc vs texas salary",
-      "cost of living 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/cost-of-living-calculator-2026/"
-  },
-  {
-    "title": "Elon Musk Makes $12,000 Per Second: Your Hours Calculator [2026]",
-    "slug": "calculators/salary-in-hours-elon-musk-calculator",
-    "description": "Elon Musk, Bezos, Taylor Swift earnings per second calculator. See how many hours you work vs they earn per second. Shocking 2026.",
-    "keywords": [
-      "elon musk earnings per second",
-      "how much elon musk makes per hour",
-      "jeff bezos per second"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/salary-in-hours-elon-musk-calculator/"
-  },
-  {
-    "title": "Wedding Cost Calculator 2026: $35k Average = 1,000 Hours [Free]",
-    "slug": "calculators/wedding-budget-calculator-2026",
-    "description": "Wedding budget calculator 2026: average wedding cost $35k, breakdown. See work-hours cost. Free 2026 calculator.",
-    "keywords": [
-      "wedding budget calculator",
-      "how much wedding cost 2026",
-      "average wedding cost"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/wedding-budget-calculator-2026/"
-  },
-  {
-    "title": "Lottery Winnings Calculator 2026: $1B Powerball = $460M Real [Free]",
-    "slug": "calculators/lottery-tax-calculator-2026",
-    "description": "Lottery tax calculator 2026: Powerball, Mega Millions after tax. Lump sum vs annuity. See take-home. Free 2026.",
-    "keywords": [
-      "lottery tax calculator",
-      "how much tax lottery winnings",
-      "powerball after tax 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/lottery-tax-calculator-2026/"
-  },
-  {
-    "title": "Divorce Cost Calculator 2026: $15k Average + Alimony Shock [Free]",
-    "slug": "calculators/divorce-cost-calculator-2026",
-    "description": "Divorce cost calculator 2026: average divorce cost $15k, lawyer, alimony, child support. See work-hours cost. Free 2026.",
-    "keywords": [
-      "divorce cost calculator",
-      "how much divorce cost",
-      "average divorce cost 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/divorce-cost-calculator-2026/"
-  },
-  {
-    "title": "Child Cost Calculator 2026: $310k Per Child = 8,857 Hours [Free]",
-    "slug": "calculators/child-cost-calculator-2026",
-    "description": "Cost of raising child calculator 2026: $310k per child to 18, not college. See work-hours cost. Free 2026 tool.",
-    "keywords": [
-      "cost of raising child calculator",
-      "how much child cost 2026",
-      "cost of child"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/child-cost-calculator-2026/"
-  },
-  {
-    "title": "Streaming Cost Calculator 2026: Netflix Spotify Hidden $20k [Free]",
-    "slug": "calculators/streaming-cost-calculator-2026",
-    "description": "Streaming cost calculator 2026: Netflix, Spotify, YouTube, all subscriptions real cost. See annual + work-hours. Free 2026.",
-    "keywords": [
-      "streaming cost calculator",
-      "how much netflix cost yearly",
-      "subscription calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/streaming-cost-calculator-2026/"
-  },
-  {
-    "title": "ChatGPT Cost Calculator 2026: Plus $20/mo Worth It? [Free]",
-    "slug": "calculators/chatgpt-cost-calculator-2026",
-    "description": "ChatGPT cost calculator 2026: Plus, Team, Enterprise cost. Is $20/mo worth work-hours? Free calculator 2026.",
-    "keywords": [
-      "chatgpt cost calculator",
-      "chatgpt plus worth it",
-      "how much chatgpt cost 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/chatgpt-cost-calculator-2026/"
-  },
-  {
-    "title": "MrBeast Makes $50M/Year = $1.58/Second Calculator [2026]",
-    "slug": "calculators/mrbeast-earnings-per-second-calculator",
-    "description": "MrBeast earnings per second calculator 2026: how much MrBeast makes per second, per video. See work-hours vs yours. Free.",
-    "keywords": [
-      "mrbeast earnings per second",
-      "how much mrbeast makes",
-      "mrbeast per video earnings"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/mrbeast-earnings-per-second-calculator/"
-  },
-  {
-    "title": "Side Hustle Calculator 2026: Is $500/mo Worth Your Time? [Free]",
-    "slug": "calculators/side-hustle-calculator-2026",
-    "description": "Side hustle calculator 2026: $500/mo side hustle real hourly after tax. See if worth work-hours. Free 2026 tool.",
-    "keywords": [
-      "side hustle calculator",
-      "is side hustle worth it",
-      "how much side hustle make 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/side-hustle-calculator-2026/"
-  },
-  {
-    "title": "Will AI Take Your Job Calculator 2026: Risk % by Job [Free]",
-    "slug": "calculators/ai-job-replacement-calculator-2026",
-    "description": "AI job replacement calculator 2026: will AI take your job? Risk by occupation, salary, work-hours saved. Free 2026 tool.",
-    "keywords": [
-      "will ai take my job calculator",
-      "ai job replacement calculator",
-      "ai risk by job 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/ai-job-replacement-calculator-2026/"
-  },
-  {
-    "title": "Tariff Cost Calculator 2026: $3,000/Year Extra Per Family [Free]",
-    "slug": "calculators/trump-tariff-calculator-2026",
-    "description": "Trump tariff calculator 2026: how much tariffs cost per family. China 60%, Mexico 25%. See work-hours cost. Free 2026.",
-    "keywords": [
-      "trump tariff calculator",
-      "how much tariffs cost me",
-      "tariff cost calculator 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/trump-tariff-calculator-2026/"
-  },
-  {
-    "title": "Taylor Swift Ticket Cost Calculator: $1,200 = 34 Hours Work [2026]",
-    "slug": "calculators/taylor-swift-concert-cost-calculator",
-    "description": "Taylor Swift concert ticket cost calculator 2026: Eras Tour $1,200 avg, work-hours cost. See if worth. Free 2026.",
-    "keywords": [
-      "taylor swift ticket cost calculator",
-      "how much taylor swift concert cost",
-      "eras tour cost 2026"
-    ],
-    "lang": "en",
-    "url": "https://worth.example/calculators/taylor-swift-concert-cost-calculator/"
-  },
-  {
-    "title": "How Much House Can I Afford 2026? $70k = $206k House [Truth]",
+    "title": "How Much House Can You Afford? (Real Numbers) | Worth",
     "slug": "guides/how-much-house-can-i-afford-2026",
-    "description": "How much house can I afford 2026? $70k salary = $206k house. See 28/36 rule, work-hours cost. Free guide 2026.",
-    "keywords": [
-      "how much house can i afford",
-      "how much house can i afford 2026",
-      "house affordability 2026"
-    ],
+    "description": "The 36% rule, lender limits and a worked example for a $120,000 household income — what you can actually borrow and what it feels like to pay.",
     "lang": "en",
-    "url": "https://worth.example/guides/how-much-house-can-i-afford-2026/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/how-much-house-can-i-afford-2026/"
   },
   {
-    "title": "Are You Rich? Net Worth Percentile 2026: Top 10% = $1.2M [Free]",
-    "slug": "guides/are-you-rich-net-worth-percentile-2026",
-    "description": "Are you rich 2026? Net worth percentile by age, US. Top 10% = $1.2M, top 1% = $11M. Free guide 2026.",
-    "keywords": [
-      "are you rich calculator",
-      "net worth percentile",
-      "am i rich 2026"
-    ],
+    "title": "Rent vs Buy Calculator: Find the Break-Even Point | Worth",
+    "slug": "calculators/rent-vs-buy-calculator-2026",
+    "description": "Compare rent against buying including the costs owners hide: depreciation, opportunity cost and selling fees. See the month the two cross over.",
     "lang": "en",
-    "url": "https://worth.example/guides/are-you-rich-net-worth-percentile-2026/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/rent-vs-buy-calculator-2026/"
   },
   {
-    "title": "Calculadora Hipoteca 2026 España México: Cuota Mensual [Gratis]",
-    "slug": "guides/calculadora-hipoteca-2026-espana-mexico",
-    "description": "Calculadora hipoteca 2026 España México gratis: cuota mensual, intereses, horas trabajo. Actualizado 2026. Gratis.",
-    "keywords": [
-      "calculadora hipoteca",
-      "cuanto puedo pagar hipoteca",
-      "hipoteca 2026 españa"
-    ],
-    "lang": "es",
-    "url": "https://worth.example/guides/calculadora-hipoteca-2026-espana-mexico/"
+    "title": "Compound Interest Calculator: Growth Over Time | Worth",
+    "slug": "calculators/compound-interest-calculator",
+    "description": "See how a starting amount grows with compound interest, monthly or yearly contributions, and what the real return is after inflation.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/compound-interest-calculator/"
   },
   {
-    "title": "Calculadora Salario por Hora 2026 LATAM: $/hora Real [Gratis]",
-    "slug": "guides/calculadora-salario-hora-2026-latam",
-    "description": "Calculadora salario por hora 2026 LATAM: México, Argentina, Colombia, Chile. Convierte sueldo mensual a horas. Gratis 2026.",
-    "keywords": [
-      "calculadora salario por hora",
-      "cuanto gano por hora",
-      "salario hora 2026"
-    ],
-    "lang": "es",
-    "url": "https://worth.example/guides/calculadora-salario-hora-2026-latam/"
+    "title": "Inflation Calculator: What $1,000 Is Worth Over Time | Worth",
+    "slug": "calculators/inflation-calculator-2026",
+    "description": "Find the purchasing power of money over 1 to 40 years at any inflation rate, and the rate that reverses a pay rise.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/inflation-calculator-2026/"
   },
   {
-    "title": "Stundenlohn Rechner 2026 Deutschland: €20/h = €2,800 Netto? [Free]",
-    "slug": "guides/stundenlohn-rechner-deutschland-2026",
-    "description": "Stundenlohn Rechner Deutschland 2026: brutto netto, was bleibt. €20/h = €2,800 netto. Kostenlos 2026 Rechner.",
-    "keywords": [
-      "stundenlohn rechner",
-      "brutto netto rechner 2026",
-      "stundenlohn deutschland"
-    ],
-    "lang": "de",
-    "url": "https://worth.example/guides/stundenlohn-rechner-deutschland-2026/"
+    "title": "Crypto Profit Calculator: Gain, Loss and Break-Even | Worth",
+    "slug": "calculators/crypto-profit-calculator-2026",
+    "description": "Work out crypto profit or loss, break-even price and what a 50% drop costs you. Covers average cost and trading fees.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/crypto-profit-calculator-2026/"
   },
   {
-    "title": "Calculateur Salaire Horaire 2026 France: €15/h = €1,800 Net? [Gratuit]",
-    "slug": "guides/calculateur-salaire-horaire-france-2026",
-    "description": "Calculateur salaire horaire France 2026: brut net, combien reste. €15/h = €1,800 net. Gratuit 2026.",
-    "keywords": [
-      "calculateur salaire horaire",
-      "salaire brut net 2026",
-      "calcul heure france"
-    ],
-    "lang": "fr",
-    "url": "https://worth.example/guides/calculateur-salaire-horaire-france-2026/"
+    "title": "Paycheck Calculator: Gross to Take-Home Pay | Worth",
+    "slug": "calculators/paycheck-calculator-2026",
+    "description": "Estimate take-home pay from gross salary, including income tax and FICA. Shows the hourly rate your take-home pay actually buys.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-calculator-2026/"
   },
   {
-    "title": "Калькулятор Зарплаты в Час 2026 Россия: 500₽/час = 300₽ Нетто [Бесплатно]",
-    "slug": "guides/калькулятор-зарплаты-час-россия-2026",
-    "description": "Калькулятор зарплаты в час Россия 2026: брутто нетто, сколько стоит iPhone в часах. Бесплатно 2026.",
-    "keywords": [
-      "калькулятор зарплаты в час",
-      "сколько стоит час работы",
-      "зарплата в час россия"
-    ],
-    "lang": "ru",
-    "url": "https://worth.example/guides/калькулятор-зарплаты-час-россия-2026/"
+    "title": "Lottery Tax Calculator: What You Actually Keep | Worth",
+    "slug": "calculators/lottery-tax-calculator-2026",
+    "description": "Estimate federal and state tax on a lottery win, including the lump-sum versus annuity choice, with worked examples at several sizes.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/lottery-tax-calculator-2026/"
   },
   {
-    "title": "时薪计算器 2026 中国: 50元/小时 = 35元到手？[免费]",
-    "slug": "guides/时薪计算器-中国-2026",
-    "description": "时薪计算器 2026 中国: 50元/小时税后多少，iPhone要多少小时。免费2026工具。",
-    "keywords": [
-      "时薪计算器",
-      "中国工资计算器",
-      "时薪 中国 2026"
-    ],
-    "lang": "zh",
-    "url": "https://worth.example/guides/时薪计算器-中国-2026/"
+    "title": "Car Loan Calculator: Payment and Total Interest | Worth",
+    "slug": "calculators/car-loan-calculator-2026",
+    "description": "Compare car loan terms and see how much a longer loan costs you in total interest — and what a smaller down payment really adds.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/car-loan-calculator-2026/"
   },
   {
-    "title": "時給計算機 2026 日本: 2000円/時 = 1600円手取り？[無料]",
-    "slug": "guides/時給計算機-日本-2026",
-    "description": "時給計算機 2026 日本: 2000円/時の手取り、iPhone何時間。無料2026ツール。",
-    "keywords": [
-      "時給計算機",
-      "日本 時給 計算",
-      "時給 日本 2026"
-    ],
-    "lang": "ja",
-    "url": "https://worth.example/guides/時給計算機-日本-2026/"
+    "title": "Car Depreciation Calculator: Year-by-Year Value | Worth",
+    "slug": "calculators/depreciation-calculator-2026",
+    "description": "See how fast a car loses value year by year, why it drops hardest in year one, and what that means for the car you actually buy.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/depreciation-calculator-2026/"
   },
   {
-    "title": "연봉 시급 계산기 2026 한국: 3만원/시급 = 2.4만원 실수령? [무료]",
-    "slug": "guides/연봉-시급-계산기-한국-2026",
-    "description": "연봉 시급 계산기 2026 한국: 3만원/시급 세후 얼마, 아이폰 몇시간. 무료2026도구.",
-    "keywords": [
-      "연봉 시급 계산기",
-      "시급 계산기 한국",
-      "한국 시급 2026"
-    ],
-    "lang": "ko",
-    "url": "https://worth.example/guides/연봉-시급-계산기-한국-2026/"
+    "title": "Freelance Rate Calculator: Charge What You Need | Worth",
+    "slug": "calculators/freelance-rate-calculator-2026",
+    "description": "Work out the hourly rate to charge to earn a target income after tax, billable hours and business costs. With worked billable-hour examples.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate-calculator-2026/"
   },
   {
-    "title": "حاسبة الراتب بالساعة 2026 السعودية: 50 ريال/ساعة = 45 صافي؟ [مجاني]",
-    "slug": "guides/حاسبة-الراتب-بالساعة-السعودية-2026",
-    "description": "حاسبة الراتب بالساعة 2026 السعودية: 50 ريال/ساعة كم صافي، آيفون كم ساعة. مجاني 2026.",
-    "keywords": [
-      "حاسبة الراتب بالساعة",
-      "راتب بالساعة السعودية",
-      "حاسبة الراتب 2026"
-    ],
-    "lang": "ar",
-    "url": "https://worth.example/guides/حاسبة-الراتب-بالساعة-السعودية-2026/"
+    "title": "Side Hustle Calculator: Is It Worth the Hours? | Worth",
+    "slug": "calculators/side-hustle-calculator-2026",
+    "description": "Work out whether a side hustle actually pays, counting your unpaid hours, fees, equipment and the tax on the income.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/side-hustle-calculator-2026/"
   },
   {
-    "title": "Calculadora Horas Trabalho 2026 Brasil: R$30/h = R$22 Líquido? [Grátis]",
-    "slug": "guides/calculadora-horas-trabalho-brasil-2026",
-    "description": "Calculadora horas trabalho Brasil 2026: R$30/hora quanto líquido, iPhone quantas horas. Grátis 2026.",
-    "keywords": [
-      "calculadora horas trabalho",
-      "quanto ganho por hora brasil",
-      "salario por hora 2026 brasil"
-    ],
-    "lang": "pt",
-    "url": "https://worth.example/guides/calculadora-horas-trabalho-brasil-2026/"
+    "title": "Elon Musk vs Your Salary: Earnings Per Second | Worth",
+    "slug": "calculators/salary-in-hours-elon-musk-calculator",
+    "description": "Convert a high-profile net worth into earnings per second, then compare it with your own hourly pay to see the actual gap.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/salary-in-hours-elon-musk-calculator/"
   },
   {
-    "title": "How Much YouTubers Make 2026: $2-$30 RPM Truth by Niche [Free]",
+    "title": "YouTuber Earnings Per Second: The Real Numbers | Worth",
+    "slug": "calculators/mrbeast-earnings-per-second-calculator",
+    "description": "Estimate YouTube earnings from views and RPM, then convert them into work hours at your own hourly rate.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/mrbeast-earnings-per-second-calculator/"
+  },
+  {
+    "title": "TikTok Money Calculator: Views to Real Earnings | Worth",
+    "slug": "calculators/tiktok-money-calculator-2026",
+    "description": "Estimate TikTok earnings from views, creator fund and brand deals, then compare against the hours the content took.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/tiktok-money-calculator-2026/"
+  },
+  {
+    "title": "YouTube Earnings Calculator: Views to Income | Worth",
+    "slug": "calculators/youtube-earnings-calculator-2026",
+    "description": "Estimate YouTube ad revenue and sponsorship income from monthly views and RPM, across the niches that pay most and least.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/youtube-earnings-calculator-2026/"
+  },
+  {
+    "title": "Creator Income Calculator: Subscriptions and Tips | Worth",
+    "slug": "calculators/onlyfans-earnings-calculator-2026",
+    "description": "Estimate subscription platform income from subscribers, price and churn, and see the platform fee and tax that follow.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/onlyfans-earnings-calculator-2026/"
+  },
+  {
+    "title": "How Much YouTubers Actually Earn (Real Numbers) | Worth",
     "slug": "guides/how-much-youtubers-make-2026-shocking-truth",
-    "description": "How much YouTubers make 2026: RPM by niche $2-$30, MrBeast $50M/year, finance $20 RPM vs gaming $2. Free guide 2026.",
-    "keywords": [
-      "how much youtubers make",
-      "youtube rpm by niche",
-      "youtuber salary 2026"
-    ],
+    "description": "What creators really earn at each audience size, why views are not income, and the RPM differences that decide the outcome.",
     "lang": "en",
-    "url": "https://worth.example/guides/how-much-youtubers-make-2026-shocking-truth/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/how-much-youtubers-make-2026-shocking-truth/"
   },
   {
-    "title": "Cost of Time 2026: Elon $12k/sec vs You $0.01/sec Calculator [Free]",
+    "title": "What an Hour of Your Life Is Worth (Work-Hours) | Worth",
     "slug": "guides/cost-of-time-elon-musk-jeff-bezos-2026",
-    "description": "Cost of time calculator 2026: Elon Musk $12k/sec, Bezos $4k/sec, Taylor $2k/sec vs you $0.01/sec. Shocking work-hours comparison. Free.",
-    "keywords": [
-      "elon musk per second",
-      "jeff bezos per second",
-      "cost of time billionaire"
-    ],
+    "description": "Convert any price into work hours at your own rate, and see the same purchases at four different hourly incomes.",
     "lang": "en",
-    "url": "https://worth.example/guides/cost-of-time-elon-musk-jeff-bezos-2026/"
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/cost-of-time-elon-musk-jeff-bezos-2026/"
+  },
+  {
+    "title": "AI Job Change Calculator: Reskilling Payoff | Worth",
+    "slug": "calculators/ai-job-replacement-calculator-2026",
+    "description": "Estimate the cost and timeline of reskilling for an AI-affected role, and the pay change that makes it worthwhile.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/ai-job-replacement-calculator-2026/"
+  },
+  {
+    "title": "AI Subscription Cost: What ChatGPT Plans Cost | Worth",
+    "slug": "calculators/chatgpt-cost-calculator-2026",
+    "description": "Compare AI chat subscription tiers by real usage, convert the price to work hours, and find the break-even point.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/chatgpt-cost-calculator-2026/"
+  },
+  {
+    "title": "Cost of Living Calculator: City Comparisons | Worth",
+    "slug": "calculators/cost-of-living-calculator-2026",
+    "description": "Compare the monthly cost of living across cities, and see how far a salary moves your purchasing power between them.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-living-calculator-2026/"
+  },
+  {
+    "title": "Net Worth Calculator: Assets Minus Liabilities | Worth",
+    "slug": "calculators/net-worth-calculator-2026",
+    "description": "Add up what you own and owe to get your net worth, then see where you sit and what moves it fastest.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/net-worth-calculator-2026/"
+  },
+  {
+    "title": "Are You Rich? Net Worth Percentiles by Age | Worth",
+    "slug": "guides/are-you-rich-net-worth-percentile-2026",
+    "description": "Where your net worth sits against US household percentiles, and why the median hides more than it shows.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/are-you-rich-net-worth-percentile-2026/"
+  },
+  {
+    "title": "Income Percentile Calculator: Where You Rank | Worth",
+    "slug": "calculators/income-percentile-calculator-2026",
+    "description": "Find your income percentile and the gap to the next one, for single filers and households.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/income-percentile-calculator-2026/"
+  },
+  {
+    "title": "Wage Growth Calculator: Are You Keeping Up? | Worth",
+    "slug": "calculators/wage-growth-calculator-2026",
+    "description": "Compare your raise against inflation to see your real pay change, and project where your salary goes in ten years.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/wage-growth-calculator-2026/"
+  },
+  {
+    "title": "Savings Goal Calculator: Reach Your Target | Worth",
+    "slug": "calculators/savings-goal-calculator-2026",
+    "description": "Work out how much to save monthly to reach a goal, with the interest earned along the way and the effect of starting sooner.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/savings-goal-calculator-2026/"
+  },
+  {
+    "title": "Investment Return Calculator: CAGR and Fees | Worth",
+    "slug": "calculators/investment-return-calculator-2026",
+    "description": "Calculate the real return on an investment after fees, tax and inflation, and compare it against a simple benchmark.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/investment-return-calculator-2026/"
+  },
+  {
+    "title": "Loan Comparison Calculator: Which Debt First? | Worth",
+    "slug": "calculators/loan-comparison-calculator-2026",
+    "description": "Compare two loans by total cost and payoff order, and see what an extra monthly payment actually saves you.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/loan-comparison-calculator-2026/"
+  },
+  {
+    "title": "Credit Card Payoff Calculator: Debt-Free Date | Worth",
+    "slug": "calculators/credit-card-payoff-calculator-2026",
+    "description": "Find how long credit card debt takes to clear at a given monthly payment, and the interest you pay meanwhile.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/credit-card-payoff-calculator-2026/"
+  },
+  {
+    "title": "Student Loan Calculator: Repayment and Forgiveness | Worth",
+    "slug": "calculators/student-loan-calculator-2026",
+    "description": "Compare student loan repayment plans, total cost, and how forgiveness and income-driven payments change the picture.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/student-loan-calculator-2026/"
+  },
+  {
+    "title": "Child Cost Calculator: First Year to Age 18 | Worth",
+    "slug": "calculators/child-cost-calculator-2026",
+    "description": "Estimate the cost of raising a child from birth to eighteen, year by year, and what it really costs per month.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/child-cost-calculator-2026/"
+  },
+  {
+    "title": "Childcare Cost Calculator: Full-Time and Part-Time | Worth",
+    "slug": "calculators/childcare-cost-calculator-2026",
+    "description": "Compare childcare costs by care type, hours and provider, and see what a part-time return to work really nets.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/childcare-cost-calculator-2026/"
+  },
+  {
+    "title": "Wedding Budget Calculator: Costs and Trade-Offs | Worth",
+    "slug": "calculators/wedding-budget-calculator-2026",
+    "description": "Break a wedding budget into categories, see where costs actually run, and what each cut saves in real terms.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/wedding-budget-calculator-2026/"
+  },
+  {
+    "title": "Divorce Cost Calculator: Legal and Hidden Fees | Worth",
+    "slug": "calculators/divorce-cost-calculator-2026",
+    "description": "Estimate the legal and hidden costs of divorce, and see how much of the total is fees rather than asset division.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/divorce-cost-calculator-2026/"
+  },
+  {
+    "title": "Tariff Impact Calculator: What Imports Cost You | Worth",
+    "slug": "calculators/trump-tariff-calculator-2026",
+    "description": "Estimate how import tariffs raise retail prices, with a worked example and the difference between a listed rate and a landed cost.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/trump-tariff-calculator-2026/"
+  },
+  {
+    "title": "Concert Cost Calculator: Tickets and Travel | Worth",
+    "slug": "calculators/taylor-swift-concert-cost-calculator",
+    "description": "Work out the true cost of seeing a concert: tickets, travel, accommodation and resale, compared with your hourly rate.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/taylor-swift-concert-cost-calculator/"
+  },
+  {
+    "title": "Subscription Audit Checklist: Cancel What You Forget | Worth",
+    "slug": "calculators/subscription-audit",
+    "description": "A step-by-step subscription audit with the three-question test, what to look for in a bank statement, and what to keep.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-audit/"
+  },
+  {
+    "title": "Annual vs Monthly Plan: When to Commit | Worth",
+    "slug": "calculators/annual-vs-monthly-subscription",
+    "description": "Compare annual and monthly pricing, find the break-even month, and price in the freedom to cancel.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/calculators/annual-vs-monthly-subscription/"
+  },
+  {
+    "title": "Stundenlohn-Rechner: Brutto, Netto & Arbeitsstunden | Worth",
+    "slug": "guides/stundenlohn-rechner-deutschland-2026",
+    "description": "Berechnen Sie Ihren echten Stundensatz aus Bruttolohn, Steuern und Sozialabgaben — mit dem Vergleich nach Bundesländern.",
+    "lang": "de",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/stundenlohn-rechner-deutschland-2026/"
+  },
+  {
+    "title": "Calculateur salaire horaire : brut, net et heures | Worth",
+    "slug": "guides/calculateur-salaire-horaire-france-2026",
+    "description": "Calculez votre vrai revenu horaire à partir du salaire brut, de l’impôt et des cotisations. Exemple avec le taux de 22 %.",
+    "lang": "fr",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/calculateur-salaire-horaire-france-2026/"
+  },
+  {
+    "title": "Калькулятор зарплаты в час: gross и net | Worth",
+    "slug": "guides/калькулятор-зарплаты-час-россия-2026",
+    "description": "Реальная почасовая ставка после НДФЛ и страховых взносов, с примерами расчёта и сравнением по регионам.",
+    "lang": "ru",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/калькулятор-зарплаты-час-россия-2026/"
+  },
+  {
+    "title": "时薪计算器：税前税后真实时薪 | Worth",
+    "slug": "guides/时薪计算器-中国-2026",
+    "description": "按五险一金、个人所得税和年终奖计税规则计算真实税后时薪，并对比不同城市的社保缴费基数与到手收入差异，看清你的每一小时真正值多少钱。",
+    "lang": "zh",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/时薪计算器-中国-2026/"
+  },
+  {
+    "title": "時給計算機：税込と手取りの時給 | Worth",
+    "slug": "guides/時給計算機-日本-2026",
+    "description": "社会保険料と源泉徴収税を差し引いた手取りの時給を計算し、降水収や年間収入との比較、残業代の実質的な価値まで確認できます。",
+    "lang": "ja",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/時給計算機-日本-2026/"
+  },
+  {
+    "title": "연봉 시급 계산기: 세후 실질 시급 | Worth",
+    "slug": "guides/연봉-시급-계산기-한국-2026",
+    "description": "국민연금·건강보험·소득세·지방소득세를 반영해 연봉별 실수령액과 실질 시급을 계산합니다. 연말 보너스 비과세 조건도 함께 확인하세요.",
+    "lang": "ko",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/연봉-시급-계산기-한국-2026/"
+  },
+  {
+    "title": "حاسبة الأجر بالساعة: الراتب الصافي والساعة الفعلية | Worth",
+    "slug": "guides/حاسبة-الراتب-بالساعة-السعودية-2026",
+    "description": "احسب الأجر الحقيقي لكل ساعة في السعودية، مع جداول المقارنة ومعالجة بدل السكن والنقل والتأمينات.",
+    "lang": "ar",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/حاسبة-الراتب-بالساعة-السعودية-2026/"
+  },
+  {
+    "title": "Calculadora de Salário por Hora: Bruto e Líquido | Worth",
+    "slug": "guides/calculadora-horas-trabalho-brasil-2026",
+    "description": "Calcule sua renda horária líquida com INSS, impostos e deduções, e compare o mesmo salário em diferentes estados.",
+    "lang": "pt",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-horas-trabalho-brasil-2026/"
+  },
+  {
+    "title": "Calculadora de Salario por Hora: Neto Real | Worth",
+    "slug": "guides/calculadora-salario-hora-2026-latam",
+    "description": "Calcula tu salario por hora neto con impuestos, seguridad social y deducciones. Comparación entre países de Latinoamérica.",
+    "lang": "es",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-salario-hora-2026-latam/"
+  },
+  {
+    "title": "Calculadora de Hipotecas: Cuota y Capacidad | Worth",
+    "slug": "guides/calculadora-hipoteca-2026-espana-mexico",
+    "description": "Calcula la cuota de una hipoteca en España o México, con el coste total, el efecto del plazo y la comparación con el alquiler.",
+    "lang": "es",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-hipoteca-2026-espana-mexico/"
+  },
+  {
+    "title": "Money Guides: 40 Free Articles on Cost, Pay and Saving | Worth",
+    "slug": "articles",
+    "description": "40 short guides that turn prices into hours of work: subscription costs, pay conversions, saving challenges and how to compare big purchases.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/"
+  },
+  {
+    "title": "Money in hours: 8 Free Guides | Worth",
+    "slug": "articles/work-hours",
+    "description": "Turn price tags into hours of work: the formula, the tables, and what each common purchase really costs you.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/"
+  },
+  {
+    "title": "Subscriptions: 8 Free Guides | Worth",
+    "slug": "articles/subscriptions",
+    "description": "What recurring charges add up to per year, how to audit them, and how to cancel cleanly when you decide to.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/"
+  },
+  {
+    "title": "Saving habits: 8 Free Guides | Worth",
+    "slug": "articles/saving-habits",
+    "description": "Challenges, buffers and sinking funds — what small amounts add to, and how to keep going past week three.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/"
+  },
+  {
+    "title": "Pay & rates: 8 Free Guides | Worth",
+    "slug": "articles/pay-and-rates",
+    "description": "Converting between hourly and annual pay, what actually comes off a salary, and how to price your own time.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/"
+  },
+  {
+    "title": "Spending decisions: 8 Free Guides | Worth",
+    "slug": "articles/spending-decisions",
+    "description": "Cost per use, total cost of ownership and the questions that make a large purchase easier to judge.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/"
+  },
+  {
+    "title": "$20 an Hour Is How Much a Year? (Gross, Take-Home and Monthly)",
+    "slug": "articles/pay-and-rates/20-dollars-an-hour-is-how-much-a-year",
+    "description": "$20 an hour is $41,600 a year gross at 2,080 hours. See monthly, weekly and daily figures, take-home estimates by tax rate, and what changes the total.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/20-dollars-an-hour-is-how-much-a-year/"
+  },
+  {
+    "title": "The 52-Week Savings Challenge: Full Table and Five Variations",
+    "slug": "articles/saving-habits/52-week-savings-challenge",
+    "description": "The complete 52-week money challenge table, five variations including the reverse and bi-weekly versions, and totals from $689 to $6,890.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/52-week-savings-challenge/"
+  },
+  {
+    "title": "$60,000 a Year Is How Much an Hour? (Before and After Tax)",
+    "slug": "articles/pay-and-rates/60000-a-year-is-how-much-an-hour",
+    "description": "$60,000 a year is $28.85 an hour gross at 2,080 hours. See hourly rates by working hours, take-home estimates, and monthly, biweekly and daily figures.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/60000-a-year-is-how-much-an-hour/"
+  },
+  {
+    "title": "Annual vs Monthly Subscription Plans: Which Actually Saves Money?",
+    "slug": "articles/subscriptions/annual-vs-monthly-subscription-plan",
+    "description": "A break-even test for choosing annual over monthly billing, with a table of discounts from 0% to 40%, and the four situations where monthly still wins.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/annual-vs-monthly-subscription-plan/"
+  },
+  {
+    "title": "How Much Does the Average Person Spend on Subscriptions a Month?",
+    "slug": "articles/subscriptions/average-monthly-subscription-spend",
+    "description": "Why published averages are unreliable, how to measure your own monthly subscription spend in 20 minutes, and how to sanity-check it against your income.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/average-monthly-subscription-spend/"
+  },
+  {
+    "title": "Budgeting on a Biweekly Paycheck (and the 27-Paycheck Year)",
+    "slug": "articles/pay-and-rates/budgeting-on-a-biweekly-paycheck",
+    "description": "How to budget when you are paid every two weeks, with tables splitting monthly bills across 26 paychecks and what to do with the occasional 27th payment.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/budgeting-on-a-biweekly-paycheck/"
+  },
+  {
+    "title": "Buy It Nice or Buy It Twice: When Paying More Actually Costs Less",
+    "slug": "articles/spending-decisions/buy-it-nice-or-buy-it-twice",
+    "description": "The arithmetic behind buying quality once, with break-even tables, the three conditions that must hold, and the categories where the rule does not apply.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/buy-it-nice-or-buy-it-twice/"
+  },
+  {
+    "title": "Coffee Cost Per Year: What Your Daily Habit Really Adds Up To",
+    "slug": "articles/work-hours/coffee-cost-per-year-calculator",
+    "description": "Turn a daily coffee into a yearly total with tables from $3 to $7 a cup, weekday-only and every-day schedules, plus home-brew savings and hours of work.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/coffee-cost-per-year-calculator/"
+  },
+  {
+    "title": "Cost Per Use: The Only Fair Way to Compare Two Purchases | Worth",
+    "slug": "articles/spending-decisions/cost-per-use-how-to-compare-purchases",
+    "description": "How to compare purchases on cost per use, with tables for shoes, coats and appliances, a break-even test, and when cost per use is the wrong metric.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/cost-per-use-how-to-compare-purchases/"
+  },
+  {
+    "title": "Do Round-Up Savings Apps Actually Work? The Arithmetic | Worth",
+    "slug": "articles/saving-habits/do-round-up-savings-apps-work",
+    "description": "What rounding up your card purchases really saves, modelled at 20 to 60 transactions a month, with multiplier versions and who the method suits.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/do-round-up-savings-apps-work/"
+  },
+  {
+    "title": "Family and Shared Plans: When Splitting Subscriptions Saves",
+    "slug": "articles/subscriptions/family-and-shared-plans-when-splitting-saves",
+    "description": "The arithmetic of shared and family plans, with break-even tables by number of people, the hidden costs of splitting, and the rules that decide who pays.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/family-and-shared-plans-when-splitting-saves/"
+  },
+  {
+    "title": "The $5 a Day Savings Challenge: What It Adds Up To | Worth",
+    "slug": "articles/saving-habits/five-dollars-a-day-savings-challenge",
+    "description": "Tables showing what saving $1, $3, $5 and $10 a day totals over 30, 90 and 365 days, weekday-only versions, and how to make the challenge actually stick.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/five-dollars-a-day-savings-challenge/"
+  },
+  {
+    "title": "Free Trials That Turn Into Subscriptions: How to Stop the Charges",
+    "slug": "articles/subscriptions/free-trials-that-turn-into-subscriptions",
+    "description": "Why free trials convert into paid subscriptions, the four types of trial to watch for, and a checklist that stops the charges before they happen.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/free-trials-that-turn-into-subscriptions/"
+  },
+  {
+    "title": "Gross Pay vs Take-Home Pay: What Actually Comes Off Your Salary",
+    "slug": "articles/pay-and-rates/gross-pay-vs-take-home-pay",
+    "description": "The difference between gross and take-home pay, what is deducted in between, and why using gross pay makes every purchase look cheaper than it is.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/gross-pay-vs-take-home-pay/"
+  },
+  {
+    "title": "How Big Should My Emergency Fund Be? Sizing by Your Numbers",
+    "slug": "articles/saving-habits/how-big-should-my-emergency-fund-be",
+    "description": "Size an emergency fund from 1 to 12 months of essential expenses, with tables by income and job stability, and a two-phase plan for building one.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-big-should-my-emergency-fund-be/"
+  },
+  {
+    "title": "How Many Hours of Work Does a Car Payment Cost? | Worth",
+    "slug": "articles/work-hours/how-many-hours-of-work-does-a-car-payment-cost",
+    "description": "Convert a monthly car payment into hours of work, see the total cost of a 36, 48, 60 and 72-month loan, and check what share of take-home pay it consumes.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-does-a-car-payment-cost/"
+  },
+  {
+    "title": "How Many Hours of Work Goes to Rent? (Tables by Monthly Rent)",
+    "slug": "articles/work-hours/how-many-hours-of-work-goes-to-rent",
+    "description": "See how many hours of work a month your rent costs, what share of take-home pay it consumes, and how to work out the number for your own lease.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-goes-to-rent/"
+  },
+  {
+    "title": "How Many Hours of Work Is $1,000? (Tables by Hourly Rate) | Worth",
+    "slug": "articles/work-hours/how-many-hours-of-work-is-1000-dollars",
+    "description": "See how many hours of work $1,000 costs at hourly rates from $15 to $100, how to adjust for tax, and why gross earnings needed exceeds the price.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-many-hours-of-work-is-1000-dollars/"
+  },
+  {
+    "title": "How Many Working Hours Are in a Year? (2,080 and Why) | Worth",
+    "slug": "articles/pay-and-rates/how-many-working-hours-in-a-year",
+    "description": "Where the 2,080-hour working year comes from, how holidays, vacation and leave change it, and the hourly divisor to use for your own schedule.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-many-working-hours-in-a-year/"
+  },
+  {
+    "title": "How Much Is a New Phone in Work Hours? (Flagship vs Mid-Range)",
+    "slug": "articles/work-hours/how-much-is-a-new-phone-in-work-hours",
+    "description": "Convert a $1,000 flagship phone, a $500 mid-range model and a 24-month carrier plan into hours of work, and see what the cost looks like per month of use.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/how-much-is-a-new-phone-in-work-hours/"
+  },
+  {
+    "title": "How Much Should I Save Each Month? (Rules, Tables & Reality)",
+    "slug": "articles/saving-habits/how-much-should-i-save-each-month",
+    "description": "Compare the 50/30/20 rule, the 20% rule and pay-yourself-first by income, with monthly savings tables and what to do when none of them fit.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-much-should-i-save-each-month/"
+  },
+  {
+    "title": "How Overtime Pay Is Calculated (Time-and-a-Half, Double Time)",
+    "slug": "articles/pay-and-rates/how-overtime-pay-is-calculated",
+    "description": "How overtime is worked out, with tables at 1.5x and 2x rates, salaried vs hourly eligibility, and the effective hourly cost of unpaid overtime.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-overtime-pay-is-calculated/"
+  },
+  {
+    "title": "How to Audit Your Subscriptions in 30 Minutes (Step-by-Step)",
+    "slug": "articles/subscriptions/how-to-audit-your-subscriptions",
+    "description": "A 30-minute subscription audit that finds forgotten renewals and duplicates, with a scoring table, a keep-or-cancel rule and reusable templates.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/how-to-audit-your-subscriptions/"
+  },
+  {
+    "title": "How to Cancel a Subscription (and Ask for a Refund) in 2026",
+    "slug": "articles/subscriptions/how-to-cancel-a-subscription-and-get-a-refund",
+    "description": "Step-by-step cancellation for app store, website, carrier and bundled subscriptions, plus a refund request template and what to do when a provider refuses.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/how-to-cancel-a-subscription-and-get-a-refund/"
+  },
+  {
+    "title": "How to Save $1,000 Fast: Four Timelines That Work | Worth",
+    "slug": "articles/saving-habits/how-to-save-1000-dollars-fast",
+    "description": "Save your first $1,000 in 4, 8, 12 or 26 weeks with weekly and daily amounts, specific places to find the money, and a plan for when the timeline slips.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/how-to-save-1000-dollars-fast/"
+  },
+  {
+    "title": "How to Set a Freelance Day Rate (Formula, Tables and Examples)",
+    "slug": "articles/pay-and-rates/how-to-set-a-freelance-day-rate",
+    "description": "Build a freelance day rate from your income target, billable days and overheads, with tables for tax, unbilled time and a sanity check against employment.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/how-to-set-a-freelance-day-rate/"
+  },
+  {
+    "title": "Lifestyle Creep After a Raise: Why More Money Feels Like Nothing",
+    "slug": "articles/spending-decisions/lifestyle-creep-after-a-raise",
+    "description": "What lifestyle inflation costs over a career, with tables showing the annual and compounding effect of absorbing each raise, and four ways to keep most of it.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/lifestyle-creep-after-a-raise/"
+  },
+  {
+    "title": "No-Spend Challenge Rules: A Version You Can Actually Finish",
+    "slug": "articles/saving-habits/no-spend-challenge-rules",
+    "description": "How to run a no-spend week, month or weekend with clear rules, a list of what counts, typical savings, and the three mistakes that end most challenges.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/no-spend-challenge-rules/"
+  },
+  {
+    "title": "Price to Hours: The Formula for Turning Money Into Work Time",
+    "slug": "articles/work-hours/price-to-hours-formula",
+    "description": "The complete price-to-hours formula: hourly, monthly and annual inputs, the pre-tax adjustment, recurring costs, and the five mistakes that skew it.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/price-to-hours-formula/"
+  },
+  {
+    "title": "Seven Questions to Ask Before Any Big Purchase | Worth",
+    "slug": "articles/spending-decisions/seven-questions-before-a-big-purchase",
+    "description": "A pre-purchase checklist covering cost per use, total cost of ownership, hours of work, opportunity cost and the 30-day test, with a worked example.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/seven-questions-before-a-big-purchase/"
+  },
+  {
+    "title": "Should You Rent or Buy? The Break-Even Math | Worth",
+    "slug": "articles/spending-decisions/should-you-rent-or-buy",
+    "description": "Compare renting and buying using cost per month, the break-even horizon and the five-year total, with a worked example and the costs buyers forget.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/should-you-rent-or-buy/"
+  },
+  {
+    "title": "Sinking Funds Explained: Saving for Costs You Know Are Coming",
+    "slug": "articles/saving-habits/sinking-funds-explained",
+    "description": "How sinking funds work, with a table of common categories and monthly amounts, and a system for turning irregular annual bills into monthly savings.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/saving-habits/sinking-funds-explained/"
+  },
+  {
+    "title": "Streaming Service Price Comparison: How to Compare Tiers Properly",
+    "slug": "articles/subscriptions/streaming-service-price-comparison",
+    "description": "Compare streaming plans by cost per hour watched, ad-supported vs ad-free tiers and annual discounts, with a fill-in table and a worked example.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/streaming-service-price-comparison/"
+  },
+  {
+    "title": "What to Do When a Subscription Raises Its Price | Worth",
+    "slug": "articles/subscriptions/subscription-price-increase-what-to-do",
+    "description": "A five-step response to a subscription price rise, with tables showing what $2, $3 and $5 a month costs annually, and when to switch or downgrade.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/subscriptions/subscription-price-increase-what-to-do/"
+  },
+  {
+    "title": "The Latte Factor: What It Gets Right and What It Gets Wrong",
+    "slug": "articles/spending-decisions/the-latte-factor-what-it-gets-right",
+    "description": "A fair assessment of the small-daily-spending argument, with tables showing when small cuts matter, when they do not, and what to fix first instead.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/the-latte-factor-what-it-gets-right/"
+  },
+  {
+    "title": "The True Cost of Car Ownership: A Full Monthly Model | Worth",
+    "slug": "articles/spending-decisions/true-cost-of-car-ownership",
+    "description": "Build the real monthly cost of running a car — depreciation, finance, insurance, fuel, maintenance and parking — with a worked example and cost per mile.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/true-cost-of-car-ownership/"
+  },
+  {
+    "title": "How Much Work Is a Vacation Worth? Cost in Hours and Days | Worth",
+    "slug": "articles/work-hours/vacation-cost-in-work-hours",
+    "description": "Convert a $1,000 to $8,000 holiday into hours and weeks of work, work out the cost per day away, and see what unpaid leave really adds to the bill.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/vacation-cost-in-work-hours/"
+  },
+  {
+    "title": "What Is an Hour of Your Time Worth? (Formula + Table) | Worth",
+    "slug": "articles/work-hours/what-is-an-hour-of-your-time-worth",
+    "description": "Work out what one hour of your time is worth using take-home pay and hours actually worked, with a table from $15 to $100 per hour and the mistakes to avoid.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/work-hours/what-is-an-hour-of-your-time-worth/"
+  },
+  {
+    "title": "Why You Impulse Spend (and Nine Ways to Actually Stop) | Worth",
+    "slug": "articles/spending-decisions/why-you-impulse-spend-and-how-to-stop",
+    "description": "The triggers behind impulse buying, from frictionless checkout to mood and social proof, with nine countermeasures and a table of what each one costs you.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/spending-decisions/why-you-impulse-spend-and-how-to-stop/"
+  },
+  {
+    "title": "Your Real Hourly Wage: Counting Commute, Overtime and Unpaid Work",
+    "slug": "articles/pay-and-rates/your-real-hourly-wage",
+    "description": "Work out what you actually earn per hour once commute, preparation time, unpaid overtime and work costs are included, with tables and the break-even test.",
+    "lang": "en",
+    "url": "https://njohn931d-dotcom.github.io/bbbh/articles/pay-and-rates/your-real-hourly-wage/"
   }
 ]

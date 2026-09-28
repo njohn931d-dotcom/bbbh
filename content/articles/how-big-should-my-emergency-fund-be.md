@@ -1,5 +1,5 @@
 ---
-title: How Big Should My Emergency Fund Be? Sizing It by Your Own Numbers
+title: How Big Should My Emergency Fund Be? Sizing by Your Numbers
 description: Size an emergency fund from 1 to 12 months of essential expenses, with tables by income and job stability, and a two-phase plan for building one.
 slug: how-big-should-my-emergency-fund-be
 cluster: saving-habits

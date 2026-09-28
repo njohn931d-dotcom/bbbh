@@ -1,133 +1,182 @@
-# SEO Strategy: 40 Articles to Rank Using GitHub
+# SEO strategy
 
-**Goal:** Rank #1 for 40 money calculator keywords using GitHub's Domain Authority 96 as primary lever.
+This is the current, accurate strategy. It replaced an earlier document that
+described tactics which turned out to be either broken or counterproductive;
+those notes are summarised in [What changed and why](#what-changed-and-why)
+so the reasoning is not lost.
 
-## Why GitHub?
+## The core finding
 
-- **DA 96** - github.com outranks most finance blogs (DA 40-70)
-- **Trust** - Open source code = E-E-A-T (Expertise, Experience, Authority, Trust) signal to Google
-- **Indexing** - GitHub markdown files are indexed for `site:github.com` searches
-- **Backlinks** - Every GitHub repo linking to your site passes authority
-- **Stars** - Social proof, correlates with ranking for "calculator github" queries
-- **Code search** - Developers search "salary to hourly calculator github" → find repo → star → boost
+The site previously had **133 URLs but roughly 87 distinct pages**. Forty-six of
+them — the entire "parasite cluster", plus the homepage and the hub pages — were
+rendered from one shared template. A mortgage calculator, a divorce-cost
+calculator and a Chinese hourly-wage calculator shipped the same body text, the
+same table of `$100 / $500 / hours at $35/hr`, and the same two FAQs, differing
+only in the keyword spliced into the title.
 
-## Keyword Research (40 keywords, 100k+ combined monthly searches)
+That is a doorway-page pattern. Search engines are explicitly built to collapse
+it: pages that differ only in a keyword produce no more value than one of them,
+so the cluster earns roughly one page's worth of rankings spread across 46 URLs.
+It also risks a "scaled content abuse" classification, which is a demotion, not
+just a lost opportunity.
 
-### Tier 1: High volume, low competition (calculator + github modifier)
+**The number of URLs was never the constraint. Distinctness was.** Adding more
+template pages makes this worse, not better.
 
-| Keyword | Volume | KD | Current top | Why we can win |
-|---------|--------|----|-------------|----------------|
-| salary to hourly calculator | 22k | 35 | Nerdwallet | Add "github" → 1.8k vol, KD 10, we rank |
-| hourly to salary calculator | 18k | 32 | Calculator.net | Open source angle |
-| overtime calculator | 12k | 40 | ADP | GitHub code transparency |
-| how to calculate overtime | 12k | 38 | Indeed | Same |
-| is netflix worth it | 8.1k | 45 | Reddit | Cost per hour calculator unique |
-| how to save $1000 fast | 8.1k | 50 | Dave Ramsey | Daily habit calculator |
-| freelance rate calculator | 8.1k | 28 | Freelancermap | Open source formula |
+## What the site is now
 
-### Tier 2: Medium volume, informational (guides)
+| | |
+|---|---|
+| Indexable pages | 142 |
+| Hand-written tools (English) | 46 |
+| Generated cluster pages, each with its own formula, worked example and FAQ | 49 |
+| Real translations | 10 across 9 languages |
+| SEO audit errors | 0 |
+| hreflang annotations | 70, all reciprocal |
+| Broken internal links | 0 |
+| Orphan pages | 0 |
 
-Target "how to" + money + github. Example: "how to audit subscriptions github template" - our markdown checklist ranks.
+## The rules the build enforces
 
-### Tier 3: Long-tail (cost per X)
+`scripts/seo-audit.mjs` runs on every build and **fails the deploy on any
+error-level finding**. It is the source of truth for what "good" means here.
 
-Cost per wear, per use, per visit - low volume (1-3k) but high intent, easy to rank, high conversion to main calculator.
+```
+npm run seo:audit              # audit ./dist
+npm run seo:audit:strict       # warnings also fail
+node scripts/seo-audit.mjs --json
+```
 
-## Content Architecture: 47 Pages
+Checks include: unique titles/descriptions/H1s, no duplicated body copy, no
+repeated year or word in a title, self-referential canonicals, `lang` matching
+the actual script of the copy, reciprocal hreflang, valid JSON-LD, internal
+link health, orphan pages, sitemap completeness, and unclosed HTML tags.
 
-- **Home** `/` - Hub, links to all 46, targets "free money calculators"
-- **Calculators** 18 pages (3 original + 15 new) - Tool intent, embed JS calculator, tables, FAQ
-- **Guides** 28 pages (3 original + 25 new) - Info intent, 1000+ words, tables, internal links to calculators
+Content-level regressions are covered separately in
+`tests/cluster-content.test.cjs` (11 tests), which assert that every page has a
+unique title/H1/table, fits a SERP, links only to real routes, and that
+generating twice produces identical HTML.
 
-Every page:
-- Title: Keyword first, 60 chars, includes year (2025) for freshness
-- Description: 155 chars, includes keyword + value prop + "Free, open source on GitHub"
-- H1: Same as title without branding
-- Intro: 2 sentences, keyword in first 100 chars
-- Body: 1000-1500 words, 2-4 H2s, 1 table minimum, 3+ internal links, GitHub CTA box
-- FAQ: 2 questions minimum (FAQPage schema)
-- Schema: WebSite, WebPage/WebApplication, BreadcrumbList, FAQPage, codeRepository link to GitHub
-- Keywords meta: keyword, calculator, github, open source, worth
+## The international cluster
 
-## GitHub Lever Tactics (10)
+This is the part that was quietly broken and is now real.
 
-### 1. Markdown mirrors in /articles/
-40 markdown files with frontmatter. Each targets same keyword as HTML but optimized for GitHub search. Contains live URL → drives traffic. Google indexes github.com files.
+Previously, every one of the 40 cluster pages declared the same ten `hreflang`
+alternates pointing at ten *unrelated* foreign pages. That is invalid: hreflang
+requires each annotation to point at a genuine translation of the same content
+and to be reciprocated. Google discards invalid hreflang sets wholesale, so the
+cluster had no working international signals at all.
 
-### 2. README keyword hub
-README lists all 40 keywords with volumes in table. GitHub README is indexed, ranks for "money calculator github". Natural keyword stuffing.
+The ten locale pages were also English pages with a foreign keyword and a
+foreign `lang` attribute — `lang="de"` on a body written in English. That is
+worse than having no translation at all, because it tells the crawler the page
+cannot be trusted.
 
-### 3. Code comments with keywords
-`app.js` contains comments like `// salary to hourly formula: annual ÷ 2080 - open source calculator github`. GitHub code search indexes comments.
+Now:
 
-### 4. Topics and About
-Add 10 topics via GitHub UI: `calculator`, `money`, `personal-finance`, `open-source`, `javascript`, `financial-calculator`, `hourly-rate`, `budget`, `latte-factor`, `cost-per-wear`. About description includes keywords.
+- `calculators/salary-to-hourly` (EN) is the parent of **9 genuine
+  translations** — de, fr, ru, zh, ja, ko, ar, pt, es.
+- `calculators/mortgage-calculator-2026` (EN) ↔ `calculadora-hipoteca-2026-espana-mexico` (ES).
+- Each translation declares the English parent, and the parent declares the
+  translation. `x-default` points at the English page.
+- All 70 annotations pass the reciprocity check.
 
-### 5. Release notes with keywords
-Create release v1.0: "Release 40 free money calculators open source on GitHub - salary to hourly, freelance rate, cost per wear..."
+To add a language: add an entry to `LOCALE_CONTENT` in
+`scripts/cluster-content.mjs` with `translationOf` pointing at its English
+parent. The translation map, the alternates and the reciprocity are all derived
+from that one field.
 
-### 6. Social preview image
-`public/og.png` with text overlay "46 Free Calculators - Open Source on GitHub" - increases CTR from GitHub social.
+## Content standard for a new page
 
-### 7. Backlink loop
-- HTML pages → link to GitHub repo (footer CTA)
-- README → links to live site (worth.example)
-- Articles/*.md → link to live calculators
-- GitHub profile → link to live site
+Every cluster page carries, at minimum:
 
-### 8. Stars campaign
-Ask in each calculator: "Star on GitHub if useful". 100 stars = authority signal. GitHub trending for JavaScript if 50 stars in week → more visibility.
+- A title ≤ 65 columns, no repeated year or word
+- A description ≤ 165 columns
+- An H1 that is the natural search phrase
+- Its **own** formula, with the variables defined
+- Its **own** worked-example table, with the assumptions stated
+- 2–3 notes on what the numbers do not show
+- 2–3 real FAQs that can be answered without guessing
+- A caveat wherever a figure depends on something that changes (tax bands,
+  statutory minimums, subscription prices)
+- 4–6 semantically relevant internal links — no random ones
 
-### 9. Forks and PRs
-Encourage forks: "Fork and customize for your niche". Each fork creates backlink to original? GitHub shows fork network, increases repo visibility.
+Numeric tables are worked examples, not quotes. Where a rate is variable, the
+page says so and points at the authoritative source rather than inventing a
+2026 figure.
 
-### 10. Wiki and Discussions
-Enable Wiki: create page "Calculator Formulas" linking to all calculators. Enable Discussions: Q&A about formulas, each thread indexed.
+## What actually drives rankings here
 
-## Technical SEO (Already Implemented)
+1. **Page-level distinctness.** One genuinely useful page outranks fifty
+   keyword variants of the same text. This is the whole game.
+2. **Internal link equity.** The old build picked related links with
+   `sort(() => 0.5 - Math.random())`, so every page linked to 12 arbitrary
+   pages and the output changed on every build. Links are now drawn from each
+   page's own `related` and `links` lists.
+3. **A real domain.** Canonicals currently point at a `github.io` subdomain,
+   which the audit reports as an info-level note. Moving to a real domain is
+   the single highest-value infrastructure change still available, and it is
+   purely a DNS and `SITE_URL` change.
+4. **Earned links.** The work-hours angle (converting a price into hours of
+   life) is the one genuinely distinctive idea on the site and the most likely
+   thing to be cited by a journalist or a newsletter.
+5. **Multilingual depth.** Ten shallow pages earn nothing. Ten *real*
+   translations earn each market separately.
 
-- Static HTML before JS (crawlable without JS)
-- Canonical URLs absolute (SITE_URL)
-- Sitemap.xml with 47 URLs, priorities (home 1.0, calculators 0.9, guides 0.8), weekly changefreq
-- Robots.txt allows all, points to sitemap
-- Open Graph + Twitter card
-- JSON-LD with codeRepository
-- Internal linking: 47 links per page (hub)
-- Noindex guard for previews
-- Vite build emits directory index.html (clean URLs)
-- Performance: static, no server, <20kB CSS, <12kB JS
+## What changed and why
 
-## Content Velocity Plan
+| Previously | Now | Why |
+|---|---|---|
+| 46 pages sharing one body | 49 pages, each with its own content | Doorway pages collapse to one page's ranking; distinctness is the constraint |
+| Titles like `Mortgage Calculator 2026 2026` | Slug-derived titles, no repeated year | The template appended `2026` to slugs that already ended in it |
+| H1 like `X Calculator 2026 Calculator 2026` | H1 is the search phrase | Read as spam to a human reviewer |
+| 10 bogus hreflang alternates on every page | Reciprocal alternates for real translations only | Invalid hreflang is discarded, taking the valid set with it |
+| `lang="de"` on an English body | Copy actually written in the declared language | Mismatched language is an untrustworthiness signal |
+| `sameAs: [GitHub, Wikipedia]` | `sameAs: [GitHub]` | Claiming a Wikipedia profile as an identity reference is a false statement and a manual-action risk |
+| Visible `PARASITE SEO CLUSTER` footer | Honest colophon | On-page spam text is a quality signal against the page |
+| `index.txt` / `index.json` twins per page | Removed | Near-duplicate URLs competing with the canonical page |
+| `sitemap-extra.xml` pointing at `worth.example` | Removed | Wrong host, and it advertised the duplicate twins |
+| `<meta name="googlebot" content="index, follow">` | Removed | Google ignores this tag; `robots` already says it |
+| `Crawl-delay: 0` | Removed | Google has never supported it |
+| No `og:image` anywhere | 1200×630 card on all 142 pages | Every social and chat share was rendering as a text-only link |
+| Random internal links | Semantically related links | Random links waste PageRank and made builds non-reproducible |
+| Unclosed `<article>` on 40 pages | Valid HTML | Invalid nesting misleads every parser |
+| Page count hardcoded as `133` in CI | Derived from the content model | The literal had already drifted and the assertion was theatre |
 
-- **Week 1:** Publish 40 articles (done via generate-seo.mjs)
-- **Week 2:** Submit sitemap to GSC, Bing, request indexing for 10 high-volume pages
-- **Week 3:** Post on Hacker News: "I open sourced 46 money calculators that run in browser - GitHub", Product Hunt, Reddit r/personalfinance, r/freelance
-- **Week 4:** Reach out to 20 finance blogs: "Free open source alternative to Calculator.net - embed our calculators"
-- **Ongoing:** Update 1 article/week with fresh data (2025 → 2026), add to changelog
+### On the "parasite SEO" framing
 
-## Measurement
+The previous strategy document claimed that hosting on `github.io` confers DA 99
+and that this would produce page-one rankings in 24 hours. That is not how it
+works: `github.io` subdomains receive no special authority, and the internal
+links between pages on the same site do not confer authority on each other the
+way external links do. GitHub Pages is excellent hosting. It is not a ranking
+lever.
 
-- GSC: Track impressions for "calculator github" queries
-- GitHub: Stars, forks, traffic → clones graph
-- Plausible (privacy): Pageviews per calculator, top 5
-- Ranking: Check weekly for 40 keywords using SERP API
+The genuinely useful parts of that original plan survive: the open-source
+reputation angle, the work-hours differentiator, real multilingual expansion,
+and earning links by being useful. The parts that were decoration — a visible
+PBN footer, fake `sameAs` identity claims, duplicate `.json`/`.txt` URL twins,
+clickbait titles, and a plan to blanket every page with a daily `changefreq` and
+`dateModified` — have been removed because they actively cost rankings.
 
-## Risks and Mitigations
+## What is deliberately not done
 
-- **Thin content?** Each article 1000+ words, unique tables, FAQs, not spun.
-- **Duplicate?** Markdown mirrors canonical to HTML via live_url frontmatter, not indexed as duplicate because different domain (github.com vs worth.example) but same content - add note "Original at worth.example" to avoid.
-- **GitHub spam?** Don't keyword stuff unnaturally, provide real value (open source code).
+- No mass-generated pages. Adding a page requires adding real content to
+  `scripts/cluster-content.mjs`.
+- No clickbait titles, no `dateModified` bumped to today, no manufactured
+  urgency.
+- No fake reviews or `AggregateRating` markup.
+- No link schemes, guest-post farms, or PBNs.
+- No cloaking or content differing by user agent.
 
-## Next Steps
+These are not moralising. Each one is a documented pathway to a manual action,
+and a manual action on a small site is terminal.
 
-- [x] 40 HTML pages generated
-- [x] 40 markdown mirrors
-- [x] README hub
-- [ ] Add GitHub topics via UI (manual)
-- [ ] Create release v1.0
-- [ ] Submit sitemap
-- [ ] Post launch
+## Measuring
 
----
-
-*This strategy uses GitHub as SEO lever, not just hosting. DA 96 + open source trust = ranking advantage over traditional blogs.*
+- Google Search Console is the only source of truth for impressions and clicks.
+- Submit `sitemap.xml` after each deploy.
+- Watch for the "Crawled - currently not indexed" and "Duplicate content"
+  buckets: those are the signals that a new page is being judged a clone.
+- The SEO audit is a proxy for quality, not a ranking predictor. It catches
+  defects; it does not predict positions.
