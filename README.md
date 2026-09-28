@@ -175,6 +175,19 @@ Before publishing Forge Workspace, set a real `contactEmail` in
 `workspace-service/site-config.js`: in demo mode the inquiry form only copies the
 request to the clipboard. Its devcontainer demo is not hardened for customer data.
 
+## 📚 Developer Cheatsheets & Reference Guides
+
+High-volume reference material lives in [`docs/`](docs/README.md) alongside the calculators:
+
+- **[Awesome Developer Cheatsheets](docs/awesome-developer-cheatsheets.md)** — Git undo operations, Docker lifecycle, Linux one-liners, regex, SQL indexing, HTTP status codes, Core Web Vitals.
+- **[System Design Interview Cheatsheet](docs/system-design-interview-cheatsheet.md)** — latency numbers, back-of-envelope throughput math, rate limiting, caching, sharding, CAP/PACELC.
+- **[AI Prompt Engineering & LLM Reference](docs/ai-prompt-engineering-reference.md)** — prompt patterns, system-prompt guardrails, token pricing, RAG chunking, AI ROI.
+- **[Developer Salary, Equity & 1099 Contractor Guide](docs/developer-salary-equity-calculator.md)** — total compensation, RSUs vs options, the W2→1099 multiplier, overtime.
+- **[FIRE Calculator & Handbook](docs/fire-financial-independence-retire-early.md)** — 4% rule math, Coast FIRE, Lean vs Fat FIRE, savings-rate tables.
+- **[Awesome Open-Source Finance Directory](docs/open-source-finance-tools-directory.md)** — 50+ privacy-first, self-hosted and plain-text money tools.
+
+See also the [Max Traffic & Ranking Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for how these pages are built to be found.
+
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) — MIT license, vanilla JS, accessible, privacy-first.

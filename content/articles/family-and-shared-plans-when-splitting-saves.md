@@ -1,5 +1,5 @@
 ---
-title: Family and Shared Plans: When Splitting a Subscription Actually Saves
+title: Family and Shared Plans: When Splitting Subscriptions Saves
 description: The arithmetic of shared and family plans, with break-even tables by number of people, the hidden costs of splitting, and the rules that decide who pays.
 slug: family-and-shared-plans-when-splitting-saves
 cluster: subscriptions

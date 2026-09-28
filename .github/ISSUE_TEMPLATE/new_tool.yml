@@ -1,0 +1,29 @@
+name: New Tool or Cheatsheet Proposal
+description: Propose a high-volume calculator, developer cheatsheet, or reference table
+title: "[Tool Proposal]: "
+labels: ["tool-proposal", "seo-expansion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We welcome community submissions for client-side calculators, developer cheat sheets, and technical decision tools.
+  - type: input
+    id: tool-name
+    attributes:
+      label: Tool Name / Target Keyword
+      description: What primary search query does this tool or cheatsheet target?
+      placeholder: "e.g. AWS S3 Storage Cost Calculator or Kubernetes Pod Resource Formula"
+    validations:
+      required: true
+  - type: textarea
+    id: formula-inputs
+    attributes:
+      label: Inputs, Outputs & Mathematical Equations
+      description: Detailed breakdown of required user inputs, step-by-step arithmetic, and output metrics.
+    validations:
+      required: true
+  - type: textarea
+    id: reference-links
+    attributes:
+      label: Official Reference / Benchmark Sources
+      description: Links to official documentation, government BLS data, or RFC standards validating the calculation.

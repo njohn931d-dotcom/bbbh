@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
 Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml
-Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap-40.xml
-Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap-extra.xml
 Sitemap: https://njohn931d-dotcom.github.io/bbbh/feed.xml
 
 Crawl-delay: 0

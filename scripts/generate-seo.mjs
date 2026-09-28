@@ -91,7 +91,7 @@ const data=[
 {
 route: 'calculators/salary-to-hourly',
 name: 'Salary to Hourly Calculator',
-title: 'Salary to Hourly Calculator: Convert Annual Salary to Hourly Rate (2025)',
+title: 'Salary to Hourly Calculator: Convert Salary to Hourly Rate',
 description: 'Convert annual salary to hourly rate instantly. Formula: salary ÷ 2080. Free, open-source calculator with overtime and after-tax adjustments. GitHub source.',
 mode: 'purchase',
 intro: 'What is your salary worth per hour? Convert annual, monthly, or weekly salary to true hourly rate. Free, no sign-up, open source on GitHub.',
@@ -119,7 +119,7 @@ ${githubCTA('salary to hourly')}
 {
 route: 'calculators/hourly-to-salary',
 name: 'Hourly to Salary Calculator',
-title: 'Hourly to Salary Calculator: Convert Hourly Wage to Annual Income | Worth',
+title: 'Hourly to Salary Calculator: Hourly Wage to Annual Income',
 description: 'Convert hourly wage to annual salary: hourly × 2080. Free calculator shows monthly, weekly, after-tax. Open source on GitHub.',
 mode: 'purchase',
 intro: 'Turn your hourly rate into annual, monthly, weekly income. See take-home after tax. Open source calculator.',
@@ -143,7 +143,7 @@ ${githubCTA('hourly to salary')}
 {
 route: 'calculators/freelance-rate',
 name: 'Freelance Hourly Rate Calculator',
-title: 'Freelance Rate Calculator: What Should I Charge Per Hour? (Formula)',
+title: 'Freelance Rate Calculator: What Should I Charge Per Hour?',
 description: 'Freelance rate calculator: (salary + expenses + profit) ÷ billable hours. Includes taxes, benefits, PTO. Free, open source on GitHub.',
 mode: 'purchase',
 intro: 'What should you charge as freelancer? Enter desired salary, expenses, billable hours. Get rate that covers taxes, health, PTO.',
@@ -236,7 +236,7 @@ ${githubCTA('overtime pay')}
 {
 route: 'calculators/after-tax-income',
 name: 'After Tax Income Calculator',
-title: 'After Tax Income Calculator: Take-Home Pay Calculator 2025 | Worth',
+title: 'After Tax Income Calculator: Take-Home Pay Calculator (2025)',
 description: 'Calculate take-home pay after federal, state, FICA. Enter gross salary, get net hourly, monthly. Free, open source GitHub.',
 mode: 'purchase',
 intro: 'Gross salary lies. Take-home is truth. Calculate after federal, state, Social Security, Medicare. See real hourly worth.',
@@ -257,7 +257,7 @@ ${githubCTA('after-tax income')}
 {
 route: 'calculators/commute-cost',
 name: 'Cost of Commuting Calculator',
-title: 'Cost of Commuting Calculator: True Cost Per Hour & Year | Worth',
+title: 'Cost of Commuting Calculator: True Hourly and Yearly Cost',
 description: 'Commute cost calculator: gas + time + wear + lost wages. 1 hour commute = $12,500/year in time alone. Free, GitHub open source.',
 mode: 'purchase',
 intro: 'Your commute costs more than gas. Calculate time value, gas, car wear, lost free time. See if remote or moving is worth it.',
@@ -321,7 +321,7 @@ ${githubCTA('gym cost per visit')}
 {
 route: 'calculators/streaming-cost',
 name: 'Streaming Cost Calculator',
-title: 'Streaming Cost Calculator: How Much Do Subscriptions Cost Per Year? | Worth',
+title: 'Streaming Cost Calculator: Annual Subscriptions Cost | Worth',
 description: 'Streaming calculator: Netflix + Spotify + Hulu annual cost and hours worked. Average American $1,200/yr. Free GitHub open source.',
 mode: 'subscription',
 intro: 'Netflix $15, Spotify $12, Hulu $18... adds up. Calculate annual streaming cost in dollars and work hours.',
@@ -470,7 +470,7 @@ ${githubCTA('impulse buying guide')}
 {
 route: 'guides/subscription-audit',
 name: 'How to Audit Subscriptions',
-title: 'How to Audit Subscriptions: Find $500+ in Hidden Costs (Checklist)',
+title: 'How to Audit Subscriptions: Find $500+ Hidden Costs | Worth',
 description: 'Subscription audit checklist: find $500+ yearly savings. Free template, open source on GitHub. Step-by-step guide.',
 body: `
 <h2>Average person wastes $500/year on unused subscriptions</h2>
@@ -490,7 +490,7 @@ ${githubCTA('subscription audit')}
 {
 route: 'guides/latte-factor-explained',
 name: 'Latte Factor Explained',
-title: 'Latte Factor Explained: How $5 a Day Becomes $1M (With Math) | Worth',
+title: 'Latte Factor Explained: How $5 a Day Becomes $1M | Worth',
 description: 'Latte factor explained: $5/day at 7% = $1M in 50 years. Formula, examples, how to find yours. Free calculator GitHub open source.',
 body: `
 <h2>What is latte factor? Not about coffee</h2>
@@ -507,7 +507,7 @@ ${githubCTA('latte factor guide')}
 {
 route: 'guides/no-spend-challenge',
 name: '30-Day No Spend Challenge',
-title: '30-Day No Spend Challenge: Rules, Tracker & Save $1,000 | Worth',
+title: '30-Day No Spend Challenge: Rules, Tracker and Save $1,000',
 description: '30-day no spend challenge rules, tracker, savings calculator. Average saves $1,000. Free template GitHub open source.',
 body: `
 <h2>No spend challenge: reset spending in 30 days</h2>
@@ -563,7 +563,7 @@ ${githubCTA('cost per wear guide')}
 {
 route: 'guides/freelance-rate-guide',
 name: 'How to Set Freelance Rates',
-title: 'How to Set Freelance Rates: Formula With Taxes, Benefits, PTO (2025)',
+title: 'How to Set Freelance Rates: Taxes, Benefits and PTO Formula',
 description: 'Freelance rate formula: (salary + 30% benefits + expenses) ÷ 1000 billable hours. Guide + free calculator GitHub open source.',
 body: `
 <h2>Freelance rate mistake that bankrupts beginners</h2>
@@ -583,7 +583,7 @@ ${githubCTA('freelance rate guide')}
 {
 route: 'guides/psychology-small-purchases',
 name: 'Psychology of Small Purchases',
-title: 'Why Small Purchases Add Up: Psychology of Spending & How to Fix It | Worth',
+title: 'Why Small Purchases Add Up: The Psychology of Spending',
 description: 'Why $5 purchases add up: mental accounting, pain of paying. $5/day = $1,825/year. Science + free GitHub calculator.',
 body: `
 <h2>Why your brain ignores $5 purchases</h2>
@@ -598,7 +598,7 @@ ${githubCTA('psychology small purchases')}
 {
 route: 'guides/track-daily-spending',
 name: 'How to Track Daily Spending',
-title: 'How to Track Daily Spending Without Budgeting Apps (GitHub Template) | Worth',
+title: 'Track Daily Spending Without Budgeting Apps (Template) | Worth',
 description: 'Track daily spending without apps: GitHub markdown template, 2-min method. Free open source tracker.',
 body: `
 <h2>Track spending without budgeting app fatigue</h2>
@@ -615,7 +615,7 @@ ${githubCTA('track spending guide')}
 {
 route: 'guides/emergency-fund-hours',
 name: 'Emergency Fund in Work Hours',
-title: 'Emergency Fund Calculator: How Many Work Hours Do You Need? | Worth',
+title: 'Emergency Fund Calculator: Work Hours Needed | Worth',
 description: 'Emergency fund in work hours: $10k fund = 400 hours at $25/hr. Calculate hours needed. Free calculator GitHub open source.',
 body: `
 <h2>Emergency fund = work hours of security</h2>
@@ -675,7 +675,7 @@ ${githubCTA('coffee cost guide')}
 {
 route: 'guides/average-subscription-cost-2025',
 name: 'Average Subscription Spending 2025',
-title: 'Average American Subscription Spending 2025: $1,200+/Year (Data) | Worth',
+title: 'Average American Subscription Spending 2025: $1,200+/Year',
 description: 'Average subscription spending 2025: $1,200/year, $2,800 with apps. Data + free audit calculator GitHub open source.',
 body: `
 <h2>Average American: $1,200/year subscriptions (2025 data)</h2>
@@ -711,7 +711,7 @@ ${githubCTA('hourly budget guide')}
 {
 route: 'guides/paycheck-to-paycheck',
 name: 'Paycheck to Paycheck Hours',
-title: 'Paycheck to Paycheck: How Many Hours for Bills? (Calculator) | Worth',
+title: 'Paycheck to Paycheck: How Many Hours for Bills? | Worth',
 description: 'Paycheck to paycheck: calculate how many work hours go to bills before you earn for you. Free calculator GitHub open source.',
 body: `
 <h2>Paycheck to paycheck = 0 hours for you</h2>
@@ -726,7 +726,7 @@ ${githubCTA('paycheck to paycheck guide')}
 {
 route: 'guides/cost-of-convenience',
 name: 'True Cost of Convenience',
-title: 'True Cost of Convenience: DoorDash, Uber Fees = $5,000/Year? | Worth',
+title: 'True Cost of Convenience: Food Delivery and Uber Fees',
 description: 'Cost of convenience: DoorDash $10 fees, Uber $15. Average $5k/year. Calculator shows work hours. GitHub open source.',
 body: `
 <h2>Convenience tax: $10 fee + $5 tip + 30% markup = $25 for $15 meal</h2>
@@ -760,7 +760,7 @@ ${githubCTA('value free time guide')}
 {
 route: 'guides/minimalism-cost-per-time',
 name: 'Minimalism and Cost Per Time',
-title: 'Minimalism & Cost Per Time: Buy Less, Value More (Guide) | Worth',
+title: 'Minimalism and Cost Per Time: Buy Less, Value More | Worth',
 description: 'Minimalism cost per time: fewer items, lower cost per use, more free time. Guide + free GitHub calculators.',
 body: `
 <h2>Minimalism = lower cost per time lived</h2>
@@ -775,7 +775,7 @@ ${githubCTA('minimalism guide')}
 {
 route: 'guides/negotiate-hourly-rate',
 name: 'How to Negotiate Hourly Rate',
-title: 'How to Negotiate Hourly Rate: Scripts & Data to Get +$5/hr | Worth',
+title: 'How to Negotiate Hourly Rate: Scripts to Get +$5/hr | Worth',
 description: 'Negotiate hourly rate: scripts, data, get $5/hr more = $10k/year. Guide + free GitHub calculator.',
 body: `
 <h2>$5/hr raise = $10,400/year = 208 hours of life back</h2>
@@ -792,7 +792,7 @@ ${githubCTA('negotiate rate guide')}
 {
 route: 'guides/is-netflix-worth-it',
 name: 'Is Netflix Worth It? Cost Per Hour',
-title: 'Is Netflix Worth It? Cost Per Hour Watched Calculator (2025) | Worth',
+title: 'Is Netflix Worth It? Cost Per Hour Watched Calculator',
 description: 'Is Netflix worth it? Cost per hour watched = monthly ÷ hours watched. $23 ÷ 20h = $1.15/hr. Free calculator GitHub.',
 body: `
 <h2>Netflix $23/month ÷ hours watched = cost per hour</h2>
@@ -828,7 +828,7 @@ ${githubCTA('annual vs monthly guide')}
 {
 route: 'guides/how-to-calculate-overtime',
 name: 'How to Calculate Overtime Pay',
-title: 'How to Calculate Overtime Pay: Formula, Examples, California Rules | Worth',
+title: 'How to Calculate Overtime Pay: Formula and Rules | Worth',
 description: 'How to calculate overtime: time and a half formula, California daily OT, double time. Examples + free GitHub calculator.',
 body: `
 <h2>Overtime formula: federal vs California</h2>
@@ -843,7 +843,7 @@ ${githubCTA('overtime guide')}
 {
 route: 'guides/true-cost-of-car',
 name: 'True Cost of Owning a Car',
-title: 'True Cost of Owning a Car: $12,000 Per Year Reality (2025 Data) | Worth',
+title: 'True Cost of Owning a Car: $12,000/Year Reality | Worth',
 description: 'True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.',
 body: `
 <h2>True cost $12,182/year (AAA 2024) - not just payment</h2>
@@ -858,7 +858,7 @@ ${githubCTA('true cost car guide')}
 {
 route: 'guides/how-long-save-1000',
 name: 'How to Save $1000 Fast',
-title: 'How to Save $1,000 Fast: Daily Habit Calculator & 30-Day Plan | Worth',
+title: 'How to Save $1,000 Fast: Habit Calculator and 30-Day Plan',
 description: 'Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.',
 body: `
 <h2>Save $1,000 in 30 days = $33/day</h2>
@@ -1001,6 +1001,14 @@ ${routes.filter(r=>r.startsWith('guides/')).map(r=>{
   const d=data.find(x=>x.route===r);
   return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
 }).join('\n')}
+
+## Developer Cheatsheets & Architecture Guides
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/awesome-developer-cheatsheets.md - Awesome Developer Cheatsheets (Git, Docker, Linux, Regex, SQL, Web Performance)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/system-design-interview-cheatsheet.md - System Design Interview Cheatsheet (Latency numbers, Rate Limiting, Caching, Sharding, CAP/PACELC)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/ai-prompt-engineering-reference.md - AI Prompt Engineering & LLM Reference (Prompt patterns, System prompts, Token pricing, AI ROI)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/developer-salary-equity-calculator.md - Developer Salary, RSU Equity & 1099 Contractor Guide (Total comp, W2 vs 1099 multiplier, Overtime)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/fire-financial-independence-retire-early.md - FIRE Calculator & Handbook (4% rule math, Coast FIRE, Lean vs Fat FIRE, Savings rate)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/open-source-finance-tools-directory.md - Awesome Open-Source Finance Directory (50+ privacy-first personal wealth & budgeting tools)
 
 ## GitHub SEO
 All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
