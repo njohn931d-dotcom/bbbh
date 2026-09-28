@@ -1,8 +1,19 @@
-# Worth - 47 Free Money Calculators 2026 - GitHub Parasite SEO
+# Worth Documentation Hub & Developer Cheatsheets
 
-> Hosted on GitHub Pages DA 99 - ranking in 24h for high-volume keywords
+> **High-Authority Open-Source Reference** | Hosted on GitHub & GitHub Pages | Free, Client-Side, MIT Licensed
 
-## 47 Calculators - Free 2026
+## 🚀 High-Volume Developer Cheatsheets & System Architecture Guides
+
+- **[Awesome Developer Cheatsheets (2026)](awesome-developer-cheatsheets.md)** — Git undo operations, Docker container lifecycle, Linux bash power one-liners, Regex standard patterns, SQL performance indexes, HTTP status codes & Core Web Vitals.
+- **[System Design Interview Cheatsheet](system-design-interview-cheatsheet.md)** — Latency numbers every programmer must know, back-of-envelope throughput math, rate limiting algorithms (Token/Leaky Bucket, Sliding Window), caching strategies, database sharding & PACELC theorem.
+- **[AI Prompt Engineering & LLM Reference Guide](ai-prompt-engineering-reference.md)** — RTCF prompt framework, few-shot chain of thought, production system prompt guardrails, 2026 LLM pricing comparison (GPT-4o, Claude 3.5 Sonnet, DeepSeek V3), RAG chunking rules & AI ROI formula.
+- **[Developer Salary, Equity & 1099 Contractor Guide](developer-salary-equity-calculator.md)** — Total Compensation (TC) formula, public tech RSUs vs startup stock options, W2 to 1099 contractor multiplier formula (1.35x), overtime FLSA calculations & salary-to-hourly benchmark tables.
+- **[FIRE Calculator & Complete Handbook](fire-financial-independence-retire-early.md)** — Trinity Study 4% rule math, 25x annual expenses formula, savings rate vs years-to-retirement table, Coast FIRE exponential compounding math & daily habit growth tables.
+- **[Awesome Open-Source Finance Directory](open-source-finance-tools-directory.md)** — 50+ curated privacy-first personal finance repositories, self-hosted budgeting software (Actual, Firefly III, Maybe), plain-text accounting (Ledger, Beancount) & local-first wealth tracking.
+
+---
+
+## 47 Financial Calculators - Free 2026
 
 - [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Find how many work hours a purchase costs using your after-tax hourly, monthly, or annual pay. Free calculator with the formula and worked examples.
 - [Subscription Cost Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Convert monthly subscription fees into annual costs and hours of work. See the real cost of streaming, apps, and memberships with a free calculator.

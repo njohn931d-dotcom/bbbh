@@ -1,14 +1,133 @@
-# Worth — Free Money Calculators
+# Worth — Free Money Calculators, Developer Cheatsheets & Open Source Tools (2026)
 
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
 [![133 Pages](https://img.shields.io/badge/SEO%20Pages-133-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Privacy First](https://img.shields.io/badge/Privacy-0%20Cookies%20%7C%20Client--Side-purple.svg)](https://njohn931d-dotcom.github.io/bbbh/)
+[![Awesome](https://img.shields.io/badge/Awesome-Curated%20Tools-orange.svg)](docs/open-source-finance-tools-directory.md)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
 **Sitemap:** 133 URLs | **Guides:** 40 | **Calculators:** 86 | **PWA:** Yes | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **133 indexable URLs**: the homepage, 86 calculator and guide routes, and 46 guide-cluster pages (a guides index, five collection hubs and 40 long-form guides) rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
+> ⭐ **Star this repository** to bookmark 100+ free, client-side calculators, developer cheatsheets, and personal finance tools. No sign-up, no cookies, zero data collection.
+
+Worth is a high-authority open-source suite of browser-based money calculators, developer cheat sheets, and practical financial decision guides. It publishes **133 indexable URLs**: the homepage, 86 calculator and guide routes, and 46 guide-cluster pages rendered from Markdown sources at build time. All calculations execute 100% in-browser.
+
+---
+
+## 📑 Fast Navigation & Tool Directory
+
+- [🔥 Awesome Open-Source Calculators & Cheatsheets](#-awesome-open-source-calculators--cheatsheets-2026)
+  - [1. Career, Salary & Contractor Tools](#1-career-salary--contractor-tools)
+  - [2. Real Estate, Loans & Debt](#2-real-estate-loans--debt)
+  - [3. Wealth, Compound Interest & FIRE](#3-wealth-compound-interest--fire)
+  - [4. Developer Cheatsheets & System Design](#4-developer-cheatsheets--system-design)
+  - [5. AI Engineering & LLM Reference](#5-ai-engineering--llm-reference)
+  - [6. Multilingual Global Calculators](#6-multilingual-global-calculators-10-languages)
+- [🧮 Core Calculation Formulas (Open Source)](#-core-calculation-formulas-open-source)
+- [✨ Key Repository Features](#-features)
+- [🚀 Deployment & GitHub Pages Pipeline](#-deployment)
+- [🛠 Development & Testing](#-development)
+- [📚 Content Engine: 40 Guides](#-content-engine-40-guides)
+- [🔍 Search Architecture & SEO Verification](#-search-architecture)
+- [🔗 dev.to Backlink Pipeline](#-devto-backlinks)
+- [🔒 Privacy & Assumptions](#-privacy--assumptions)
+- [📦 PWA & Performance](#-pwa--performance)
+- [🧭 Other Projects in this Repository](#-other-projects-in-this-repository)
+- [❓ Frequently Asked Questions (PAA)](#-frequently-asked-questions)
+- [🤝 Contributing & License](#-contributing)
+
+---
+
+## 🔥 Awesome Open-Source Calculators & Cheatsheets (2026)
+
+### 1. Career, Salary & Contractor Tools
+
+| Tool / Resource | Target Search Query | Formula / Description | Live / Source Link |
+|---|---|---|---|
+| **Salary to Hourly Converter** | `salary to hourly calculator github` | $\text{Hourly} = \frac{\text{Gross Salary}}{2,080\text{ hours}}$ | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) · [Guide](docs/calculators-salary-to-hourly.md) |
+| **Hourly to Salary Converter** | `hourly to salary calculator` | $\text{Salary} = \text{Hourly Rate} \times 2,080$ | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/) · [Guide](docs/calculators-hourly-to-salary.md) |
+| **Freelance & Contractor Rate** | `freelance rate calculator github` | $\text{Rate} = \frac{(\text{Target Salary} \times 1.35) + \text{Overhead}}{\text{Billable Hours}}$ | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/freelance-rate/) · [Guide](docs/calculators-freelance-rate.md) |
+| **Paycheck Take-Home Pay** | `paycheck calculator after tax` | Net take-home after Federal, State, and FICA | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/paycheck-calculator-2026/) · [Guide](docs/calculators-paycheck-calculator-2026.md) |
+| **Overtime Pay Calculator** | `overtime pay calculator time and a half` | $1.5\times$ base rate for hours $>40/\text{week}$ | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/) · [Guide](docs/calculators-overtime-pay.md) |
+| **Developer Salary & RSU Equity** | `developer salary calculator github` | Total Comp = Base + Bonus + (RSU / 4) | [Complete Guide](docs/developer-salary-equity-calculator.md) |
+
+### 2. Real Estate, Loans & Debt
+
+| Tool / Resource | Target Search Query | Formula / Description | Live / Source Link |
+|---|---|---|---|
+| **Mortgage Calculator 2026** | `mortgage calculator 2026 github` | Monthly payment, interest amortization, affordability | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/mortgage-calculator-2026/) · [Guide](docs/calculators-mortgage-calculator-2026.md) |
+| **Rent vs Buy Calculator** | `rent vs buy calculator github` | 5-year break-even, equity, opportunity cost | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/rent-vs-buy-calculator-2026/) · [Guide](docs/calculators-rent-vs-buy-calculator-2026.md) |
+| **Car Loan Hidden Cost** | `car loan calculator true cost` | Monthly payment + depreciation + insurance | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/car-loan-calculator-2026/) · [Guide](docs/calculators-car-loan-calculator-2026.md) |
+| **Student Loan Payoff** | `student loan calculator work hours` | Total interest, loan payoff in work hours | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/student-loan-calculator-2026/) · [Guide](docs/calculators-student-loan-calculator-2026.md) |
+
+### 3. Wealth, Compound Interest & FIRE
+
+| Tool / Resource | Target Search Query | Formula / Description | Live / Source Link |
+|---|---|---|---|
+| **FIRE Calculator Handbook** | `fire calculator github 4 percent rule` | Target Net Worth = Annual Expenses $\times 25$ | [Complete Guide](docs/fire-financial-independence-retire-early.md) |
+| **Net Worth Percentile 2026** | `net worth percentile calculator` | US net worth distribution benchmarks by age | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/net-worth-calculator-2026/) · [Guide](docs/calculators-net-worth-calculator-2026.md) |
+| **Compound Interest ($5/Day)** | `compound interest calculator github` | Daily habit compounding at 7% real return | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/compound-interest-calculator/) · [Guide](docs/calculators-compound-interest-calculator.md) |
+| **Cost of Time Calculator** | `cost of time calculator work hours` | Converts purchase cost into hours of life | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) · [Guide](docs/calculators-cost-of-time.md) |
+| **Crypto Profit & Tax** | `crypto profit calculator bitcoin` | Net crypto ROI after short/long term capital gains | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/crypto-profit-calculator-2026/) · [Guide](docs/calculators-crypto-profit-calculator-2026.md) |
+
+### 4. Developer Cheatsheets & System Design
+
+| Cheatsheet / Reference | Target Search Query | Key Topics Covered | Document Link |
+|---|---|---|---|
+| **Awesome Developer Cheatsheets** | `developer cheatsheet github` | Git undo operations, Docker CLI, Linux bash one-liners, Regex patterns, SQL indexes, HTTP codes | [View Cheatsheet](docs/awesome-developer-cheatsheets.md) |
+| **System Design Interview Cheatsheet** | `system design cheatsheet github` | Latency numbers, throughput estimation, Token/Leaky bucket, sliding window, caching, CAP/PACELC | [View Cheatsheet](docs/system-design-interview-cheatsheet.md) |
+| **Awesome Open-Source Finance** | `awesome open source finance tools` | 50+ privacy-first personal finance repos, self-hosted budgeting (Actual, Firefly III, Maybe) | [View Directory](docs/open-source-finance-tools-directory.md) |
+
+### 5. AI Engineering & LLM Reference
+
+| Resource | Target Search Query | Topics Covered | Document / Tool Link |
+|---|---|---|---|
+| **AI Prompt Engineering Guide** | `prompt engineering cheatsheet github` | RTCF framework, few-shot chain of thought, system prompt guardrails, 2026 LLM pricing table | [View Reference](docs/ai-prompt-engineering-reference.md) |
+| **ChatGPT & AI Cost Calculator** | `chatgpt cost calculator 2026` | Monthly subscription vs API token cost math | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/chatgpt-cost-calculator-2026/) |
+| **AI Job Replacement Risk** | `ai job replacement calculator 2026` | Automation vulnerability score by occupation | [Live Tool](https://njohn931d-dotcom.github.io/bbbh/calculators/ai-job-replacement-calculator-2026/) |
+
+### 6. Multilingual Global Calculators (10 Languages)
+
+Targeting international search volume across DA 96 GitHub and GitHub Pages:
+- 🇪🇸 **Spanish:** [Calculadora Hipoteca 2026](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-hipoteca-2026-espana-mexico/) · [Salario por Hora LATAM](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-salario-hora-2026-latam/)
+- 🇩🇪 **German:** [Stundenlohn Rechner Deutschland](https://njohn931d-dotcom.github.io/bbbh/guides/stundenlohn-rechner-deutschland-2026/)
+- 🇫🇷 **French:** [Calculateur Salaire Horaire France](https://njohn931d-dotcom.github.io/bbbh/guides/calculateur-salaire-horaire-france-2026/)
+- 🇷🇺 **Russian:** [Калькулятор зарплаты в час Россия](https://njohn931d-dotcom.github.io/bbbh/guides/калькулятор-зарплаты-час-россия-2026/)
+- 🇨🇳 **Chinese:** [时薪计算器 中国 2026](https://njohn931d-dotcom.github.io/bbbh/guides/时薪计算器-中国-2026/)
+- 🇯🇵 **Japanese:** [時給計算機 日本 2026](https://njohn931d-dotcom.github.io/bbbh/guides/時給計算機-日本-2026/)
+- 🇰🇷 **Korean:** [연봉 시급 계산기 한국 2026](https://njohn931d-dotcom.github.io/bbbh/guides/연봉-시급-계산기-한국-2026/)
+- 🇧🇷 **Portuguese:** [Calculadora Horas de Trabalho Brasil](https://njohn931d-dotcom.github.io/bbbh/guides/calculadora-horas-trabalho-brasil-2026/)
+- 🇸🇦 **Arabic:** [حاسبة الراتب بالساعة السعودية](https://njohn931d-dotcom.github.io/bbbh/guides/حاسبة-الراتب-بالساعة-السعودية-2026/)
+
+---
+
+## 🧮 Core Calculation Formulas (Open Source)
+
+All formulas are implemented in clean, dependency-free vanilla JavaScript:
+
+```javascript
+// 1. Salary to Hourly Conversion (Standard 2,080 annual working hours)
+const salaryToHourly = (annualGross) => annualGross / 2080;
+
+// 2. 1099 Freelance Hourly Rate (Accounting for 35% tax + overhead, 1500 billable hrs)
+const freelanceHourlyRate = (targetW2Salary, annualOverhead = 6000, billableHours = 1500) =>
+  ((targetW2Salary * 1.35) + annualOverhead) / billableHours;
+
+// 3. Purchase Cost in Hours of Life (Cost of Time)
+const costInWorkHours = (itemPrice, afterTaxHourlyWage) => itemPrice / afterTaxHourlyWage;
+
+// 4. Financial Independence (FIRE) Number (Trinity Study 4% Rule)
+const fireTargetNetWorth = (annualLivingExpenses, withdrawalRate = 0.04) =>
+  annualLivingExpenses / withdrawalRate; // Equal to expenses * 25
+
+// 5. Cost Per Wear (Minimalism & Apparel Utility)
+const costPerWear = (purchasePrice, totalTimesWorn) => purchasePrice / Math.max(1, totalTimesWorn);
+```
+
+---
 
 ## ✨ Features
 
@@ -170,9 +289,23 @@ Before publishing Forge Workspace, set a real `contactEmail` in
 `workspace-service/site-config.js`: in demo mode the inquiry form only copies the
 request to the clipboard. Its devcontainer demo is not hardened for customer data.
 
+## ❓ Frequently Asked Questions
+
+### How does converting salary to hourly wage work?
+Under standard full-time employment (40 hours per week × 52 weeks = 2,080 hours per year), divide your annual gross salary by 2,080. For example, a $100,000 salary equals **$48.08/hr** gross.
+
+### What is the formula for calculating true freelance hourly rate?
+To match a corporate W2 salary as a 1099 contractor, multiply the target salary by 1.35 (to cover 7.65% self-employment tax, healthcare, retirement, and unpaid vacation), add annual overhead, and divide by realistic billable hours (typically 1,500 hours per year).
+
+### What is the 4% rule in FIRE (Financial Independence Retire Early)?
+The 4% rule states that you can safely withdraw 4% of your investment portfolio during your first year of retirement, and adjust that amount for inflation annually, with minimal risk of exhausting your capital over a 30-year horizon. Your target portfolio is your annual spending multiplied by 25.
+
+### Are these calculators safe and private?
+Yes. All calculators in Worth are 100% open source and run locally in your web browser. No numbers, inputs, or personal financial details are ever transmitted to a server.
+
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) — MIT license, vanilla JS, accessible, privacy-first.
+See [CONTRIBUTING.md](CONTRIBUTING.md) — MIT license, vanilla JS, accessible, privacy-first. Check out our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
 
 ## 📄 License
 

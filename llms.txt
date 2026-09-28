@@ -54,6 +54,14 @@ Worth converts money to time. How many work hours does a purchase cost? Free cal
 - https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/ - True Cost of Owning a Car - True cost of car: $12k/year AAA data. Depreciation biggest. Calculator per mile, per hour. Free GitHub open source.
 - https://njohn931d-dotcom.github.io/bbbh/guides/how-long-save-1000/ - How to Save $1000 Fast - Save $1000 fast: $33/day = 30 days, $10/day = 100 days. Plan + calculator GitHub open source.
 
+## Developer Cheatsheets & Architecture Guides
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/awesome-developer-cheatsheets.md - Awesome Developer Cheatsheets (Git, Docker, Linux, Regex, SQL, Web Performance)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/system-design-interview-cheatsheet.md - System Design Interview Cheatsheet (Latency numbers, Rate Limiting, Caching, Sharding, CAP/PACELC)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/ai-prompt-engineering-reference.md - AI Prompt Engineering & LLM Reference (Prompt patterns, System prompts, Token pricing, AI ROI)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/developer-salary-equity-calculator.md - Developer Salary, RSU Equity & 1099 Contractor Guide (Total comp, W2 vs 1099 multiplier, Overtime)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/fire-financial-independence-retire-early.md - FIRE Calculator & Handbook (4% rule math, Coast FIRE, Lean vs Fat FIRE, Savings rate)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/open-source-finance-tools-directory.md - Awesome Open-Source Finance Directory (50+ privacy-first personal wealth & budgeting tools)
+
 ## GitHub SEO
 All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
 
