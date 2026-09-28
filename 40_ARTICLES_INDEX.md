@@ -1,7 +1,7 @@
 # 40 SEO Articles — Index & GitHub Ranking Strategy
 
 **Repo:** https://github.com/njohn931d-dotcom/bbbh  
-**Live Site:** https://worth.example (set SITE_URL)  
+**Live Site:** https://njohn931d-dotcom.github.io/bbbh/  
 **Total Pages:** 47 (46 routes + home)  
 **New Articles:** 40  
 **Generated:** 2025-09-27  
@@ -155,8 +155,8 @@ dist/
 Generated at `public/sitemap.xml` when SITE_URL set:
 
 ```xml
-<url><loc>https://worth.example/</loc><priority>1.0</priority></url>
-<url><loc>https://worth.example/calculators/cost-of-time/</loc><priority>0.9</priority></url>
+<url><loc>https://njohn931d-dotcom.github.io/bbbh/</loc><priority>1.0</priority></url>
+<url><loc>https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/</loc><priority>0.9</priority></url>
 ... 45 more ...
 ```
 
@@ -179,13 +179,13 @@ npm test
 
 1. **Set SITE_URL and build:**
    ```sh
-   SITE_URL=https://worth.example npm run build:production
+   SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
    ```
 
 2. **Deploy dist/ to static host** (Vercel, Netlify, Cloudflare Pages)
 
 3. **GitHub repo settings (manual via UI):**
-   - About: Website = https://worth.example, Description = "46 free money calculators, open source on GitHub..."
+   - About: Website = https://njohn931d-dotcom.github.io/bbbh, Description = "46 free money calculators, open source on GitHub..."
    - Topics: calculator, money, personal-finance, open-source, javascript, financial-calculator, hourly-rate, budget, etc. (20 topics)
    - Social preview: Upload public/og.png
    - Enable Wiki, Discussions
@@ -196,7 +196,7 @@ npm test
    - Notes: List 40 keywords
 
 5. **Submit sitemap:**
-   - Google Search Console: Submit https://worth.example/sitemap.xml
+   - Google Search Console: Submit https://njohn931d-dotcom.github.io/bbbh/sitemap.xml
    - Bing Webmaster Tools: Same
    - Request indexing for top 10 high-volume pages
 

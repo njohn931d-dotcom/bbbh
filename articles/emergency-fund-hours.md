@@ -6,7 +6,7 @@ search_volume: "6,600/mo"
 type: "guide"
 slug: "emergency-fund-hours"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/guides/emergency-fund-hours/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "emergency fund calculator" (6,600/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com emergency fund calculator`.
 
-**Live Calculator:** [https://worth.example/guides/emergency-fund-hours/](https://worth.example/guides/emergency-fund-hours/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/](https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -26,7 +26,7 @@ author: "Worth - Open Source on GitHub"
 
 Find $2,325/yr via sub audit $500 + latte $1,825 =93h @ $25.
 
-Live: https://worth.example/guides/emergency-fund-hours/
+Live: https://njohn931d-dotcom.github.io/bbbh/guides/emergency-fund-hours/
 
 ---
 
@@ -44,11 +44,11 @@ Live: https://worth.example/guides/emergency-fund-hours/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

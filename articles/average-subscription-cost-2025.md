@@ -6,7 +6,7 @@ search_volume: "2,900/mo"
 type: "guide"
 slug: "average-subscription-cost-2025"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/guides/average-subscription-cost-2025/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "average subscription cost" (2,900/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com average subscription cost`.
 
-**Live Calculator:** [https://worth.example/guides/average-subscription-cost-2025/](https://worth.example/guides/average-subscription-cost-2025/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/](https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -28,7 +28,7 @@ Breakdown: video 4 services $60=$720, music $12=$144, news/apps $30=$360, gym $5
 
 Why underestimate: small amounts, different cards, free→paid forgotten.
 
-Live: https://worth.example/guides/average-subscription-cost-2025/
+Live: https://njohn931d-dotcom.github.io/bbbh/guides/average-subscription-cost-2025/
 
 ---
 
@@ -46,11 +46,11 @@ Live: https://worth.example/guides/average-subscription-cost-2025/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

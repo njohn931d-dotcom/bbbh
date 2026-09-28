@@ -6,7 +6,7 @@ search_volume: "4,400/mo"
 type: "guide"
 slug: "true-cost-of-car"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/guides/true-cost-of-car/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "true cost of owning a car" (4,400/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com true cost of owning a car`.
 
-**Live Calculator:** [https://worth.example/guides/true-cost-of-car/](https://worth.example/guides/true-cost-of-car/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/](https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -28,7 +28,7 @@ Depreciation kills: new $35k loses $7k first year, $4.5k/yr avg first 5y.
 
 IRS $0.67/mile 2024 close. 15k miles=$10k cost. Uber 15k @ $1.50=$22.5k, owning cheaper if drive much, but 5k miles Uber cheaper.
 
-Live: https://worth.example/guides/true-cost-of-car/
+Live: https://njohn931d-dotcom.github.io/bbbh/guides/true-cost-of-car/
 
 ---
 
@@ -46,11 +46,11 @@ Live: https://worth.example/guides/true-cost-of-car/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

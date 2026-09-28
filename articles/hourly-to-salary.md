@@ -6,7 +6,7 @@ search_volume: "18,000/mo"
 type: "calculator"
 slug: "hourly-to-salary"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/calculators/hourly-to-salary/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "hourly to salary calculator" (18,000/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com hourly to salary calculator`.
 
-**Live Calculator:** [https://worth.example/calculators/hourly-to-salary/](https://worth.example/calculators/hourly-to-salary/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/](https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -34,7 +34,7 @@ Annual = Hourly × 40 × 52. At 35h: ×1820.
 ## Take-home trap
 $25/hr gross ≈ $18.50 take-home after tax. Use take-home in cost-of-time calculator for honest purchase power.
 
-Live: https://worth.example/calculators/hourly-to-salary/
+Live: https://njohn931d-dotcom.github.io/bbbh/calculators/hourly-to-salary/
 GitHub: https://github.com/njohn931d-dotcom/bbbh
 
 ---
@@ -53,11 +53,11 @@ GitHub: https://github.com/njohn931d-dotcom/bbbh
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

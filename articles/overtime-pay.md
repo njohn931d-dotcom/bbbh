@@ -6,7 +6,7 @@ search_volume: "12,000/mo"
 type: "calculator"
 slug: "overtime-pay"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/calculators/overtime-pay/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "overtime calculator" (12,000/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com overtime calculator`.
 
-**Live Calculator:** [https://worth.example/calculators/overtime-pay/](https://worth.example/calculators/overtime-pay/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/](https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -26,7 +26,7 @@ Time and a half = Hourly ×1.5 × OT hours over 40/week. CA: over 8h/day also 1.
 
 $25/hr, 10h OT = $375 extra but 10h free time lost. Effective hourly for 50h week = $27.50, not $37.50.
 
-Live: https://worth.example/calculators/overtime-pay/
+Live: https://njohn931d-dotcom.github.io/bbbh/calculators/overtime-pay/
 
 ---
 
@@ -44,11 +44,11 @@ Live: https://worth.example/calculators/overtime-pay/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 

@@ -48,7 +48,7 @@ Low competition because most finance blogs don't have GitHub presence.
 ## 4. On-Page SEO for GitHub Repo
 
 ### About Section (Edit via UI)
-- **Website:** https://worth.example
+- **Website:** https://njohn931d-dotcom.github.io/bbbh
 - **Description:** "46 free money calculators, open source on GitHub. Salary to hourly, cost per wear, latte factor. Private, no sign-up, browser-only. MIT License."
 - Includes keywords: calculators, open source, salary to hourly, etc.
 
@@ -66,7 +66,7 @@ Create `.github/FUNDING.yml` with GitHub sponsors → authority signal.
 ## 5. Backlink Loop (Most Important)
 
 ```
-Live Site (worth.example) 
+Live Site (njohn931d-dotcom.github.io/bbbh) 
    → links to GitHub repo (every page footer "View source on GitHub")
    → GitHub repo README links to Live Site
    → /articles/*.md link to Live Site calculators
@@ -97,7 +97,7 @@ Even though we deploy to custom domain, GitHub Pages (if enabled) creates `usern
 ## 9. Measuring GitHub SEO
 
 - **GitHub Traffic:** Insights → Traffic → Views, clones (shows if GitHub search drives)
-- **Google Search Console:** Add both worth.example and github.com/user/repo? No, GSC only for your domain, but you can search `site:github.com/user/repo` in Google to see indexed pages
+- **Google Search Console:** Add both njohn931d-dotcom.github.io/bbbh and github.com/user/repo? No, GSC only for your domain, but you can search `site:github.com/user/repo` in Google to see indexed pages
 - **SERP check:** Search "salary to hourly calculator github" weekly, track position
 - **Ahrefs:** Check backlinks to repo and live site
 

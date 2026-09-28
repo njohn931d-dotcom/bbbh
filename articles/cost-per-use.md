@@ -6,7 +6,7 @@ search_volume: "2,400/mo"
 type: "calculator"
 slug: "cost-per-use"
 github: "https://github.com/njohn931d-dotcom/bbbh"
-live_url: "https://worth.example/calculators/cost-per-use/"
+live_url: "https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/"
 date: "2025-01-15"
 author: "Worth - Open Source on GitHub"
 ---
@@ -17,7 +17,7 @@ author: "Worth - Open Source on GitHub"
 
 **GitHub SEO Strategy:** This article targets "cost per use calculator" (2,400/mo) + "github" modifier. GitHub domain authority (DA 96) helps rank. Our MIT-licensed calculator code is indexed by Google when searching `site:github.com cost per use calculator`.
 
-**Live Calculator:** [https://worth.example/calculators/cost-per-use/](https://worth.example/calculators/cost-per-use/)
+**Live Calculator:** [https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/)
 
 **Open Source:** [View source on GitHub](https://github.com/njohn931d-dotcom/bbbh) - Star us if useful! No tracking, runs in browser.
 
@@ -28,7 +28,7 @@ CPU for everything: (Price + maintenance) ÷ uses.
 - Peloton $1973/yr ÷ 100 rides = $19.73/ride
 - Kindle $200 ÷ 50 books = $4/book
 
-Live: https://worth.example/calculators/cost-per-use/
+Live: https://njohn931d-dotcom.github.io/bbbh/calculators/cost-per-use/
 
 ---
 
@@ -46,11 +46,11 @@ Live: https://worth.example/calculators/cost-per-use/
 
 ## Related Calculators (Internal Linking)
 
-- [Cost of Time Calculator](https://worth.example/calculators/cost-of-time/) - Convert purchases to work hours
-- [Salary to Hourly](https://worth.example/calculators/salary-to-hourly/) - Salary ÷ 2080
-- [Subscription Cost](https://worth.example/calculators/subscription-cost/) - Monthly ×12
-- [Daily Savings](https://worth.example/calculators/daily-savings/) - Daily ×365
-- [All 46 calculators & guides](https://worth.example/)
+- [Cost of Time Calculator](https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/) - Convert purchases to work hours
+- [Salary to Hourly](https://njohn931d-dotcom.github.io/bbbh/calculators/salary-to-hourly/) - Salary ÷ 2080
+- [Subscription Cost](https://njohn931d-dotcom.github.io/bbbh/calculators/subscription-cost/) - Monthly ×12
+- [Daily Savings](https://njohn931d-dotcom.github.io/bbbh/calculators/daily-savings/) - Daily ×365
+- [All 46 calculators & guides](https://njohn931d-dotcom.github.io/bbbh/)
 
 ## Why GitHub Ranks
 
