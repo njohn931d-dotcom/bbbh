@@ -1,0 +1,31 @@
+name: Bug Report
+description: File a bug or incorrect calculation in an existing tool
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing an issue. Please make sure all calculations can be reproduced in a modern web browser.
+  - type: input
+    id: affected-url
+    attributes:
+      label: Affected Tool URL
+      description: The URL of the calculator or guide where you observed the issue.
+      placeholder: https://njohn931d-dotcom.github.io/bbbh/calculators/cost-of-time/
+    validations:
+      required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the Bug
+      description: What was the unexpected behavior or mathematical discrepancy?
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior & Correct Mathematical Result
+      description: What numbers should have been displayed according to standard financial or engineering formulas?
+    validations:
+      required: true

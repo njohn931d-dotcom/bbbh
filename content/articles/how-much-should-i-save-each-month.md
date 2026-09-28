@@ -1,5 +1,5 @@
 ---
-title: How Much Should I Save Each Month? (Rules, Tables and a Reality Check)
+title: How Much Should I Save Each Month? (Rules, Tables & Reality)
 description: Compare the 50/30/20 rule, the 20% rule and pay-yourself-first by income, with monthly savings tables and what to do when none of them fit.
 slug: how-much-should-i-save-each-month
 cluster: saving-habits
