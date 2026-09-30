@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { resolve } from 'node:path';
 import { generateSEO, routes as mainRoutes, articleRoutes } from './scripts/generate-seo.mjs';
 import { generateParasiteSEO, extraRoutes } from './scripts/generate-parasite.mjs';
+import { HUB_ROUTES } from './scripts/generate-hubs.mjs';
 
 const rawSiteURL = process.env.SITE_URL;
 const base = rawSiteURL ? `${new URL(rawSiteURL).pathname.replace(/\/$/,'')}/` : '/';
@@ -11,7 +12,7 @@ const base = rawSiteURL ? `${new URL(rawSiteURL).pathname.replace(/\/$/,'')}/` :
 generateSEO();
 generateParasiteSEO();
 
-const routes = [...mainRoutes, ...extraRoutes, ...articleRoutes];
+const routes = [...mainRoutes, ...extraRoutes, ...articleRoutes, ...HUB_ROUTES];
 
 export default defineConfig({
   base,
@@ -34,13 +35,42 @@ export default defineConfig({
       closeBundle() {
         // GitHub Pages needs 404.html for SPA fallback - copy home as 404 with noindex handling
         try {
+          /*
+           * A real 404, not a copy of the homepage.
+           *
+           * The previous build wrote dist/404.html as a byte-identical copy of
+           * the homepage, canonical to the homepage. GitHub Pages serves that
+           * file with a 404 status for every unknown URL, so the site was
+           * offering crawlers a second, duplicate homepage at an unlimited
+           * number of addresses. This version keeps the shell, replaces the
+           * content with a short apology and the two browse hubs, and marks
+           * itself noindex as a second line of defence.
+           */
           const distIndex = resolve('dist/index.html');
           const dist404 = resolve('dist/404.html');
-          if (fs.existsSync(distIndex) && !fs.existsSync(dist404)) {
-            let html404 = fs.readFileSync(distIndex, 'utf8');
-            // 404 page should still be indexable for GitHub Pages SPA pattern, but add meta
-            fs.writeFileSync(dist404, html404);
-            console.log('✓ Generated dist/404.html for GitHub Pages SPA fallback');
+          if (fs.existsSync(distIndex)) {
+            const shell = fs.readFileSync(distIndex, 'utf8');
+            const notFound =
+              '<main><section class="seo-hero"><div class="eyebrow">ERROR 404</div>' +
+              '<h1>That page is not here</h1>' +
+              '<p>The link may be old, or the address may have a typo in it. Everything the site publishes is one of these two pages away.</p></section>' +
+              '<section class="seo-related"><div class="section-label">WHERE TO GO NEXT</div><h2>Start from the index</h2><div>' +
+              '<a href="/calculators/">All ' + routes.filter(r => r.startsWith('calculators/')).length + ' calculators <span>↗</span></a>' +
+              '<a href="/guides/">All ' + routes.filter(r => r.startsWith('guides/')).length + ' guides <span>↗</span></a>' +
+              '<a href="/articles/">The money edit <span>↗</span></a>' +
+              '<a href="/">Home <span>↗</span></a>' +
+              '</div></section></main>';
+            let html404 = shell
+              .replace(/<main>[\s\S]*?<\/main>/, notFound)
+              .replace(/<link rel="canonical" href="[^"]*">/, '')
+              .replace(/<meta property="og:url" content="[^"]*">/, '')
+              .replace('</head>', '<meta name="robots" content="noindex, follow"></head>');
+            if (html404.includes('That page is not here') && !html404.includes('rel="canonical"')) {
+              fs.writeFileSync(dist404, html404);
+              console.log('✓ Generated a real dist/404.html (noindex, no canonical)');
+            } else {
+              throw new Error('404 generation failed: the shell did not contain the expected shape');
+            }
           }
           // Ensure .nojekyll exists in dist
           const nojekyll = resolve('dist/.nojekyll');

@@ -37,3 +37,42 @@
 .cluster-link h2{font-size:24px}
 .cluster-blurb{max-width:680px;font-size:13.5px;line-height:1.9;color:#7b8772;margin:12px 0 0}
 @media(max-width:800px){.toc ol{columns:1}.cta-box{flex-direction:column;align-items:flex-start}.hub-grid{grid-template-columns:1fr}.seo-article h2{font-size:21px}.seo-article td:not(:first-child),.seo-article th:not(:first-child){text-align:left}}
+
+/* ---- per-page calculator engines (scripts/calculator-engines.mjs) ----------
+   Every tool page renders its own form: different fields, different outputs,
+   different worked table. These rules style that structure once. */
+.engine-title{font-size:11px;color:#345d40;font-weight:600;padding:20px 0;letter-spacing:.4px}
+.engine-fields{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:4px}
+.engine-field.wide{grid-column:1/-1}
+.engine-field label{display:flex;align-items:center;gap:5px}
+.engine-field .info{font-size:9px;color:#9aa78c;cursor:help}
+.money-input select{width:100%;height:38px;font-size:12px;color:#3a4634;padding:0}
+.engine-presets{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.engine-presets button{border:1px solid #d9e0c9;background:#f6f8ef;border-radius:20px;padding:7px 14px;font-size:11px;color:#4f6947}
+.engine-presets button:hover{background:#e9efdb;border-color:#c3d1a8}
+.engine-presets + .calculate{margin-top:20px}
+.calculate{margin-top:24px}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 24px}
+.metric{border-top:1px solid #46644d;padding-top:11px}
+.metric b{display:block;font-family:'Manrope',sans-serif;font-size:19px;font-weight:550;letter-spacing:-.4px;color:#f1f6e5}
+.metric span{display:block;font-size:9.5px;line-height:1.5;color:#b9c9ae;margin-top:4px}
+.metric i{display:block;font-size:9px;line-height:1.5;color:#8fa585;font-style:normal;margin-top:4px}
+.big-result .unit{font-size:15px;letter-spacing:0;color:#c4d1bb;margin-left:8px;font-family:'DM Sans',sans-serif}
+.engine-table{margin-top:24px;overflow-x:auto;border:1px solid #e1e3d7;border-radius:10px}
+.engine-table table{border-collapse:collapse;width:100%;font-size:12.5px}
+.engine-table th,.engine-table td{padding:12px 16px;text-align:left;border-bottom:1px solid #eceee4;white-space:nowrap}
+.engine-table th{background:#f5f6ee;font-weight:600;color:#3d4c36;font-size:11px;letter-spacing:.4px}
+.engine-table td:not(:first-child),.engine-table th:not(:first-child){text-align:right}
+.engine-table tbody tr:last-child td{border-bottom:0}
+@media(max-width:800px){.engine-fields{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.metric b{font-size:17px}.engine-table{font-size:11px}.engine-table th,.engine-table td{padding:9px 11px}}
+
+/* ---- hub index pages ------------------------------------------------------ */
+.hub-block{padding:34px 0 6px;border-top:1px solid #e3e7d8;margin-top:26px}
+.hub-block:first-child{border-top:0;margin-top:0}
+.hub-block h2{font-family:Manrope,sans-serif;font-size:23px;font-weight:550;letter-spacing:-.6px;margin:10px 0 6px}
+.hub-block .cluster-blurb{margin-bottom:16px}
+.seo-article .hub-grid{grid-template-columns:1fr 1fr 1fr}
+footer p a{text-decoration:underline}
+@media(max-width:1000px){.seo-article .hub-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.seo-article .hub-grid{grid-template-columns:1fr}.hub-block h2{font-size:20px}}

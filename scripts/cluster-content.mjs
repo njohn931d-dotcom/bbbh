@@ -20,6 +20,8 @@
 
 /** @typedef {{route:string,h1:string,title:string,desc:string,intent:'tool'|'guide',intro:string,formula:{name:string,expr:string,plain:string},assumptions?:string,caveat?:string,table:{head:string[],rows:string[][]},notes:string[],faqs:[string,string][],links:string[],related:string[],lang?:string,translationOf?:string,dir?:string}} ClusterEntry */
 
+import { SUITE_CONTENT } from './calculator-suite.mjs';
+
 const H = 'https://github.com/njohn931d-dotcom/bbbh';
 
 /** @type {ClusterEntry[]} */
@@ -1154,6 +1156,14 @@ export const CLUSTER_CONTENT = [
  * hreflang can be emitted as a valid reciprocal pair rather than a fan-out to
  * ten unrelated URLs.
  */
+/*
+ * The 18-day-one tools from calculator-suite.mjs are appended here rather than
+ * kept in their own registry. One content model means the sitemap, the hreflang
+ * map, the orphan check and the worked-example fingerprint test all see them
+ * without being taught about a second list.
+ */
+CLUSTER_CONTENT.push(...SUITE_CONTENT);
+
 export const LOCALE_CONTENT = [
   {
     route: 'guides/stundenlohn-rechner-deutschland-2026',

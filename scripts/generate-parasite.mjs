@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import { articleRoutes, articles as guideArticles } from './articles.mjs';
 import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } from './cluster-content.mjs';
+import { renderCalculator } from './calculator-engines.mjs';
+import { generateHubs, HUB_ROUTES } from './generate-hubs.mjs';
+import { siteFooter } from './tool-groups.mjs';
 
 /**
  * Renders the tool cluster: one page per route in cluster-content.mjs, each
@@ -31,8 +34,12 @@ const baseRoutes = seoRoutes;
  */
 export const extraRoutes = [...CLUSTER_ROUTES];
 
-/** Date the cluster content was last genuinely revised. */
-const CONTENT_UPDATED = '2026-09-27';
+/**
+ * Date the cluster content was last genuinely revised — not the build date.
+ * A sitemap that reports today's date on every deploy teaches a crawler to
+ * ignore lastmod entirely, so this only moves when the copy actually changes.
+ */
+const CONTENT_UPDATED = '2026-09-30';
 const CONTENT_PUBLISHED = '2026-01-15';
 
 export function generateParasiteSEO() {
@@ -152,6 +159,8 @@ export function generateParasiteSEO() {
   /** The full "every tool" list, collapsed behind a heading. */
   function renderAllTools() {
     return '<section class="seo-related"><h2>All ' + everyRoute.length + ' calculators and guides</h2><div>' +
+      '<a href="/calculators/">Browse all calculators <span>↗</span></a>' +
+      '<a href="/guides/">Browse all guides <span>↗</span></a>' +
       everyRoute.map(r => '<a href="/' + r + '/">' + escape(labelFor(r)) + ' <span>↗</span></a>').join('') +
       '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a>' +
       '</div></section>';
@@ -313,9 +322,22 @@ export function generateParasiteSEO() {
       '<div style="font-size:11px;color:#8a9a7a;margin-top:10px">Updated ' + CONTENT_UPDATED + ' · free, no sign-up</div>' +
       '</section>';
 
-    // Reuse the real interactive calculator section on tool pages only.
-    const calculator = p.isTool ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '';
-    const faqSection = p.isTool ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
+    /*
+     * The calculator on a tool page has to answer the question the page asks.
+     * `renderCalculator` returns the page's own engine (its own inputs, its own
+     * formula, its own worked table) and falls back to the shared cost-of-time
+     * widget only for a route that has no engine yet.
+     */
+    const engine = renderCalculator(p.route);
+    const calculator = engine || (p.isTool ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '');
+    /*
+     * No shared FAQ section here. Every entry in the content model carries its
+     * own questions, and those are already rendered in the body and declared in
+     * the FAQPage schema. Re-appending the homepage FAQ put English
+     * cost-of-time questions on the German and Japanese pages, and made the
+     * schema describe something other than what the page showed.
+     */
+    const faqSection = '';
 
     const body =
       '<article class="seo-article">' +
@@ -327,7 +349,15 @@ export function generateParasiteSEO() {
       renderFooter() +
       faqSection;
 
-    let html = base.replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + body + '</main>')
+    /*
+     * A real navigation. The template's own nav is a set of fragments that only
+     * mean anything on the homepage; on a deep page they sent the reader back
+     * to the top of a different page. The hub links below put the two browse
+     * pages in the header of all 160+ generated pages.
+     */
+    const pageNav = '<nav aria-label="Main navigation"><a href="/calculators/">Calculators</a><a href="/guides/">Guides</a><a href="/articles/">The money edit</a></nav>';
+    let html = base.replace(/<nav aria-label="Main navigation">[\s\S]*?<\/nav>/, pageNav)
+      .replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + body + '</main>')
       .replace('<body>', '<body data-mode="' + (p.isTool ? 'purchase' : '') + '">')
       .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"');
 
@@ -336,7 +366,9 @@ export function generateParasiteSEO() {
         .replace('<script type="module" src="/app.js"></script>', '');
     }
 
-    html = prefixInternalLinks(metadata(html, p));
+    // Footer first, prefix second: the footer's links are site-relative and
+    // would escape a project path if they were added after prefixing.
+    html = prefixInternalLinks(metadata(html, p).replace('</footer>', siteFooter() + '</footer>'));
 
     fs.mkdirSync(p.route, { recursive: true });
     // Note: no index.txt / index.json twins. They were near-duplicate URLs of
@@ -344,10 +376,20 @@ export function generateParasiteSEO() {
     fs.writeFileSync(p.route + '/index.html', html);
   }
 
+  // ------------------------------------------------------------------ hubs
+
+  /*
+   * /calculators/ and /guides/ are the browse entry points. They are built here
+   * rather than in a separate build step so that one command still produces the
+   * whole site — the test suite runs this file directly and expects every link
+   * the pages contain to resolve.
+   */
+  generateHubs();
+
   // ---------------------------------------------------------------- sitemap
 
   if (siteUrl) {
-    const allUrls = ['', ...baseRoutes, ...extraRoutes, ...articleRoutes];
+    const allUrls = ['', ...baseRoutes, ...extraRoutes, ...articleRoutes, ...HUB_ROUTES];
     const unique = [...new Set(allUrls)];
     const sitemap =
       '<?xml version="1.0" encoding="UTF-8"?>\n' +

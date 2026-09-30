@@ -12,6 +12,7 @@
  */
 import { extraRoutes } from './generate-parasite.mjs';
 import { routes, articleRoutes } from './generate-seo.mjs';
+import { HUB_ROUTES } from './generate-hubs.mjs';
 
-const all = new Set(['', ...routes, ...extraRoutes, ...articleRoutes]);
+const all = new Set(['', ...routes, ...extraRoutes, ...articleRoutes, ...HUB_ROUTES]);
 console.log(all.size);

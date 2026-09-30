@@ -125,7 +125,7 @@ jobs:
           test -f dist/feed.xml
           test -f dist/llms.txt
           test -f dist/ai.txt
-          echo "✓ dist verified: 133 URLs, 46 guides, 86 feed, 0 noindex, PWA ready"
+          echo "✓ dist verified: $expected URLs, $guides guide pages, $feeds feed items, 0 noindex, PWA ready"
 
       - name: Lighthouse & SEO Quick Check
         run: |
@@ -179,6 +179,6 @@ jobs:
         run: |
           echo "🎉 Worth deployed successfully!"
           echo "URL: https://njohn931d-dotcom.github.io/bbbh/"
-          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (133 URLs)"
+          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (every URL the build produced)"
           echo "PWA: manifest.json + 404.html + .nojekyll"
           echo "Discovery: robots.txt, feed.xml, llms.txt, ai.txt, humans.txt, security.txt"

@@ -1,7 +1,9 @@
 import fs from 'node:fs';
-import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome } from './cluster-content.mjs';
+import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome, getContent, REPO_URL } from './cluster-content.mjs';
 import vm from 'node:vm';
 import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
+import { renderCalculator, ENGINES } from './calculator-engines.mjs';
+import { GROUPS, siteFooter, HUB_ROUTES } from './tool-groups.mjs';
 export { articleRoutes };
 
 export const routes = [
@@ -55,6 +57,94 @@ export const routes = [
   'guides/true-cost-of-car',
   'guides/how-long-save-1000'
 ];
+
+/**
+ * Real questions, per tool page, rendered into the body and declared in the
+ * FAQPage schema. They replace two generic questions ("Is this calculator free
+ * and open source?" / "How is this calculation done?") that the build attached
+ * to all 46 pages while showing a homepage FAQ about the cost-of-time widget —
+ * so the markup described something the page did not say.
+ *
+ * The three perspective pages keep the homepage FAQ, which is on-topic for
+ * them. Everything else answers the question its own calculator asks.
+ */
+const TOOL_FAQS = {
+  'calculators/salary-to-hourly': [
+    ['How do you convert a salary to an hourly rate?', 'Divide the annual salary by the hours actually worked in the year. The standard divisor is 2,080 (40 hours × 52 weeks), but anyone with unpaid holiday or a different working week should enter their own hours and weeks above.'],
+    ['Why does the after-tax figure matter more?', 'Rent, food and everything else are paid from take-home pay, not gross. A salary converted at the gross rate overstates what an hour is worth to you, by roughly the effective tax rate.'],
+    ['Is a raise always worth changing jobs for?', 'Only if it beats the cost of the change: a longer commute, unpaid overtime, or a loss of pension match can absorb most of a headline increase. Put both offers through this calculator at your real hours.'],
+  ],
+  'calculators/hourly-to-salary': [
+    ['How many hours are in a working year?', 'A full-time year at 40 hours a week with no holiday is 2,080 hours. Everyone else is lower: 50 working weeks gives 2,000 hours, and a 35-hour week with six weeks off gives 1,610.'],
+    ['Does overtime get included in an annual salary?', 'Only if it is guaranteed. Regular overtime at 1.5× is included in the calculator above, because it is contractual in practice. Seasonal or discretionary overtime should be left out.'],
+    ['Why is my annual figure different from what my payslip shows?', 'Payslip totals are gross pay before tax. This calculator reports gross annual pay, so compare it with the gross line, not the amount that reaches your bank account.'],
+  ],
+  'calculators/freelance-rate': [
+    ['What is the freelance rate formula?', '(Income target + business costs) ÷ (1 − tax rate) ÷ billable hours. The tax division happens before the hourly division, because tax is charged on revenue, not on the money left after it.'],
+    ['How many billable hours is realistic?', 'Most freelancers bill between 20 and 30 hours in a 40-hour week; the rest goes to proposals, admin, invoicing and finding the next client. Assuming 40 billable hours is the fastest way to set a rate that loses money.'],
+    ['Should the rate change for short projects?', 'Yes. A two-day project carries the same sales and setup cost as a two-month one, so most freelancers add a minimum engagement or a short-notice premium rather than raising the headline rate.'],
+  ],
+  'calculators/cost-per-wear': [
+    ['How do you work out cost per wear?', 'Total cost of ownership ÷ number of wears. Include cleaning and repairs, not just the purchase price, and count the wears you will really make rather than the ones you imagine.'],
+    ['Is cost per wear a good reason to buy something expensive?', 'Only when the alternative is genuinely comparable. Cost per wear legitimises the jacket you wear constantly and equally legitimises a purchase you would never otherwise have considered, so use it to compare two real options, not to justify one.'],
+    ['What is a good cost per wear?', 'There is no universal target, but under $1 is the common benchmark for clothing, and frequency of use matters far more than price. A $300 coat worn a hundred times a year beats a $60 one worn twice.'],
+  ],
+  'calculators/cost-per-use': [
+    ['How is cost per use calculated?', '(Purchase price + upkeep × years) ÷ total uses over the same period. Upkeep is included because maintenance is part of what the item costs you to own.'],
+    ['When is cost per use the wrong question?', 'When the two options are not interchangeable — a cheap tool you replace yearly and an expensive one you keep for a decade have different risks, availability and resale value. The number is a starting point, not a verdict.'],
+    ['Should resale value be included?', 'If you sell it, subtract the resale value from the purchase price before dividing. That turns cost per use into cost per use after recovery, which is the honest figure for anything with a resale market.'],
+  ],
+  'calculators/overtime-pay': [
+    ['How is time and a half calculated?', 'Multiply the regular hourly rate by 1.5, then multiply by the overtime hours. At $20 an hour, overtime is $30 an hour, so ten overtime hours pay $300 rather than $200.'],
+    ['Is overtime taxed at a higher rate?', 'No. Overtime is taxed at your marginal rate like any other pay. It can push part of your income into a higher bracket and change the withholding on a given payslip, but the rate applied to the extra hours is not higher by law.'],
+    ['Can an employer pay overtime as time off instead?', 'In some jurisdictions, yes, and the rate depends on the rules that apply to you. Compare the time off at its cash value against the premium before accepting it.'],
+  ],
+  'calculators/after-tax-income': [
+    ['What is the difference between gross and net pay?', 'Gross pay is the number in the offer letter. Net pay is what arrives after income tax, payroll tax and any pre-tax deductions — typically 65% to 80% of gross, depending on where you live.'],
+    ['Do pre-tax deductions lower my tax bill?', 'Yes. Retirement contributions and some insurance premiums come out before income tax is calculated, so a $4,000 contribution costs less than $4,000 in take-home pay.'],
+    ['Why does my take-home differ from an online estimate?', 'Brackets are progressive, credits are personal, and local taxes vary by city. The percentages above are a flat approximation, which is accurate for planning and not accurate for a tax return.'],
+  ],
+  'calculators/commute-cost': [
+    ['How much does commuting really cost?', 'Multiply your round-trip distance by the days you commute and by a per-mile rate. Fuel is only about a third of the total; the rest is wear, tyres, insurance, depreciation and, on long commutes, the value of your time.'],
+    ['Should commuting time count as working time?', 'Not legally in most places, but it is a real cost of the job. Valuing it at your take-home hourly rate turns a 70-minute daily round trip into a four-figure annual figure.'],
+    ['What per-mile rate should I use?', 'A rate in the range of the standard mileage deduction is the usual choice, because it covers fuel, maintenance and depreciation together. Using only the petrol price understates the cost by roughly half.'],
+  ],
+  'calculators/latte-factor': [
+    ['What is the latte factor?', 'The idea that small, frequent purchases become large sums over time, usually illustrated by investing the money instead. The arithmetic is sound; the assumption that you would invest it is the weak point.'],
+    ['Is the latte factor real advice?', 'It is better as perspective than as a budget rule. Cutting a habit you enjoy rarely sticks, while cancelling something you do not use saves the same money with no sacrifice.'],
+    ['What return should I assume?', 'Use a conservative long-run rate and remember it is not guaranteed. The calculator compounds monthly, which is why the invested column is larger than the money spent.'],
+  ],
+  'calculators/gym-cost-per-visit': [
+    ['Is a gym membership worth it at this cost per visit?', 'Compare it with the drop-in price for the same visits. Below the break-even visit count, paying per visit is cheaper, and above it the membership wins.'],
+    ['How do joining fees change the sum?', 'They are charged once a year but forgotten in most comparisons. Dividing them by twelve gives the effective monthly cost, which is usually a few dollars higher than the advertised price.'],
+    ['What counts as a good cost per visit?', 'Under $10 is the common benchmark for a gym. That is roughly four visits a month on a $45 membership, and the number of visits is the only variable you control.'],
+  ],
+  'calculators/streaming-cost': [
+    ['How much do streaming services cost a year?', 'Add the monthly prices and multiply by twelve. Five services at an average of $15 is $900 a year, which is why the annual figure is the useful one.'],
+    ['Is it cheaper to rotate subscriptions?', 'Almost always, if you are happy to wait for a series to finish. Paying $15 for one month of a show costs less than holding three services for a year to catch it on release.'],
+    ['Do annual plans save money on streaming?', 'Many services price an annual plan at about ten months of the monthly price, a saving of roughly 16%. It only pays if you keep the service for the full year.'],
+  ],
+  'calculators/car-ownership-cost': [
+    ['What is the biggest cost of owning a car?', 'Depreciation. For most new cars it is the largest single cost over the first five years, and it is invisible because nothing is invoiced and no money leaves your account.'],
+    ['How much does a car cost per month?', 'Divide the total of depreciation, insurance, fuel, servicing, tyres, tax and parking by the number of months. The monthly payment on a car loan covers only the smallest part of the purchase cost.'],
+    ['Is it cheaper to keep an older car?', 'Usually yes, because the steepest depreciation has already happened. Rising maintenance can change that, so compare the annual repair bill with a year of depreciation on a replacement.'],
+  ],
+  'calculators/time-to-save': [
+    ['How long will it take to save this amount?', 'Divide the remaining amount by the monthly figure, then allow for interest. Interest shortens the deadline slightly, and the effect is small for goals under a year.'],
+    ['Should I use a savings account or invest it?', 'For a goal under about five years, a savings account is the honest answer: the return is smaller but the money is there when you need it. Investments can fall just before you withdraw.'],
+    ['What if I miss a month?', 'The deadline moves by one month for every missed payment, and the interest effect compounds the delay. Adding a buffer to the monthly figure is more resilient than assuming perfect saving.'],
+  ],
+  'calculators/paycheck-breakdown': [
+    ['Gross pay vs net pay: what is the difference?', 'Gross pay is what you earned. Net pay is what you keep after income tax, payroll tax, retirement contributions and insurance premiums are withheld.'],
+    ['Why do two paychecks in the same month differ?', 'Pay periods do not align with calendar months, and withholding is calculated per period. Bonus months, overtime and changes to your deductions all shift a single paycheck.'],
+    ['Are retirement contributions taken before tax?', 'Traditional contributions are, which lowers taxable income and therefore the tax withheld. Roth contributions are taken after tax, so they lower take-home pay without lowering the tax bill.'],
+  ],
+  'calculators/buy-vs-rent-hourly': [
+    ['Should I buy or rent this item?', 'Buy when you will use it more often than the break-even count and the resale value holds. Rent when the use is occasional, because renting carries no storage, maintenance or resale risk.'],
+    ['What is the break-even number of uses?', '(Purchase price − resale value) ÷ (rental price × years). Above that number of uses per year, buying is cheaper on pure arithmetic.'],
+    ['What does the calculation leave out?', 'Storage space, maintenance, the time spent selling it later, and the risk that you use it less than planned. For anything used once or twice a year, those usually decide the answer.'],
+  ],
+};
 
 export function generateSEO() {
 const raw = process.env.SITE_URL;
@@ -877,7 +967,16 @@ ${githubCTA('save $1000 guide')}
 }
 ];
 
-const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
+const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div><a href="/calculators/">Browse all calculators <span>↗</span></a><a href="/guides/">Browse all guides <span>↗</span></a>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
+
+/*
+ * A homepage directory. The homepage used to be a single calculator and a link
+ * list, which gave a crawler no way to see the shape of the site and gave a
+ * visitor no way to browse. This is the same grouping the /calculators/ index
+ * uses, rendered compactly, so the two can never disagree.
+ */
+const homeLabel=route=>{const d=data.find(p=>p.route===route); if(d)return d.name; const c=getContent(route); return c?c.h1:route.split('/').pop().replace(/-/g,' ');};
+const homeDirectory=`<section class="seo-related cluster-link" id="directory"><div class="section-label">EVERY TOOL ON THE SITE</div><h2>Browse by what you are trying to work out</h2><p class="cluster-blurb">Every calculator is free, runs in your browser and shows its formula, its assumptions and its worked examples on the page.</p><div class="hub-grid">${GROUPS.map(g=>{const list=g.routes.filter(r=>data.some(p=>p.route===r)||getContent(r)); return `<a class="hub-card" href="/calculators/"><span class="hub-kicker">${list.length} TOOLS</span><h3>${escape(g.name)}</h3><p>${escape(g.blurb)}</p><span class="hub-more">${list.slice(0,3).map(r=>escape(homeLabel(r))).join(' · ')} <span>→</span></span></a>`;}).join('')}</div><p class="cluster-blurb">Prefer reading? <a href="/guides/"><strong>Browse all ${[...routes,...extraRoutesForHome].filter(r=>r.startsWith('guides/')).length} guides</strong></a> or the <a href="/articles/"><strong>${guideArticles.length} long-form articles</strong></a>.</p></section>`;
 // Five collections of eight guides each, written as Markdown in content/articles/ and rendered to static HTML.
 const guidesHub=`<section class="seo-related cluster-link" id="guides"><div class="section-label">THE MONEY EDIT</div><h2>${guideArticles.length} free guides to what things really cost</h2><p class="cluster-blurb">Short, practical answers built on one question: what does this cost me in hours of work? Every guide shows the arithmetic and the assumptions behind it.</p><div class="hub-grid">${guideClusters.map(c=>`<a class="hub-card" href="/articles/${c.slug}/"><span class="hub-kicker">${escape(c.label)}</span><h3>${escape(c.name)}</h3><p>${escape(c.blurb)}</p><span class="hub-more">${guideArticles.filter(a=>a.cluster===c.slug).length} guides <span>→</span></span></a>`).join('')}</div></section>`;
 
@@ -899,7 +998,8 @@ if(p.route){
   if(siteUrl){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=url;}
   graph.push(bc);
 }
-graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
+const schemaFaqs=TOOL_FAQS[p.route];
+if(schemaFaqs){graph.push({'@type':'FAQPage','mainEntity':schemaFaqs.map(([q,a])=>({'@type':'Question','name':q,'acceptedAnswer':{'@type':'Answer','text':a}}))});}
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
 /**
@@ -927,17 +1027,30 @@ return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(u
 }
 
 for(const p of data){
+const pageNav=`<nav aria-label="Main navigation"><a href="/calculators/">Calculators</a><a href="/guides/">Guides</a><a href="/articles/">The money edit</a></nav>`;
 const crumb=`<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>${escape(p.name)}</span></nav>`;
 const hero=`${crumb}<section class="seo-hero"><div class="eyebrow">${p.mode?'FREE MONEY CALCULATOR - OPEN SOURCE ON GITHUB':'THE MONEY EDIT - GITHUB OPEN SOURCE'}</div><h1>${escape(p.name)}</h1>${p.intro?`<p>${p.intro}</p>`:''}</section>`;
+/*
+ * The widget. A route with its own engine gets that engine — its own inputs,
+ * formula and worked table. The perspective pages (cost of time, subscriptions,
+ * daily savings) fall back to the homepage widget, whose mode tabs are exactly
+ * what those pages are about, and keep the homepage FAQ, which matches them.
+ */
+const engine=renderCalculator(p.route);
+const toolFaqs=TOOL_FAQS[p.route];
 let calculator=p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
-if(p.mode && p.mode!=='purchase'){
+if(engine) calculator=engine;
+else if(p.mode && p.mode!=='purchase'){
  const sub=p.mode==='subscription';
  calculator=calculator.replace('Is it worth your time?',sub?'Small monthly. Big yearly.':'Little habits. More possibility.').replace('That price tag has a story. Let’s put it in hours.',sub?'See what a recurring charge really adds up to.':'What could one small daily change free up?').replace('How much does it cost?',sub?'Monthly subscription cost':'Daily amount to set aside').replace('value="150"',sub?'value="15"':'value="5"').replace('id="cost-suffix">USD','id="cost-suffix">'+(sub?'/ mo':'/ day')).replace('That purchase costs you',sub?'That subscription costs you each year':'That daily habit could free up').replace('id="hours">6',sub?'id="hours">7.2':'id="hours">$1,825').replace('id="unit">hours',sub?'id="unit">hours':'id="unit">/ year').replace('of your working life.',sub?'of your working life.':'equivalent to 73 hours of your working life.').replace('¾ of a workday',sub?'7.2 of 8 working hours':'9.1 workdays').replace('Not good. Not bad. Just perspective.<br>Only you can decide if it’s worth it.',sub?'$15 a month is $180 a year. If it adds value to your life, it might be time well spent.':'$5 a day, for 365 days. No investment returns assumed—just a small change adding up.').replace('aria-selected="true" data-mode="purchase"','aria-selected="false" data-mode="purchase"').replace('aria-selected="false" data-mode="'+p.mode+'"','aria-selected="true" data-mode="'+p.mode+'"');
 }
-const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
-let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
+const pageFaqs=toolFaqs?`<section class="faq"><div class="section-label">QUESTIONS ABOUT THIS CALCULATION</div><h2>Good questions.</h2>${toolFaqs.map(([q,a])=>`<details><summary>${escape(q)}<span>+</span></summary><p>${escape(a)}</p></details>`).join('')}</section>`:(p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'');
+let html=base.replace(/<nav aria-label="Main navigation">[\s\S]*?<\/nav>/,pageNav).replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${pageFaqs}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
 if(!p.mode)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
-html=prefixInternalLinks(metadata(html,p));
+// The footer links are site-relative, so they must exist before the project
+// path is applied; prefixing after this point would leave them pointing at the
+// domain root instead of /bbbh/.
+html=prefixInternalLinks(metadata(html,p).replace('</footer>',siteFooter()+'</footer>'));
 fs.mkdirSync(p.route,{recursive:true});
 fs.writeFileSync(p.route+'/index.html',html);
 }
@@ -945,10 +1058,13 @@ fs.writeFileSync(p.route+'/index.html',html);
 // Counts are derived from the route lists so the homepage cannot advertise a
 // number that has drifted away from what the site actually serves.
 const toolCount=[...routes,...extraRoutesForHome].filter(r=>r.startsWith('calculators/')||r.startsWith('guides/')).length;
-let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',
+let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',homeDirectory+guidesHub+links),{name:'Worth Money Calculators',
   title:'Free Money Calculators: Work Hours, Cost & Savings | Worth',
   description:`${toolCount} free money calculators and guides: salary to hourly, mortgage, compound interest, subscription audit and more. Runs in your browser, no sign-up, open source.`}));
 fs.mkdirSync('.generated',{recursive:true});
+// The homepage is the one page where a fragment nav is right, so the hubs are
+// surfaced in the footer instead of replacing it.
+home=home.replace('</footer>','<p><a href="/calculators/">All calculators</a> · <a href="/guides/">All guides</a> · <a href="/articles/">The money edit</a> · <a href="'+REPO_URL+'" rel="noopener">Source on GitHub</a></p></footer>');
 fs.writeFileSync('.generated/home.html',home);
 // Guide pages, cluster hubs and the guides index are generated from content/articles/*.md.
 generateArticles({ template: base, origin, basePath });
@@ -984,23 +1100,36 @@ if(siteUrl) {
 } 
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub
+/*
+ * llms.txt / ai.txt.
+ *
+ * The previous version listed only the 46 hand-written routes, so the 67
+ * cluster calculators and 40 guides were invisible to an assistant reading the
+ * file — the opposite of the point. This walks the whole content model, so a
+ * page that exists is a page that is listed, and the numbers in the headers are
+ * counted rather than typed.
+ */
+const routeName = r => {const d=data.find(x=>x.route===r); const c=getContent(r); return d?d.name:(c?c.h1:r.split('/').pop().replace(/-/g,' '));};
+const routeDesc = r => {const d=data.find(x=>x.route===r); const c=getContent(r); return d?d.description:(c?c.desc:'');};
+const allRoutes = [...new Set([...routes, ...extraRoutesForHome, ...articleRoutes, ...HUB_ROUTES])];
+const byPrefix = p => allRoutes.filter(r=>r.startsWith(p));
+const HUB_NAMES = {calculators:'All calculators (browse by topic)', guides:'All guides', about:'About Worth and how it is funded', methodology:'How the numbers are made and checked', privacy:'What happens to what you type'};
+const bullet = r => `- ${siteUrl||'https://worth.example'}/${r}/ - ${HUB_NAMES[r]||routeName(r)}${routeDesc(r)&&!HUB_NAMES[r]?' - '+routeDesc(r):''}`;
+
 const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
-> 46 free calculators and guides. Private, browser-only, no sign-up. MIT licensed on GitHub.
+> ${byPrefix('calculators/').length} free calculators, ${byPrefix('guides/').length} practical guides and ${articleRoutes.length} long-form articles. Private, browser-only, no sign-up. MIT licensed on GitHub.
 
 ## What is Worth?
-Worth converts money to time. How many work hours does a purchase cost? Free calculators for salary to hourly, freelance rate, cost per wear, latte factor, overtime, subscription audit. Open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
+Worth converts money to time: how many hours of work a purchase costs. It also covers pay, borrowing, saving, housing, transport and everyday spending with one formula per page, the assumptions stated, and a working calculator that runs entirely in the browser. Open source: ${REPO_URL}
 
-## Calculators (18)
-${routes.filter(r=>r.startsWith('calculators/')).map(r=>{
-  const d=data.find(x=>x.route===r);
-  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
-}).join('\n')}
+## Start here
+${HUB_ROUTES.map(bullet).join('\n')}
 
-## Guides (28)
-${routes.filter(r=>r.startsWith('guides/')).map(r=>{
-  const d=data.find(x=>x.route===r);
-  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
-}).join('\n')}
+## Calculators (${byPrefix('calculators/').length})
+${byPrefix('calculators/').map(bullet).join('\n')}
+
+## Guides (${byPrefix('guides/').length})
+${byPrefix('guides/').map(bullet).join('\n')}
 
 ## Developer Cheatsheets & Architecture Guides
 - https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/awesome-developer-cheatsheets.md - Awesome Developer Cheatsheets (Git, Docker, Linux, Regex, SQL, Web Performance)
@@ -1010,14 +1139,17 @@ ${routes.filter(r=>r.startsWith('guides/')).map(r=>{
 - https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/fire-financial-independence-retire-early.md - FIRE Calculator & Handbook (4% rule math, Coast FIRE, Lean vs Fat FIRE, Savings rate)
 - https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/open-source-finance-tools-directory.md - Awesome Open-Source Finance Directory (50+ privacy-first personal wealth & budgeting tools)
 
+## How the numbers are produced
+Every calculator states its formula, its assumptions and its limits on the page. The printed figure and the interactive widget are produced by the same function, so they cannot disagree. Limits and corrections: ${siteUrl||'https://worth.example'}/methodology/
+
 ## GitHub SEO
-All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
+All calculators open source on GitHub. Markdown mirrors live in /articles/ for developer-focused queries.
 
 ## Keywords
-${data.map(d=>d.name.toLowerCase()).join(', ')}, open source, github, calculator, money, personal finance
+${[...new Set([...data.map(d=>d.name.toLowerCase()), ...extraRoutesForHome.map(routeName).map(n=>n.toLowerCase())])].join(', ')}, open source, github, calculator, money, personal finance
 
 ## Cite as
-Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
+Worth - ${REPO_URL} - Free money calculators, open source on GitHub
 `;
 if(siteUrl){
   const llmsWithGuides = llmsContent + '\n' + articleLlmsLines(origin, basePath).join('\n');

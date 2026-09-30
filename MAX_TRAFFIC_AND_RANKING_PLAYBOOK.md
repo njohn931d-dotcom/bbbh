@@ -225,3 +225,64 @@ npm run seo:audit        # Audits dist/ for duplicate bodies, broken links, titl
 - **Tests:** 31 passing (zero failures).
 - **SEO Audit:** 142 pages inspected — **0 errors, 0 warnings**.
 - **Deterministic Builds:** Two consecutive runs produce byte-identical output.
+
+---
+
+## 10. Shipped in the 2026-09-30 pass
+
+The strategy above was mostly aspiration: 142 pages existed, but every one of
+the 53 "calculator" pages shipped the *same* cost-of-time widget with the same
+`$150 / $25` defaults, and the collection had no index page at all. What changed:
+
+### 10.1 One real calculator per page (`scripts/calculator-engines.mjs`)
+- 71 routes now have their own engine: their own inputs, formula, formatted
+  outputs and worked table. A mortgage page amortises a mortgage; a 401(k) page
+  projects a balance; a tip page splits a bill.
+- The maths is one pure function per engine. It is serialised into the page with
+  `Function.prototype.toString()`, so the number printed in the HTML and the
+  number the browser produces come from the same source and cannot drift.
+- Every result is server-rendered before the script runs, so the page is useful
+  to a crawler, a reader with JavaScript disabled, and a reader on a slow phone.
+- `node scripts/calculator-engines.mjs` prints coverage and fails if an engine
+  produces no result.
+
+### 10.2 Eighteen new high-demand calculators
+Tip, sales tax, percent-off, debt snowball vs avalanche, rent affordability, gas,
+unit price, 50/30/20 budget, profit margin, ROI, bonus tax, emergency fund,
+401(k), moving cost, pet cost, electricity, down payment and APY. Each ships
+with a unique title, description, formula, worked table and three FAQs.
+
+### 10.3 Browse hubs and a real homepage directory
+- `/calculators/` and `/guides/` index every page by topic with `ItemList`
+  markup. They are linked from the header and footer of all 165 pages, so the
+  internal-link graph no longer depends on one alphabetical block.
+- The homepage gained a directory grouped the same way, from the same
+  `scripts/tool-groups.mjs` list, so the two can never disagree.
+
+### 10.4 E-E-A-T pages
+`/about/`, `/methodology/` and `/privacy/` — who builds the site, how each figure
+is produced and checked, and what happens to what you type. For money queries,
+"who says this and why should I believe them" is a ranking input, not decoration.
+
+### 10.5 Crawl hygiene
+- The FAQPage schema now describes questions that are actually visible on the
+  page. It previously declared two generic questions on all 46 pages while the
+  page showed a homepage FAQ about a different calculator.
+- `dist/404.html` is a real 404 (`noindex`, no canonical) rather than a
+  byte-identical copy of the homepage that GitHub Pages served at every unknown
+  URL.
+- `llms.txt` and `ai.txt` went from 46 listed URLs to 118, now covering the
+  cluster calculators, the guides and the site pages.
+- `lastmod` in the sitemap only moves when the copy actually changes.
+
+### 10.6 What is still open
+- **A real domain.** The canonical host is `njohn931d-dotcom.github.io`. A
+  custom domain is the single highest-leverage remaining change; nothing in the
+  build prevents it, `SITE_URL` already handles an origin root.
+- **Search Console data.** Titles and descriptions should be rewritten from
+  impressions-and-no-clicks queries once there is data. Do not guess twice.
+- **A second language pass.** Ten locales exist; the same engine architecture
+  makes adding more a content task rather than a code task.
+- **Distribution.** The Dev.to pipeline is built but publishing needs
+  `DEVTO_API_KEY`; the launch posts (Hacker News, Reddit, awesome-lists) are
+  written but not submitted.
