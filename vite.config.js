@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { resolve } from 'node:path';
 import { generateSEO, routes as mainRoutes, articleRoutes } from './scripts/generate-seo.mjs';
 import { generateParasiteSEO, extraRoutes } from './scripts/generate-parasite.mjs';
+import { buildEmbedPages } from './scripts/build-embed.mjs';
 
 const rawSiteURL = process.env.SITE_URL;
 const base = rawSiteURL ? `${new URL(rawSiteURL).pathname.replace(/\/$/,'')}/` : '/';
@@ -41,6 +42,19 @@ export default defineConfig({
             // 404 page should still be indexable for GitHub Pages SPA pattern, but add meta
             fs.writeFileSync(dist404, html404);
             console.log('✓ Generated dist/404.html for GitHub Pages SPA fallback');
+          }
+          // Embeddable widgets: dist/embed/<tool>/ + the /embed/ gallery.
+          // Built from the finished pages so a widget can never disagree with
+          // the tool it mirrors, and given the same base path as the site.
+          try {
+            const tools = buildEmbedPages(resolve('dist'), {
+              siteUrl: rawSiteURL ? rawSiteURL.replace(/\/$/, '') : '',
+              base
+            });
+            console.log(`\u2713 Built ${tools.length} embeddable widget pages under ${base}embed/`);
+          } catch (e) {
+            console.error('Embed build failed:', e.message);
+            process.exitCode = 1;
           }
           // Ensure .nojekyll exists in dist
           const nojekyll = resolve('dist/.nojekyll');

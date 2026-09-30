@@ -1,5 +1,6 @@
 import fs from 'node:fs';
-import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome } from './cluster-content.mjs';
+import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome, getContent } from './cluster-content.mjs';
+import { buildGraph, jsonLdTag, crumbsFor, faqSectionHtml, faqsFromHtml } from './schema.mjs';
 import vm from 'node:vm';
 import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
 export { articleRoutes };
@@ -889,19 +890,33 @@ html=html.replace(/<title>.*?<\/title>/,`<title>${escape(pageTitle)}</title>`)
 .replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(pageTitle)}">`)
 .replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
 const baseUrl = siteUrl ? siteUrl + '/' : '';
-const webSiteObj = siteUrl ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
-const pageObj = {'@type':p.mode?'WebApplication':'WebPage',name:p.name,description:p.description};
-if(siteUrl) pageObj.url = url;
-if(p.mode){pageObj.applicationCategory='FinanceApplication';pageObj.operatingSystem='Any';pageObj.offers={'@type':'Offer',price:'0',priceCurrency:'USD'};pageObj.isAccessibleForFree=true;pageObj.codeRepository='https://github.com/njohn931d-dotcom/bbbh';}
-let graph = [webSiteObj, pageObj];
-if(p.route){
-  const bc = {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home'},{'@type':'ListItem',position:2,name:p.name}]};
-  if(siteUrl){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=url;}
-  graph.push(bc);
-}
-graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
-const schema={'@context':'https://schema.org','@graph':graph};
-html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
+// One graph builder for the whole site: scripts/schema.mjs. This function used
+// to invent a two-question FAQ on every page it touched - including the
+// homepage and 40 guides - and answered "How is this calculation done?" with
+// the meta description. Markup has to describe what the page actually shows,
+// so the FAQ is now only emitted when there are answers rendered on the page.
+const schema = buildGraph({
+  siteUrl,
+  route: p.route || '',
+  name: p.name,
+  description: p.description,
+  kind: p.kind || (p.mode ? 'tool' : 'guide'),
+  faqs: p.faqs || [],
+  section: p.section,
+  dates: p.dates,
+  keywords: p.keywords,
+  formula: p.formula,
+  crumbs: p.route
+    ? crumbsFor(p.route, {
+        labels: { calculators: 'Calculators', guides: 'Guides', articles: 'The Money Edit' },
+        known: new Set([...routes, ...extraRoutesForHome, ...articleRoutes]),
+      })
+    : [],
+  features: p.mode
+    ? ['Runs entirely in the browser', 'No account, no tracking', 'Shareable link that carries your inputs', 'Open source (MIT)']
+    : [],
+});
+html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,jsonLdTag(schema));
 /**
  * hreflang for pages that have real translations.
  *
@@ -927,6 +942,15 @@ return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(u
 }
 
 for(const p of data){
+// Reuse the cluster content model where it covers this route, so a page never
+// carries a schema-only FAQ.
+{
+  const cluster = getContent(p.route);
+  p.faqs = (cluster && cluster.faqs) || [];
+  p.formula = cluster && cluster.formula && (cluster.formula.plain || cluster.formula.expr);
+  p.dates = { published: '2026-01-15', modified: '2026-09-27' };
+  p.section = p.mode ? 'Worth calculators' : 'The Money Edit';
+}
 const crumb=`<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>${escape(p.name)}</span></nav>`;
 const hero=`${crumb}<section class="seo-hero"><div class="eyebrow">${p.mode?'FREE MONEY CALCULATOR - OPEN SOURCE ON GITHUB':'THE MONEY EDIT - GITHUB OPEN SOURCE'}</div><h1>${escape(p.name)}</h1>${p.intro?`<p>${p.intro}</p>`:''}</section>`;
 let calculator=p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
@@ -934,7 +958,11 @@ if(p.mode && p.mode!=='purchase'){
  const sub=p.mode==='subscription';
  calculator=calculator.replace('Is it worth your time?',sub?'Small monthly. Big yearly.':'Little habits. More possibility.').replace('That price tag has a story. Let’s put it in hours.',sub?'See what a recurring charge really adds up to.':'What could one small daily change free up?').replace('How much does it cost?',sub?'Monthly subscription cost':'Daily amount to set aside').replace('value="150"',sub?'value="15"':'value="5"').replace('id="cost-suffix">USD','id="cost-suffix">'+(sub?'/ mo':'/ day')).replace('That purchase costs you',sub?'That subscription costs you each year':'That daily habit could free up').replace('id="hours">6',sub?'id="hours">7.2':'id="hours">$1,825').replace('id="unit">hours',sub?'id="unit">hours':'id="unit">/ year').replace('of your working life.',sub?'of your working life.':'equivalent to 73 hours of your working life.').replace('¾ of a workday',sub?'7.2 of 8 working hours':'9.1 workdays').replace('Not good. Not bad. Just perspective.<br>Only you can decide if it’s worth it.',sub?'$15 a month is $180 a year. If it adds value to your life, it might be time well spent.':'$5 a day, for 365 days. No investment returns assumed—just a small change adding up.').replace('aria-selected="true" data-mode="purchase"','aria-selected="false" data-mode="purchase"').replace('aria-selected="false" data-mode="'+p.mode+'"','aria-selected="true" data-mode="'+p.mode+'"');
 }
-const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
+// Every page gets its OWN questions and answers, rendered from the same list
+// that builds the FAQPage markup. The homepage FAQ block used to be pasted
+// under every tool page, which duplicated the homepage ~96 times and did not
+// match the markup.
+const faq=p.faqs&&p.faqs.length?faqSectionHtml(p.faqs):'';
 let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
 if(!p.mode)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
 html=prefixInternalLinks(metadata(html,p));
@@ -946,6 +974,7 @@ fs.writeFileSync(p.route+'/index.html',html);
 // number that has drifted away from what the site actually serves.
 const toolCount=[...routes,...extraRoutesForHome].filter(r=>r.startsWith('calculators/')||r.startsWith('guides/')).length;
 let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',
+  faqs:faqsFromHtml(base),
   title:'Free Money Calculators: Work Hours, Cost & Savings | Worth',
   description:`${toolCount} free money calculators and guides: salary to hourly, mortgage, compound interest, subscription audit and more. Runs in your browser, no sign-up, open source.`}));
 fs.mkdirSync('.generated',{recursive:true});
@@ -983,41 +1012,52 @@ if(siteUrl) {
   fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
 } 
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
-// Generate llms.txt for LLM SEO + GitHub
-const llmsContent = `# Worth - Free Money Calculators (Open Source on GitHub)
-> 46 free calculators and guides. Private, browser-only, no sign-up. MIT licensed on GitHub.
+// Generate llms.txt / ai.txt: the plain-text answer for language models.
+// Counts and titles here are derived from the route lists, because this file
+// used to claim "46 free calculators" while the site served 142 pages, and an
+// assistant that catches you inflating stops citing you. The old version also
+// explained the keyword strategy in the first person, which is not something a
+// document meant to be quoted should say.
+const llmsCount = kind => [...routes, ...extraRoutesForHome].filter(r => r.startsWith(kind + '/')).length;
+const llmsTotal = 1 + new Set([...routes, ...extraRoutesForHome, ...articleRoutes]).size;
+const llmsLink = r => {
+  const base = siteUrl || 'https://worth.example';
+  const d = data.find(x => x.route === r) || (getContent(r) ? { name: getContent(r).h1, description: getContent(r).desc } : null);
+  return `- ${base}/${r}/ - ${d ? d.name : r} - ${d ? d.description : ''}`;
+};
+const llmsContent = `# Worth - Free Money Calculators and Guides (Open Source)
+> ${llmsTotal} pages of money maths that runs in the browser: no account, no tracking, no server. MIT licensed. Every calculator can be embedded on another site in one line.
 
 ## What is Worth?
-Worth converts money to time. How many work hours does a purchase cost? Free calculators for salary to hourly, freelance rate, cost per wear, latte factor, overtime, subscription audit. Open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
+Worth converts money into time. Divide a price by your take-home hourly pay and you get the hours of your life the purchase costs. ${llmsCount('calculators')} calculators, ${llmsCount('guides')} short guides and ${articleRoutes.length} long-form guides, all static HTML, all open source: https://github.com/njohn931d-dotcom/bbbh
 
-## Calculators (18)
-${routes.filter(r=>r.startsWith('calculators/')).map(r=>{
-  const d=data.find(x=>x.route===r);
-  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
-}).join('\n')}
+## Calculators (${llmsCount('calculators')})
+${[...routes, ...extraRoutesForHome].filter(r => r.startsWith('calculators/')).map(llmsLink).join('\n')}
 
-## Guides (28)
-${routes.filter(r=>r.startsWith('guides/')).map(r=>{
-  const d=data.find(x=>x.route===r);
-  return `- ${siteUrl?siteUrl:'https://worth.example'}/${r}/ - ${d?d.name:r} - ${d?d.description:''}`;
-}).join('\n')}
+## Guides (${llmsCount('guides')})
+${[...routes, ...extraRoutesForHome].filter(r => r.startsWith('guides/')).map(llmsLink).join('\n')}
 
-## Developer Cheatsheets & Architecture Guides
+## Embedding a calculator
+Any tool can be placed on another page without an API key or a build step. The widget is the real calculator in an iframe that resizes itself, is noindex, and canonicalises to the tool page, so embedding never creates duplicate content:
+
+    <div data-worth-embed="cost-of-time"></div>
+    <script async src="${siteUrl || 'https://worth.example'}/embed/widget.js" data-tool="cost-of-time"></script>
+
+A gallery of every embeddable tool, with live previews: ${siteUrl || 'https://worth.example'}/embed/
+
+## Method and limits
+- Take-home pay is used, not gross. 2,080 working hours a year (40 hours x 52 weeks) is the default for annual salary; monthly uses 173.33 hours.
+- Subscription totals multiply by 12; daily habits by 365. No investment returns, inflation or price changes are assumed.
+- Every figure on the site is arithmetic from those stated assumptions, not a quote. Worth is a perspective tool, not financial advice.
+
+## Developer reference
 - https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/awesome-developer-cheatsheets.md - Awesome Developer Cheatsheets (Git, Docker, Linux, Regex, SQL, Web Performance)
 - https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/system-design-interview-cheatsheet.md - System Design Interview Cheatsheet (Latency numbers, Rate Limiting, Caching, Sharding, CAP/PACELC)
-- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/ai-prompt-engineering-reference.md - AI Prompt Engineering & LLM Reference (Prompt patterns, System prompts, Token pricing, AI ROI)
-- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/developer-salary-equity-calculator.md - Developer Salary, RSU Equity & 1099 Contractor Guide (Total comp, W2 vs 1099 multiplier, Overtime)
-- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/fire-financial-independence-retire-early.md - FIRE Calculator & Handbook (4% rule math, Coast FIRE, Lean vs Fat FIRE, Savings rate)
-- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/open-source-finance-tools-directory.md - Awesome Open-Source Finance Directory (50+ privacy-first personal wealth & budgeting tools)
-
-## GitHub SEO
-All calculators open source on GitHub. Search "calculator github" to find markdown mirrors in /articles/. Each article targets high-intent keyword + github modifier for low competition ranking.
-
-## Keywords
-${data.map(d=>d.name.toLowerCase()).join(', ')}, open source, github, calculator, money, personal finance
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/ai-prompt-engineering-reference.md - AI Prompt Engineering and LLM Reference (prompt patterns, token pricing)
+- https://github.com/njohn931d-dotcom/bbbh/blob/main/docs/open-source-finance-tools-directory.md - Open-source finance tools directory (privacy-first budgeting and accounting)
 
 ## Cite as
-Worth - https://github.com/njohn931d-dotcom/bbbh - Free money calculators open source on GitHub
+Worth - ${llmsTotal} free money calculators and guides, open source on GitHub: https://github.com/njohn931d-dotcom/bbbh
 `;
 if(siteUrl){
   const llmsWithGuides = llmsContent + '\n' + articleLlmsLines(origin, basePath).join('\n');

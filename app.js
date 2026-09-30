@@ -39,6 +39,42 @@ function store() {try {localStorage.setItem('worth-thoughts', JSON.stringify(sav
 function updateCount() {$('saved-count').textContent = saved.length;}
 $('save').addEventListener('click', () => {if(!calculate()) return $('calc-form').reportValidity(); if(saved.some(s => s.mode===current.mode && s.price===current.price && s.income===current.income && s.period===current.period && s.item===current.item)) return toast('This thought is already saved.'); saved.unshift({...current, id:Date.now()}); const persisted=store(); updateCount();if(persisted)toast('Thought saved. A little perspective for later.');});
 $('share').addEventListener('click', async () => {if(!calculate()) return $('calc-form').reportValidity(); const params = new URLSearchParams({mode,price:current.price,income:current.income,period:current.period,item:current.item}); const url = `${location.origin}${location.pathname}#${params}`; try {await navigator.clipboard.writeText(url); toast('Link copied. It includes the numbers you entered.');} catch {openModal(); const heading=document.createElement('h2'); heading.textContent='Share your perspective';const note=document.createElement('p');note.textContent='This link includes your calculator inputs. Copy it to share:';const input=document.createElement('input');input.value=url; input.readOnly=true; $('modal-content').append(heading,note,input);input.select();}});
+/* One-click embed code. Every visitor that arrives through a widget on someone
+   else's page is a visitor we did not have to rank for, so this button is the
+   cheapest growth lever on the site. `data-slug` is set on the widget pages
+   themselves; anywhere else the route tells us which tool is on screen. */
+function widgetSlug() {
+ if (document.body.dataset.slug) return document.body.dataset.slug;
+ const parts = location.pathname.split('/').filter(Boolean);
+ const i = parts.indexOf('calculators');
+ return i >= 0 && parts[i + 1] ? parts[i + 1] : 'cost-of-time';
+}
+function widgetBase() {
+ const parts = location.pathname.split('/').filter(Boolean);
+ const cut = parts.indexOf('calculators') >= 0 ? parts.indexOf('calculators') : parts.length;
+ return location.origin + (cut ? '/' + parts.slice(0, cut).join('/') : '');
+}
+function embedSnippet() {
+ const state = new URLSearchParams({ mode, price: current ? current.price : $('price').value, income: current ? current.income : $('income').value, period: $('pay-period').value }).toString();
+ const src = `${widgetBase()}/embed/${widgetSlug()}/#${state}`;
+ return `<iframe src="${src}" title="Worth ${widgetSlug().replace(/-/g, ' ')} calculator" loading="lazy" width="100%" height="620" style="max-width:760px;min-height:620px;border:1px solid #e0e4d7;border-radius:14px" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+}
+const embedButton = $('embed-tool');
+if (embedButton) embedButton.addEventListener('click', async () => {
+ if (!$('calc-form').checkValidity()) return $('calc-form').reportValidity();
+ calculate();
+ const code = embedSnippet();
+ try { await navigator.clipboard.writeText(code); toast('Embed code copied. Paste it into any page, post or README.'); }
+ catch {
+  openModal();
+  const heading = document.createElement('h2'); heading.textContent = 'Put this calculator on your site';
+  const note = document.createElement('p'); note.textContent = 'Free to embed, no key needed. It resizes to fit and links back here for the full version. Copy the code below:';
+  const box = document.createElement('textarea'); box.value = code; box.rows = 6; box.readOnly = true;
+  const more = document.createElement('p'); const link = document.createElement('a'); link.href = `${widgetBase()}/embed/`; link.textContent = 'Browse every embeddable tool with previews →'; more.append(link);
+  $('modal-content').append(heading, note, box, more); box.select();
+ }
+});
+
 function openModal() {$('modal-content').replaceChildren();$('modal').showModal();}
 $('close-modal').addEventListener('click',()=>$('modal').close());
 $('modal').addEventListener('click',e=>{const r=$('modal').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('modal').close();});

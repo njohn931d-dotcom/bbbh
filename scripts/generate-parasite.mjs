@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { articleRoutes, articles as guideArticles } from './articles.mjs';
 import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } from './cluster-content.mjs';
+import { buildGraph, jsonLdTag, crumbsFor } from './schema.mjs';
 
 /**
  * Renders the tool cluster: one page per route in cluster-content.mjs, each
@@ -82,6 +83,10 @@ export function generateParasiteSEO() {
       title: withBrand(c.title),
       description: c.desc,
       isTool: c.intent === 'tool',
+      // The same list feeds both the visible FAQ answers and the FAQPage
+      // markup, so the two cannot drift apart.
+      faqs: c.faqs || [],
+      section: c.intent === 'tool' ? 'Worth calculators' : 'The Money Edit',
     };
   });
 
@@ -208,71 +213,27 @@ export function generateParasiteSEO() {
       return links.join('');
     })() : '';
 
-    const schema = {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'WebSite',
-          name: 'Worth',
-          ...(siteUrl ? { url: siteUrl + '/' } : {}),
-          inLanguage: lang,
-        },
-        {
-          '@type': p.isTool ? 'WebApplication' : 'WebPage',
-          name: p.h1,
-          description: p.description,
-          ...(siteUrl ? { url } : {}),
-          inLanguage: lang,
-          ...(p.isTool ? {
-            applicationCategory: 'FinanceApplication',
-            operatingSystem: 'Any',
-            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-            isAccessibleForFree: true,
-            codeRepository: REPO_URL,
-          } : {}),
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', ...(siteUrl ? { item: siteUrl + '/' } : {}) },
-            { '@type': 'ListItem', position: 2, name: p.h1, ...(siteUrl ? { item: url } : {}) },
-          ],
-        },
-        {
-          '@type': 'TechArticle',
-          headline: p.h1,
-          description: p.description,
-          inLanguage: lang,
-          datePublished: CONTENT_PUBLISHED,
-          dateModified: CONTENT_UPDATED,
-          author: { '@type': 'Organization', name: 'Worth' },
-          publisher: { '@type': 'Organization', name: 'Worth' },
-          isAccessibleForFree: true,
-          codeRepository: REPO_URL,
-          license: 'https://opensource.org/licenses/MIT',
-        },
-        {
-          '@type': 'FAQPage',
-          mainEntity: p.content.faqs.map(([q, a]) => ({
-            '@type': 'Question',
-            name: q,
-            acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') },
-          })),
-        },
-        {
-          '@type': 'Organization',
-          name: 'Worth',
-          ...(siteUrl ? { url: siteUrl + '/' } : {}),
-          // Only profiles this site actually controls. Claiming a Wikipedia
-          // page as an identity reference is a false statement about who we
-          // are, and it is the kind of thing that earns a manual action.
-          sameAs: [REPO_URL],
-        },
-      ],
-    };
+    const schema = buildGraph({
+      siteUrl,
+      route: p.route,
+      name: p.h1,
+      description: p.description,
+      kind: p.isTool ? 'tool' : 'guide',
+      lang,
+      faqs: p.faqs,
+      section: p.section,
+      crumbs: crumbsFor(p.route, { labels: { calculators: 'Calculators', guides: 'Guides' }, known: new Set(everyRoute) }),
+      dates: { published: CONTENT_PUBLISHED, modified: CONTENT_UPDATED },
+      formula: p.content.formula && (p.content.formula.plain || p.content.formula.expr),
+      keywords: p.content.keywords,
+      features: p.isTool
+        ? ['Runs entirely in the browser', 'No account, no tracking', 'Shareable link that carries your inputs', 'Open source (MIT)']
+        : [],
+      translations: (TRANSLATION_MAP[p.route] || []).map(t => ({ lang: t.lang, route: t.route })),
+      translationOf: p.content.translationOf || '',
+    });
 
-    html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-      '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
+    html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, jsonLdTag(schema));
 
     const head = siteUrl
       ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' +
@@ -315,7 +276,11 @@ export function generateParasiteSEO() {
 
     // Reuse the real interactive calculator section on tool pages only.
     const calculator = p.isTool ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '';
-    const faqSection = p.isTool ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
+    // No FAQ section copied from the homepage any more. Each page already
+    // renders its own answers through renderBody(), and those are exactly the
+    // questions the FAQPage markup is built from. The copied block repeated
+    // the homepage on ~96 pages and described questions the page did not show.
+    const faqSection = '';
 
     const body =
       '<article class="seo-article">' +

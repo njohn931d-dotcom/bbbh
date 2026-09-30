@@ -79,10 +79,16 @@ for (const file of files) {
 }
 
 // 404.html is an error-document fallback, not a ranking target.
-const indexable = new Map([...pages].filter(([r]) => r !== '/404.html'));
+// /embed/* are the copy-paste widget pages. They are deliberately noindex with
+// a canonical onto the tool they mirror, so they must not be held to the rules
+// that apply to indexable pages - and they must not be missing the two tags
+// that keep them from competing with the original. Checked separately.
+const isEmbed = route => route === '/embed/' || route.startsWith('/embed/');
+const indexable = new Map([...pages].filter(([r]) => r !== '/404.html' && !isEmbed(r)));
 
 const all = (attr, html) => [...html.matchAll(new RegExp(attr, 'gi'))].map(m => m[1] ?? m[0]);
 const one = (re, html) => (html.match(re) || [])[1];
+const stripTags = value => String(value).replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
 
 /**
  * GitHub Pages project sites are served under a path prefix (`/repo/`), so
@@ -305,18 +311,138 @@ for (const [route, { html }] of indexable) {
   }
 
   // --- structured data ---------------------------------------------------
+  //
+  // A page is only "schema tagged" if the markup says something true about it.
+  // These rules exist because the generators used to invent a two-question FAQ
+  // for every page, answer one of them with the meta description, and repeat
+  // the homepage FAQ block under ~96 tools. Each rule below failed on real
+  // pages of this site.
   const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => m[1]);
   if (!ld.length) report('error', 'jsonld-missing', 'Page has no JSON-LD', [route]);
+  if (ld.length > 1) report('error', 'jsonld-multiple', `${ld.length} JSON-LD blocks on one page; keep a single @graph`, [route]);
+
+  /** @type {object[]} */
+  const schemaNodes = [];
   for (const block of ld) {
-    try { JSON.parse(block); } catch (e) {
+    let parsed;
+    try { parsed = JSON.parse(block); } catch (e) {
       report('error', 'jsonld-invalid', `JSON-LD does not parse: ${e.message}`, [route]);
+      continue;
     }
+    if (Array.isArray(parsed)) schemaNodes.push(...parsed);
+    else if (parsed && Array.isArray(parsed['@graph'])) schemaNodes.push(...parsed['@graph']);
+    else if (parsed && parsed['@type']) schemaNodes.push(parsed);
+    else report('error', 'jsonld-shape', 'JSON-LD is neither a node nor an @graph array', [route]);
   }
-  if (/en\.wikipedia\.org/.test(html)) {
-    // sameAs asserts "this Organization is that profile". Claiming Wikipedia
-    // is a false identity statement and a manual-action risk.
-    const inSchema = ld.some(b => b.includes('wikipedia'));
-    if (inSchema) report('error', 'schema-false-sameas', 'JSON-LD sameAs claims a Wikipedia profile this site does not own', [route]);
+
+  if (ld.length === 1 && schemaNodes.length) {
+    const typesOf = node => [].concat(node['@type'] || []).map(String);
+    const has = type => schemaNodes.some(n => typesOf(n).includes(type));
+    const firstOfType = type => schemaNodes.find(n => typesOf(n).includes(type));
+    const visibleText = ((html.match(/<main>[\s\S]*?<\/main>/) || [html])[0])
+      .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+
+    if (!has('Organization')) report('error', 'schema-org-missing', 'No Organization node: the publisher is unnamed', [route]);
+    if (!has('WebSite')) report('error', 'schema-website-missing', 'No WebSite node: the page never says which site it belongs to', [route]);
+    if (route !== '/' && !has('BreadcrumbList')) report('error', 'schema-breadcrumb-missing', 'No BreadcrumbList on a non-home page', [route]);
+    if (!has('WebApplication') && !has('Article') && !has('TechArticle') && !has('WebPage') && !has('CollectionPage')) {
+      report('error', 'schema-no-primary', 'The graph describes the brand and the site but not the page itself', [route]);
+    }
+
+    const org = firstOfType('Organization');
+    if (org) {
+      if (!Array.isArray(org.sameAs) || !org.sameAs.length) {
+        report('error', 'schema-org-sameas', 'Organization has no sameAs list of profiles this project controls', [route]);
+      } else {
+        // sameAs is an identity claim: "this org IS that profile". Only pages
+        // under our own GitHub account qualify. Wikipedia included.
+        const unowned = org.sameAs.filter(u => !/^https:\/\/github\.com\/njohn931d-dotcom\//.test(String(u)));
+        if (unowned.length) report('error', 'schema-false-sameas', `Organization.sameAs claims profiles this project does not own: ${unowned.join(', ')}`, [route]);
+      }
+      if (org.url && !/^https?:\/\//.test(org.url)) report('error', 'schema-relative-url', `Organization.url is not absolute: ${org.url}`, [route]);
+      if (!org.logo) report('warn', 'schema-org-logo', 'Organization has no logo, so there is nothing for a knowledge panel to use', [route]);
+      else if (!/^https?:\/\//.test(String(org.logo).replace(/^\{/, '')) && !String(org.logo).startsWith('http')) {
+        report('error', 'schema-relative-url', `Organization.logo is root-relative (${org.logo}); absolute required`, [route]);
+      }
+    }
+
+    const crumb = firstOfType('BreadcrumbList');
+    if (crumb) {
+      const items = crumb.itemListElement || [];
+      for (const item of items) {
+        if (item.item && !/^https?:\/\//.test(item.item)) {
+          report('error', 'schema-relative-url', `Breadcrumb "${item.name}" item is not an absolute URL`, [route]);
+          break;
+        }
+      }
+      const positions = items.map(i => i.position);
+      if (positions.some((position, i) => position !== i + 1)) {
+        report('error', 'schema-breadcrumb-order', `BreadcrumbList positions are [${positions.join(', ')}], expected 1..${positions.length}`, [route]);
+      }
+      const last = items[items.length - 1];
+      if (last && last.item && SITE_BASE && toRoute(last.item) !== route) {
+        report('error', 'schema-breadcrumb-self', `Breadcrumb ends at ${toRoute(last.item)} but the page is ${route}`, [route]);
+      }
+    }
+
+    for (const type of ['Article', 'TechArticle']) {
+      const node = firstOfType(type);
+      if (!node) continue;
+      for (const field of ['headline', 'datePublished', 'dateModified', 'author', 'publisher', 'inLanguage']) {
+        if (!node[field]) report('error', 'schema-article-fields', `${type} is missing "${field}"`, [route]);
+      }
+      if (node.datePublished && node.dateModified && node.dateModified < node.datePublished) {
+        report('error', 'schema-date-order', `${type}: dateModified ${node.dateModified} precedes datePublished ${node.datePublished}`, [route]);
+      }
+    }
+
+    const faq = firstOfType('FAQPage');
+    const shown = [...html.matchAll(/<details[^>]*>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)]
+      .map(m => [stripTags(m[1]), stripTags(m[2])]);
+    // Guides render their answers as <h3>Q</h3><p>A</p>, so a details element
+    // is not the only honest shape a FAQ can take.
+    const headings = [...html.matchAll(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/g)].map(m => stripTags(m[1]));
+    if (faq && !shown.length && !headings.length) {
+      report('error', 'schema-faq-invisible', 'FAQPage markup with nothing resembling a FAQ on the page: markup must describe visible content', [route]);
+    }
+    if (faq) {
+      const seen = new Set();
+      for (const question of faq.mainEntity || []) {
+        const name = stripTags((question && question.name) || '');
+        if (!name) { report('error', 'schema-faq-empty', 'FAQPage contains a Question with no name', [route]); continue; }
+        if (seen.has(name)) { report('error', 'schema-faq-duplicate', `FAQPage repeats "${name}"`, [route]); continue; }
+        seen.add(name);
+        const onPage = visibleText.includes(name) || headings.includes(name);
+        if (!onPage) report('error', 'schema-faq-offpage', `FAQPage question is not on the page: "${name}"`, [route]);
+        const answer = stripTags(((question.acceptedAnswer || {}).text) || '');
+        if (!answer) report('error', 'schema-faq-empty', `Question "${name}" has no acceptedAnswer text`, [route]);
+        else if (desc && answer === desc) {
+          report('error', 'schema-faq-reused-description', `Answer for "${name}" is the meta description, which is not an answer`, [route]);
+        } else if (answer.length < 40) {
+          report('warn', 'schema-faq-thin', `Answer for "${name}" is ${answer.length} chars; one-liners do not earn a rich result`, [route]);
+        }
+      }
+    }
+    if (shown.length && !faq) {
+      report('warn', 'schema-faq-unmarked', `${shown.length} question${shown.length > 1 ? 's are' : ' is'} shown to the reader but not marked up`, [route]);
+    }
+
+    // Fabricated endorsements are the fastest route to a manual action, and a
+    // site with no reviews has nothing honest to write here.
+    const raw = ld.join('');
+    for (const banned of ['aggregateRating', 'reviewRating', '"@type":"Review"', '"@type":"Product"']) {
+      if (raw.includes(banned)) report('error', 'schema-fabricated', `Markup contains ${banned}, which this page has no data to support`, [route]);
+    }
+    if (SITE_BASE) {
+      for (const node of schemaNodes) {
+        for (const field of ['url', '@id']) {
+          const value = node[field];
+          if (typeof value === 'string' && value.startsWith('/')) {
+            report('error', 'schema-relative-url', `${typesOf(node)[0]}.${field} is root-relative (${value}); crawlers and unfurlers need an absolute URL`, [route]);
+          }
+        }
+      }
+    }
   }
 
   // --- content -----------------------------------------------------------
@@ -414,6 +540,30 @@ if (brokenLinks) {
 for (const [route, srcs] of inbound) {
   if (srcs.size === 0 && route !== '/') {
     report('error', 'orphan-page', 'No internal page links here, so crawlers can only find it via the sitemap', [route]);
+  }
+}
+
+// --- embed widgets -----------------------------------------------------------
+//
+// A widget page must stay out of the index and must point at the page it
+// mirrors. Drop either tag and /embed/* turns into ~53 duplicates of the
+// calculators, which is a duplicate-content problem handed over for free.
+{
+  const widgetRoutes = [...pages.keys()].filter(r => r.startsWith('/embed/') && r !== '/embed/');
+  for (const widgetRoute of widgetRoutes) {
+    const widgetHtml = pages.get(widgetRoute).html;
+    const robots = one(/<meta name="robots" content="([^"]*)"/i, widgetHtml);
+    if (!/noindex/.test(robots)) report('error', 'embed-not-noindex', `${widgetRoute} is indexable and duplicates the tool it mirrors`, [widgetRoute]);
+    const canonical = one(/rel="canonical" href="([^"]+)"/i, widgetHtml);
+    if (!canonical) report('error', 'embed-no-canonical', `${widgetRoute} has no rel=canonical`, [widgetRoute]);
+    else if (!indexable.has(toRoute(canonical))) report('error', 'embed-canonical-target', `${widgetRoute} canonicalises to ${toRoute(canonical)}, which is not an indexable page`, [widgetRoute]);
+    if (!/worth-embed-resize/.test(widgetHtml)) report('warn', 'embed-no-resize', `${widgetRoute} never tells its host its height, so hosts must guess a pixel value`, [widgetRoute]);
+  }
+  if (!pages.has('/embed/')) {
+    report('error', 'embed-gallery-missing', 'No /embed/ page, so nothing shows a host how to paste a widget');
+  }
+  if (widgetRoutes.length && !fs.existsSync(path.join(DIST, 'embed', 'widget.js'))) {
+    report('error', 'embed-loader-missing', 'dist/embed/widget.js is absent, so the one-line embed snippet 404s');
   }
 }
 

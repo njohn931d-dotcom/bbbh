@@ -32,8 +32,8 @@
     "test": "node --test --test-concurrency=1 tests/*.test.cjs",
     "test:watch": "node --test --watch tests/*.test.cjs",
     "build:production": "REQUIRE_SITE_URL=1 vite build",
-    "build:verify": "SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production && npm run verify:dist && npm run seo:audit",
-    "verify:dist": "node -e \"const fs=require('fs'); const checks=[['dist/index.html','home'],['dist/404.html','404 fallback'],['dist/.nojekyll','.nojekyll'],['dist/manifest.json','PWA manifest'],['dist/sitemap.xml','sitemap'],['dist/robots.txt','robots'],['dist/feed.xml','RSS'],['dist/llms.txt','LLM index']]; let ok=true; for(const [f,l] of checks){ if(fs.existsSync(f)){ console.log('✓ '+l+': '+f+' ('+fs.statSync(f).size+' bytes)'); } else { console.error('✗ missing '+l+': '+f); ok=false; } } const htmlCount=require('child_process').execSync('find dist -name index.html | wc -l',{encoding:'utf8'}).trim(); console.log('✓ HTML pages: '+htmlCount); const sitemapUrls=(fs.readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length; console.log('✓ Sitemap URLs: '+sitemapUrls); if(!ok) process.exit(1);\"",
+    "build:verify": "SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production && npm run verify:dist && npm run seo:audit && npm run embed:check",
+    "verify:dist": "node -e \"const fs=require('fs'); const checks=[['dist/index.html','home'],['dist/404.html','404 fallback'],['dist/.nojekyll','.nojekyll'],['dist/manifest.json','PWA manifest'],['dist/sitemap.xml','sitemap'],['dist/robots.txt','robots'],['dist/feed.xml','RSS'],['dist/llms.txt','LLM index']]; let ok=true; for(const [f,l] of checks){ if(fs.existsSync(f)){ console.log('\u2713 '+l+': '+f+' ('+fs.statSync(f).size+' bytes)'); } else { console.error('\u2717 missing '+l+': '+f); ok=false; } } const htmlCount=require('child_process').execSync('find dist -name index.html | wc -l',{encoding:'utf8'}).trim(); console.log('\u2713 HTML pages: '+htmlCount); const sitemapUrls=(fs.readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length; console.log('\u2713 Sitemap URLs: '+sitemapUrls); if(!ok) process.exit(1);\"",
     "dev:hooked": "npm --prefix hooked run dev",
     "build:hooked": "npm --prefix hooked run build",
     "serve:static": "node server.js",
@@ -50,7 +50,13 @@
     "devto:publish": "node scripts/devto-publish.mjs --state published",
     "indexnow": "node scripts/indexnow.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
-    "seo:audit:strict": "node scripts/seo-audit.mjs --warnings-as-errors"
+    "seo:audit:strict": "node scripts/seo-audit.mjs --warnings-as-errors",
+    "embed:sync": "node scripts/build-embed.mjs --sync-widget",
+    "embed:check": "node scripts/build-embed.mjs --check-widget",
+    "mirrors": "node scripts/sync-repo-mirrors.mjs",
+    "mirrors:check": "node scripts/sync-repo-mirrors.mjs --check",
+    "github:identity": "node scripts/github-identity.mjs",
+    "preview:dist": "node scripts/preview-dist.mjs"
   },
   "devDependencies": {
     "jsdom": "^30.1.1",
