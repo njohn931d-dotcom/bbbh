@@ -11,6 +11,7 @@
  * Generated HTML is ignored in Git (see .gitignore). Edit the Markdown, never the output.
  */
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 /**
  * Append the site name only when it fits and does not stutter against the last
  * word of the title. Google truncates around 60 characters, so a brand suffix
@@ -145,6 +146,27 @@ export function renderMarkdown(md) {
 }
 
 /** Parse `---` frontmatter plus the Markdown body. */
+/**
+ * When a guide first appeared, taken from the commit that added its Markdown.
+ *
+ * Google will only show an Article rich result with a credible datePublished,
+ * and back-dating it to the build date would be a lie that shows in the result.
+ * Falls back to the revision date when the repository history is not available
+ * (a shallow checkout, or content generated outside a clone).
+ */
+const publishedCache = new Map();
+function firstPublished(file) {
+  if (publishedCache.has(file)) return publishedCache.get(file);
+  let date = '';
+  try {
+    date = execFileSync('git', ['log', '--diff-filter=A', '--format=%as', '-1', '--', `content/articles/${file}`],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch { date = ''; }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = '';
+  publishedCache.set(file, date);
+  return date;
+}
+
 export function parseArticle(file) {
   const raw = fs.readFileSync(path.join(CONTENT_DIR, file), 'utf8');
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -159,7 +181,11 @@ export function parseArticle(file) {
   }
   if (meta.description.length > 158) throw new Error(`${file}: description is ${meta.description.length} chars (max 158)`);
   if (!clusters.some((c) => c.slug === meta.cluster)) throw new Error(`${file}: unknown cluster "${meta.cluster}"`);
-  return { ...meta, body: match[2].trim(), file };
+  // Only trust the commit date when it predates the content's own revision date;
+  // a squashed or shallow history otherwise makes every guide look brand new.
+  const fromGit = firstPublished(file);
+  const published = fromGit && fromGit < meta.updated ? fromGit : meta.updated;
+  return { ...meta, body: match[2].trim(), file, published };
 }
 
 export function loadArticles() {
@@ -226,7 +252,7 @@ function breadcrumbHtml(origin, trail) {
   }).join('')}</nav>`;
 }
 
-function schemaFor({ origin, route, type, name, description, trail }) {
+function schemaFor({ origin, route, type, name, description, trail, published, updated, image }) {
   const url = origin + '/' + (route ? route + '/' : '');
   const graph = [
     { '@type': 'WebSite', name: SITE_NAME, ...(origin ? { url: origin + '/' } : {}) },
@@ -235,7 +261,16 @@ function schemaFor({ origin, route, type, name, description, trail }) {
       name,
       description,
       ...(type === 'Article'
-        ? { headline: name, inLanguage: 'en', isAccessibleForFree: true, author: { '@type': 'Organization', name: SITE_NAME }, publisher: { '@type': 'Organization', name: SITE_NAME } }
+        ? {
+            headline: name,
+            inLanguage: 'en',
+            isAccessibleForFree: true,
+            ...(published ? { datePublished: published } : {}),
+            ...(updated ? { dateModified: updated } : {}),
+            ...(image ? { image: [image] } : {}),
+            author: { '@type': 'Organization', name: SITE_NAME, ...(origin ? { url: origin + '/' } : {}) },
+            publisher: { '@type': 'Organization', name: SITE_NAME, ...(origin ? { url: origin + '/' } : {}) },
+          }
         : {}),
       ...(origin ? { url } : {}),
     },
@@ -311,7 +346,11 @@ export function generateArticles({ template, origin, basePath = '' }) {
       title: withBrand(article.title, SITE_NAME),
       description: article.description,
       main,
-      schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail }),
+      schema: schemaFor({
+        origin, route, type: 'Article', name: article.title, description: article.description, trail,
+        published: article.published, updated: article.updated,
+        image: origin ? origin + (linkBase || '') + '/og-image.png' : '',
+      }),
     });
     fs.mkdirSync(route, { recursive: true });
     fs.writeFileSync(path.join(route, 'index.html'), html);
