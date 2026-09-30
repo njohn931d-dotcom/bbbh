@@ -8,7 +8,7 @@
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
 **Sitemap:** 175 URLs | **Tools:** 81 | **Guides:** 42 | **Articles:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **175 indexable URLs**: the homepage, five hub and site pages, 81 calculators, 42 guides, 46 long-form articles and the three site pages. Every calculator runs on its own formula in the browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **175 indexable URLs**: the homepage, five hub and site pages, 81 calculators, 42 guides and 46 long-form articles. Every calculator runs on its own formula in the browser — private, no tracking, no sign-up.
 
 Every page carries its own formula, worked example and FAQ. Ten pages are genuine translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
