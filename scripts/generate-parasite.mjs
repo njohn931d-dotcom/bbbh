@@ -21,6 +21,7 @@ import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } 
 // previously left five built pages missing from sitemap.xml.
 import { routes as seoRoutes } from './generate-seo.mjs';
 import { GROWTH_ROUTES, generateGrowth } from './growth/index.mjs';
+import { converterHtml, widgetAssetsHtml } from './growth/widget.mjs';
 
 /** Pages that predate the cluster and already have hand-written content. */
 const baseRoutes = seoRoutes;
@@ -92,6 +93,9 @@ export function generateParasiteSEO() {
   /** Render one content entry's body: formula, table, notes, FAQ. */
   function renderBody(c) {
     const parts = [];
+
+    // Localized pages carry the interactive pay converter ahead of the formula.
+    if (c.widget) parts.push(converterHtml(c.widget) + widgetAssetsHtml());
 
     parts.push(
       '<h2>' + escape(c.formula.name) + '</h2>' +

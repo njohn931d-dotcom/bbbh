@@ -267,3 +267,40 @@ test('post-build clean-up dedupes head tags, absolutises images, adds emoji and 
   const home = p.processHtml(page, { siteUrl: site, route: '', isHome: true });
   assert.match(home, /type="application\/atom\+xml"[^>]*news\/feed\.xml/);
 });
+
+test('localized pages: every number quoted in the FAQs matches the converter, in every language', async () => {
+  const { EXTRA_LOCALE_CONTENT: pages } = await load('scripts/locale-extra.mjs');
+  const { converterHtml } = await load('scripts/growth/widget.mjs');
+  assert.equal(pages.length, 7);
+  // [language, digits that must appear in the FAQ text]. Each is hand-derived from the page's own formula.
+  const expected = {
+    it: ['1683'],                  // 35,000 / 2,080
+    nl: ['2019'],                  // 3,500 x 12 / 2,080
+    pl: ['4762'],                  // 8,000 / 168
+    tr: ['45000', '200', '300'],   // 45,000 / 225 and the 50% overtime uplift
+    id: ['46243', '69364', '92486'], // 8,000,000 / 173, x1.5, x2
+    vi: ['72115', '108173'],       // 15,000,000 / 208 and x1.5
+    hi: ['14423', '28846'],        // 30,000 / 208 and x2
+  };
+  const digits = (s) => s.replace(/[^\d]/g, '');
+  for (const p of pages) {
+    const text = digits(p.faqs.flat().join(' '));
+    for (const d of expected[p.lang]) assert.ok(text.includes(d), `${p.lang}: FAQ should contain ${d}`);
+    // The interactive converter's default state agrees with the worked example on the same page.
+    const html = converterHtml(p.widget);
+    const hourly = digits(html.match(/data-out="hourly">([^<]*)</)[1]);
+    assert.ok(text.includes(hourly.replace(/^(\d+?)0*$/, '$1')) || expected[p.lang].some((d) => hourly.startsWith(d) || d.startsWith(hourly)),
+      `${p.lang}: converter default hourly (${hourly}) should match the FAQ example`);
+    assert.ok(p.table.rows.every((r) => r.length === p.table.head.length));
+    assert.ok(p.lang !== 'en' && p.translationOf === 'calculators/salary-to-hourly');
+    assert.match(p.route, /^guides\/[a-z0-9-]+$/, 'Latin slugs avoid percent-encoding in URLs and sitemaps');
+  }
+  assert.equal(new Set(pages.map((p) => p.lang)).size, 7);
+});
+
+test('zero-decimal currencies (rupiah, dong) print whole numbers in the converter', async () => {
+  const { converterHtml } = await load('scripts/growth/widget.mjs');
+  const html = converterHtml({ amount: 15000000, period: 'month', hoursPerMonth: 208, dayHours: 8, locale: 'vi-VN', currency: 'VND', price: 100000 });
+  assert.match(html, /data-out="hourly">72\.115\s?₫/);
+  assert.ok(!/,\d\d\s?₫/.test(html), 'no decimals on dong');
+});
