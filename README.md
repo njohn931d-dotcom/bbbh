@@ -3,12 +3,12 @@
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
-[![142 Pages](https://img.shields.io/badge/SEO%20Pages-142-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
+[![217 Pages](https://img.shields.io/badge/SEO%20Pages-217-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 142 URLs | **Tools:** 95 | **Guides:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
+**Sitemap:** 217 URLs | **Tools:** 102 | **Guides:** 46 | **Languages:** 17 | **PWA:** Yes | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator and guide routes, and 46 long-form guides rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **217 indexable URLs**: the homepage, 102 calculator and guide routes, 46 long-form guides rendered from Markdown sources at build time, and 68 news, movie, minimum-wage, open-data and emoji pages (see [docs/GROWTH_ENGINE.md](docs/GROWTH_ENGINE.md)). All calculations run 100% in browser — private, no tracking, no sign-up.
 
 Every page carries its own formula, worked example and FAQ. Ten pages are genuine translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
@@ -19,18 +19,18 @@ Every page carries its own formula, worked example and FAQ. Ten pages are genuin
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
 - **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), a complete URL sitemap without manufactured freshness dates, robots.txt, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
-- **Audited build** — `npm run seo:audit` checks all 142 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
+- **Audited build** — `npm run seo:audit` checks all 217 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **142 pages** — all static HTML, unique titles/descriptions, validated by 42 tests
+- **217 pages** — all static HTML, unique titles/descriptions, validated by 64 tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 42 tests, 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — 64 tests, 217 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
-4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
+4. Verify dist: 217 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
 5. `npm run seo:audit` — fails the deploy on any SEO error
 5. Deploy to GitHub Pages + verify + notify
 
@@ -89,9 +89,19 @@ npm test        # validates metadata, uniqueness, links, orphans, canonicals
 
 Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, pipe tables, `>` callouts, fenced code, `**bold**`, `*italic*`, `` `code` ``, `[link](/path/)`. Output HTML-escaped, unsafe schemes stripped.
 
+## 📰 Growth engine: news, movies, data and languages
+
+Beyond the calculators, Worth publishes dated **news explainers** that turn a new price into hours of work
+(`/news/`, with an Atom feed), **fall movie trailers** and a movie-night cost calculator (`/movies/`),
+**minimum wage by state** with the same data as JSON/CSV under `/api/v1/` (`/minimum-wage/`, `/open-data/`),
+a **money emoji** reference, and localized pay calculators in **Italian, Dutch, Polish, Turkish, Indonesian,
+Vietnamese and Hindi**. Every figure has a dated source or is computed by tested code. A daily **trend radar**
+workflow opens an issue with explainer candidates and flags stale datasets; it never publishes on its own.
+How to add a news piece, update the wage data, add a film or a language: [docs/GROWTH_ENGINE.md](docs/GROWTH_ENGINE.md).
+
 ## 🔍 Search Architecture
 
-- Static HTML for all 142 routes before JS
+- Static HTML for all 217 routes before JS
 - Unique title/description, canonical, breadcrumbs, internal links
 - 46 guide pages add `Article`/`CollectionPage` + `BreadcrumbList` JSON-LD
 - `scripts/generate-seo.mjs` — base routes + guides, sitemap, robots, RSS, llms.txt, ai.txt
@@ -165,7 +175,7 @@ npm run serve:static      # zero-dependency dev server for the static projects
 
 Scope rules that keep the Pages deploy green:
 
-- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 142
+- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly the Worth sitemap (217 URLs today)
   indexable pages and `deploy.yml` asserts that derived count, so the sibling projects stay
   outside `dist/`. Affiliate Income Lab targets its own domain (`affiliateincomelab.com`,
   set by the `SITE`/`BASE` constants in `affiliate-marketing/tools/build.py`); Forge
@@ -174,7 +184,7 @@ Scope rules that keep the Pages deploy green:
   `ai.txt` and `feed.xml` are generated by `scripts/generate-seo.mjs`.
 - **`affiliate-marketing/tools/build.py` writes its sitemap inside its own package**
   (`affiliate-marketing/sitemap.xml`) and never to the repository root, so a content
-  rebuild cannot overwrite Worth's 142-URL sitemap.
+  rebuild cannot overwrite Worth's sitemap.
 - `server.js` and the root `404.html` exist to preview all four projects locally.
 
 Before publishing Forge Workspace, set a real `contactEmail` in

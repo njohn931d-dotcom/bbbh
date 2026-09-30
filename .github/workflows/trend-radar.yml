@@ -1,0 +1,48 @@
+name: Trend radar
+
+# Daily scan of free, key-less sources (Google Trends RSS, Wikimedia most-read,
+# Hacker News) for topics Worth can answer with "what does it cost in hours of
+# work?", plus a check that the dated datasets have not gone stale.
+#
+# It never publishes anything and never commits. It keeps one open issue up to
+# date so a person can pick a topic, verify the facts and add an explainer.
+
+on:
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Scan trends and check data freshness
+        run: node scripts/trend-radar.mjs --out seo-reports
+
+      - name: Open or update the radar issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Trend radar: explainer candidates"
+          number=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body-file seo-reports/trend-radar.md
+          else
+            gh issue create --title "$title" --body-file seo-reports/trend-radar.md
+          fi
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: trend-radar
+          path: seo-reports/
+          retention-days: 14
