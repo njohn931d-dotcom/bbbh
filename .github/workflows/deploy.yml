@@ -164,6 +164,13 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run check:live
 
+      - name: Notify IndexNow of the deployed URLs (not a traffic guarantee)
+        continue-on-error: true  # External search API availability must not invalidate a successful deployment.
+        run: |
+          curl --fail --location --show-error --retry 3 --max-time 30 \
+            https://njohn931d-dotcom.github.io/bbbh/sitemap.xml -o /tmp/sitemap.xml
+          node scripts/indexnow.mjs /tmp/sitemap.xml
+
   notify:
     runs-on: ubuntu-latest
     needs: deploy

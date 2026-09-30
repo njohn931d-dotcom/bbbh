@@ -87,3 +87,42 @@ test('preview pages have one noindex directive, including interactive tools', ()
   }
   assert.equal(fs.existsSync('public/sitemap.xml'), false);
 });
+
+test('IndexNow checks the project-path key and sends one scoped batch (receipt is not indexing)', () => {
+  const { spawnSync } = require('node:child_process');
+  const os = require('node:os');
+  const path = require('node:path');
+  const key = 'b5596db0004c991658df8995a6df2da3';
+  assert.equal(fs.readFileSync(`public/${key}.txt`, 'utf8').trim(), key);
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'worth-indexnow-'));
+  const file = path.join(dir, 'sitemap.xml');
+  fs.writeFileSync(file, `<urlset><url><loc>${SITE}/</loc></url></urlset>`);
+  try {
+    const probe = response => `
+      process.argv[2] = ${JSON.stringify(file)};
+      let posts = 0;
+      globalThis.fetch = async (url, options) => {
+        if (!options?.method) {
+          if (url !== ${JSON.stringify(`${SITE}/${key}.txt`)}) throw Error('Wrong verification URL: ' + url);
+          return { ok: true, status: 200, text: async () => ${JSON.stringify(response)} };
+        }
+        if (url !== 'https://api.indexnow.org/indexnow' || ++posts !== 1) throw Error('Duplicate or wrong endpoint');
+        const body = JSON.parse(options.body);
+        if (body.host !== 'njohn931d-dotcom.github.io' || body.key !== ${JSON.stringify(key)} ||
+            body.keyLocation !== ${JSON.stringify(`${SITE}/${key}.txt`)} ||
+            JSON.stringify(body.urlList) !== JSON.stringify([${JSON.stringify(`${SITE}/`)}])) throw Error('Incorrect URL scope');
+        return { status: 202 };
+      };
+      await import('./scripts/indexnow.mjs');
+      if (posts !== 1) throw Error('No URL notification sent');`;
+    const run = response => spawnSync(process.execPath, ['--input-type=module', '-e', probe(response)], { encoding: 'utf8' });
+    const good = run(key);
+    assert.equal(good.status, 0, good.stderr);
+    assert.match(good.stdout, /received 1 URLs .* indexing is not guaranteed/);
+    const wrong = run('different key');
+    assert.notEqual(wrong.status, 0, 'Wrong key must not trigger a submission');
+    assert.match(wrong.stderr, /verification file is not available/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -32,7 +32,7 @@ GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
 4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
 5. `npm run seo:audit:strict` — fails on any SEO error or warning
-6. Deploy to GitHub Pages, check the **public** pages with `npm run check:live`, then notify
+6. Deploy to GitHub Pages, check the **public** pages with `npm run check:live`, and notify IndexNow (receipt does not guarantee indexing or visitors)
 
 For manual production build:
 
