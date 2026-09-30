@@ -70,6 +70,7 @@ export function renderPage(ctx, p) {
     head.push(`<link rel="canonical" href="${esc(url)}">`);
     head.push(`<meta property="og:url" content="${esc(url)}">`);
     head.push('<meta name="robots" content="index, follow, max-image-preview:large">');
+    head.push(`<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${esc(siteUrl + '/feed.xml')}">`);
   } else {
     head.push('<meta name="robots" content="noindex, nofollow">');
   }

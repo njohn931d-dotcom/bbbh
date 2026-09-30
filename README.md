@@ -18,16 +18,16 @@ Every page carries its own formula, worked example and FAQ. Ten pages are genuin
 - **46 long-form guides** — hand-written, 5 clusters, tables with real math
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
-- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
+- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), a complete URL sitemap without manufactured freshness dates, robots.txt, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
 - **Audited build** — `npm run seo:audit` checks all 142 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **142 pages** — all static HTML, unique titles/descriptions, validated by 31 tests
+- **142 pages** — all static HTML, unique titles/descriptions, validated by 42 tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 31 tests, 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — 42 tests, 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
 4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
@@ -44,7 +44,7 @@ SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
 
 Live discovery files:
 
-- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 142 URLs with priority & lastmod
+- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — current indexable routes; dates are omitted unless the content-change date is reliable
 - [Robots](https://njohn931d-dotcom.github.io/bbbh/robots.txt) — LLM crawler friendly
 - [LLM index](https://njohn931d-dotcom.github.io/bbbh/llms.txt) — for AI search
 - [AI index](https://njohn931d-dotcom.github.io/bbbh/ai.txt)
@@ -59,7 +59,7 @@ Live discovery files:
 ```sh
 npm ci
 npm run dev          # http://localhost:5173
-npm test             # 31 tests
+npm test             # 42 tests
 npm run build        # preview (noindex)
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production  # production
 ```
@@ -102,6 +102,12 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 - `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest, hashed assets, security headers
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, `GITHUB_SEO.md` — article plan (treat volumes as hypotheses)
 - **Google Search Console verification** — `google-site-verification` meta tag lives in `index.html`, the single template every generated page is built from, so it ships on every built page (homepage, tools, guides, articles, helper pages). Verify the URL-prefix property `https://njohn931d-dotcom.github.io/bbbh/`; a test asserts the tag survives generation. One Google account per tag — a second needs its own `<meta>` line.
+
+## 📈 Search Console opportunity reports
+
+`npm run gsc:opportunities` compares two settled Search Console periods and privately reports ranking opportunities, rising/declining queries, possible URL overlap, and countries with measurable impressions. It does not publish content or send search data to the site. To enable the weekly GitHub Actions report, grant a Google service account read access to the verified Search Console property and add its JSON as the repository secret `GSC_SERVICE_ACCOUNT_JSON`. See the [Organic Search Growth Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for setup, local use and privacy details. The report is an editorial signal—not complete property totals, a ranking guarantee, or permission to auto-publish trend pages.
+
+The sitemap includes the complete set of indexable routes and intentionally omits `lastmod`, `changefreq` and `priority` until the build can provide reliable page-level change dates. Deploying a site is not the same as editing every page.
 
 ## 🔗 dev.to backlinks
 
@@ -186,7 +192,7 @@ High-volume reference material lives in [`docs/`](docs/README.md) alongside the 
 - **[FIRE Calculator & Handbook](docs/fire-financial-independence-retire-early.md)** — 4% rule math, Coast FIRE, Lean vs Fat FIRE, savings-rate tables.
 - **[Awesome Open-Source Finance Directory](docs/open-source-finance-tools-directory.md)** — 50+ privacy-first, self-hosted and plain-text money tools.
 
-See also the [Max Traffic & Ranking Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for how these pages are built to be found.
+See the [Organic Search Growth Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for an evidence-led editorial plan; it replaces unverified traffic-volume estimates and shortcut claims.
 
 ## 🤝 Contributing
 

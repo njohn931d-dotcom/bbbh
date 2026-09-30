@@ -45,7 +45,7 @@ Markdown support: `##`/`###`, paragraphs, `-` and `1.` lists, pipe tables, `>` c
 ## Deployment
 
 - GitHub Pages via `.github/workflows/deploy.yml`
-- Push to `main` triggers: test → generate mirrors → build:production → verify 133 URLs → deploy
+- Push to `main` triggers: test → generate mirrors → build:production → verify the complete generated sitemap → deploy
 - Preview builds (no SITE_URL) are noindex, robots-disallowed, no sitemap/feed/llms
 - Production requires `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
 
@@ -61,7 +61,7 @@ Markdown support: `##`/`###`, paragraphs, `-` and `1.` lists, pipe tables, `>` c
 - 1 H1 per page, unique title/description
 - Canonical URLs, breadcrumbs, internal links
 - `Article`/`CollectionPage` + `BreadcrumbList` JSON-LD for guides
-- Sitemap: 133 URLs, daily changefreq
+- Sitemap: generated from the complete route model; omit synthetic lastmod/changefreq values
 - No keyword volume claims — targets chosen by intent specificity, computability, clusterability
 
 ## License

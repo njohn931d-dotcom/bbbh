@@ -203,7 +203,8 @@ function pageShell({ template, origin, route, title, description, bodyClass, mai
         // relative og:image and fall back to a bare text card.
         `<meta property="og:image" content="${escapeHtml(origin + '/og-image.png')}">` +
         `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">` +
-        `<meta name="twitter:image" content="${escapeHtml(origin + '/og-image.png')}">`
+        `<meta name="twitter:image" content="${escapeHtml(origin + '/og-image.png')}">` +
+        `<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${escapeHtml(origin + linkBase + '/feed.xml')}">`
       : '<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"></head>`);
   // Article pages are static: swap the saved-thoughts button and the in-page nav for site links.
   html = html
