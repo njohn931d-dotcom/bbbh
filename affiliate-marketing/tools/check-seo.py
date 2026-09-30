@@ -15,7 +15,13 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
 
 errors, warnings = [], []
 
-BASE = "/affiliate-marketing"
+# Mirrors the BASE derivation in build.py. When the package is served from a
+# project subpath the links in the HTML carry that prefix, so the checker has to
+# resolve against the same prefix or every internal link reads as broken.
+_env = os.environ.get("AFFILIATE_SITE_URL", "").rstrip("/")
+_raw = _env.split("://", 1)[-1]
+_project_path = "/" + _raw.split("/", 1)[1].strip("/") if "/" in _raw else ""
+BASE = os.environ.get("AFFILIATE_BASE") or f"{_project_path}/affiliate-marketing"
 
 def url_to_file(url):
     """Map a site-absolute URL path to a file on disk.
@@ -26,10 +32,9 @@ def url_to_file(url):
     p = url.split("#")[0].split("?")[0]
     if not p.startswith("/"):
         return None
-    if p == BASE or p.startswith(BASE + "/"):
-        root = REPO
-    else:
-        root = REPO
+    if _project_path and (p == _project_path or p.startswith(_project_path + "/")):
+        p = p[len(_project_path):]
+    root = REPO
     cand = os.path.join(root, p.lstrip("/"))
     if os.path.isfile(cand):
         return cand

@@ -4,7 +4,7 @@
 > marketing. No courses, no gurus, no hype. All figures are published as ranges with sources
 > because affiliate program terms change frequently.
 
-Canonical host: https://affiliateincomelab.com
+Canonical host: https://njohn931d-dotcom.github.io
 Site base path: /affiliate-marketing
 
 Note: this package is mounted at /affiliate-marketing/ on a shared host. The repository root
@@ -13,25 +13,25 @@ Affiliate Income Lab and is not covered by this file.
 
 ## Core pages
 
-- [Home — how to make money with affiliate marketing](https://affiliateincomelab.com/affiliate-marketing/): The affiliate income equation (traffic x click-through rate x conversion rate x average commission), an interactive income calculator, the three income models that pay best, a high-volume keyword table and a 90-day starting plan.
-- [Guides index](https://affiliateincomelab.com/affiliate-marketing/guides/): All eight guides, ordered by where to start, with reading times and difficulty levels.
+- [Home — how to make money with affiliate marketing](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/): The affiliate income equation (traffic x click-through rate x conversion rate x average commission), an interactive income calculator, the three income models that pay best, a high-volume keyword table and a 90-day starting plan.
+- [Guides index](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/guides/): All eight guides, ordered by where to start, with reading times and difficulty levels.
 
 ## Beginner path
 
-- [Affiliate marketing for beginners: start in 7 days](https://affiliateincomelab.com/affiliate-marketing/affiliate-marketing-for-beginners/): Plain-English definition, glossary, the four numbers that decide income, honest earnings benchmarks, a day-by-day first-week setup plan, a five-question niche test, and nine beginner mistakes.
-- [27 passive income ideas that actually pay](https://affiliateincomelab.com/affiliate-marketing/passive-income-ideas/): Every realistic passive income route ranked by startup cost and how passive it genuinely is. Includes the honest comparison that $300,000 of capital produces the same $1,000/month as a few thousand visitors to a well-chosen affiliate site.
+- [Affiliate marketing for beginners: start in 7 days](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/affiliate-marketing-for-beginners/): Plain-English definition, glossary, the four numbers that decide income, honest earnings benchmarks, a day-by-day first-week setup plan, a five-question niche test, and nine beginner mistakes.
+- [27 passive income ideas that actually pay](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/passive-income-ideas/): Every realistic passive income route ranked by startup cost and how passive it genuinely is. Includes the honest comparison that $300,000 of capital produces the same $1,000/month as a few thousand visitors to a well-chosen affiliate site.
 
 ## Income models
 
-- [17 ways to generate income with affiliate marketing](https://affiliateincomelab.com/affiliate-marketing/ways-to-generate-income-with-affiliate-marketing/): The pillar guide. 17 models in four tiers — beginner models, compounding content engines, high-payout models (recurring SaaS, high-ticket B2B, course launches, finance CPL) and scaling plays. Includes a keyword-to-model map and a realistic 12-month income trajectory.
-- [12 affiliate marketing website examples](https://affiliateincomelab.com/affiliate-marketing/affiliate-marketing-websites/): Twelve site models broken down by revenue per visitor and startup cost. Revenue per 1,000 visitors ranges from $4-20 for deals sites to $150-900 for B2B software sites — roughly a 40x spread for equivalent effort.
-- [High ticket affiliate marketing](https://affiliateincomelab.com/affiliate-marketing/high-ticket-affiliate-marketing/): How to earn $500-$5,000 per sale. Includes the traffic comparison showing high ticket needs 6,700 monthly visitors for $1,000/month versus 92,600 for retail, the content types that close B2B buyers, and an approval playbook for publishers with no track record.
+- [17 ways to generate income with affiliate marketing](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/ways-to-generate-income-with-affiliate-marketing/): The pillar guide. 17 models in four tiers — beginner models, compounding content engines, high-payout models (recurring SaaS, high-ticket B2B, course launches, finance CPL) and scaling plays. Includes a keyword-to-model map and a realistic 12-month income trajectory.
+- [12 affiliate marketing website examples](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/affiliate-marketing-websites/): Twelve site models broken down by revenue per visitor and startup cost. Revenue per 1,000 visitors ranges from $4-20 for deals sites to $150-900 for B2B software sites — roughly a 40x spread for equivalent effort.
+- [High ticket affiliate marketing](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/high-ticket-affiliate-marketing/): How to earn $500-$5,000 per sale. Includes the traffic comparison showing high ticket needs 6,700 monthly visitors for $1,000/month versus 92,600 for retail, the content types that close B2B buyers, and an approval playbook for publishers with no track record.
 
 ## Programs and payouts
 
-- [27 best affiliate programs by payout tier](https://affiliateincomelab.com/affiliate-marketing/best-affiliate-programs/): Five tiers (recurring software, high-ticket, courses, lead generation, retail) with typical rates, cookie windows and an application checklist.
-- [15 recurring commission affiliate programs](https://affiliateincomelab.com/affiliate-marketing/recurring-commission-affiliate-programs/): Programs paying 20-40% monthly. Includes the crossover maths against one-off payouts, a churn model, and the contract terms (duration, clawback window, recurring basis) that determine real value.
-- [Amazon affiliate commission rates by category](https://affiliateincomelab.com/affiliate-marketing/amazon-affiliate-commission-rates/): The full category rate table, why the 24-hour cookie constrains content strategy more than the rate does, and the traffic required for $1,000/month across program types.
+- [27 best affiliate programs by payout tier](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/best-affiliate-programs/): Five tiers (recurring software, high-ticket, courses, lead generation, retail) with typical rates, cookie windows and an application checklist.
+- [15 recurring commission affiliate programs](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/recurring-commission-affiliate-programs/): Programs paying 20-40% monthly. Includes the crossover maths against one-off payouts, a churn model, and the contract terms (duration, clawback window, recurring basis) that determine real value.
+- [Amazon affiliate commission rates by category](https://njohn931d-dotcom.github.io/bbbh/affiliate-marketing/amazon-affiliate-commission-rates/): The full category rate table, why the 24-hour cookie constrains content strategy more than the rate does, and the traffic required for $1,000/month across program types.
 
 ## Key facts for citation
 

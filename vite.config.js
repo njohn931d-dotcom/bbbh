@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import fs from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, relative, sep } from 'node:path';
+import { cpSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { generateSEO, routes as mainRoutes, articleRoutes } from './scripts/generate-seo.mjs';
 import { generateParasiteSEO, extraRoutes } from './scripts/generate-parasite.mjs';
 
@@ -26,6 +28,68 @@ export default defineConfig({
             return fs.readFileSync('.generated/home.html','utf8');
           }
           return html;
+        }
+      }
+    },
+    {
+      name: 'build-affiliate-marketing',
+      closeBundle() {
+        // The Affiliate Income Lab package is plain static HTML with its own
+        // builder, so Vite does not know about it. It was previously built and
+        // then never shipped: twelve finished pages that existed only in the
+        // repository. Rebuild it here against the same SITE_URL this build uses
+        // and copy the result into dist/ so it is actually published.
+        if (!process.env.SITE_URL) return;
+        const pkg = resolve('affiliate-marketing');
+        if (!fs.existsSync(pkg)) return;
+        try {
+          execFileSync('python3', [resolve('affiliate-marketing/tools/build.py')], {
+            env: { ...process.env, AFFILIATE_SITE_URL: process.env.SITE_URL },
+            stdio: 'inherit'
+          });
+        } catch (e) {
+          throw new Error(`affiliate-marketing build failed: ${e.message}`);
+        }
+        const distPkg = resolve('dist', 'affiliate-marketing');
+        fs.rmSync(distPkg, { recursive: true, force: true });
+        cpSync(pkg, distPkg, {
+          recursive: true,
+          filter: (src) => {
+            const rel = relative(pkg, src);
+            // Ship the rendered pages and their assets; not the build sources.
+            if (rel === '') return true;
+            const top = rel.split(sep)[0];
+            if (top === 'content' || top === 'tools') return false;
+            return !src.endsWith('README.md');
+          }
+        });
+        const n = execFileSync('find', [distPkg, '-name', 'index.html'], { encoding: 'utf8' })
+          .trim().split('\n').filter(Boolean).length;
+        console.log(`✓ dist/affiliate-marketing (${n} pages)`);
+
+        // Fold the package's URLs into the main sitemap. It keeps its own
+        // PAGES registry in Python; reading the generated sitemap means this
+        // never drifts from what was actually built, and it means one sitemap
+        // to submit rather than two for a crawler to reconcile.
+        const affSitemap = resolve('dist/affiliate-marketing/sitemap.xml');
+        const mainSitemap = resolve('dist/sitemap.xml');
+        if (fs.existsSync(affSitemap) && fs.existsSync(mainSitemap)) {
+          const extra = [...fs.readFileSync(affSitemap, 'utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+          const main = fs.readFileSync(mainSitemap, 'utf8');
+          const known = new Set([...main.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]));
+          const fresh = extra.filter(u => !known.has(u));
+          if (fresh.length) {
+            // Reuse the date the main sitemap already uses. A sitemap carrying
+            // several lastmod values for one build reads as partial staleness to
+            // crawlers and trips the audit's consistency check.
+            const lastmod = (main.match(/<lastmod>(.*?)<\/lastmod>/) || [])[1]
+              || new Date().toISOString().split('T')[0];
+            const entries = fresh.map(u =>
+              `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod>` +
+              `<changefreq>monthly</changefreq><priority>0.7</priority></url>`).join('');
+            fs.writeFileSync(mainSitemap, main.replace('</urlset>', `${entries}</urlset>`));
+            console.log(`✓ merged ${fresh.length} affiliate URLs into dist/sitemap.xml`);
+          }
         }
       }
     },
