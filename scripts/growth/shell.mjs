@@ -90,8 +90,9 @@ export function renderPage(ctx, p) {
   for (const f of p.feeds || []) {
     head.push(`<link rel="alternate" type="${f.type || 'application/atom+xml'}" title="${esc(f.title)}" href="${esc(f.href)}">`);
   }
-  head.push('<link rel="manifest" href="/manifest.json">');
-  head.push('<link rel="author" href="/humans.txt">');
+  // Project-path scoped at generation time, like the other generators, so no build step has to rewrite them.
+  head.push(`<link rel="manifest" href="${basePath}/manifest.json">`);
+  head.push(`<link rel="author" href="${basePath}/humans.txt">`);
   if (p.extraHead) head.push(p.extraHead);
 
   html = html.replace('</head>', () => head.join('') + '</head>');

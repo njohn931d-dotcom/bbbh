@@ -72,7 +72,7 @@ export function buildGraph(ctx, p) {
   }
 
   const primaryTypes = {
-    hub: ['WebPage', 'CollectionPage'],
+    hub: 'CollectionPage',
     dataset: 'WebPage',
     tool: 'WebApplication',
     article: 'WebPage',

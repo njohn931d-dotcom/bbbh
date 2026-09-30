@@ -129,7 +129,8 @@ export default defineConfig({
     port: 5173,
     allowedHosts: ['.e2b.app'],
     headers: {
-      'X-Frame-Options': 'DENY',
+      // Dev previews run inside an Arena iframe. Do not set X-Frame-Options:
+      // DENY here; GitHub Pages controls production headers, not Vite.
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin'
     }

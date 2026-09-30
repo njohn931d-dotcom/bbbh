@@ -263,12 +263,20 @@ for (const [route, { html }] of indexable) {
   LANG_BY_ROUTE.set(route, lang);
   if (!lang) report('error', 'lang-missing', 'Page has no <html lang>', [route]);
   if (lang && lang !== 'en') {
-    // A page that claims a language but is written in another one is worse
-    // than no translation at all: it tells Google the page is untrustworthy.
-    const body = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-    const nonAscii = (body.match(/[Ѐ-ӿ一-鿿぀-ヿ가-힣؀-ۿ]/g) || []).length;
-    if (nonAscii < 20) {
-      report('error', 'lang-content-mismatch', `Declares lang="${lang}" but body has almost no ${lang} script characters`, [route]);
+    // Latin-script languages do not need Cyrillic/CJK/Arabic characters to
+    // be real translations. Inspect visible main copy, not the English nav.
+    const body = (mainContent(html) || html).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const distinctive = {
+      ru: /[Ѐ-ӿ]/g, zh: /[一-鿿]/g, ja: /[぀-ヿ一-鿿]/g,
+      ko: /[가-힣]/g, ar: /[؀-ۿ]/g,
+      es: /\b(el|la|los|las|del|que|para|una|por|con|salario|horas)\b/gi,
+      fr: /\b(les|des|avec|pour|votre|salaire|mensuel|heures|dans)\b/gi,
+      de: /\b(und|der|die|das|ein|mit|für|Stundenlohn|Steuern|Sie|Ihre)\b/gi,
+      pt: /\b(para|salário|horas|com|uma|não|trabalho|seu|mensal|anual)\b/gi,
+    };
+    const pattern = distinctive[lang];
+    if (pattern && (body.match(pattern) || []).length < (['es','fr','de','pt'].includes(lang) ? 5 : 20)) {
+      report('error', 'lang-content-mismatch', `Declares lang="${lang}" but has too little text in that language`, [route]);
     }
   }
 
@@ -307,9 +315,41 @@ for (const [route, { html }] of indexable) {
   // --- structured data ---------------------------------------------------
   const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => m[1]);
   if (!ld.length) report('error', 'jsonld-missing', 'Page has no JSON-LD', [route]);
+  const entities = [];
   for (const block of ld) {
-    try { JSON.parse(block); } catch (e) {
+    try {
+      const data = JSON.parse(block);
+      if (data['@context'] !== 'https://schema.org') report('error', 'jsonld-context', 'JSON-LD has no schema.org context', [route]);
+      entities.push(...(data['@graph'] || [data]));
+    } catch (e) {
       report('error', 'jsonld-invalid', `JSON-LD does not parse: ${e.message}`, [route]);
+    }
+  }
+  if (/^https?:\/\//.test(canonical) && entities.length) {
+    const page = entities.find(x => ['WebPage', 'WebApplication', 'Article', 'CollectionPage'].includes(x['@type']) && x.url === canonical);
+    if (!page) report('error', 'schema-page-url', 'No primary page/app/article entity has a URL equal to the canonical', [route]);
+    const home = new URL(canonical).origin + SITE_BASE + '/';
+    const website = entities.find(x => x['@type'] === 'WebSite');
+    if (!website || website.url !== home) report('error', 'schema-site-url', `WebSite must point to ${home}`, [route]);
+    const breadcrumb = entities.find(x => x['@type'] === 'BreadcrumbList');
+    if (route !== '/' && (!breadcrumb || breadcrumb.itemListElement?.[0]?.item !== home ||
+      breadcrumb.itemListElement.at(-1)?.item !== canonical)) {
+      report('error', 'schema-breadcrumb-url', 'Breadcrumbs must start at the site home and end at the canonical', [route]);
+    }
+    if (page?.['@type'] === 'WebApplication' && !/<form\b/.test(mainContent(html) || '')) {
+      report('error', 'schema-app-without-form', 'WebApplication schema claims a tool but no form exists', [route]);
+    }
+    const tool = one(/data-calculator="([^"]+)"/, html);
+    if (tool && tool !== route.replace(/^\/|\/$/g, '')) {
+      report('error', 'calculator-wrong-route', `Form model is for ${tool}, not this route`, [route]);
+    }
+    for (const faq of entities.filter(x => x['@type'] === 'FAQPage')) {
+      // Mark up only questions visitors can actually read. Merely checking
+      // that JSON parses let the old fake boilerplate FAQ pass the audit.
+      const main = (mainContent(html) || '').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
+      for (const q of faq.mainEntity || []) {
+        if (!q.name || !main.includes(q.name)) report('error', 'schema-faq-invisible', `FAQ question not visible: ${q.name || '(empty)'}`, [route]);
+      }
     }
   }
   if (/en\.wikipedia\.org/.test(html)) {
@@ -337,6 +377,21 @@ for (const [route, { html }] of indexable) {
     ['og-image-missing', /<meta property="og:image"/],
   ]) {
     if (!re.test(html)) report('warn', rule, 'Missing Open Graph tag', [route]);
+  }
+  if (/^https?:\/\//.test(canonical)) {
+    const expected = new URL(canonical).origin + SITE_BASE + '/og-image.png';
+    for (const tag of [
+      ['Open Graph', 'property', 'og:image'], ['Twitter', 'name', 'twitter:image'],
+    ]) {
+      const matches = [...html.matchAll(new RegExp(`<meta ${tag[1]}="${tag[2]}" content="([^"]*)"`, 'g'))];
+      if (matches.length !== 1 || matches[0][1] !== expected) {
+        report('error', 'social-image-url', `${tag[0]} needs exactly one working, project-scoped image URL: ${expected}`, [route]);
+      }
+    }
+    const manifest = one(/<link rel="manifest" href="([^"]+)"/, html);
+    if (manifest && manifest !== SITE_BASE + '/manifest.json') {
+      report('error', 'manifest-wrong-base', `Manifest link ${manifest} misses the project path`, [route]);
+    }
   }
 
   // --- social verification meta belongs on one page, not all of them ------
@@ -441,11 +496,20 @@ if (!fs.existsSync(sitemapPath)) {
     const dailies = (xml.match(/<changefreq>daily<\/changefreq>/g) || []).length;
     report('warn', 'sitemap-changefreq-daily', `${dailies} URLs declare <changefreq>daily</changefreq>; a site updated on a slower cadence should say weekly or monthly`, []);
   }
-  if (/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/.test(xml)) {
-    const dates = [...new Set([...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(m => m[1]))];
-    if (dates.length > 1) {
-      report('warn', 'sitemap-inconsistent-lastmod', `sitemap has ${dates.length} different lastmod values`, []);
+  // Different documents really do have different edit dates. Verify those
+  // dates, rather than asking the generator to falsely stamp every page with
+  // the day the site was built.
+  const entries = [...xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)];
+  if (entries.length !== locs.length) report('error', 'sitemap-lastmod-missing', 'Each sitemap URL needs a last-modified date');
+  const today = new Date().toISOString().slice(0, 10);
+  for (const [, url, date] of entries) {
+    const route = toRoute(url);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(date)) || date > today) {
+      report('error', 'sitemap-lastmod-invalid', `Invalid or future date: ${date}`, [route]);
     }
+    const page = indexable.get(route);
+    const visibleDate = page && one(/<time datetime="(\d{4}-\d{2}-\d{2})"/, page.html);
+    if (visibleDate && visibleDate !== date) report('error', 'sitemap-lastmod-page-mismatch', `${date} in sitemap but ${visibleDate} on page`, [route]);
   }
 }
 

@@ -20,7 +20,8 @@ import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } 
 // sync with the pages the build actually produces. Duplicating this list here
 // previously left five built pages missing from sitemap.xml.
 import { routes as seoRoutes } from './generate-seo.mjs';
-import { GROWTH_ROUTES, generateGrowth } from './growth/index.mjs';
+import { renderCalculator } from './render-calculator.mjs';
+import { GROWTH_ROUTES, GROWTH_DATES, generateGrowth } from './growth/index.mjs';
 import { converterHtml, widgetAssetsHtml } from './growth/widget.mjs';
 
 /** Pages that predate the cluster and already have hand-written content. */
@@ -34,7 +35,7 @@ const baseRoutes = seoRoutes;
 export const extraRoutes = [...CLUSTER_ROUTES, ...GROWTH_ROUTES];
 
 /** Date the cluster content was last genuinely revised. */
-const CONTENT_UPDATED = '2026-09-27';
+const CONTENT_UPDATED = '2026-09-30';
 const CONTENT_PUBLISHED = '2026-01-15';
 
 export function generateParasiteSEO() {
@@ -155,12 +156,14 @@ export function generateParasiteSEO() {
       '</div></section>';
   }
 
-  /** The full "every tool" list, collapsed behind a heading. */
+  // A page of 140+ unrelated links after every article is not helpful to a
+  // person reading it. The homepage catalogue links to every route; a focused
+  // page keeps a few relevant links and a path to the full directory.
   function renderAllTools() {
-    return '<section class="seo-related"><h2>All ' + everyRoute.length + ' calculators and guides</h2><div>' +
-      everyRoute.map(r => '<a href="/' + r + '/">' + escape(labelFor(r)) + ' <span>↗</span></a>').join('') +
+    return '<nav class="seo-related" aria-label="Browse more"><h2>Explore more on Worth</h2><div>' +
+      '<a href="/#tools">Browse all calculators <span>↗</span></a>' +
       '<a href="/articles/">All ' + guideArticles.length + ' money guides <span>↗</span></a>' +
-      '</div></section>';
+      '</div></nav>';
   }
 
   /** An honest footer. No link-wheel language, no borrowed-authority links. */
@@ -186,7 +189,9 @@ export function generateParasiteSEO() {
       .replace(/<title>[\s\S]*?<\/title>/, '<title>' + escape(p.title) + '</title>')
       .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="' + escape(p.description) + '">')
       .replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="' + escape(p.title) + '">')
-      .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">');
+      .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="' + escape(p.description) + '">')
+      .replace(/<meta property="og:image" content="[^"]*">/, '<meta property="og:image" content="' + escape(siteUrl ? siteUrl + '/og-image.png' : '/og-image.png') + '">')
+      .replace(/<meta name="twitter:image" content="[^"]*">/, '<meta name="twitter:image" content="' + escape(siteUrl ? siteUrl + '/og-image.png' : '/og-image.png') + '">');
 
     /*
      * hreflang: self, plus whichever real translations exist for this page.
@@ -281,27 +286,19 @@ export function generateParasiteSEO() {
       '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>');
 
     const head = siteUrl
-      ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">' +
-        // Absolute, so link unfurlers that refuse to resolve relative URLs
-        // still render a card instead of a bare text link.
-        '<meta property="og:image" content="' + escape(siteUrl + '/og-image.png') + '">' +
-        '<meta name="twitter:image" content="' + escape(siteUrl + '/og-image.png') + '">'
+      ? '<link rel="canonical" href="' + escape(url) + '"><meta property="og:url" content="' + escape(url) + '">'
       : '<meta name="robots" content="noindex, nofollow">';
 
     return html.replace('</head>',
       head +
-      '<meta name="twitter:card" content="summary_large_image">' +
-      '<meta property="og:type" content="website">' +
       '<meta property="og:site_name" content="Worth">' +
       '<meta property="og:locale" content="' + lang + '">' +
-      '<meta name="robots" content="index, follow, max-image-preview:large">' +
-      '<link rel="sitemap" type="application/xml" href="/sitemap.xml">' +
+      // Previews cannot carry contradictory noindex AND index directives.
+      (siteUrl ? '<meta name="robots" content="index, follow, max-image-preview:large">' : '') +
       hreflangs +
-      '<link rel="manifest" href="/manifest.json">' +
-      '<meta name="theme-color" content="#204f3c">' +
-      '<meta name="apple-mobile-web-app-capable" content="yes">' +
+      '<link rel="manifest" href="' + basePath + '/manifest.json">' +
       (siteUrl ? '<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="' + escape(siteUrl + '/feed.xml') + '">' : '') +
-      '<link rel="author" href="/humans.txt">' +
+      '<link rel="author" href="' + basePath + '/humans.txt">' +
       '</head>');
   }
 
@@ -320,10 +317,10 @@ export function generateParasiteSEO() {
       '<div style="font-size:11px;color:#8a9a7a;margin-top:10px">Updated ' + CONTENT_UPDATED + ' · free, no sign-up</div>' +
       '</section>';
 
-    // Reuse the real interactive calculator section on tool pages only.
-    const calculator = p.isTool ? base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0] : '';
-    const faqSection = p.isTool ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
-
+    // Tool pages get a calculator for *their* formula; guide pages get no
+    // unrelated purchase-price form. renderCalculator fails the build if an
+    // advertised tool has no implementation.
+    const calculator = p.isTool ? renderCalculator(p.route, p.lang) : '';
     const body =
       '<article class="seo-article">' +
       renderBody(c) +
@@ -331,17 +328,12 @@ export function generateParasiteSEO() {
       renderLinks(c) +
       '</article>' +
       renderAllTools() +
-      renderFooter() +
-      faqSection;
+      renderFooter();
 
     let html = base.replace(/<main>[\s\S]*?<\/main>/, '<main>' + hero + calculator + body + '</main>')
-      .replace('<body>', '<body data-mode="' + (p.isTool ? 'purchase' : '') + '">')
-      .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"');
-
-    if (!p.isTool) {
-      html = html.replace(/<button class="saved-button"[\s\S]*?<\/button>/, '<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>')
-        .replace('<script type="module" src="/app.js"></script>', '');
-    }
+      .replace(/href="#(calculator|learn|how|tools)"/g, 'href="/#$1"')
+      .replace(/<button class="saved-button"[\s\S]*?<\/button>/, '<a class="saved-button" href="/#tools">Browse calculators ↗</a>')
+      .replace('<script type="module" src="/app.js"></script>', p.isTool ? '<script type="module" src="/route-calculator.js"></script>' : '');
 
     html = prefixInternalLinks(metadata(html, p));
 
@@ -355,8 +347,33 @@ export function generateParasiteSEO() {
   // combined route model. Keep this renderer focused on page output so it
   // cannot replace the complete sitemap with a partial or synthetic-date list.
 
+  if (siteUrl) {
+    const allUrls = ['', ...baseRoutes, ...extraRoutes, ...articleRoutes];
+    const unique = [...new Set(allUrls)];
+    // An article's source date, not the build date, is its last real edit.
+    const guideDates = new Map(guideArticles.map(a => [`articles/${a.cluster}/${a.slug}`, a.updated]));
+    for (const a of guideArticles) {
+      for (const hub of ['articles', `articles/${a.cluster}`]) {
+        if (!guideDates.has(hub) || a.updated > guideDates.get(hub)) guideDates.set(hub, a.updated);
+      }
+    }
+    // Real content dates only, never the build date: articles use their source date, growth pages their
+    // own publication/data date. changefreq and priority are omitted (Google ignores them).
+    for (const [route, date] of Object.entries(GROWTH_DATES)) guideDates.set(route, date);
+    const sitemap =
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+      unique.map(r => {
+        const loc = escape(siteUrl + (r ? '/' + r + '/' : '/'));
+        return `<url><loc>${loc}</loc><lastmod>${guideDates.get(r) || CONTENT_UPDATED}</lastmod></url>`;
+      }).join('\n') +
+      '\n</urlset>\n';
+    fs.mkdirSync('public', { recursive: true });
+    fs.writeFileSync('public/sitemap.xml', sitemap);
+  }
+
   // News, movies, minimum wage, emoji and open-data pages. Their routes are in extraRoutes (build
-  // inputs, expected URL count) and in the sitemap union in generate-seo.mjs.
+  // inputs, expected URL count, sitemap) and their dates in GROWTH_DATES.
   generateGrowth({ siteUrl, origin, basePath });
 }
 

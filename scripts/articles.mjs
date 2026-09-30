@@ -186,26 +186,23 @@ const SITE_NAME = 'Worth';
 
 function pageShell({ template, origin, route, title, description, bodyClass, main, schema }) {
   let html = template;
-  const url = route ? urlFor(origin, route) : origin + '/';
+  const url = route ? urlFor(origin, route) : `${origin}${linkBase}/`;
   html = html
     .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(title)}">`)
     .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(description)}">`)
+    .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${escapeHtml(origin ? `${origin}${linkBase}/og-image.png` : '/og-image.png')}">`)
+    .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${escapeHtml(origin ? `${origin}${linkBase}/og-image.png` : '/og-image.png')}">`)
     .replace(/<script type="application\/ld\+json">.*?<\/script>/s, `<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`)
     .replace(/<main>[\s\S]*?<\/main>/, `<main>${main}</main>`)
     .replace('<body>', `<body${bodyClass ? ` class="${bodyClass}"` : ''}>`)
-    .replace(/href="#(calculator|learn|how)"/g, 'href="/#$1"')
+    .replace(/href="#(calculator|learn|how|tools)"/g, 'href="/#$1"')
     .replace('<script type="module" src="/app.js"></script>', '')
     .replace('</head>', `${origin
       ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">` +
-        // Absolute image URLs: several link unfurlers refuse to resolve a
-        // relative og:image and fall back to a bare text card.
-        `<meta property="og:image" content="${escapeHtml(origin + '/og-image.png')}">` +
-        `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">` +
-        `<meta name="twitter:image" content="${escapeHtml(origin + '/og-image.png')}">` +
         `<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${escapeHtml(origin + linkBase + '/feed.xml')}">`
-      : '<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"></head>`);
+      : '<meta name="robots" content="noindex, nofollow">'}</head>`);
   // Article pages are static: swap the saved-thoughts button and the in-page nav for site links.
   html = html
     .replace(/<button class="saved-button"[\s\S]*?<\/button>/, `<a class="saved-button" href="${pathFor(OUT_DIR)}">All guides <span>${articles.length}</span></a>`)
@@ -218,7 +215,7 @@ function pageShell({ template, origin, route, title, description, bodyClass, mai
 }
 
 function breadcrumbHtml(origin, trail) {
-  const items = [{ name: 'Home', url: origin ? origin + '/' : '' }, ...trail];
+  const items = [{ name: 'Home', url: origin ? `${origin}${linkBase}/` : '' }, ...trail];
   return `<nav class="breadcrumbs" aria-label="Breadcrumb">${items.map((item, i) => {
     const last = i === items.length - 1;
     return (last || !item.url)
@@ -227,22 +224,25 @@ function breadcrumbHtml(origin, trail) {
   }).join('')}</nav>`;
 }
 
-function schemaFor({ origin, route, type, name, description, trail }) {
-  const url = origin + '/' + (route ? route + '/' : '');
+function schemaFor({ origin, route, type, name, description, trail, updated }) {
+  const home = `${origin}${linkBase}/`;
+  const url = route ? urlFor(origin, route) : home;
   const graph = [
-    { '@type': 'WebSite', name: SITE_NAME, ...(origin ? { url: origin + '/' } : {}) },
+    { '@type': 'WebSite', name: SITE_NAME, ...(origin ? { url: home } : {}) },
     {
       '@type': type,
       name,
       description,
       ...(type === 'Article'
-        ? { headline: name, inLanguage: 'en', isAccessibleForFree: true, author: { '@type': 'Organization', name: SITE_NAME }, publisher: { '@type': 'Organization', name: SITE_NAME } }
+        ? { headline: name, inLanguage: 'en', isAccessibleForFree: true,
+            ...(updated ? { dateModified: updated } : {}),
+            author: { '@type': 'Organization', name: SITE_NAME }, publisher: { '@type': 'Organization', name: SITE_NAME } }
         : {}),
       ...(origin ? { url } : {}),
     },
     {
       '@type': 'BreadcrumbList',
-      itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(origin ? { item: origin + '/' } : {}) },
+      itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(origin ? { item: home } : {}) },
         ...trail.map((t, i) => ({ '@type': 'ListItem', position: i + 2, name: t.name, ...(origin && t.url ? { item: t.url } : {}) }))],
     },
   ];
@@ -312,7 +312,7 @@ export function generateArticles({ template, origin, basePath = '' }) {
       title: withBrand(article.title, SITE_NAME),
       description: article.description,
       main,
-      schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail }),
+      schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail, updated: article.updated }),
     });
     fs.mkdirSync(route, { recursive: true });
     fs.writeFileSync(path.join(route, 'index.html'), html);
