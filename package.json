@@ -50,7 +50,8 @@
     "devto:publish": "node scripts/devto-publish.mjs --state published",
     "indexnow": "node scripts/indexnow.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
-    "seo:audit:strict": "node scripts/seo-audit.mjs --warnings-as-errors"
+    "seo:audit:strict": "node scripts/seo-audit.mjs --warnings-as-errors",
+    "check:live": "node scripts/check-live.mjs"
   },
   "devDependencies": {
     "jsdom": "^30.1.1",

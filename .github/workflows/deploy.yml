@@ -51,8 +51,8 @@ jobs:
           SITE_URL: https://njohn931d-dotcom.github.io/bbbh
         run: npm run build:production
 
-      - name: SEO audit (blocks deploy on error)
-        run: node scripts/seo-audit.mjs
+      - name: SEO audit (blocks deploy on errors or warnings)
+        run: npm run seo:audit:strict
 
       - name: Verify dist - MAX CHECKS
         run: |
@@ -125,7 +125,7 @@ jobs:
           test -f dist/feed.xml
           test -f dist/llms.txt
           test -f dist/ai.txt
-          echo "✓ dist verified: 133 URLs, 46 guides, 86 feed, 0 noindex, PWA ready"
+          echo "✓ dist verified: $expected URLs, 46 article/index pages, 86 feed items, 0 noindex, manifest scoped"
 
       - name: Lighthouse & SEO Quick Check
         run: |
@@ -154,20 +154,21 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
 
-      - name: Verify deployment
-        run: |
-          echo "Deployed to: ${{ steps.deployment.outputs.page_url }}"
-          echo "Waiting 10s for Pages to propagate..."
-          sleep 10
-          curl -s -o /dev/null -w "%{http_code}" ${{ steps.deployment.outputs.page_url }} || echo "Site check done"
-          echo "✓ Deployment completed"
-
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
 
-      - name: Submit all URLs to search engines (IndexNow)
+      - name: Verify the public pages (fails on 404, stale tools or missing schema)
+        env:
+          SITE_URL: https://njohn931d-dotcom.github.io/bbbh
+        run: npm run check:live
+
+      - name: Notify IndexNow of the deployed URLs (not a traffic guarantee)
+        continue-on-error: true  # External search API availability must not invalidate a successful deployment.
         run: |
-          sleep 20
-          curl -s https://njohn931d-dotcom.github.io/bbbh/sitemap.xml -o /tmp/sitemap.xml
+          curl --fail --location --show-error --retry 3 --max-time 30 \
+            https://njohn931d-dotcom.github.io/bbbh/sitemap.xml -o /tmp/sitemap.xml
           node scripts/indexnow.mjs /tmp/sitemap.xml
 
   notify:
@@ -179,6 +180,6 @@ jobs:
         run: |
           echo "🎉 Worth deployed successfully!"
           echo "URL: https://njohn931d-dotcom.github.io/bbbh/"
-          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (133 URLs)"
+          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml"
           echo "PWA: manifest.json + 404.html + .nojekyll"
           echo "Discovery: robots.txt, feed.xml, llms.txt, ai.txt, humans.txt, security.txt"

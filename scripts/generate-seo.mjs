@@ -1,5 +1,7 @@
 import fs from 'node:fs';
-import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome } from './cluster-content.mjs';
+import { TRANSLATION_MAP, CLUSTER_ROUTES as extraRoutesForHome, getContent, CLUSTER_CONTENT, LOCALE_CONTENT } from './cluster-content.mjs';
+import { getCalculator } from './calculator-model.mjs';
+import { renderCalculator } from './render-calculator.mjs';
 import vm from 'node:vm';
 import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
 export { articleRoutes };
@@ -409,23 +411,21 @@ ${githubCTA('paycheck breakdown')}
 {
 route: 'calculators/buy-vs-rent-hourly',
 name: 'Buy vs Rent Hourly Calculator',
-title: 'Buy vs Rent Calculator: Cost Per Hour of Home Ownership | Worth',
-description: 'Buy vs rent calculator: mortgage + maintenance vs rent, cost per hour lived. Free, open source on GitHub.',
+title: 'Rent vs Own: Monthly Cost Per Hour at Home | Worth',
+description: 'Compare rent with the monthly cash cost of owning per hour spent at home. Does not mistake a mortgage payment for the full cost of ownership.',
 mode: 'purchase',
-intro: 'Is buying worth it? Compare rent vs mortgage + taxes + maintenance per hour you live there. Includes time cost.',
+intro: 'How much is each hour at home in monthly rent versus ownership cash costs? This view does not measure equity or appreciation.',
 body: `
-<h2>Buy vs rent per hour lived</h2>
-<p><strong>Home cost per hour = (Mortgage + Tax + Insurance + Maintenance + Opportunity cost) ÷ hours at home.</strong> Rent per hour = Rent ÷ hours at home. Open source GitHub.</p>
-<h3>Example: $2,000 rent vs $2,400 own (with $500k home)</h3>
-<table><thead><tr><th>Cost</th><th>Rent</th><th>Buy</th></tr></thead><tbody>
-<tr><td>Monthly cash</td><td>$2,000</td><td>$2,400 + $500 maintenance</td></tr>
-<tr><td>Hours at home ~ 400/mo</td><td>$5/hr</td><td>$7.25/hr</td></tr>
-<tr><td>Equity built</td><td>$0</td><td>~$600/mo</td></tr>
-<tr><td>True cost after equity</td><td>$5/hr</td><td>$5.75/hr</td></tr>
+<h2>Compare monthly cash costs per hour at home</h2>
+<p><strong>Cost per hour at home = monthly cash cost ÷ (hours at home per day × 365 ÷ 12).</strong> Enter rent and an ownership cash figure that includes mortgage payment, property tax, insurance and maintenance. This is a cash-flow view, not an investment decision.</p>
+<h3>Worked example: 14 hours per day at home</h3>
+<table><thead><tr><th>Scenario</th><th>Monthly cash cost</th><th>Hours at home / month</th><th>Cash cost / hour</th></tr></thead><tbody>
+<tr><td>Rent</td><td>$2,000</td><td>426</td><td>$4.70</td></tr>
+<tr><td>Own</td><td>$2,400</td><td>426</td><td>$5.64</td></tr>
 </tbody></table>
-<h3>Time cost of homeownership</h3>
-<p>Own = 10h/month maintenance, yard, repairs. At $25/hr = $250 time cost. Add to calculation. See <a href="/guides/minimalism-cost-per-time/">minimalism guide</a>.</p>
-${githubCTA('buy vs rent')}
+<h3>What this leaves out</h3>
+<p>A portion of a mortgage payment builds equity. Sale costs, purchase closing costs, price changes and returns you could have earned on the down payment also matter. For a sale-at-end comparison, use the <a href="/calculators/rent-vs-buy-calculator-2026/">rent vs buy calculator</a> and make your assumptions explicit.</p>
+${githubCTA('rent vs own hourly cost')}
 `
 },
 // GUIDES
@@ -433,16 +433,16 @@ ${githubCTA('buy vs rent')}
 route: 'guides/how-much-is-time-worth',
 name: 'How Much Is Your Time Worth?',
 title: 'How Much Is My Time Worth? Calculate True Hourly Value (2025)',
-description: 'How much is your time worth? Take-home pay ÷ real hours including commute. Average American $19/hr real. Free calculator + GitHub source.',
+description: 'Calculate the value of your work hour using take-home pay and actual hours, including commute or unpaid work if you choose. Free, private guide.',
 body: `
 <h2>Your time is worth more than your wage - or less</h2>
 <p>Gross hourly is fantasy. Real hourly = Take-home ÷ (Work + Commute + Unpaid overtime + Prep). Most people work 50-60h for 40h pay. Calculate true value with <a href="/calculators/salary-to-hourly/">salary to hourly</a> and <a href="/calculators/commute-cost/">commute cost</a> calculators. Open source on GitHub.</p>
 <h3>Real hourly calculation</h3>
 <p>Take-home $4,000/mo. Work 40h + 10h commute + 5h unpaid = 55h/week × 4.33 = 238h/month. Real hourly = $4,000 ÷ 238 = $16.81, not $25. That's 33% less.</p>
 <h3>Use real hourly to decide</h3>
-<p>Should you pay $30 for 1h cleaning? If real hourly is $16.81, yes - you gain time worth more than cost. If real hourly $50, maybe DIY? See <a href="/guides/value-free-time/">value free time</a> and <a href="/guides/side-hustle-worth-it/">side hustle worth</a>.</p>
-<h3>GitHub SEO: why this page ranks</h3>
-<p>We target "how much is my time worth calculator github" - 1,900 searches, low difficulty. GitHub stars signal authority to Google. Our repo has formula in README, which GitHub indexes.</p>
+<p>Should you pay $30 for 1h cleaning? At $16.81 take-home hourly, that $30 costs nearly two hours of work; whether one free hour is worth $30 to you is a personal decision. See <a href="/guides/value-free-time/">value free time</a> and <a href="/guides/side-hustle-worth-it/">side hustle worth</a>.</p>
+<h3>Use the number as perspective, not a price tag</h3>
+<p>Free time is not the same as paid time, and your rate does not tell you what to do with a saved hour. This guide shows the assumptions; your numbers stay in your browser when you use a calculator here.</p>
 <h3>Steps to calculate</h3>
 <p>1. Find take-home pay <a href="/calculators/after-tax-income/">after-tax calculator</a><br>2. Track all work-related hours 1 week<br>3. Divide. That's real hourly. Use in <a href="/calculators/cost-of-time/">cost of time calculator</a> for purchases.</p>
 ${githubCTA('time worth guide')}
@@ -880,6 +880,10 @@ ${githubCTA('save $1000 guide')}
 const links=`<section class="seo-related"><div class="section-label">MORE WAYS TO FIND PERSPECTIVE</div><h2>Free calculators & practical guides - open source on GitHub</h2><div>${data.map(p=>`<a href="/${p.route}/">${escape(p.name)} <span>↗</span></a>`).join('')}<a href="/articles/">All ${guideArticles.length} money guides <span>↗</span></a></div></section>`;
 // Five collections of eight guides each, written as Markdown in content/articles/ and rendered to static HTML.
 const guidesHub=`<section class="seo-related cluster-link" id="guides"><div class="section-label">THE MONEY EDIT</div><h2>${guideArticles.length} free guides to what things really cost</h2><p class="cluster-blurb">Short, practical answers built on one question: what does this cost me in hours of work? Every guide shows the arithmetic and the assumptions behind it.</p><div class="hub-grid">${guideClusters.map(c=>`<a class="hub-card" href="/articles/${c.slug}/"><span class="hub-kicker">${escape(c.label)}</span><h3>${escape(c.name)}</h3><p>${escape(c.blurb)}</p><span class="hub-more">${guideArticles.filter(a=>a.cluster===c.slug).length} guides <span>→</span></span></a>`).join('')}</div></section>`;
+// A visible catalogue links to every cluster route. No 140-link wheel after
+// each article; a visitor can choose an interactive tool or a practical guide.
+const directoryGroup = (title, entries) => `<div class="tool-directory-group"><h3>${title}</h3><div>${entries.map(c=>`<a href="/${c.route}/">${escape(c.h1)} <span aria-hidden="true">↗</span></a>`).join('')}</div></div>`;
+const toolsHub = `<section class="seo-related tool-directory" id="tools"><div class="section-label">FIND YOUR TOOL</div><h2>Explore calculators and guides</h2><p>Use your own numbers in a calculator, or read the assumptions behind a decision. No account required.</p>${directoryGroup('Interactive calculators', CLUSTER_CONTENT.filter(c=>c.intent==='tool'))}${directoryGroup('More practical guides', CLUSTER_CONTENT.filter(c=>c.intent!=='tool'))}${directoryGroup('In other languages', LOCALE_CONTENT)}</section>`;
 
 function metadata(html,p){
 const url=siteUrl+(p.route?'/'+p.route+'/':'/');
@@ -887,7 +891,11 @@ const pageTitle=withBrand(p.title);
 html=html.replace(/<title>.*?<\/title>/,`<title>${escape(pageTitle)}</title>`)
 .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(p.description)}">`)
 .replace(/<meta property="og:title" content="[^"]*">/,`<meta property="og:title" content="${escape(pageTitle)}">`)
-.replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`);
+.replace(/<meta property="og:description" content="[^"]*">/,`<meta property="og:description" content="${escape(p.description)}">`)
+// The FIRST social image tag is the one most unfurlers use. Replacing it
+// avoids leaving a broken /og-image.png before a second, correct tag.
+.replace(/<meta property="og:image" content="[^"]*">/,`<meta property="og:image" content="${escape(siteUrl?siteUrl+'/og-image.png':'/og-image.png')}">`)
+.replace(/<meta name="twitter:image" content="[^"]*">/,`<meta name="twitter:image" content="${escape(siteUrl?siteUrl+'/og-image.png':'/og-image.png')}">`);
 const baseUrl = siteUrl ? siteUrl + '/' : '';
 const webSiteObj = siteUrl ? {'@type':'WebSite',name:'Worth',url:baseUrl} : {'@type':'WebSite',name:'Worth'};
 const pageObj = {'@type':p.mode?'WebApplication':'WebPage',name:p.name,description:p.description};
@@ -899,7 +907,8 @@ if(p.route){
   if(siteUrl){bc.itemListElement[0].item=baseUrl;bc.itemListElement[1].item=url;}
   graph.push(bc);
 }
-graph.push({'@type':'FAQPage','mainEntity':[{'@type':'Question','name':'Is this calculator free and open source?','acceptedAnswer':{'@type':'Answer','text':'Yes, all Worth calculators are free, private, and open source on GitHub under MIT license.'}},{'@type':'Question','name':'How is this calculation done?','acceptedAnswer':{'@type':'Answer','text':p.description}}]});
+// Only mark up visible content. The old generator put the same two invented
+// FAQ answers on every page, including pages with no FAQ at all.
 const schema={'@context':'https://schema.org','@graph':graph};
 html=html.replace(/<script type="application\/ld\+json">.*?<\/script>/s,`<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<','\\u003c')}</script>`);
 /**
@@ -922,21 +931,23 @@ const hreflangFor = (route, site) => {
   return links.join('');
 };
 
-const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'16\' fill=\'%23204f3c\'/%3E%3Ctext x=\'13\' y=\'46\' font-size=\'44\' fill=\'%23d9edb2\' font-family=\'serif\'%3Ew%3C/text%3E%3C/svg%3E">';
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website">${siteUrl?`<meta property="og:image" content="${escape(siteUrl+'/og-image.png')}"><meta name="twitter:image" content="${escape(siteUrl+'/og-image.png')}">`:''}<meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt">${hreflangFor(p.route, siteUrl)}</head>`);
+const manifestLink = `<link rel="manifest" href="${basePath}/manifest.json"><link rel="author" href="${basePath}/humans.txt">`;
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta property="og:site_name" content="Worth">${manifestLink}${hreflangFor(p.route, siteUrl)}</head>`);
 }
 
 for(const p of data){
 const crumb=`<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>${escape(p.name)}</span></nav>`;
 const hero=`${crumb}<section class="seo-hero"><div class="eyebrow">${p.mode?'FREE MONEY CALCULATOR - OPEN SOURCE ON GITHUB':'THE MONEY EDIT - GITHUB OPEN SOURCE'}</div><h1>${escape(p.name)}</h1>${p.intro?`<p>${p.intro}</p>`:''}</section>`;
-let calculator=p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
-if(p.mode && p.mode!=='purchase'){
+const hasRouteCalculator = Boolean(getCalculator(p.route));
+let calculator=hasRouteCalculator?renderCalculator(p.route):p.mode?base.match(/<section id="calculator"[\s\S]*?<\/section>/)[0]:'';
+if(p.mode && !hasRouteCalculator && p.mode!=='purchase'){
  const sub=p.mode==='subscription';
  calculator=calculator.replace('Is it worth your time?',sub?'Small monthly. Big yearly.':'Little habits. More possibility.').replace('That price tag has a story. Let’s put it in hours.',sub?'See what a recurring charge really adds up to.':'What could one small daily change free up?').replace('How much does it cost?',sub?'Monthly subscription cost':'Daily amount to set aside').replace('value="150"',sub?'value="15"':'value="5"').replace('id="cost-suffix">USD','id="cost-suffix">'+(sub?'/ mo':'/ day')).replace('That purchase costs you',sub?'That subscription costs you each year':'That daily habit could free up').replace('id="hours">6',sub?'id="hours">7.2':'id="hours">$1,825').replace('id="unit">hours',sub?'id="unit">hours':'id="unit">/ year').replace('of your working life.',sub?'of your working life.':'equivalent to 73 hours of your working life.').replace('¾ of a workday',sub?'7.2 of 8 working hours':'9.1 workdays').replace('Not good. Not bad. Just perspective.<br>Only you can decide if it’s worth it.',sub?'$15 a month is $180 a year. If it adds value to your life, it might be time well spent.':'$5 a day, for 365 days. No investment returns assumed—just a small change adding up.').replace('aria-selected="true" data-mode="purchase"','aria-selected="false" data-mode="purchase"').replace('aria-selected="false" data-mode="'+p.mode+'"','aria-selected="true" data-mode="'+p.mode+'"');
 }
-const faq=p.mode?base.match(/<section class="faq"[\s\S]*?<\/section>/)[0]:'';
-let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how)"/g,'href="/#$1"');
-if(!p.mode)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/calculators/cost-of-time/">Try the calculator ↗</a>').replace('<script type="module" src="/app.js"></script>','');
+const faq=p.mode && !hasRouteCalculator ? base.match(/<section class="faq"[\s\S]*?<\/section>/)[0] : '';
+let html=base.replace(/<main>[\s\S]*?<\/main>/,`<main>${hero}${calculator}<article class="seo-article">${p.body}</article>${links}${faq}</main>`).replace('<body>',`<body data-mode="${p.mode||''}">`).replace(/href="#(calculator|learn|how|tools)"/g,'href="/#$1"');
+if(!p.mode || hasRouteCalculator)html=html.replace(/<button class="saved-button"[\s\S]*?<\/button>/,'<a class="saved-button" href="/#tools">Browse calculators ↗</a>')
+  .replace('<script type="module" src="/app.js"></script>',hasRouteCalculator?'<script type="module" src="/route-calculator.js"></script>':'');
 html=prefixInternalLinks(metadata(html,p));
 fs.mkdirSync(p.route,{recursive:true});
 fs.writeFileSync(p.route+'/index.html',html);
@@ -945,7 +956,7 @@ fs.writeFileSync(p.route+'/index.html',html);
 // Counts are derived from the route lists so the homepage cannot advertise a
 // number that has drifted away from what the site actually serves.
 const toolCount=[...routes,...extraRoutesForHome].filter(r=>r.startsWith('calculators/')||r.startsWith('guides/')).length;
-let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+links),{name:'Worth Money Calculators',
+let home=prefixInternalLinks(metadata(base.replace('<!-- SEO_LINKS -->',guidesHub+toolsHub+links),{name:'Worth Money Calculators',
   title:'Free Money Calculators: Work Hours, Cost & Savings | Worth',
   description:`${toolCount} free money calculators and guides: salary to hourly, mortgage, compound interest, subscription audit and more. Runs in your browser, no sign-up, open source.`}));
 fs.mkdirSync('.generated',{recursive:true});
