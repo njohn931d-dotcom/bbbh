@@ -304,9 +304,94 @@ function relatedFor(article) {
   return [...picked, cross].filter(Boolean).slice(0, 4);
 }
 
+
+/*
+ * Which calculator an article actually points at.
+ *
+ * Every one of the 40 articles used to send its single call to action to the
+ * cost-of-time calculator, so the whole article collection handed its internal
+ * links to one page and the other 52 tools received nothing from it. The
+ * mapping below is per slug where the subject is specific and per cluster
+ * otherwise, so a subscriptions article leads to a subscription calculator
+ * rather than to a general one.
+ */
+const ARTICLE_CALC = {
+  'coffee-cost-per-year-calculator': 'calculators/latte-factor',
+  'how-many-hours-of-work-does-a-car-payment-cost': 'calculators/car-loan-calculator-2026',
+  'how-many-hours-of-work-goes-to-rent': 'calculators/rent-affordability-calculator',
+  'how-many-hours-of-work-is-1000-dollars': 'calculators/time-to-save',
+  'how-much-is-a-new-phone-in-work-hours': 'calculators/cost-of-time',
+  'price-to-hours-formula': 'calculators/cost-of-time',
+  'vacation-cost-in-work-hours': 'calculators/cost-of-time',
+  'what-is-an-hour-of-your-time-worth': 'calculators/cost-of-time',
+  'annual-vs-monthly-subscription-plan': 'calculators/annual-vs-monthly-subscription',
+  'average-monthly-subscription-spend': 'calculators/subscription-cost',
+  'family-and-shared-plans-when-splitting-saves': 'calculators/subscription-audit',
+  'free-trials-that-turn-into-subscriptions': 'calculators/subscription-audit',
+  'how-to-audit-your-subscriptions': 'calculators/subscription-audit',
+  'how-to-cancel-a-subscription-and-get-a-refund': 'calculators/subscription-cost',
+  'streaming-service-price-comparison': 'calculators/streaming-cost',
+  'subscription-price-increase-what-to-do': 'calculators/subscription-audit',
+  '52-week-savings-challenge': 'calculators/daily-savings',
+  'do-round-up-savings-apps-work': 'calculators/daily-savings',
+  'five-dollars-a-day-savings-challenge': 'calculators/daily-savings',
+  'how-big-should-my-emergency-fund-be': 'calculators/emergency-fund-calculator',
+  'how-much-should-i-save-each-month': 'calculators/savings-goal-calculator-2026',
+  'how-to-save-1000-dollars-fast': 'calculators/time-to-save',
+  'no-spend-challenge-rules': 'calculators/daily-savings',
+  'sinking-funds-explained': 'calculators/savings-goal-calculator-2026',
+  '20-dollars-an-hour-is-how-much-a-year': 'calculators/salary-to-hourly',
+  '60000-a-year-is-how-much-an-hour': 'calculators/hourly-to-salary',
+  'budgeting-on-a-biweekly-paycheck': 'calculators/paycheck-calculator-2026',
+  'gross-pay-vs-take-home-pay': 'calculators/after-tax-income',
+  'how-many-working-hours-in-a-year': 'calculators/salary-to-hourly',
+  'how-overtime-pay-is-calculated': 'calculators/overtime-pay',
+  'how-to-set-a-freelance-day-rate': 'calculators/freelance-rate',
+  'your-real-hourly-wage': 'calculators/salary-to-hourly',
+  'buy-it-nice-or-buy-it-twice': 'calculators/unit-price-calculator',
+  'cost-per-use-how-to-compare-purchases': 'calculators/cost-per-use',
+  'lifestyle-creep-after-a-raise': 'calculators/wage-growth-calculator-2026',
+  'seven-questions-before-a-big-purchase': 'calculators/cost-of-time',
+  'should-you-rent-or-buy': 'calculators/rent-vs-buy-calculator-2026',
+  'the-latte-factor-what-it-gets-right': 'calculators/latte-factor',
+  'true-cost-of-car-ownership': 'calculators/car-ownership-cost',
+  'why-you-impulse-spend-and-how-to-stop': 'calculators/cost-of-time',
+};
+
+const CLUSTER_CALCS = {
+  'work-hours': ['calculators/cost-of-time', 'calculators/time-to-save', 'calculators/hourly-to-salary', 'calculators/latte-factor'],
+  subscriptions: ['calculators/subscription-cost', 'calculators/subscription-audit', 'calculators/streaming-cost', 'calculators/annual-vs-monthly-subscription'],
+  'saving-habits': ['calculators/daily-savings', 'calculators/emergency-fund-calculator', 'calculators/savings-goal-calculator-2026', 'calculators/compound-interest-calculator'],
+  'pay-and-rates': ['calculators/salary-to-hourly', 'calculators/after-tax-income', 'calculators/overtime-pay', 'calculators/freelance-rate'],
+  'spending-decisions': ['calculators/cost-per-use', 'calculators/unit-price-calculator', 'calculators/cost-per-wear', 'calculators/tip-calculator'],
+};
+
+const calcRouteFor = (article) => ARTICLE_CALC[article.slug] || (CLUSTER_CALCS[article.cluster] || ['calculators/cost-of-time'])[0];
+
+/** The name a calculator page already prints as its heading, or a readable fallback. */
+const calcLabel = (route) => {
+  try {
+    const html = fs.readFileSync(path.join(route, 'index.html'), 'utf8');
+    const h1 = /<h1[^>]*>([\s\S]*?)<\/h1>/.exec(html)?.[1]?.replace(/<[^>]+>/g, '').replace(/&#39;/g, "'").replace(/&amp;/g, '&').trim();
+    if (h1) return h1;
+  } catch { /* the page has not been written yet — fall back to the slug */ }
+  return route.split('/').pop().replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+};
+
+function relatedCalcsFor(article) {
+  const primary = calcRouteFor(article);
+  const seen = new Set([primary]);
+  const list = (CLUSTER_CALCS[article.cluster] || []).filter((r) => !seen.has(r) && seen.add(r)).slice(0, 3);
+  if (!list.length) return '';
+  return `<section class="seo-related"><div class="section-label">RUN THE NUMBERS</div><h2>Calculators that go with this guide</h2><div>${list.map((r) => `<a href="${pathFor(r)}">${escapeHtml(calcLabel(r))} <span>↗</span></a>`).join('')}</div></section>`;
+}
+
 function ctaFor(article) {
-  const calc = CALCULATORS[article.calc] || CALCULATORS['cost-of-time'];
-  return `<aside class="cta-box"><div><div class="section-label">TRY IT WITH YOUR NUMBERS</div><h2>${escapeHtml(calc.name)}</h2><p>${escapeHtml(calc.cta)} — free, and your figures stay in your browser.</p></div><a class="cta-button" href="${pathFor(calc.route)}">Open the calculator <span>↗</span></a></aside>`;
+  const route = calcRouteFor(article);
+  const known = Object.values(CALCULATORS).find((c) => c.route === route);
+  const name = known ? known.name : calcLabel(route);
+  const cta = known ? known.cta : 'Try it with your own numbers';
+  return `<aside class="cta-box"><div><div class="section-label">TRY IT WITH YOUR NUMBERS</div><h2>${escapeHtml(name)}</h2><p>${escapeHtml(cta)} — free, and your figures stay in your browser.</p></div><a class="cta-button" href="${pathFor(route)}">Open the calculator <span>↗</span></a></aside>`;
 }
 
 const METHODOLOGY = `<section class="methodology"><div class="section-label">HOW THESE NUMBERS ARE CALCULATED</div><p>Every figure on this page is arithmetic from stated assumptions: take-home pay, an 8-hour working day and 2,080 working hours a year (40 hours × 52 weeks), unless stated otherwise. Rates, taxes, fees and prices change, so treat the tables as a way to see the shape of a decision rather than a quote. Worth is a perspective tool, not financial advice.</p></section>`;
@@ -334,7 +419,7 @@ export function generateArticles({ template, origin, basePath = '' }) {
     const main = [
       breadcrumbHtml(origin, trail),
       `<section class="seo-hero"><div class="eyebrow"><span></span> ${escapeHtml(cluster.label)}</div><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.description)}</p><div class="article-meta"><span>${escapeHtml(article.reading.replace(/ min read/, ' min read'))}</span><span>Updated <time datetime="${escapeHtml(article.updated)}">${escapeHtml(article.updated)}</time></span><span>By ${escapeHtml(SITE_NAME)}</span></div></section>`,
-      `<article class="seo-article">${tocFor(bodyHtml)}${bodyHtml}${ctaFor(article)}${METHODOLOGY}</article>`,
+      `<article class="seo-article">${tocFor(bodyHtml)}${bodyHtml}${ctaFor(article)}${relatedCalcsFor(article)}${METHODOLOGY}</article>`,
       `<section class="seo-related"><div class="section-label">KEEP READING</div><h2>Related guides</h2>${cardGrid(related.map((r) => linkCard(pathFor(`${OUT_DIR}/${r.cluster}/${r.slug}`), clusters.find((c) => c.slug === r.cluster).name, r.title, r.description)).join(''))}</section>`,
       `<section class="seo-related cluster-link"><h2>More in ${escapeHtml(cluster.name)}</h2>${rowList(byCluster(cluster.slug).filter((a) => a.slug !== article.slug).map((a) => ({ href: pathFor(`${OUT_DIR}/${a.cluster}/${a.slug}`), kicker: a.reading.toUpperCase(), title: a.title })))}</section>`,
     ].join('\n');
