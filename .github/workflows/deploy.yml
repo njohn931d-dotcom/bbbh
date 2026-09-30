@@ -162,6 +162,14 @@ jobs:
           curl -s -o /dev/null -w "%{http_code}" ${{ steps.deployment.outputs.page_url }} || echo "Site check done"
           echo "✓ Deployment completed"
 
+      - uses: actions/checkout@v7
+
+      - name: Submit all URLs to search engines (IndexNow)
+        run: |
+          sleep 20
+          curl -s https://njohn931d-dotcom.github.io/bbbh/sitemap.xml -o /tmp/sitemap.xml
+          node scripts/indexnow.mjs /tmp/sitemap.xml
+
   notify:
     runs-on: ubuntu-latest
     needs: deploy
