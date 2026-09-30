@@ -21,6 +21,7 @@
 /** @typedef {{route:string,h1:string,title:string,desc:string,intent:'tool'|'guide',intro:string,formula:{name:string,expr:string,plain:string},assumptions?:string,caveat?:string,table:{head:string[],rows:string[][]},notes:string[],faqs:[string,string][],links:string[],related:string[],lang?:string,translationOf?:string,dir?:string}} ClusterEntry */
 
 import { SUITE_CONTENT } from './calculator-suite.mjs';
+import { WAVE2_CONTENT } from './calculator-suite-wave2.mjs';
 
 const H = 'https://github.com/njohn931d-dotcom/bbbh';
 
@@ -1163,6 +1164,7 @@ export const CLUSTER_CONTENT = [
  * without being taught about a second list.
  */
 CLUSTER_CONTENT.push(...SUITE_CONTENT);
+CLUSTER_CONTENT.push(...WAVE2_CONTENT);
 
 export const LOCALE_CONTENT = [
   {

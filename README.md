@@ -3,12 +3,12 @@
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
-[![165 Pages](https://img.shields.io/badge/SEO%20Pages-165-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
+[![165 Pages](https://img.shields.io/badge/SEO%20Pages-175-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 165 URLs | **Tools:** 71 | **Guides:** 42 | **Articles:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
+**Sitemap:** 175 URLs | **Tools:** 81 | **Guides:** 42 | **Articles:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **165 indexable URLs**: the homepage, two browse hubs, 71 calculators, 42 guides, 46 long-form articles and the three site pages. Every calculator runs on its own formula in the browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **175 indexable URLs**: the homepage, two browse hubs, 71 calculators, 42 guides, 46 long-form articles and the three site pages. Every calculator runs on its own formula in the browser — private, no tracking, no sign-up.
 
 Every page carries its own formula, worked example and FAQ. Ten pages are genuine translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
@@ -16,24 +16,24 @@ Every page carries its own formula, worked example and FAQ. Ten pages are genuin
 
 - **One calculator per page** — 71 tools, each with its own inputs, formula, worked table and assumptions. The printed result and the live widget run the same function, so they cannot disagree
 
-- **71 calculators** — each with its own inputs, formula, worked examples and assumptions, from cost of time and salary→hourly to mortgages, debt payoff, tips, unit prices and a 401(k) projection
+- **81 calculators** — each with its own inputs, formula, worked examples and assumptions, from cost of time and salary→hourly to mortgages, debt payoff, tips, unit prices and a 401(k) projection
 - **Two browse hubs** — `/calculators/` and `/guides/` index every page by topic with `ItemList` markup, so the collection is crawlable as a set rather than through one alphabetical block
 - **42 guides and 46 long-form articles** — hand-written, cluster-organised, tables with real math
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
 - **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
-- **Audited build** — `npm run seo:audit` checks all 165 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
+- **Audited build** — `npm run seo:audit` checks all 175 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **165 pages** — all static HTML, unique titles/descriptions, validated by 37 tests
+- **175 pages** — all static HTML, unique titles/descriptions, validated by 37 tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 37 tests, 165 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — 37 tests, 175 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
-4. Verify dist: 165 URLs, 46 guide pages, 86 feed items, 0 noindex, manifest, a real 404.html, .nojekyll, sitemap, robots, feed, llms, canonicals, OG tags
+4. Verify dist: 175 URLs, 46 guide pages, 86 feed items, 0 noindex, manifest, a real 404.html, .nojekyll, sitemap, robots, feed, llms, canonicals, OG tags
 5. `npm run seo:audit` — fails the deploy on any SEO error
 5. Deploy to GitHub Pages + verify + notify
 
@@ -47,7 +47,7 @@ SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
 
 Live discovery files:
 
-- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 165 URLs with priority & lastmod
+- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 175 URLs with priority & lastmod
 - [Calculators](https://njohn931d-dotcom.github.io/bbbh/calculators/) — every calculator indexed by topic
 - [Guides](https://njohn931d-dotcom.github.io/bbbh/guides/) — every guide indexed by topic
 - [Methodology](https://njohn931d-dotcom.github.io/bbbh/methodology/) — how the numbers are made and checked
@@ -97,7 +97,7 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 
 ## 🔍 Search Architecture
 
-- Static HTML for all 165 routes before JS
+- Static HTML for all 175 routes before JS
 - Unique title/description, canonical, breadcrumbs, internal links
 - 46 guide pages add `Article`/`CollectionPage` + `BreadcrumbList` JSON-LD
 - `scripts/generate-seo.mjs` — base routes + guides, sitemap, robots, RSS, llms.txt, ai.txt
@@ -167,7 +167,7 @@ npm run serve:static      # zero-dependency dev server for the static projects
 
 Scope rules that keep the Pages deploy green:
 
-- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 165
+- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 175
   indexable pages and `deploy.yml` asserts that derived count, so the sibling projects stay
   outside `dist/`. Affiliate Income Lab targets its own domain (`affiliateincomelab.com`,
   set by the `SITE`/`BASE` constants in `affiliate-marketing/tools/build.py`); Forge
@@ -176,7 +176,7 @@ Scope rules that keep the Pages deploy green:
   `ai.txt` and `feed.xml` are generated by `scripts/generate-seo.mjs`.
 - **`affiliate-marketing/tools/build.py` writes its sitemap inside its own package**
   (`affiliate-marketing/sitemap.xml`) and never to the repository root, so a content
-  rebuild cannot overwrite Worth's 165-URL sitemap.
+  rebuild cannot overwrite Worth's 175-URL sitemap.
 - `server.js` and the root `404.html` exist to preview all four projects locally.
 
 Before publishing Forge Workspace, set a real `contactEmail` in

@@ -2718,6 +2718,446 @@ export const ENGINES = {
     { unit: 'a year', tone: 'AUDIT THE ANNUAL COLUMN' },
   ),
 
+
+  /* ------------------------------------------- breadth: the 2026-09-30 wave */
+  'calculators/mortgage-payoff-calculator': engine(
+    'mortgage-payoff',
+    'Mortgage payoff',
+    [
+      { id: 'balance', label: 'Balance left on the mortgage', kind: 'money', value: 312000, min: 100, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'rate', label: 'Interest rate', kind: 'percent', value: 6.5, min: 0, max: 25, step: 0.05, suffix: '% APR' },
+      { id: 'years', label: 'Years left on the term', kind: 'number', value: 27, min: 1, max: 40, step: 1, suffix: 'years' },
+      { id: 'extra', label: 'Extra paid each month', kind: 'money', value: 200, min: 0, max: 1e6, step: 25, suffix: '/ mo' },
+    ],
+    function (v) {
+      var r = v.rate / 100 / 12, n = v.years * 12;
+      var pay = r === 0 ? v.balance / n : v.balance * r / (1 - Math.pow(1 + r, -n));
+      var payWith = pay + v.extra;
+      var monthsOf = function (p) {
+        if (p <= 0) return Infinity;
+        if (r === 0) return Math.ceil(v.balance / p);
+        var m = -Math.log(1 - r * v.balance / p) / Math.log(1 + r);
+        return isFinite(m) && m > 0 ? Math.ceil(m) : Infinity;
+      };
+      var base = monthsOf(pay), faster = monthsOf(payWith);
+      var interest = function (m) { return isFinite(m) ? m * pay - v.balance : 0; };
+      var interestWith = isFinite(faster) ? faster * payWith - v.balance : 0;
+      var monthsSaved = isFinite(faster) && isFinite(base) ? base - faster : 0;
+      var saved = Math.max(0, interest(base) - interestWith);
+      return {
+        primary: { value: isFinite(faster) ? faster / 12 : 0, kind: 'number' },
+        metrics: [
+          { label: 'Years saved', value: monthsSaved / 12, kind: 'number' },
+          { label: 'Interest saved', value: saved, kind: 'money0', hint: 'Across the whole remaining loan' },
+          { label: 'Interest without extras', value: interest(base), kind: 'money0' },
+          { label: 'Total interest on the faster plan', value: interestWith, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Extra a month', 'Years to clear', 'Months saved', 'Interest paid'],
+          body: [0, 100, 200, 500, 1000].map(function (x) {
+            var p = pay + x, m = monthsOf(p), i = isFinite(m) ? m * p - v.balance : 0;
+            return [
+              x === 0 ? 'Nothing extra' : formatValue(x, 'money0'),
+              isFinite(m) ? formatValue(m / 12, 'number') : 'never',
+              isFinite(m) ? formatValue((base - m) / 12, 'number') : '—',
+              formatValue(Math.max(0, i), 'money0'),
+            ];
+          }),
+        },
+        message: 'Every extra payment goes straight at the balance, so it removes all the interest that balance would have earned for the rest of the term. That is why a small monthly amount moves the payoff date by years.',
+      };
+    },
+    { unit: 'years to clear', tone: 'PAY OFF EARLIER' },
+  ),
+
+  'calculators/house-affordability-calculator': engine(
+    'house-affordability',
+    'How much house you can afford',
+    [
+      { id: 'income', label: 'Household income', kind: 'money', value: 95000, min: 0, max: 1e8, step: 1000, suffix: '/ year' },
+      { id: 'debts', label: 'Other monthly debt payments', kind: 'money', value: 550, min: 0, max: 1e6, step: 25, suffix: '/ mo', hint: 'Car loans, student loans, minimum card payments.' },
+      { id: 'down', label: 'Down payment saved', kind: 'money', value: 60000, min: 0, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'rate', label: 'Mortgage rate', kind: 'percent', value: 6.5, min: 0, max: 25, step: 0.05, suffix: '% APR' },
+      { id: 'dti', label: 'Debt-to-income ceiling you are willing to use', kind: 'select', value: '36', options: [['28', '28% — conservative'], ['36', '36% — conventional'], ['43', '43% — the qualified-mortgage limit']] },
+    ],
+    function (v) {
+      var cap = Number(v.dti), monthlyIncome = v.income / 12;
+      var maxDebt = monthlyIncome * cap / 100;
+      var room = Math.max(0, maxDebt - v.debts);
+      var r = v.rate / 100 / 12, n = 360;
+      var loan = r === 0 ? room * n : room * (1 - Math.pow(1 + r, -n)) / r;
+      var price = loan + v.down;
+      var ltv = price > 0 ? loan / price * 100 : 0;
+      var half = function (capPct) {
+        var room2 = Math.max(0, monthlyIncome * capPct / 100 - v.debts);
+        var l2 = r === 0 ? room2 * n : room2 * (1 - Math.pow(1 + r, -n)) / r;
+        return l2 + v.down;
+      };
+      return {
+        primary: { value: price, kind: 'money0' },
+        metrics: [
+          { label: 'Loan this supports', value: loan, kind: 'money0' },
+          { label: 'Monthly payment ceiling', value: room, kind: 'money2', hint: 'Principal, interest, taxes and insurance come out of this' },
+          { label: 'Loan-to-value', value: ltv, kind: 'percent', hint: 'Above 80% usually means mortgage insurance' },
+          { label: 'Down payment share', value: price > 0 ? v.down / price * 100 : 0, kind: 'percent' },
+        ],
+        rows: {
+          head: ['Debt-to-income ceiling', 'Monthly housing budget', 'Home price it supports', 'Down payment share'],
+          body: [28, 36, 43].map(function (c) {
+            var room3 = Math.max(0, monthlyIncome * c / 100 - v.debts);
+            var pp = half(c);
+            return [c + '%', formatValue(room3, 'money2'), formatValue(pp, 'money0'), formatValue(pp > 0 ? v.down / pp * 100 : 0, 'percent')];
+          }),
+        },
+        message: 'The ceiling that binds is the debt-to-income ratio, and other debts eat into it first. Clearing a $550 car payment raises the price this income supports by tens of thousands of dollars before any change in income.',
+      };
+    },
+    { unit: 'home price', tone: 'WHAT THE BANK WILL LEND' },
+  ),
+
+  'calculators/retirement-calculator': engine(
+    'retirement',
+    'Retirement projection',
+    [
+      { id: 'age', label: 'Your age now', kind: 'number', value: 34, min: 18, max: 80, step: 1, suffix: 'years' },
+      { id: 'retire', label: 'Age you want to stop', kind: 'number', value: 65, min: 40, max: 85, step: 1, suffix: 'years' },
+      { id: 'saved', label: 'Saved for retirement so far', kind: 'money', value: 85000, min: 0, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'monthly', label: 'Paid in each month', kind: 'money', value: 700, min: 0, max: 1e7, step: 50, suffix: '/ mo' },
+      { id: 'rate', label: 'Expected annual return', kind: 'percent2', value: 6.5, min: 0, max: 15, step: 0.25, suffix: '% a year' },
+      { id: 'inflation', label: 'Assumed inflation', kind: 'percent2', value: 2.5, min: 0, max: 12, step: 0.25, suffix: '% a year' },
+    ],
+    function (v) {
+      var years = Math.max(0, v.retire - v.age);
+      var months = years * 12;
+      var mr = v.rate / 100 / 12;
+      var grown = mr === 0 ? v.monthly * months : v.monthly * ((Math.pow(1 + mr, months) - 1) / mr);
+      var balance = v.saved * Math.pow(1 + v.rate / 100, years) + grown;
+      var mr2 = v.inflation / 100 / 12;
+      var deflator = Math.pow(1 + v.inflation / 100, years);
+      var today = deflator > 0 ? balance / deflator : balance;
+      var monthlyIncome = balance * 0.04 / 12;
+      var todayIncome = today * 0.04 / 12;
+      return {
+        primary: { value: balance, kind: 'money0' },
+        metrics: [
+          { label: 'In today’s money', value: today, kind: 'money0', hint: 'The same balance with inflation stripped out' },
+          { label: 'Years of paying in', value: years, kind: 'int' },
+          { label: 'Monthly income at a 4% draw', value: todayIncome, kind: 'money2', hint: 'In today’s money' },
+          { label: 'Your contributions', value: v.saved + v.monthly * months, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Retire at', 'Years of saving', 'Projected balance', 'Monthly income at 4%'],
+          body: [60, 62, 65, 67, 70].map(function (age) {
+            var y = Math.max(0, age - v.age), m = y * 12;
+            var g = mr === 0 ? v.monthly * m : v.monthly * ((Math.pow(1 + mr, m) - 1) / mr);
+            var b = v.saved * Math.pow(1 + v.rate / 100, y) + g;
+            return [age + '', formatValue(y, 'int'), formatValue(b, 'money0'), formatValue(b * 0.04 / 12, 'money2')];
+          }),
+        },
+        message: 'The projection is arithmetic, not a promise: the return is an assumption, and so is the 4% draw. What the table shows honestly is how much the last five years of saving are worth compared with the first five.',
+      };
+    },
+    { unit: 'projected balance', tone: 'A PROJECTION, NOT A PROMISE' },
+  ),
+
+  'calculators/refinance-break-even-calculator': engine(
+    'refinance',
+    'Refinance break-even',
+    [
+      { id: 'balance', label: 'Balance being refinanced', kind: 'money', value: 295000, min: 100, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'current', label: 'Current rate', kind: 'percent', value: 7.25, min: 0, max: 25, step: 0.05, suffix: '% APR' },
+      { id: 'left', label: 'Years left on the current loan', kind: 'number', value: 27, min: 1, max: 40, step: 1, suffix: 'years' },
+      { id: 'offer', label: 'New rate offered', kind: 'percent', value: 5.75, min: 0, max: 25, step: 0.05, suffix: '% APR' },
+      { id: 'term', label: 'New term', kind: 'select', value: '30', options: [['15', '15 years'], ['20', '20 years'], ['25', '25 years'], ['30', '30 years']] },
+      { id: 'costs', label: 'Closing costs to refinance', kind: 'money', value: 6200, min: 0, max: 1e7, step: 100, suffix: 'USD' },
+    ],
+    function (v) {
+      var r0 = v.current / 100 / 12, n0 = v.left * 12;
+      var payNow = r0 === 0 ? v.balance / n0 : v.balance * r0 / (1 - Math.pow(1 + r0, -n0));
+      var term = Number(v.term), r1 = v.offer / 100 / 12, n1 = term * 12;
+      var payNew = r1 === 0 ? v.balance / n1 : v.balance * r1 / (1 - Math.pow(1 + r1, -n1));
+      var monthly = payNow - payNew;
+      var months = monthly > 0 ? Math.ceil(v.costs / monthly) : Infinity;
+      var oldTotal = payNow * n0 - v.balance, newTotal = payNew * n1 - v.balance;
+      return {
+        primary: { value: monthly, kind: 'money2' },
+        metrics: [
+          { label: 'Break-even', value: isFinite(months) ? months : 0, kind: 'int', hint: months === Infinity ? 'Never — the payment does not fall' : 'Months to recover the closing costs' },
+          { label: 'Interest now outstanding', value: oldTotal, kind: 'money0' },
+          { label: 'Interest on the new loan', value: newTotal, kind: 'money0' },
+          { label: 'Net interest saved', value: oldTotal - newTotal, kind: 'money0' },
+        ],
+        rows: {
+          head: ['New rate', 'Monthly payment', 'Change', 'Break-even on the costs'],
+          body: [v.offer, v.offer + 0.25, v.offer + 0.5, v.offer + 1].map(function (rate) {
+            var rr = rate / 100 / 12;
+            var p = rr === 0 ? v.balance / n1 : v.balance * rr / (1 - Math.pow(1 + rr, -n1));
+            var diff = payNow - p;
+            return [formatValue(rate, 'percent2'), formatValue(p, 'money2'), formatValue(-diff, 'money2'), diff > 0 ? formatValue(Math.ceil(v.costs / diff), 'int') + ' months' : 'never'];
+          }),
+        },
+        message: 'A lower rate is not the whole sum. Stretching the term back to 30 years lowers the payment while adding years of interest, so the break-even calculation has to include the cost of borrowing longer, not just the closing costs.',
+      };
+    },
+    { unit: 'lower per month', tone: 'THE MONTHLY SAVING AND ITS PRICE' },
+  ),
+
+  'calculators/closing-costs-calculator': engine(
+    'closing-costs',
+    'Closing costs',
+    [
+      { id: 'price', label: 'Purchase price', kind: 'money', value: 400000, min: 1000, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'loan', label: 'Loan amount', kind: 'money', value: 340000, min: 0, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'market', label: 'Typical costs in this market', kind: 'select', value: 'typical', options: [['low', 'Lower-cost state — about 1.8%'], ['typical', 'Typical — about 2.5%'], ['high', 'Higher-cost state — about 3.5%']] },
+      { id: 'points', label: 'Points paid to lower the rate', kind: 'percent2', value: 0, min: 0, max: 4, step: 0.25, suffix: '% of the loan' },
+    ],
+    function (v) {
+      var pct = v.market === 'low' ? 1.8 : v.market === 'high' ? 3.5 : 2.5;
+      var base = v.price * pct / 100;
+      var points = v.loan * v.points / 100;
+      var total = base + points;
+      var low = v.price * 1.8 / 100 + points, high = v.price * 3.5 / 100 + points;
+      var rows = [
+        ['Lender fees', v.loan * 0.005],
+        ['Appraisal', 650],
+        ['Title insurance and search', v.price * 0.006],
+        ['Government recording and transfer', v.price * pct / 200],
+        ['Prepaid interest and escrow', v.loan * 0.007],
+        ['Points', points],
+      ];
+      return {
+        primary: { value: total, kind: 'money0' },
+        metrics: [
+          { label: 'Share of the price', value: v.price > 0 ? total / v.price * 100 : 0, kind: 'percent' },
+          { label: 'Cash needed at closing', value: total + (v.price - v.loan), kind: 'money0', hint: 'Costs plus the down payment' },
+          { label: 'Low-cost market', value: low, kind: 'money0' },
+          { label: 'Higher-cost market', value: high, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Line item', 'Estimate', 'Basis'],
+          body: rows.map(function (r, i) { return [r[0], formatValue(r[1], 'money0'), i === 5 && v.points === 0 ? 'None chosen' : 'Rule of thumb, not a quote']; }),
+        },
+        message: 'Closing costs are quoted to you as a total on a loan estimate, but they are built from line items you can shop for. Title insurance, lender fees and points are the three that actually move.',
+      };
+    },
+    { unit: 'at closing', tone: 'THE PART OF THE PRICE PEOPLE FORGET' },
+  ),
+
+  'calculators/capital-gains-tax-calculator': engine(
+    'capital-gains',
+    'Capital gains tax',
+    [
+      { id: 'bought', label: 'What you paid', kind: 'money', value: 12000, min: 0, max: 1e8, step: 100, suffix: 'USD' },
+      { id: 'sold', label: 'What you sold for', kind: 'money', value: 21000, min: 0, max: 1e8, step: 100, suffix: 'USD' },
+      { id: 'years', label: 'How long you held it', kind: 'number', value: 3, min: 0, max: 60, step: 1, suffix: 'years', hint: 'Twelve months is the line between long and short term.' },
+      { id: 'income', label: 'Other taxable income this year', kind: 'money', value: 78000, min: 0, max: 1e8, step: 1000, suffix: 'USD', hint: 'Used to find the long-term rate band.' },
+    ],
+    function (v) {
+      var gain = Math.max(0, v.sold - v.bought);
+      var long = v.years >= 1;
+      var taxable = v.income + gain;
+      var lt = function (g, inc) {
+        // 2026 long-term bands for a single filer, as used across this site.
+        var tax = 0, at0 = Math.max(0, Math.min(g, 49000 - inc));
+        tax += 0;
+        var at15 = Math.max(0, Math.min(g - at0, 545000 - inc - at0));
+        tax += at15 * 0.15;
+        var at20 = Math.max(0, g - at0 - at15);
+        tax += at20 * 0.20;
+        return tax;
+      };
+      var tax = long ? lt(gain, v.income) : gain * 0.22;
+      var effect = gain > 0 ? (tax / gain) * 100 : 0;
+      var saved = long ? Math.max(0, gain * 0.22 - tax) : Math.max(0, lt(gain, v.income) - gain * 0.22);
+      return {
+        primary: { value: tax, kind: 'money0' },
+        metrics: [
+          { label: 'Taxable gain', value: gain, kind: 'money0' },
+          { label: 'Effective rate', value: effect, kind: 'percent' },
+          { label: 'Held long enough?', text: long ? 'Yes — long-term rates apply' : 'No — taxed as ordinary income' },
+          { label: long ? 'Saving vs short-term' : 'The wait would have saved', value: saved, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Held for', 'Rate treatment', 'Tax on this gain', 'Kept after tax'],
+          body: [
+            ['Under a year', 'Ordinary income', formatValue(gain * 0.22, 'money0'), formatValue(gain - gain * 0.22, 'money0')],
+            ['1 year or more', 'Long-term bands', formatValue(lt(gain, v.income), 'money0'), formatValue(gain - lt(gain, v.income), 'money0')],
+            ['Long term, income +$40k', 'Higher band', formatValue(lt(gain, v.income + 40000), 'money0'), formatValue(gain - lt(gain, v.income + 40000), 'money0')],
+            ['Long term, income −$25k', 'Lower band', formatValue(lt(gain, Math.max(0, v.income - 25000)), 'money0'), formatValue(gain - lt(gain, Math.max(0, v.income - 25000)), 'money0')],
+          ],
+        },
+        message: 'Holding past twelve months moves the gain out of ordinary income and into the long-term bands, where the rate starts at zero. The gain is stacked on top of the rest of your income, so the same sale can be taxed differently in two different years.',
+      };
+    },
+    { unit: 'owed on the gain', tone: 'WHAT THE SALE ACTUALLY COSTS' },
+  ),
+
+  'calculators/dividend-income-calculator': engine(
+    'dividend-income',
+    'Dividend income',
+    [
+      { id: 'value', label: 'Amount invested', kind: 'money', value: 45000, min: 0, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'yield', label: 'Dividend yield', kind: 'percent2', value: 3.4, min: 0, max: 20, step: 0.1, suffix: '% a year' },
+      { id: 'growth', label: 'Dividend growth a year', kind: 'percent2', value: 4, min: 0, max: 20, step: 0.25, suffix: '% a year' },
+      { id: 'years', label: 'Hold for', kind: 'number', value: 10, min: 1, max: 50, step: 1, suffix: 'years' },
+      { id: 'reinforce', label: 'Reinvest the dividends?', kind: 'select', value: 'no', options: [['yes', 'Yes — buy more'], ['no', 'No — take the income']] },
+    ],
+    function (v) {
+      var income = v.value * v.yield / 100;
+      var balance = v.value, total = 0, first = income;
+      for (var i = 0; i < v.years; i++) {
+        var paid = balance * v.yield / 100 * Math.pow(1 + v.growth / 100, i);
+        total += paid;
+        if (v.reinforce === 'yes') balance += paid;
+      }
+      var lastYear = balance * v.yield / 100 * Math.pow(1 + v.growth / 100, v.years - 1);
+      return {
+        primary: { value: lastYear, kind: 'money0' },
+        metrics: [
+          { label: 'First year’s income', value: first, kind: 'money2' },
+          { label: 'Total income over the period', value: total, kind: 'money0' },
+          { label: 'Income growth', value: first > 0 ? (lastYear / first - 1) * 100 : 0, kind: 'percent', hint: 'Compounded dividend growth' },
+          { label: 'Portfolio at the end', value: balance, kind: 'money0' },
+        ],
+        rows: {
+          head: ['After', 'Dividend in that year', 'Cumulative income', 'Yield on your original cost' ],
+          body: [1, 5, 10, 20, 30].filter(function (y) { return y <= v.years; }).map(function (y) {
+            var inc = v.value * v.yield / 100 * Math.pow(1 + v.growth / 100, y - 1);
+            var cum = 0;
+            for (var k = 1; k <= y; k++) cum += v.value * v.yield / 100 * Math.pow(1 + v.growth / 100, k - 1);
+            return [y + ' years', formatValue(inc, 'money0'), formatValue(cum, 'money0'), formatValue(v.value > 0 ? cum / v.value * 100 / y : 0, 'percent2')];
+          }),
+        },
+        message: 'Dividend growth compounds on itself: a 4% annual raise in the payout doubles the income in about eighteen years without adding a dollar. Reinvesting shortens that further, because each dividend buys more shares.',
+      };
+    },
+    { unit: 'income in the final year', tone: 'INCOME THAT GROWS WITHOUT PAYING IN' },
+  ),
+
+  'calculators/severance-pay-calculator': engine(
+    'severance',
+    'Severance pay',
+    [
+      { id: 'salary', label: 'Annual salary', kind: 'money', value: 82000, min: 0, max: 1e8, step: 1000, suffix: 'USD' },
+      { id: 'years', label: 'Years of service', kind: 'number', value: 6, min: 0, max: 60, step: 0.5, suffix: 'years' },
+      { id: 'policy', label: 'What the policy says', kind: 'select', value: '2', options: [['1', '1 week per year of service'], ['2', '2 weeks per year of service'], ['0', 'A flat number of weeks']] },
+      { id: 'flat', label: 'Flat weeks, if that is the policy', kind: 'number', value: 4, min: 0, max: 104, step: 1, suffix: 'weeks' },
+      { id: 'unused', label: 'Unused vacation days paid out', kind: 'number', value: 9, min: 0, max: 200, step: 1, suffix: 'days' },
+      { id: 'weeks', label: 'Weeks until a new job starts', kind: 'number', value: 8, min: 0, max: 104, step: 1, suffix: 'weeks' },
+    ],
+    function (v) {
+      var weekly = v.salary / 52;
+      var weeks = v.policy === '0' ? v.flat : Number(v.policy) * v.years;
+      var severance = weeks * weekly;
+      var vacation = v.unused * (weekly / 5);
+      var total = severance + vacation;
+      var gap = Math.max(0, v.weeks * weekly - total);
+      return {
+        primary: { value: total, kind: 'money0' },
+        metrics: [
+          { label: 'Weeks of severance', value: weeks, kind: 'number' },
+          { label: 'Severance before vacation', value: severance, kind: 'money0' },
+          { label: 'Weekly pay', value: weekly, kind: 'money2', hint: 'Salary ÷ 52' },
+          { label: 'Shortfall if the search takes longer', value: gap, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Weeks of severance', 'Before tax', 'Weekly pay equivalent', 'Weeks of expenses covered at 70% of pay'],
+          body: [0, 2, 4, 8, 12, 26].map(function (w) {
+            var amount = w * weekly + vacation;
+            var weeklySpend = weekly * 0.7;
+            return [w + '', formatValue(amount, 'money0'), formatValue(w, 'number'), weeklySpend > 0 ? formatValue(amount / weeklySpend, 'number') : '—'];
+          }),
+        },
+        message: 'Severance is usually calculated from the weekly rate, not the monthly one, and it is normally taxed as ordinary pay rather than as a lump sum. The number that matters for planning is how many weeks of spending it covers, which is more than the number of weeks it pays.',
+      };
+    },
+    { unit: 'before tax', tone: 'THE RUNWAY, NOT THE LUMP SUM' },
+  ),
+
+  'calculators/cost-per-mile-calculator': engine(
+    'cost-per-mile',
+    'Cost per mile',
+    [
+      { id: 'mpg', label: 'Fuel economy', kind: 'number', value: 32, min: 1, max: 150, step: 1, suffix: 'mpg' },
+      { id: 'fuel', label: 'Fuel price', kind: 'money2', value: 3.6, min: 0.1, max: 20, step: 0.05, suffix: '/ gallon' },
+      { id: 'miles', label: 'Miles driven a year', kind: 'number', value: 12000, min: 100, max: 200000, step: 500, suffix: 'miles' },
+      { id: 'insurance', label: 'Insurance a year', kind: 'money', value: 1450, min: 0, max: 1e6, step: 50, suffix: '/ year' },
+      { id: 'service', label: 'Service, tyres and repairs a year', kind: 'money', value: 900, min: 0, max: 1e6, step: 50, suffix: '/ year' },
+      { id: 'drop', label: 'Depreciation a year', kind: 'money', value: 2600, min: 0, max: 1e6, step: 100, suffix: '/ year' },
+    ],
+    function (v) {
+      var fuelCost = v.miles / v.mpg * v.fuel;
+      var standing = v.insurance + v.service + v.drop;
+      var annual = fuelCost + standing;
+      var perMile = v.miles > 0 ? annual / v.miles : 0;
+      var fuelPerMile = v.miles > 0 ? fuelCost / v.miles : 0;
+      return {
+        primary: { value: perMile, kind: 'money2' },
+        metrics: [
+          { label: 'Fuel each year', value: fuelCost, kind: 'money0' },
+          { label: 'Everything else', value: standing, kind: 'money0' },
+          { label: 'Fuel only, per mile', value: fuelPerMile, kind: 'money2', hint: 'What most people quote, and it is a third of the answer' },
+          { label: 'Cost per working day', value: annual / 250, kind: 'money2' },
+        ],
+        rows: {
+          head: ['Driver', 'Miles a year', 'Fuel cost', 'All-in cost per mile'],
+          body: [
+            ['Short commute', 7000, 0, 0],
+            ['Average', 12000, 0, 0],
+            ['Long commute', 20000, 0, 0],
+            ['Ride-share heavy', 30000, 0, 0],
+          ].map(function (row) {
+            var m = row[1];
+            var f = m / v.mpg * v.fuel;
+            var a = f + standing;
+            return [row[0], formatValue(m, 'int'), formatValue(f, 'money0'), formatValue(m > 0 ? a / m : 0, 'money2')];
+          }),
+        },
+        message: 'Fuel is the visible cost and usually a third of the real one. Depreciation is the largest single line for most cars, and it is charged whether the car is driven or parked.',
+      };
+    },
+    { unit: 'per mile', tone: 'WHAT THE CAR ACTUALLY COSTS YOU' },
+  ),
+
+  'calculators/vacation-cost-calculator': engine(
+    'vacation-cost',
+    'Vacation cost',
+    [
+      { id: 'nights', label: 'Nights away', kind: 'number', value: 7, min: 1, max: 90, step: 1, suffix: 'nights' },
+      { id: 'people', label: 'People travelling', kind: 'number', value: 2, min: 1, max: 20, step: 1, suffix: 'people' },
+      { id: 'lodging', label: 'Lodging a night', kind: 'money', value: 160, min: 0, max: 1e6, step: 10, suffix: '/ night' },
+      { id: 'travel', label: 'Getting there, all in', kind: 'money', value: 620, min: 0, max: 1e6, step: 20, suffix: 'total' },
+      { id: 'food', label: 'Food a day, per person', kind: 'money', value: 55, min: 0, max: 1e5, step: 5, suffix: '/ day' },
+      { id: 'activities', label: 'Activities a day, per person', kind: 'money', value: 30, min: 0, max: 1e5, step: 5, suffix: '/ day' },
+      { id: 'kennel', label: 'Pets and extras', kind: 'money', value: 280, min: 0, max: 1e6, step: 20, suffix: 'total' },
+    ],
+    function (v) {
+      var days = v.nights + 1;
+      var lodging = v.nights * v.lodging;
+      var food = v.food * days * v.people;
+      var fun = v.activities * days * v.people;
+      var total = lodging + food + fun + v.travel + v.kennel;
+      return {
+        primary: { value: total, kind: 'money0' },
+        metrics: [
+          { label: 'A day', value: total / days, kind: 'money0' },
+          { label: 'Per person, per day', value: v.people > 0 ? total / days / v.people : 0, kind: 'money0' },
+          { label: 'Lodging share', value: total > 0 ? lodging / total * 100 : 0, kind: 'percent' },
+          { label: 'Add one more night', value: v.lodging + (v.food + v.activities) * v.people, kind: 'money0' },
+        ],
+        rows: {
+          head: ['Length', 'Lodging', 'Food and activities', 'Total'],
+          body: [3, 5, 7, 10, 14].map(function (n) {
+            var l = n * v.lodging, f = (v.food + v.activities) * (n + 1) * v.people;
+            return [n + ' nights', formatValue(l, 'money0'), formatValue(f, 'money0'), formatValue(l + f + v.travel + v.kennel, 'money0')];
+          }),
+        },
+        message: 'A trip is mostly a fixed cost plus a daily one. Flights and kennel are paid once however long you stay, so the marginal cost of an extra day is lodging plus food, which is usually far less than the average day.',
+      };
+    },
+    { unit: 'all in', tone: 'THE FIXED PART AND THE DAILY PART' },
+  ),
+
 };
 
 /* Engines are looked up by route; a missing route falls back to the page body. */

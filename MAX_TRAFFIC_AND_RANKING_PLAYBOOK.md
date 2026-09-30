@@ -246,15 +246,18 @@ the 53 "calculator" pages shipped the *same* cost-of-time widget with the same
 - `node scripts/calculator-engines.mjs` prints coverage and fails if an engine
   produces no result.
 
-### 10.2 Eighteen new high-demand calculators
+### 10.2 Twenty-eight new high-demand calculators
 Tip, sales tax, percent-off, debt snowball vs avalanche, rent affordability, gas,
 unit price, 50/30/20 budget, profit margin, ROI, bonus tax, emergency fund,
-401(k), moving cost, pet cost, electricity, down payment and APY. Each ships
-with a unique title, description, formula, worked table and three FAQs.
+401(k), moving cost, pet cost, electricity, down payment, APY, mortgage payoff,
+how much house you can afford, retirement projection, refinance break-even,
+closing costs, capital gains tax, dividend income, severance, cost per mile and
+trip cost. Each ships with a unique title, description, formula, worked table
+and three FAQs.
 
 ### 10.3 Browse hubs and a real homepage directory
 - `/calculators/` and `/guides/` index every page by topic with `ItemList`
-  markup. They are linked from the header and footer of all 165 pages, so the
+  markup. They are linked from the header and footer of all 175 pages, so the
   internal-link graph no longer depends on one alphabetical block.
 - The homepage gained a directory grouped the same way, from the same
   `scripts/tool-groups.mjs` list, so the two can never disagree.
