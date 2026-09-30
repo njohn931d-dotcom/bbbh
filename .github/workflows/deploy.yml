@@ -77,6 +77,8 @@ jobs:
           echo "Pages built: $pages (expected $expected)"
           echo "Guide pages: $guides (expected 46)"
           echo "Feed items: $feeds (expected 86)"
+          affiliate=$(find dist/affiliate-marketing -name index.html 2>/dev/null | wc -l)
+          echo "Affiliate pages: $affiliate (expected 12)"
           echo "Noindex in dist: $noindex (expected 0)"
           echo ""
           echo "=== DISCOVERY FILES ==="
@@ -112,6 +114,19 @@ jobs:
           test "$pages" -eq "$expected" || (echo "FAIL: pages $pages != $expected" && exit 1)
           test "$guides" -eq 46 || (echo "FAIL: guides $guides != 46" && exit 1)
           test "$feeds" -eq 86 || (echo "FAIL: feed items $feeds != 86" && exit 1)
+          test "$affiliate" -eq 12 || (echo "FAIL: affiliate pages $affiliate != 12" && exit 1)
+          # Every affiliate page must be in the sitemap, or it is shipped but
+          # undiscoverable. This package was previously built and never
+          # published, and then published with canonicals pointing at an
+          # unparked host; both failure modes pass a page-count check.
+          aff_sitemap=$(grep -c '<loc>' dist/affiliate-marketing/sitemap.xml 2>/dev/null || echo 0)
+          test "$aff_sitemap" -eq 12 || (echo "FAIL: affiliate sitemap has $aff_sitemap URLs, expected 12" && exit 1)
+          if grep -rl "affiliateincomelab" dist --include="*.html" 2>/dev/null | grep -q .; then
+            echo "FAIL: a retired origin is still referenced in dist"; exit 1
+          fi
+          if grep -o '<loc>[^<]*affiliate-marketing[^<]*</loc>' dist/sitemap.xml | grep -qv 'njohn931d-dotcom.github.io'; then
+            echo "FAIL: affiliate URLs in the sitemap are not on the live origin"; exit 1
+          fi
           test "$noindex" -eq 0 || (echo "FAIL: noindex $noindex != 0" && exit 1)
           test -f dist/404.html || (echo "FAIL: missing 404.html" && exit 1)
           test -f dist/manifest.json || (echo "FAIL: missing manifest.json" && exit 1)
@@ -125,7 +140,7 @@ jobs:
           test -f dist/feed.xml
           test -f dist/llms.txt
           test -f dist/ai.txt
-          echo "✓ dist verified: 133 URLs, 46 guides, 86 feed, 0 noindex, PWA ready"
+          echo "✓ dist verified: $urls URLs, 46 guides, 12 affiliate, 86 feed, 0 noindex, PWA ready"
 
       - name: Lighthouse & SEO Quick Check
         run: |
@@ -179,6 +194,6 @@ jobs:
         run: |
           echo "🎉 Worth deployed successfully!"
           echo "URL: https://njohn931d-dotcom.github.io/bbbh/"
-          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml (133 URLs)"
+          echo "Sitemap: https://njohn931d-dotcom.github.io/bbbh/sitemap.xml ($urls URLs)"
           echo "PWA: manifest.json + 404.html + .nojekyll"
           echo "Discovery: robots.txt, feed.xml, llms.txt, ai.txt, humans.txt, security.txt"

@@ -38,23 +38,34 @@ import re
 import sys
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION — change these two if you move the site or change domain
+# CONFIGURATION
+#
+# These ship to the same host as the Worth app, so they are derived from the
+# same SITE_URL the Vite build uses rather than hardcoded to a domain of their
+# own. A hardcoded origin is what stranded these twelve pages: they were
+# canonicalised to a domain that was never pointed at this package, so every
+# canonical on every page pointed somewhere the content did not exist.
+#
+#   AFFILIATE_SITE_URL   full origin including any project path, e.g.
+#                        https://user.github.io/bbbh
+#   AFFILIATE_SITE       origin only, no path (defaults to the above)
+#   AFFILIATE_BASE       path this package is served from (defaults to
+#                        <project path>/affiliate-marketing)
 # ---------------------------------------------------------------------------
-SITE = "https://affiliateincomelab.com"      # canonical host, no trailing slash
-BASE = "/affiliate-marketing"                # path prefix, no trailing slash
+_env_site_url = os.environ.get("AFFILIATE_SITE_URL", "").rstrip("/")
+_raw = _env_site_url.split("://", 1)[-1]
+_project_path = "/" + _raw.split("/", 1)[1].strip("/") if "/" in _raw else ""
+SITE = (os.environ.get("AFFILIATE_SITE") or f"https://{_raw.split('/')[0]}").rstrip("/")
+BASE = os.environ.get("AFFILIATE_BASE") or f"{_project_path}/affiliate-marketing"
 
 PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../affiliate-marketing
 REPO_ROOT = os.path.dirname(PKG_ROOT)                                   # repository root
 BUILD_DATE = "2026-09-26"
 
-# Sibling static project included in this package's sitemap when both ship to
-# the same domain. The repository root is occupied by the Worth Vite app, so the
-# workspace landing page lives at /workspace-service/ alongside this package.
-SIBLING = {
-    "url": SITE + "/workspace-service/",
-    "priority": "0.8",
-    "changefreq": "monthly",
-}
+# The repository root is the Worth Vite app, so this package is served from a
+# subpath of it. There is no separately deployed sibling to list here, and
+# advertising an unshipped URL in a sitemap is how a sitemap starts
+# advertising 404s.
 
 
 def page_url(slug):
@@ -393,6 +404,90 @@ def _walk_package():
                 yield os.path.join(dirpath, fn)
 
 
+def _walk_files():
+    """Yield every shipped file that can carry an absolute URL.
+
+    HTML plus the discovery files. llms.txt is read by answer engines and
+    shipped alongside the pages, so an origin left stale there points the same
+    way a stale canonical does.
+    """
+    for fp in _walk_package():
+        yield fp
+    for name in ("llms.txt", "site.webmanifest"):
+        fp = os.path.join(PKG_ROOT, name)
+        if os.path.isfile(fp):
+            yield fp
+
+
+# Any origin this package has ever been published under. A page that keeps an
+# old canonical tells a crawler the real version is on a host that may not
+# exist, which discards the page. Rewriting these on every build is what makes
+# moving the site a config change instead of a find-and-replace.
+LEGACY_ORIGINS = ("https://affiliateincomelab.com",)
+
+# The package-relative path these pages were written against, before the host
+# gained a project-path prefix. Root-absolute hrefs and srcs written against it
+# resolve to the domain root once BASE carries the prefix, which 404s every
+# stylesheet, icon and navigation link on the page.
+LEGACY_BASE = "/affiliate-marketing"
+
+
+def sync_origin():
+    """Point every absolute URL in the package at the configured origin.
+
+    The generated pages already come out correct, but the hand-maintained ones
+    (home, about, best-programs, privacy, income-models) are committed as HTML
+    and are not rebuilt from a partial, so their canonicals, og:url, JSON-LD
+    @ids and asset URLs would otherwise keep pointing at whatever host they were
+    last edited on. Covers every file, not just the ones with a nav block.
+    """
+    prefix = SITE + BASE
+    changed = []
+    for fp in _walk_files():
+        src = open(fp, encoding="utf-8").read()
+        out = src
+        for old in LEGACY_ORIGINS:
+            out = out.replace(old + LEGACY_BASE, prefix)
+            out = out.replace(old, SITE)
+        if BASE != LEGACY_BASE:
+            # Only rewrite root-absolute references to this package, and only
+            # ones that are not already prefixed, so a double prefix and a
+            # rewrite of unrelated root links are both avoided.
+            out = re.sub(
+                r'((?:href|src)=")' + re.escape(LEGACY_BASE) + r'(?=(?:/|\.))',
+                r"\g<1>" + BASE,
+                out,
+            )
+        if out != src:
+            open(fp, "w", encoding="utf-8").write(out)
+            changed.append(os.path.relpath(fp, REPO_ROOT))
+    return changed
+
+
+def assert_origin_clean():
+    """Fail the build if any page still advertises a retired origin.
+
+    A stale canonical is silent: the build succeeds, the deploy succeeds, and
+    the page simply never gets indexed. This turns that into a build failure.
+    """
+    offenders = []
+    for fp in _walk_files():
+        src = open(fp, encoding="utf-8").read()
+        for old in LEGACY_ORIGINS:
+            if old in src:
+                offenders.append(f"{os.path.relpath(fp, REPO_ROOT)} -> {old}")
+                break
+        if BASE != LEGACY_BASE and re.search(
+            r'(?:href|src)="' + re.escape(LEGACY_BASE) + r'(?=(?:/|\.))', src
+        ):
+            offenders.append(f"{os.path.relpath(fp, REPO_ROOT)} -> unprefixed {LEGACY_BASE}")
+    if offenders:
+        print("\n  ! pages still referencing a retired origin or path:", file=sys.stderr)
+        for o in offenders:
+            print(f"    - {o}", file=sys.stderr)
+        sys.exit(1)
+
+
 def sync_nav():
     """Replace the primary nav block in every page in this package.
 
@@ -464,16 +559,6 @@ def write_sitemap():
             "Affiliate income models compared by payout size and time to first commission."),
     }
     rows = []
-
-    # Sibling project at the repository root.
-    rows.append("\n".join([
-        "  <url>",
-        f'    <loc>{SIBLING["url"]}</loc>',
-        f'    <lastmod>{BUILD_DATE}</lastmod>',
-        f'    <changefreq>{SIBLING["changefreq"]}</changefreq>',
-        f'    <priority>{SIBLING["priority"]}</priority>',
-        "  </url>",
-    ]))
 
     for p in PAGES:
         loc = page_url(p["slug"])
@@ -564,12 +649,18 @@ def main():
         print(f"\n{len(built)} generated page(s) checked.")
         return
 
+    origin = sync_origin()
     nav = sync_nav()
     foot = sync_footer()
     n_sitemap = write_sitemap()
     n_feed = write_rss()
+    assert_origin_clean()
 
     print(f"Base path: {BASE}    Canonical host: {SITE}")
+    if origin:
+        print(f"\nRepointed {len(origin)} file(s) at the live origin:")
+        for f in origin:
+            print(f"  · {f}")
     print(f"\nBuilt {len(built)} page(s):")
     for s in built:
         print(f"  · {page_path(s)}")
