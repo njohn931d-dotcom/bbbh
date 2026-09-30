@@ -88,6 +88,7 @@ function parse(file) {
   if (meta.updated < meta.published) throw new Error(`${file}: updated before published`);
   if (!meta.source.length || meta.source.some(s => !/^https?:\/\//.test(s.url))) throw new Error(`${file}: every article needs sources with URLs`);
   if (meta.faq.length < 2) throw new Error(`${file}: needs at least 2 FAQ entries`);
+  if (meta.faq.some(([, a]) => a.length < 40)) throw new Error(`${file}: every FAQ answer should be a full sentence (40+ characters)`);
   const body = match[2].trim();
   if (body.length < 1500) throw new Error(`${file}: body is too short for an explainer`);
   const words = body.split(/\s+/).length;

@@ -8,7 +8,10 @@
  * FAQPage only when the questions are rendered, no ratings, no reviews, and no
  * VideoObject for videos this site does not host.
  */
+import fs from 'node:fs';
 import { SITE_NAME, REPO_URL } from './util.mjs';
+
+const LICENSE_URL = 'https://opensource.org/licenses/MIT';
 
 const strip = html => String(html).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
@@ -44,8 +47,10 @@ export function buildGraph(ctx, p) {
   const id = frag => url && url + frag;
 
   const nodes = [];
+  // The logo is included only when the file exists, so the markup never points at a missing image.
+  const logo = site && fs.existsSync('public/logo.svg') ? `${site}/logo.svg` : undefined;
   nodes.push({
-    '@type': 'Organization', '@id': orgId, name: SITE_NAME, url: home, sameAs: [REPO_URL],
+    '@type': 'Organization', '@id': orgId, name: SITE_NAME, url: home, logo, sameAs: [REPO_URL],
   });
   nodes.push({
     '@type': 'WebSite', '@id': siteId, name: SITE_NAME, url: home,
@@ -97,7 +102,7 @@ export function buildGraph(ctx, p) {
       mainEntityOfPage: url && { '@id': id('#primary') },
       image: site ? [`${site}/og-image.png`] : undefined,
       articleSection: p.section, keywords: p.keywords && p.keywords.join(', '),
-      isAccessibleForFree: true,
+      isAccessibleForFree: true, license: LICENSE_URL,
       citation: p.citations && p.citations.map(c => ({ '@type': 'CreativeWork', name: c.name, url: c.url })),
     });
   }

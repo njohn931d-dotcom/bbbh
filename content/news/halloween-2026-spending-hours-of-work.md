@@ -11,7 +11,7 @@ related: calculators/cost-of-time, guides/24-hour-rule, calculators/daily-saving
 source: National Retail Federation: Halloween data and trends, 2026 survey | https://nrf.com/research-insights/holiday-data-and-trends/halloween
 source: National Retail Federation: Halloween shoppers find ways to stretch their budgets (Sept 29, 2026) | https://nrf.com/blog/halloween-shoppers-find-ways-to-stretch-their-budgets
 faq: How much will Americans spend on Halloween in 2026? | $13.5 billion in total, or $115.14 per person on average, according to the National Retail Federation's 2026 survey.
-faq: When is Halloween 2026? | Saturday, October 31, 2026.
+faq: When is Halloween 2026? | Halloween falls on Saturday, October 31, 2026, so the shopping season is already under way.
 faq: How many hours of work is the average Halloween budget? | About 9 hours of after-tax work at $15 an hour and about 5 hours at $25 an hour, based on $115.14 per person.
 ---
 The National Retail Federation expects Halloween spending to reach **$13.5 billion** in 2026, or **$115.14 per person** on average. The figures come from a survey of 7,889 U.S. consumers conducted September 1 to 9 by Prosper Insights & Analytics, reported in the [NRF's Halloween data](https://nrf.com/blog/halloween-shoppers-find-ways-to-stretch-their-budgets). Halloween falls on Saturday, October 31, 2026.

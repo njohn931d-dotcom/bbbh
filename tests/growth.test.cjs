@@ -213,7 +213,15 @@ test('growth pages render valid, unique, correctly linked HTML', async () => {
         }
         // A FAQ block on the page is exactly what the FAQPage markup describes.
         const faq = graph.find((x) => x['@type'] === 'FAQPage');
-        if (faq) assert.equal(d.querySelectorAll('.gx-faq h3').length, faq.mainEntity.length, `${route}: FAQ markup must match the visible questions`);
+        if (faq) {
+          assert.equal(d.querySelectorAll('.gx-faq h3').length, faq.mainEntity.length, `${route}: FAQ markup must match the visible questions`);
+          for (const q of faq.mainEntity) assert.ok(q.acceptedAnswer.text.length >= 40, `${route}: FAQ answer to "${q.name}" is too short to be useful`);
+        }
+        const article = graph.find((x) => x['@type'] === 'Article');
+        if (article) {
+          for (const f of ['headline', 'datePublished', 'dateModified', 'author', 'publisher', 'inLanguage', 'isAccessibleForFree', 'license']) assert.ok(article[f], `${route}: Article is missing ${f}`);
+          assert.ok(article.dateModified >= article.datePublished);
+        }
       }
     }
   });
