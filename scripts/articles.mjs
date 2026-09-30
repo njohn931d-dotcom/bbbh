@@ -11,6 +11,7 @@
  * Generated HTML is ignored in Git (see .gitignore). Edit the Markdown, never the output.
  */
 import fs from 'node:fs';
+import { buildGraph } from './schema.mjs';
 /**
  * Append the site name only when it fits and does not stutter against the last
  * word of the title. Google truncates around 60 characters, so a brand suffix
@@ -226,26 +227,35 @@ function breadcrumbHtml(origin, trail) {
   }).join('')}</nav>`;
 }
 
-function schemaFor({ origin, route, type, name, description, trail }) {
-  const url = origin + '/' + (route ? route + '/' : '');
-  const graph = [
-    { '@type': 'WebSite', name: SITE_NAME, ...(origin ? { url: origin + '/' } : {}) },
-    {
-      '@type': type,
-      name,
-      description,
-      ...(type === 'Article'
-        ? { headline: name, inLanguage: 'en', isAccessibleForFree: true, author: { '@type': 'Organization', name: SITE_NAME }, publisher: { '@type': 'Organization', name: SITE_NAME } }
-        : {}),
-      ...(origin ? { url } : {}),
-    },
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', ...(origin ? { item: origin + '/' } : {}) },
-        ...trail.map((t, i) => ({ '@type': 'ListItem', position: i + 2, name: t.name, ...(origin && t.url ? { item: t.url } : {}) }))],
-    },
-  ];
-  return { '@context': 'https://schema.org', '@graph': graph };
+/**
+ * Structured data for a generated guide page, hub, or the guides index.
+ *
+ * Delegates to scripts/schema.mjs so a guide carries the same Organization,
+ * WebSite and breadcrumb nodes as every other page on the site, plus the
+ * Article fields (author, publisher, dates) that used to be missing here and
+ * that Google needs before it will show a rich result for the page.
+ */
+function schemaFor({ origin, route, type, name, description, trail, article, section }) {
+  const routeOf = u => {
+    if (!u) return '';
+    let p = u;
+    try { p = new URL(u).pathname; } catch { /* already a path */ }
+    if (linkBase && p.startsWith(linkBase + '/')) p = p.slice(linkBase.length);
+    return p.replace(/^\/|\/$/g, '');
+  };
+  return buildGraph({
+    siteUrl: origin || '',
+    route: route || '',
+    name,
+    description,
+    kind: type === 'Article' ? 'guide' : 'hub',
+    section,
+    crumbs: [{ name: 'Home', route: '' }, ...trail.map(t => ({ name: t.name, route: routeOf(t.url) }))],
+    dates: article
+      ? { published: article.published || article.updated, modified: article.updated }
+      : undefined,
+    keywords: article && article.query ? [article.query] : [],
+  });
 }
 
 const cardGrid = (links) => `<div class="hub-grid">${links}</div>`;
@@ -311,7 +321,7 @@ export function generateArticles({ template, origin, basePath = '' }) {
       title: withBrand(article.title, SITE_NAME),
       description: article.description,
       main,
-      schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail }),
+      schema: schemaFor({ origin, route, type: 'Article', name: article.title, description: article.description, trail, article, section: cluster.name }),
     });
     fs.mkdirSync(route, { recursive: true });
     fs.writeFileSync(path.join(route, 'index.html'), html);
@@ -335,7 +345,7 @@ export function generateArticles({ template, origin, basePath = '' }) {
       title: `${cluster.name}: ${list.length} Free Guides | ${SITE_NAME}`,
       description: cluster.blurb.slice(0, 158),
       main,
-      schema: schemaFor({ origin, route, type: 'CollectionPage', name: cluster.name, description: cluster.blurb, trail }),
+      schema: schemaFor({ origin, route, type: 'CollectionPage', name: cluster.name, description: cluster.blurb, trail, section: 'The Money Edit' }),
     });
     fs.mkdirSync(route, { recursive: true });
     fs.writeFileSync(path.join(route, 'index.html'), html);

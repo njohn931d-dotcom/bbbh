@@ -135,6 +135,46 @@ jobs:
           echo "OG: $(grep -o 'og:' dist/index.html | wc -l)"
           echo "Internal links: calculators $(grep -o '/calculators/' dist/index.html | wc -l), guides $(grep -o '/guides/' dist/index.html | wc -l), articles $(grep -o '/articles/' dist/index.html | wc -l)"
 
+      - name: Verify embed widgets and structured data
+        run: |
+          # The widgets are the only distribution channel here that does not wait
+          # on a ranking algorithm, so they are gated like the pages are.
+          set -o pipefail
+          test -f dist/embed/widget.js || (echo "FAIL: dist/embed/widget.js missing" && exit 1)
+          test -f dist/embed/index.html || (echo "FAIL: /embed/ gallery missing" && exit 1)
+          widgets=$(find dist/embed -mindepth 2 -name index.html | wc -l)
+          calculators=$(find dist/calculators -mindepth 1 -maxdepth 1 -type d | wc -l)
+          echo "Widget pages: $widgets / calculator routes: $calculators"
+          test "$widgets" -ge "$calculators" || (echo "FAIL: fewer widgets ($widgets) than calculators ($calculators)" && exit 1)
+          grep -q 'noindex' dist/embed/cost-of-time/index.html || (echo "FAIL: a widget page is indexable and duplicates its tool" && exit 1)
+          grep -q 'rel="canonical"' dist/embed/cost-of-time/index.html || (echo "FAIL: a widget page has no canonical" && exit 1)
+          # Every indexable page must carry exactly one JSON-LD @graph that names
+          # the page, the site and the publisher. 133 pages once carried none.
+          node -e "
+          const fs=require('fs'),path=require('path');
+          const walk=(d,out=[])=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const f=path.join(d,e.name);e.isDirectory()?walk(f,out):e.name.endsWith('.html')&&out.push(f);}return out;};
+          let checked=0,bad=[];
+          for(const f of walk('dist')){
+            if(f.startsWith('dist/embed')||f.endsWith('404.html'))continue;
+            const html=fs.readFileSync(f,'utf8');
+            const blocks=[...html.matchAll(/<script type=\"application\/ld\+json\">([\\s\\S]*?)<\/script>/g)];
+            if(blocks.length!==1){bad.push(f+' ('+blocks.length+' blocks)');continue;}
+            let g;try{g=JSON.parse(blocks[0][1]);}catch(e){bad.push(f+' (unparsable)');continue;}
+            const nodes=g['@graph']||[g];
+            const types=new Set(nodes.flatMap(n=>[].concat(n['@type']||[])));
+            const need=['Organization','WebSite'];
+            if(f!=='dist/index.html')need.push('BreadcrumbList');
+            const missing=need.filter(t=>!types.has(t));
+            if(missing.length)bad.push(f+' (missing '+missing.join(',')+')');
+            checked++;
+          }
+          if(bad.length){console.error('FAIL: structured data incomplete on '+bad.length+' page(s):\n  '+bad.slice(0,10).join('\n  '));process.exit(1);}
+          console.log('✓ '+checked+' indexable pages carry a complete JSON-LD @graph');
+          "
+          # Root mirrors are copies of the build. Stale ones are not fatal - they
+          # only make the repo disagree with the site - so this warns.
+          npm run mirrors:check || echo "::warning title=Repo mirrors stale::Run npm run mirrors and commit parasite-seo/ and the root discovery files"
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
 

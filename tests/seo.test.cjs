@@ -105,10 +105,24 @@ test('google site verification tag survives into the homepage and every generate
   const home=fs.readFileSync('.generated/home.html','utf8');
   assert.equal(count(home),1,'the served homepage lost the verification tag');
 
-  // 2b. The tracked generator must carry the tag so anything it emits keeps it.
-  for(const staticFile of ['scripts/generate-tracked-parasite.mjs']){
-    assert.ok(fs.existsSync(staticFile),'missing '+staticFile);
-    assert.equal(count(fs.readFileSync(staticFile,'utf8')),1,staticFile+' must carry the verification tag exactly once');
+  // 2b. The repo mirrors are copies of generated pages, and the pages they copy
+  //     carry the tag. The generator that used to write these files by hand is
+  //     gone for good: it emitted a doorway page whose copy was a confession
+  //     about "24h ranking tricks" and "power words", which is a manual-action
+  //     admission sitting in a public repo.
+  assert.ok(!fs.existsSync('scripts/generate-tracked-parasite.mjs'),'the doorway generator must stay deleted');
+  assert.ok(fs.existsSync('scripts/sync-repo-mirrors.mjs'),'missing scripts/sync-repo-mirrors.mjs');
+  for(const tracked of ['parasite-seo/calculators-cost-of-time.html']){
+    if(!fs.existsSync(tracked)) continue;
+    assert.equal(count(fs.readFileSync(tracked,'utf8')),1,tracked+' lost the verification tag');
+  }
+  for(const [file, phrase] of [
+    ['parasite-seo/calculators-cost-of-time.html','ranking trick'],
+    ['parasite-seo/calculators-cost-of-time.html','Power words'],
+    ['parasite-seo/calculators-cost-of-time.html','link wheel'],
+  ]){
+    if(!fs.existsSync(file)) continue;
+    assert.ok(!fs.readFileSync(file,'utf8').includes(phrase), file+' still contains "'+phrase+'"');
   }
 
   // 3. Every page the sitemap advertises, so the tag cannot be dropped from a

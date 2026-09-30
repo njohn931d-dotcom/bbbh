@@ -1,12 +1,15 @@
 # Worth — Free Money Calculators
 
+[![Worth — 142 free calculators](https://raw.githubusercontent.com/njohn931d-dotcom/bbbh/main/public/badges/worth-calculators.svg)](https://njohn931d-dotcom.github.io/bbbh/)
+[![Embed a calculator](https://raw.githubusercontent.com/njohn931d-dotcom/bbbh/main/public/badges/worth-embed.svg)](https://njohn931d-dotcom.github.io/bbbh/embed/)
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
-[![142 Pages](https://img.shields.io/badge/SEO%20Pages-142-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
-**Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 142 URLs | **Tools:** 95 | **Guides:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
+**Live site:** <https://njohn931d-dotcom.github.io/bbbh/> · **Embed every tool on your own site:** <https://njohn931d-dotcom.github.io/bbbh/embed/>  
+**Indexable pages:** 142 (53 calculators · 42 guides · 46 long-form guides and hubs) | **Languages:** 10 | **PWA:** yes | **Licence:** MIT
+
+Those two badges at the top are served from this repository (`public/badges/`), so pasting
+them into any README is a real link to a real page, not a promise.
 
 Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator and guide routes, and 46 long-form guides rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
 
@@ -14,14 +17,59 @@ Every page carries its own formula, worked example and FAQ. Ten pages are genuin
 
 ## ✨ Features
 
-- **95 calculators and guides** — cost of time, subscription, salary→hourly, mortgage, compound interest, freelance rate, overtime, streaming audit, and more
+- **53 calculators and 42 guides** — cost of time, subscription, salary→hourly, mortgage, compound interest, freelance rate, overtime, streaming audit, and more
 - **46 long-form guides** — hand-written, 5 clusters, tables with real math
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **PWA ready** — manifest.json, 404.html fallback, offline-capable
-- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
+- **Structured data** — one `@graph` per page from `scripts/schema.mjs`: `Organization` (with logo), `WebSite`, `WebPage`/`CollectionPage`, `WebApplication`, `TechArticle`/`Article`, `BreadcrumbList`, and `FAQPage` only where the answers are visible on the page. The deploy audit refuses to publish a page whose markup disagrees with its content
+- **Embeddable widgets** — every calculator has a chromeless `/embed/<tool>/` copy that noindexes itself, canonicalises to the tool and links back. Two lines of HTML put a working calculator on any page: <https://njohn931d-dotcom.github.io/bbbh/embed/>
+- **Discovery files** — sitemap with priority/lastmod, robots.txt that allows the LLM crawlers, llms.txt, ai.txt, feed.xml, humans.txt, security.txt, and an absolute Open Graph card on every page
 - **Audited build** — `npm run seo:audit` checks all 142 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
 - **142 pages** — all static HTML, unique titles/descriptions, validated by 31 tests
+
+## 📌 Two things a build cannot do for you
+
+Everything on this site is generated and verified in CI. These two are not, because they
+live outside the repository:
+
+1. **The GitHub repo identity.** `node scripts/github-identity.mjs --check` reads the
+   repository description, website field and topics from the GitHub API and tells you what
+   is missing; run it without `--check` to set them. It needs a token with repo
+   administration — the CI token deliberately cannot do this. For a long time the field
+   read `forge control-plane VM host`, which is a different project: no topic search, no
+   category browsing, no link from the most authoritative page this project owns.
+2. **Search Console / Bing Webmaster.** `robots.txt` advertises the sitemap,
+   `npm run indexnow` pushes every URL to IndexNow (Bing, Yandex, DuckDuckGo, and the
+   engines that read them — note that Google has never supported IndexNow), and the deploy
+   workflow re-runs it. Google still wants a verified property before it will tell you
+   anything about impressions.
+
+Neither is a trick. Both are places where the site is currently invisible for a reason that
+has nothing to do with the markup.
+
+## 🧩 Embed a calculator on your site
+
+No key, no account, no build step. The widget is the real calculator, in an iframe, that
+resizes itself:
+
+```html
+<div data-worth-embed="cost-of-time"></div>
+<script async src="https://njohn931d-dotcom.github.io/bbbh/embed/widget.js" data-tool="cost-of-time"></script>
+```
+
+Or drop the frame in directly and keep the numbers you already entered:
+
+```html
+<iframe src="https://njohn931d-dotcom.github.io/bbbh/embed/cost-of-time/#mode=purchase&price=150&income=25"
+        width="100%" height="620" loading="lazy" style="border:1px solid #e0e4d7;border-radius:14px"></iframe>
+```
+
+`https://njohn931d-dotcom.github.io/bbbh/embed/` lists all 53 with live previews and
+copy-paste code. Every page has an **Embed** button next to Share that fills in your values.
+Widget pages are `noindex` with a canonical onto the tool, so embedding never creates
+duplicate content, and `tests/schema-embed.test.cjs` fails the build if that ever stops
+being true.
 
 ## 🚀 Deployment
 

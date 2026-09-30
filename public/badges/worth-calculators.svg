@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="267" height="20" viewBox="0 0 267 20" role="img" aria-label="worth: 142 free calculators">
+  <title>worth: 142 free calculators</title>
+  <linearGradient id="b" x2="0" y2="1"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+  <clipPath id="c"><rect width="267" height="20" rx="3" fill="#fff"/></clipPath>
+  <g clip-path="url(#c)">
+    <rect width="81" height="20" fill="#555"/>
+    <rect x="81" width="186" height="20" fill="#204f3c"/>
+    <rect width="267" height="20" fill="url(#b)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
+    <text x="40.5" y="15" fill="#010101" fill-opacity=".3">worth</text>
+    <text x="40.5" y="14">worth</text>
+    <text x="174.0" y="15" fill="#010101" fill-opacity=".3">142 free calculators</text>
+    <text x="174.0" y="14">142 free calculators</text>
+  </g>
+</svg>
