@@ -1,3 +1,4 @@
+import { growthPlugin } from './scripts/growth/vite-plugin.mjs';
 import { defineConfig } from 'vite';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
@@ -95,7 +96,8 @@ export default defineConfig({
           console.warn('Post-build hook warning:', e.message);
         }
       }
-    }
+    },
+    growthPlugin()
   ],
   build: {
     outDir: 'dist',

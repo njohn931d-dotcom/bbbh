@@ -20,6 +20,7 @@ import { CLUSTER_ROUTES, LOCALE_ROUTES, getContent, TRANSLATION_MAP, REPO_URL } 
 // sync with the pages the build actually produces. Duplicating this list here
 // previously left five built pages missing from sitemap.xml.
 import { routes as seoRoutes } from './generate-seo.mjs';
+import { GROWTH_ROUTES, generateGrowth } from './growth/index.mjs';
 
 /** Pages that predate the cluster and already have hand-written content. */
 const baseRoutes = seoRoutes;
@@ -29,7 +30,7 @@ const baseRoutes = seoRoutes;
  * feeds it to the build as a rollup input — a route that renders a file but is
  * not in this list would never be built.
  */
-export const extraRoutes = [...CLUSTER_ROUTES];
+export const extraRoutes = [...CLUSTER_ROUTES, ...GROWTH_ROUTES];
 
 /** Date the cluster content was last genuinely revised. */
 const CONTENT_UPDATED = '2026-09-27';
@@ -63,7 +64,8 @@ export function generateParasiteSEO() {
   const githubCTA = label => '<div class="github-cta" style="margin:24px 0;padding:16px 20px;border:1px solid #204f3c;border-radius:12px;background:#f6fbf0"><p><strong>Open source</strong> — this ' + escape(label) + ' runs entirely in your browser. No account, no tracking, no data leaves the page. <a href="' + REPO_URL + '" target="_blank" rel="noopener">Read the source</a></p></div>';
 
   /** All tools that exist site-wide, for the "everything else" link list. */
-  const everyRoute = [...new Set([...baseRoutes, ...extraRoutes, ...articleRoutes])];
+  // Calculators and guides only: the growth hubs are linked from the footer and homepage instead.
+  const everyRoute = [...new Set([...baseRoutes, ...CLUSTER_ROUTES, ...articleRoutes])];
 
   /** Human label for a route, used as link text. */
   const labelFor = route => (getContent(route)?.h1) || route.split('/').pop().replace(/-/g, ' ');
@@ -365,6 +367,9 @@ export function generateParasiteSEO() {
     fs.mkdirSync('public', { recursive: true });
     fs.writeFileSync('public/sitemap.xml', sitemap);
   }
+
+  // News, movies, minimum wage, emoji and open-data pages (their routes are in extraRoutes above).
+  generateGrowth({ siteUrl, origin, basePath });
 }
 
 if (process.argv[1]?.endsWith('generate-parasite.mjs')) generateParasiteSEO();

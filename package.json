@@ -49,6 +49,7 @@
     "devto:render": "node scripts/devto-publish.mjs --offline",
     "devto:publish": "node scripts/devto-publish.mjs --state published",
     "indexnow": "node scripts/indexnow.mjs",
+    "growth": "node scripts/growth/index.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:audit:strict": "node scripts/seo-audit.mjs --warnings-as-errors"
   },
