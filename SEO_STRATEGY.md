@@ -114,9 +114,9 @@ page says so and points at the authoritative source rather than inventing a
    pages and the output changed on every build. Links are now drawn from each
    page's own `related` and `links` lists.
 3. **A real domain.** Canonicals currently point at a `github.io` subdomain,
-   which the audit reports as an info-level note. Moving to a real domain is
-   the single highest-value infrastructure change still available, and it is
-   purely a DNS and `SITE_URL` change.
+   which the audit reports as an info-level note. A custom domain can improve
+   brand ownership and portability, but changing domains is not a guaranteed
+   ranking boost; weigh migration and redirect work against the actual need.
 4. **Earned links.** The work-hours angle (converting a price into hours of
    life) is the one genuinely distinctive idea on the site and the most likely
    thing to be cited by a journalist or a newsletter.

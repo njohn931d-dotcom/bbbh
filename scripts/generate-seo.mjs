@@ -923,7 +923,7 @@ const hreflangFor = (route, site) => {
 };
 
 const manifestLink = '<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#204f3c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'16\' fill=\'%23204f3c\'/%3E%3Ctext x=\'13\' y=\'46\' font-size=\'44\' fill=\'%23d9edb2\' font-family=\'serif\'%3Ew%3C/text%3E%3C/svg%3E">';
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website">${siteUrl?`<meta property="og:image" content="${escape(siteUrl+'/og-image.png')}"><meta name="twitter:image" content="${escape(siteUrl+'/og-image.png')}">`:''}<meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}<link rel="author" href="/humans.txt">${hreflangFor(p.route, siteUrl)}</head>`);
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta name="twitter:card" content="summary_large_image"><meta property="og:site_name" content="Worth"><meta property="og:type" content="website">${siteUrl?`<meta property="og:image" content="${escape(siteUrl+'/og-image.png')}"><meta name="twitter:image" content="${escape(siteUrl+'/og-image.png')}">`:''}<meta name="keywords" content="${escape(p.name.toLowerCase())}, calculator, github, open source, worth, free, money, personal finance">${manifestLink}${siteUrl?`<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${escape(siteUrl+'/feed.xml')}">`:''}<link rel="author" href="/humans.txt">${hreflangFor(p.route, siteUrl)}</head>`);
 }
 
 for(const p of data){
@@ -956,7 +956,6 @@ fs.mkdirSync('public',{recursive:true});
 const robotsContent = siteUrl ? `User-agent: *
 Allow: /
 Sitemap: ${siteUrl}/sitemap.xml
-Sitemap: ${siteUrl}/feed.xml
 
 # LLM Crawlers - Allow for AI discoverability
 User-agent: GPTBot
@@ -975,12 +974,15 @@ User-agent: PerplexityBot
 Allow: /
 User-agent: Bytespider
 Allow: /
-
 ` : 'User-agent: *\nDisallow: /\n';
 fs.writeFileSync('public/robots.txt', robotsContent);
 if(siteUrl) {
-  const today = new Date().toISOString().split('T')[0];
-  fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
+  // Do not stamp every URL with the build date. A deployment is not evidence
+  // that a page's user-visible content changed, and changefreq/priority are
+  // ignored by Google. Add <lastmod> only when a reliable per-page content date
+  // is available; omitting it is better than sending a manufactured freshness
+  // signal to crawlers.
+  fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(['',...routes,...extraRoutesForHome,...articleRoutes])].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc></url>`).join('\n')}\n</urlset>\n`);
 } 
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub

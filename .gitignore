@@ -1,5 +1,6 @@
 # ---- Node / JS (Worth app at root, HOOKED in hooked/) ----
 node_modules/
+/seo-reports/
 dist/
 .next/
 *.tsbuildinfo
