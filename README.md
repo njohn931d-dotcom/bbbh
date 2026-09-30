@@ -3,12 +3,12 @@
 [![Deploy](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml/badge.svg)](https://github.com/njohn931d-dotcom/bbbh/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://njohn931d-dotcom.github.io/bbbh/)
-[![142 Pages](https://img.shields.io/badge/SEO%20Pages-142-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
+[![217 Pages](https://img.shields.io/badge/SEO%20Pages-217-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 142 URLs | **Interactive calculators:** 53 | **Long-form guides:** 40 | **Translated pages:** 10 | **Open Source:** MIT
+**Sitemap:** 217 URLs | **Interactive calculators:** 53 | **Long-form guides:** 40 | **Translated pages:** 17 | **News, data and movie pages:** 68 | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator/guide routes, and 46 Markdown-derived pages (40 articles, five collection pages and a guide index). All calculations run in the browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **217 indexable URLs**: the homepage, 102 calculator/guide routes, 46 Markdown-derived pages (40 articles, five collection pages and a guide index), and 68 news, movie, minimum-wage, open-data and emoji pages (see [docs/GROWTH_ENGINE.md](docs/GROWTH_ENGINE.md)). All calculations run in the browser — private, no tracking, no sign-up.
 
 Tool pages provide route-specific inputs and results; guides explain formulas and assumptions with worked examples. Ten pages are translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
@@ -18,19 +18,19 @@ Tool pages provide route-specific inputs and results; guides explain formulas an
 - **40 long-form guides** — hand-written, grouped into five clusters, plus six directory/collection pages
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
 - **Installable site manifest** — scoped to the Pages project path; 404 fallback. No offline service worker is shipped.
-- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
-- **Audited build** — `npm run seo:audit:strict` checks all 142 pages for canonical/schema URL alignment, visible FAQs, social-image paths, indexability, hreflang reciprocity, broken links and orphan pages; errors or warnings **block deploy**. `npm run check:live` checks the public deployment.
+- **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with real per-page lastmod dates (never the build date), robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
+- **Audited build** — `npm run seo:audit:strict` checks all 217 pages for canonical/schema URL alignment, visible FAQs, social-image paths, indexability, hreflang reciprocity, broken links and orphan pages; errors or warnings **block deploy**. `npm run check:live` checks the public deployment.
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **142 pages** — static HTML with unique titles/descriptions, validated by automated tests
+- **217 pages** — static HTML with unique titles/descriptions, validated by automated tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — functional calculators and 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — functional calculators and 217 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
-4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
+4. Verify dist: 217 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
 5. `npm run seo:audit:strict` — fails on any SEO error or warning
 6. Deploy to GitHub Pages, check the **public** pages with `npm run check:live`, and notify IndexNow (receipt does not guarantee indexing or visitors)
 
@@ -44,7 +44,7 @@ SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production
 
 Live discovery files:
 
-- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — 142 URLs with priority & lastmod
+- [Sitemap](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml) — current indexable routes; dates are omitted unless the content-change date is reliable
 - [Robots](https://njohn931d-dotcom.github.io/bbbh/robots.txt) — LLM crawler friendly
 - [LLM index](https://njohn931d-dotcom.github.io/bbbh/llms.txt) — for AI search
 - [AI index](https://njohn931d-dotcom.github.io/bbbh/ai.txt)
@@ -89,9 +89,19 @@ npm test        # validates metadata, uniqueness, links, orphans, canonicals
 
 Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, pipe tables, `>` callouts, fenced code, `**bold**`, `*italic*`, `` `code` ``, `[link](/path/)`. Output HTML-escaped, unsafe schemes stripped.
 
+## 📰 Growth engine: news, movies, data and languages
+
+Beyond the calculators, Worth publishes dated **news explainers** that turn a new price into hours of work
+(`/news/`, with an Atom feed), **fall movie trailers** and a movie-night cost calculator (`/movies/`),
+**minimum wage by state** with the same data as JSON/CSV under `/api/v1/` (`/minimum-wage/`, `/open-data/`),
+a **money emoji** reference, and localized pay calculators in **Italian, Dutch, Polish, Turkish, Indonesian,
+Vietnamese and Hindi**. Every figure has a dated source or is computed by tested code. A daily **trend radar**
+workflow opens an issue with explainer candidates and flags stale datasets; it never publishes on its own.
+How to add a news piece, update the wage data, add a film or a language: [docs/GROWTH_ENGINE.md](docs/GROWTH_ENGINE.md).
+
 ## 🔍 Search Architecture
 
-- Static HTML for all 142 routes before JS
+- Static HTML for all 217 routes before JS
 - Unique title/description, canonical, breadcrumbs, internal links
 - 46 guide pages add `Article`/`CollectionPage` + `BreadcrumbList` JSON-LD
 - `scripts/generate-seo.mjs` — base routes + guides, sitemap, robots, RSS, llms.txt, ai.txt
@@ -102,6 +112,12 @@ Markdown: `##`/`###` headings (H2s become TOC), paragraphs, `-` and `1.` lists, 
 - `vite.config.js` — generates 404.html SPA fallback, verifies dist, PWA manifest, hashed assets, security headers
 - `40_ARTICLES_INDEX.md`, `SEO_STRATEGY.md`, `GITHUB_SEO.md` — article plan (treat volumes as hypotheses)
 - **Google Search Console verification** — `google-site-verification` meta tag lives in `index.html`, the single template every generated page is built from, so it ships on every built page (homepage, tools, guides, articles, helper pages). Verify the URL-prefix property `https://njohn931d-dotcom.github.io/bbbh/`; a test asserts the tag survives generation. One Google account per tag — a second needs its own `<meta>` line.
+
+## 📈 Search Console opportunity reports
+
+`npm run gsc:opportunities` compares two settled Search Console periods and privately reports ranking opportunities, rising/declining queries, possible URL overlap, and countries with measurable impressions. It does not publish content or send search data to the site. To enable the weekly GitHub Actions report, grant a Google service account read access to the verified Search Console property and add its JSON as the repository secret `GSC_SERVICE_ACCOUNT_JSON`. See the [Organic Search Growth Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for setup, local use and privacy details. The report is an editorial signal—not complete property totals, a ranking guarantee, or permission to auto-publish trend pages.
+
+The sitemap includes the complete set of indexable routes and intentionally omits `lastmod`, `changefreq` and `priority` until the build can provide reliable page-level change dates. Deploying a site is not the same as editing every page.
 
 ## 🔗 dev.to backlinks
 
@@ -159,7 +175,7 @@ npm run serve:static      # zero-dependency dev server for the static projects
 
 Scope rules that keep the Pages deploy green:
 
-- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly 142
+- **The GitHub Pages deploy publishes Worth only.** `vite build` emits exactly the Worth sitemap (217 URLs today)
   indexable pages and `deploy.yml` asserts that derived count, so the sibling projects stay
   outside `dist/`. Affiliate Income Lab targets its own domain (`affiliateincomelab.com`,
   set by the `SITE`/`BASE` constants in `affiliate-marketing/tools/build.py`); Forge
@@ -168,7 +184,7 @@ Scope rules that keep the Pages deploy green:
   `ai.txt` and `feed.xml` are generated by `scripts/generate-seo.mjs`.
 - **`affiliate-marketing/tools/build.py` writes its sitemap inside its own package**
   (`affiliate-marketing/sitemap.xml`) and never to the repository root, so a content
-  rebuild cannot overwrite Worth's 142-URL sitemap.
+  rebuild cannot overwrite Worth's sitemap.
 - `server.js` and the root `404.html` exist to preview all four projects locally.
 
 Before publishing Forge Workspace, set a real `contactEmail` in
@@ -186,7 +202,7 @@ High-volume reference material lives in [`docs/`](docs/README.md) alongside the 
 - **[FIRE Calculator & Handbook](docs/fire-financial-independence-retire-early.md)** — 4% rule math, Coast FIRE, Lean vs Fat FIRE, savings-rate tables.
 - **[Awesome Open-Source Finance Directory](docs/open-source-finance-tools-directory.md)** — 50+ privacy-first, self-hosted and plain-text money tools.
 
-See also the [Max Traffic & Ranking Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for how these pages are built to be found.
+See the [Organic Search Growth Playbook](MAX_TRAFFIC_AND_RANKING_PLAYBOOK.md) for an evidence-led editorial plan; it replaces unverified traffic-volume estimates and shortcut claims.
 
 ## 🤝 Contributing
 

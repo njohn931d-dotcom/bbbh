@@ -1,0 +1,87 @@
+/* Styles for the growth surfaces (news, movies, minimum wage, emoji, open data).
+   Built on the site's existing palette and type; loaded only on those pages. */
+.gx-lead{font-size:18px;line-height:1.7;color:#3f5141;max-width:720px}
+.gx-meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;color:#78836d;margin:14px 0 0}
+.gx-meta time,.gx-meta span{white-space:nowrap}
+.gx-tag{display:inline-block;padding:3px 9px;border-radius:99px;background:#e7efd6;color:#3b5a37;font-size:11px;font-weight:600;letter-spacing:.3px}
+.gx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0}
+.gx-stat{border:1px solid #dfe3d7;border-radius:8px;background:#fff;padding:16px 18px}
+.gx-stat b{display:block;font-family:Manrope,sans-serif;font-size:26px;font-weight:600;letter-spacing:-.8px;color:#234e3b;line-height:1.2}
+.gx-stat span{font-size:11px;color:#78836d}
+.gx-note{border-left:3px solid #9bac70;background:#f3f6ea;padding:14px 18px;margin:26px 0;font-size:14px;line-height:1.75;color:#4a5a43;border-radius:0 6px 6px 0}
+.gx-note strong{color:#234e3b}
+.gx-sources{font-size:13px;line-height:1.8;color:#6b7862}
+.gx-sources li{margin:4px 0}
+.gx-faq h3{font-size:16px;margin:26px 0 6px}
+.gx-faq p{margin:0}
+.gx-table-wrap{overflow-x:auto}
+.seo-article table.gx-wide td:first-child,.seo-article table.gx-wide th:first-child{white-space:nowrap}
+.seo-article td.gx-num,.seo-article th.gx-num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* pay converter */
+.gx-conv{border:1px solid #dedfd5;border-radius:12px;background:#fff;padding:24px 26px;margin:30px 0;box-shadow:0 6px 20px #202d2010}
+.gx-conv h2,.gx-conv h3{margin:0 0 4px;font-family:Manrope,sans-serif;font-size:21px;font-weight:550;letter-spacing:-.5px;color:#293d2e}
+.gx-conv-intro{font-size:12px;color:#8a8d82;margin:0 0 18px;line-height:1.6}
+.gx-conv-form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.gx-conv-form label,.gx-conv-price label{margin:0}
+.gx-conv .gx-wide{grid-column:1/-1}
+.gx-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:7px}
+.gx-conv label input,.gx-conv label select{margin-top:7px;height:44px;width:100%}
+.gx-row input,.gx-row select{margin-top:0!important}
+.gx-conv select{border:1px solid #dddfd4;border-radius:6px;background:#fff;padding:0 10px;color:#353f31;font-size:13px}
+.gx-conv-out{width:100%;border-collapse:collapse;margin:20px 0 6px;font-size:14px;font-variant-numeric:tabular-nums}
+.gx-conv-out th,.gx-conv-out td{padding:11px 4px;border-bottom:1px solid #e5e9dc;text-align:left;font-weight:500}
+.gx-conv-out td{text-align:right;font-family:Manrope,sans-serif;font-weight:600;color:#234e3b}
+.gx-conv-price{margin-top:16px;padding-top:14px;border-top:1px dashed #d8decb}
+.gx-conv-price p{font-size:13px;color:#4a5a43;margin:10px 0 0}
+
+/* hubs */
+.gx-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0 6px}
+.gx-card{display:flex;flex-direction:column;gap:8px;border:1px solid #dfe3d7;border-radius:8px;background:#fff;padding:20px;color:inherit}
+.gx-card:hover{background:#f1f3e9;border-color:#cdd8bd}
+.gx-card h3{margin:0;font-family:Manrope,sans-serif;font-size:18px;font-weight:600;letter-spacing:-.4px;line-height:1.4;color:#293d2e}
+.gx-card p{margin:0;font-size:13px;line-height:1.7;color:#6b7862}
+.gx-card small{font-size:10px;letter-spacing:1.2px;color:#78836d;font-weight:700;text-transform:uppercase}
+.gx-card .gx-more{margin-top:auto;font-size:12px;color:#4f6947;font-weight:600}
+.gx-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.gx-chips a{border:1px solid #dfe3d7;border-radius:99px;padding:6px 13px;font-size:12px;background:#fff;color:#3b5a37}
+.gx-chips a:hover{background:#eef0e5}
+
+/* trailers */
+.gx-video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#173e2c;margin:18px 0}
+.gx-video button{all:unset;cursor:pointer;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#eff5e4;text-align:center;padding:18px;background:radial-gradient(circle at 30% 20%,#2c6a4e,#173e2c 70%)}
+.gx-video button:focus-visible{outline:3px solid #d2e3aa;outline-offset:-6px}
+.gx-video .gx-play{width:68px;height:68px;border-radius:50%;background:#d2e3aa;color:#173e2c;display:grid;place-items:center;font-size:26px;padding-left:5px}
+.gx-video strong{font-family:Manrope,sans-serif;font-size:18px;font-weight:600;letter-spacing:-.3px}
+.gx-video small{font-size:11px;color:#bed0b7}
+.gx-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.gx-credit{font-size:12px;color:#78836d;margin:-8px 0 18px}
+
+/* emoji page */
+.gx-emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:18px 0}
+.gx-emoji{all:unset;cursor:pointer;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid #dfe3d7;border-radius:10px;background:#fff;padding:16px 10px;text-align:center}
+.gx-emoji:hover{background:#eef0e5}
+.gx-emoji:focus-visible{outline:3px solid #9bac70;outline-offset:2px}
+.gx-emoji i{font-style:normal;font-size:38px;line-height:1.2}
+.gx-emoji b{font-size:12px;font-weight:600;color:#293d2e}
+.gx-emoji small{font-size:10px;color:#78836d}
+
+/* footer explore links (appear on every page) */
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px}
+.foot-links a{color:#5f7456;text-decoration:underline}
+
+@media(max-width:780px){.gx-stats{grid-template-columns:1fr 1fr}.gx-cards{grid-template-columns:1fr}}
+@media(max-width:480px){.gx-conv{padding:18px}.gx-conv-form{grid-template-columns:1fr}.gx-lead{font-size:16px}}
+
+/* basket calculator */
+.gx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gx-basket-head,.gx-basket-row{display:grid;grid-template-columns:1fr 90px 110px;gap:10px;align-items:center}
+.gx-basket-head{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#78836d;margin-bottom:6px}
+.gx-basket-row{padding:6px 0;border-bottom:1px solid #eef0e5;font-size:13px}
+.gx-basket-row label{margin:0}
+.gx-basket-row input{height:40px;margin:0!important}
+.gx-basket-hourly{margin-top:16px}
+.gx-basket-total{font-size:18px;margin:18px 0 4px}
+.gx-basket-total strong{font-family:Manrope,sans-serif;color:#234e3b;font-size:26px}
+.gx-basket-hours{font-size:14px;color:#4a5a43;margin:0}
+@media(max-width:480px){.gx-basket-head,.gx-basket-row{grid-template-columns:1fr 70px 90px}}

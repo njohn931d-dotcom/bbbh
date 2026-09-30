@@ -4,6 +4,7 @@ import { getCalculator } from './calculator-model.mjs';
 import { renderCalculator } from './render-calculator.mjs';
 import vm from 'node:vm';
 import { generateArticles, articleRoutes, articles as guideArticles, clusters as guideClusters, articleFeedItems, articleLlmsLines } from './articles.mjs';
+import { GROWTH_ROUTES } from './growth/index.mjs';
 export { articleRoutes };
 
 export const routes = [
@@ -932,7 +933,7 @@ const hreflangFor = (route, site) => {
 };
 
 const manifestLink = `<link rel="manifest" href="${basePath}/manifest.json"><link rel="author" href="${basePath}/humans.txt">`;
-return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta property="og:site_name" content="Worth">${manifestLink}${hreflangFor(p.route, siteUrl)}</head>`);
+return html.replace('</head>',`${siteUrl?`<link rel="canonical" href="${escape(url)}"><meta property="og:url" content="${escape(url)}">`:'<meta name="robots" content="noindex, nofollow">'}<meta property="og:site_name" content="Worth">${manifestLink}${siteUrl?`<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${escape(siteUrl+'/feed.xml')}">`:''}${hreflangFor(p.route, siteUrl)}</head>`);
 }
 
 for(const p of data){
@@ -967,7 +968,6 @@ fs.mkdirSync('public',{recursive:true});
 const robotsContent = siteUrl ? `User-agent: *
 Allow: /
 Sitemap: ${siteUrl}/sitemap.xml
-Sitemap: ${siteUrl}/feed.xml
 
 # LLM Crawlers - Allow for AI discoverability
 User-agent: GPTBot
@@ -986,12 +986,15 @@ User-agent: PerplexityBot
 Allow: /
 User-agent: Bytespider
 Allow: /
-
 ` : 'User-agent: *\nDisallow: /\n';
 fs.writeFileSync('public/robots.txt', robotsContent);
 if(siteUrl) {
-  const today = new Date().toISOString().split('T')[0];
-  fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...routes,...articleRoutes].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${r===''?'1.0':r.startsWith('calculators/')?'0.9':r.startsWith('articles/')?'0.7':'0.8'}</priority></url>`).join('')}</urlset>`);
+  // Do not stamp every URL with the build date. A deployment is not evidence
+  // that a page's user-visible content changed, and changefreq/priority are
+  // ignored by Google. Add <lastmod> only when a reliable per-page content date
+  // is available; omitting it is better than sending a manufactured freshness
+  // signal to crawlers.
+  fs.writeFileSync('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(['',...routes,...extraRoutesForHome,...articleRoutes,...GROWTH_ROUTES])].map(r=>`<url><loc>${escape(siteUrl+(r?'/'+r+'/':'/'))}</loc></url>`).join('\n')}\n</urlset>\n`);
 } 
 else if(fs.existsSync('public/sitemap.xml'))fs.unlinkSync('public/sitemap.xml');
 // Generate llms.txt for LLM SEO + GitHub

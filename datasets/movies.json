@@ -1,0 +1,80 @@
+{
+  "asOf": "2026-09-30",
+  "note": "Release dates and trailer details come from the studios' official YouTube descriptions and from trade coverage. Every trailer id below was checked against YouTube's oEmbed endpoint (title and channel) and is embeddable.",
+  "movies": [
+    {
+      "slug": "street-fighter",
+      "title": "Street Fighter",
+      "year": 2026,
+      "release": "2026-10-16",
+      "distributor": "Paramount Pictures and Legendary",
+      "formats": "In theaters",
+      "director": "Kitao Sakurai",
+      "cast": ["Noah Centineo", "Andrew Koji", "Callina Liang", "David Dastmalchian", "Jason Momoa", "Cody Rhodes", "Eric André", "50 Cent", "Roman Reigns"],
+      "about": "The studio's description places the film in 1993 and follows estranged street fighters Ryu and Ken Masters.",
+      "trailer": { "id": "U6sbm1OaJb8", "title": "Street Fighter | New Trailer (2026 Movie)", "channel": "Paramount Pictures" },
+      "sources": [
+        { "name": "Legendary on YouTube: Street Fighter (2026) Official Trailer, release date October 16", "url": "https://www.youtube.com/watch?v=6Hqu_Sv6xmQ" },
+        { "name": "Rotten Tomatoes: The Most Anticipated Movies of 2026", "url": "https://editorial.rottentomatoes.com/article/the-most-anticipated-movies-of-2026/" }
+      ]
+    },
+    {
+      "slug": "the-hunger-games-sunrise-on-the-reaping",
+      "title": "The Hunger Games: Sunrise on the Reaping",
+      "year": 2026,
+      "release": "2026-11-20",
+      "distributor": "Lionsgate",
+      "formats": "In theaters and IMAX",
+      "director": null,
+      "cast": ["Joseph Zada"],
+      "about": "A prequel to the Hunger Games films. The trailers feature Joseph Zada as a young Haymitch.",
+      "trailer": { "id": "lYXtL5TreOE", "title": "The Hunger Games: Sunrise on the Reaping (2026) Official Trailer 2 - Joseph Zada", "channel": "Lionsgate Movies" },
+      "sources": [
+        { "name": "Lionsgate Movies on YouTube: official trailer, in theaters and IMAX November 20", "url": "https://www.youtube.com/watch?v=lYXtL5TreOE" },
+        { "name": "Movie Insider: November 2026 movies", "url": "https://www.movieinsider.com/movies/2026" }
+      ]
+    },
+    {
+      "slug": "avengers-doomsday",
+      "title": "Avengers: Doomsday",
+      "year": 2026,
+      "release": "2026-12-18",
+      "distributor": "Marvel Studios",
+      "formats": "In theaters, with large-format screens promoted",
+      "director": null,
+      "cast": [],
+      "about": "Marvel's description promotes the film for bigger, brighter and more immersive screens.",
+      "trailer": { "id": "irVNGjRFZGk", "title": "Avengers: Doomsday | Official Trailer | In Theaters December 18", "channel": "Marvel Entertainment" },
+      "sources": [
+        { "name": "Marvel Entertainment on YouTube: Avengers: Doomsday official trailer, in theaters December 18", "url": "https://www.youtube.com/watch?v=irVNGjRFZGk" },
+        { "name": "Movie Insider: December 2026 movies", "url": "https://www.movieinsider.com/movies/2026" }
+      ]
+    },
+    {
+      "slug": "dune-part-three",
+      "title": "Dune: Part Three",
+      "year": 2026,
+      "release": "2026-12-18",
+      "distributor": "Warner Bros. and Legendary",
+      "formats": "In theaters and IMAX (filmed for IMAX)",
+      "director": "Denis Villeneuve",
+      "cast": [],
+      "about": "The conclusion of the Dune trilogy. Warner Bros. describes it as only in theaters and IMAX.",
+      "trailer": { "id": "NdvqHc56lE0", "title": "Dune: Part Three | Official Trailer", "channel": "Warner Bros." },
+      "sources": [
+        { "name": "Warner Bros. on YouTube: Dune: Part Three official trailer, in theaters and IMAX December 18", "url": "https://www.youtube.com/watch?v=NdvqHc56lE0" },
+        { "name": "The Independent: A trip to the movies has hit $50 (May 6, 2026)", "url": "https://www.the-independent.com/us/money/movie-tickets-price-increase-expensive-b2971595.html" }
+      ]
+    }
+  ],
+  "ticketFacts": {
+    "average": 16.30,
+    "dateNight": 54.08,
+    "lowest": { "state": "Arizona", "price": 12.73 },
+    "highest": { "state": "New York", "price": 25.24 },
+    "cheapestDate": { "state": "Tennessee", "price": 44.73 },
+    "priciestDate": { "state": "New York", "price": 73.39 },
+    "source": { "name": "CableTV.com: How much does a movie ticket cost in 2026?", "url": "https://www.cabletv.com/entertainment/cost-of-a-movie-ticket", "date": "2026-07-10" },
+    "premium": { "text": "Tickets for a recent Dune: Part Three screening hit $50 at the top end, while $50 tickets remain uncommon.", "source": { "name": "The Independent: A trip to the movies has hit $50", "url": "https://www.the-independent.com/us/money/movie-tickets-price-increase-expensive-b2971595.html", "date": "2026-05-06" } }
+  }
+}

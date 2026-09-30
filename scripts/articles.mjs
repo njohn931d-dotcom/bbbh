@@ -200,7 +200,8 @@ function pageShell({ template, origin, route, title, description, bodyClass, mai
     .replace(/href="#(calculator|learn|how|tools)"/g, 'href="/#$1"')
     .replace('<script type="module" src="/app.js"></script>', '')
     .replace('</head>', `${origin
-      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">`
+      ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">` +
+        `<link rel="alternate" type="application/rss+xml" title="Worth money calculators and guides" href="${escapeHtml(origin + linkBase + '/feed.xml')}">`
       : '<meta name="robots" content="noindex, nofollow">'}</head>`);
   // Article pages are static: swap the saved-thoughts button and the in-page nav for site links.
   html = html

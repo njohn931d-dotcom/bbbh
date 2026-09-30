@@ -67,6 +67,13 @@ test('package.json homepage is the live origin the published files link to', () 
   assert.ok(publishedRoutes().has(SITE + '/'), `tracked sitemap.xml does not list the homepage ${SITE}/`);
 });
 
+test('tracked discovery files do not advertise fake freshness or RSS as a sitemap', () => {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+  assert.doesNotMatch(sitemap, /<(?:lastmod|changefreq|priority)>/);
+  assert.doesNotMatch(robots, /Crawl-delay|Sitemap: [^\\n]*feed\\.xml/i);
+});
+
 test('nothing the repo publishes references the placeholder domain', () => {
   const offenders = [];
   for (const file of publishedFiles()) {

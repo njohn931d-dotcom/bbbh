@@ -20,6 +20,8 @@
 
 /** @typedef {{route:string,h1:string,title:string,desc:string,intent:'tool'|'guide',intro:string,formula:{name:string,expr:string,plain:string},assumptions?:string,caveat?:string,table:{head:string[],rows:string[][]},notes:string[],faqs:[string,string][],links:string[],related:string[],lang?:string,translationOf?:string,dir?:string}} ClusterEntry */
 
+import { EXTRA_LOCALE_CONTENT } from './locale-extra.mjs';
+
 const H = 'https://github.com/njohn931d-dotcom/bbbh';
 
 /** @type {ClusterEntry[]} */
@@ -1423,6 +1425,8 @@ export const LOCALE_CONTENT = [
     links: ['calculators/mortgage-calculator-2026', 'calculators/rent-vs-buy-calculator-2026', 'calculators/cost-of-living-calculator-2026', 'calculators/paycheck-calculator-2026'],
     related: ['calculators/mortgage-calculator-2026', 'calculators/rent-vs-buy-calculator-2026', 'calculators/cost-of-living-calculator-2026', 'calculators/paycheck-calculator-2026'],
   },
+  // Seven more languages (Italian, Dutch, Polish, Turkish, Indonesian, Vietnamese, Hindi), each using its own country's pay conversion.
+  ...EXTRA_LOCALE_CONTENT,
 ];
 
 /** Routes that exist in CLUSTER_CONTENT, in file order. */

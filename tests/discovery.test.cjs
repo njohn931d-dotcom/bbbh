@@ -21,7 +21,11 @@ test('every discoverable page has honest schema, scoped OG images and canonical 
     generate(SITE);
     const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8');
     const entries = [...sitemap.matchAll(/<url><loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)];
-    assert.equal(entries.length, 142);
+    // Derived from the route model, so adding pages cannot silently desynchronise this check.
+    const { extraRoutes } = await import('../scripts/generate-parasite.mjs');
+    const seo = await import('../scripts/generate-seo.mjs');
+    const expected = new Set(['', ...seo.routes, ...extraRoutes, ...seo.articleRoutes]).size;
+    assert.equal(entries.length, expected, 'every sitemap URL carries a real lastmod and every route is listed');
     for (const [, url, modified] of entries) {
       const html = page(url);
       const document = new JSDOM(html, { url }).window.document;

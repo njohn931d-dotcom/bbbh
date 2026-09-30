@@ -9,6 +9,12 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  execFileSync(process.execPath,['scripts/generate-parasite.mjs'],{env:{...process.env,SITE_URL:'https://worth.example'}});
  const sitemap=fs.readFileSync('public/sitemap.xml','utf8');
  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
+ // lastmod is allowed only as a real content date (article source dates, dataset dates), never the
+ // build date stamped on everything; changefreq and priority are ignored by Google and not emitted.
+ assert.doesNotMatch(sitemap, /<(?:changefreq|priority)>/, 'Do not emit crawl-frequency or priority hints');
+ const stamps=[...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(m=>m[1]);
+ const buildDay=new Date().toISOString().slice(0,10);
+ assert.ok(new Set(stamps).size>1||stamps[0]!==buildDay,'lastmod must not be the build date on every URL');
  // 6 base + 40 main + 40 parasite = 86 routes + home = 87 URLs
  assert.ok(urls.length>=86, `Expected at least 86 URLs, got ${urls.length}`);
  const titles=new Set();const descriptions=new Set();
@@ -24,6 +30,7 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
    const d=dom.window.document;
    const canon=d.querySelector('link[rel=canonical]');
    assert.ok(canon,'Missing canonical for '+url);
+   assert.equal(d.querySelector('link[type="application/rss+xml"]')?.href,'https://worth.example/feed.xml','RSS should be discoverable as a feed, not advertised as a sitemap');
    let canonHref=canon.href;
    try{canonHref=decodeURIComponent(canonHref);}catch{};
    let urlDecoded=url;
@@ -61,6 +68,7 @@ test('all SEO routes contain static content, unique metadata, canonical URLs, an
  assert.equal(titles.size,urls.length, 'Titles should be unique');
  assert.equal(descriptions.size,urls.length, 'Descriptions should be unique');
  assert.match(fs.readFileSync('public/robots.txt','utf8'),/Sitemap: https:\/\/worth.example\/sitemap.xml/);
+ assert.doesNotMatch(fs.readFileSync('public/robots.txt','utf8'),/Sitemap: https:\/\/worth.example\/feed\.xml/);
  assert.ok(fs.existsSync('public/feed.xml'), 'feed.xml should exist');
  assert.ok(fs.existsSync('public/llms.txt'), 'llms.txt should exist');
  assert.ok(fs.existsSync('public/sitemap-extra.xml') || true, 'sitemap-extra optional');
@@ -75,6 +83,7 @@ test('GitHub Pages project path is applied to links, assets, canonicals, and dis
  execFileSync(process.execPath,['scripts/generate-parasite.mjs'],{env:{...process.env,SITE_URL:site}});
  const home=new JSDOM(fs.readFileSync('.generated/home.html','utf8')).window.document;
  assert.equal(home.querySelector('link[rel=canonical]').href,site+'/');
+ assert.equal(home.querySelector('link[type="application/rss+xml"]').href,site+'/feed.xml');
  assert.ok(home.querySelector('a[href="/bbbh/calculators/cost-of-time/"]'));
  assert.ok(home.querySelector('a[href="/bbbh/guides/how-much-is-time-worth/"]'));
  const guide=new JSDOM(fs.readFileSync('guides/how-much-is-time-worth/index.html','utf8')).window.document;
