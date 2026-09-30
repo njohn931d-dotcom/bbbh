@@ -1,0 +1,89 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const { execFileSync } = require('node:child_process');
+const { JSDOM } = require('jsdom');
+
+const SITE = 'https://njohn931d-dotcom.github.io/bbbh';
+const generate = site => {
+  const env = { ...process.env, SITE_URL: site };
+  execFileSync(process.execPath, ['scripts/generate-seo.mjs'], { env, stdio: 'pipe' });
+  execFileSync(process.execPath, ['scripts/generate-parasite.mjs'], { env, stdio: 'pipe' });
+};
+const page = url => {
+  const route = decodeURIComponent(new URL(url).pathname.slice('/bbbh/'.length));
+  return fs.readFileSync(route ? `${route}index.html` : '.generated/home.html', 'utf8');
+};
+
+test('every discoverable page has honest schema, scoped OG images and canonical breadcrumbs', async () => {
+  const { getCalculator } = await import('../scripts/calculator-model.mjs');
+  try {
+    generate(SITE);
+    const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8');
+    const entries = [...sitemap.matchAll(/<url><loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)];
+    assert.equal(entries.length, 142);
+    for (const [, url, modified] of entries) {
+      const html = page(url);
+      const document = new JSDOM(html, { url }).window.document;
+      assert.equal(document.querySelector('link[rel=canonical]')?.getAttribute('href'), url);
+      for (const key of ['og:image', 'twitter:image']) {
+        const tag = key.startsWith('og:') ? `meta[property="${key}"]` : `meta[name="${key}"]`;
+        assert.equal(document.querySelectorAll(tag).length, 1, `${url}: duplicate ${key}`);
+        assert.equal(document.querySelector(tag).content, SITE + '/og-image.png', `${url}: ${key} not project-scoped`);
+      }
+      const manifest = document.querySelector('link[rel=manifest]');
+      if (manifest) assert.equal(manifest.getAttribute('href'), '/bbbh/manifest.json');
+      const structured = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent);
+      assert.equal(structured['@context'], 'https://schema.org');
+      const graph = structured['@graph'];
+      assert.ok(graph.some(node => node['@type'] === 'WebSite' && node.url === SITE + '/'), `${url}: wrong WebSite URL`);
+      assert.ok(graph.some(node => ['WebPage','WebApplication','Article','CollectionPage'].includes(node['@type']) && node.url === url), `${url}: wrong page URL in schema`);
+      if (url !== SITE + '/') {
+        const crumbs = graph.find(node => node['@type'] === 'BreadcrumbList')?.itemListElement;
+        assert.equal(crumbs?.[0].item, SITE + '/', `${url}: schema home goes to wrong host path`);
+        assert.equal(crumbs.at(-1).item, url, `${url}: schema last crumb differs from canonical`);
+        const visibleHome = document.querySelector('.breadcrumbs a')?.href;
+        assert.equal(visibleHome, SITE + '/', `${url}: visible breadcrumb home goes to wrong host path`);
+      }
+      const route = decodeURIComponent(new URL(url).pathname.slice('/bbbh/'.length)).replace(/\/$/, '');
+      if (getCalculator(route)) {
+        assert.equal(document.querySelector('[data-calculator]')?.getAttribute('data-calculator'), route);
+        assert.ok(document.querySelector('script[src*="route-calculator.js"]'), `${url}: no browser calculator`);
+        assert.ok(graph.some(node => node['@type'] === 'WebApplication'), `${url}: missing app schema`);
+        assert.equal(document.querySelector('#calc-form'), null, `${url}: leftover cost-of-time form`);
+      }
+      if (route === 'calculators/income-percentile-calculator-2026') {
+        assert.ok(!graph.some(node => node['@type'] === 'WebApplication'), 'Do not call an unsupported ranking page an app');
+        assert.equal(document.querySelector('form'), null);
+      }
+      if (route.startsWith('articles/')) {
+        assert.equal(modified, '2026-09-27', `${url}: article edit date must be real, not build date`);
+        const article = graph.find(node => node['@type'] === 'Article');
+        if (article) assert.equal(article.dateModified, modified);
+      }
+      if (route.startsWith('calculators/') && route !== 'calculators/income-percentile-calculator-2026') {
+        assert.ok(document.querySelector('form'), `${url}: claims calculator but has no input form`);
+      }
+      if (!url.includes('/articles/') && !url.includes('/calculadora-') && route !== '' && route.startsWith('guides/')) {
+        // A guide must not assert the same made-up FAQ as unrelated pages.
+        for (const FAQ of graph.filter(n => n['@type'] === 'FAQPage')) {
+          for (const question of FAQ.mainEntity || []) assert.ok(document.querySelector('main').textContent.includes(question.name), question.name);
+        }
+      }
+    }
+  } finally {
+    generate('');
+  }
+});
+
+test('preview pages have one noindex directive, including interactive tools', () => {
+  generate('');
+  for (const file of ['.generated/home.html', 'calculators/mortgage-calculator-2026/index.html']) {
+    const document = new JSDOM(fs.readFileSync(file, 'utf8')).window.document;
+    const metas = document.querySelectorAll('meta[name=robots]');
+    assert.equal(metas.length, 1, `${file}: index/noindex conflict`);
+    assert.equal(metas[0].content, 'noindex, nofollow');
+    assert.equal(document.querySelector('link[rel=canonical]'), null);
+  }
+  assert.equal(fs.existsSync('public/sitemap.xml'), false);
+});

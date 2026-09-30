@@ -4,7 +4,7 @@
 
 **Status:** Published successfully from `main`. GitHub Pages is configured to use GitHub Actions.
 
-The deployment workflow tests the project, generates the Markdown article mirrors, builds the static site with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`, and deploys the 133 sitemap URLs (homepage, 86 calculator/guide routes, and 46 guide-cluster pages rendered from `content/articles/*.md`). Future changes merged to `main` trigger a new deployment.
+The deployment workflow tests the project, builds with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`, and deploys 142 sitemap URLs (homepage, 95 distinct calculator/guide routes, and 46 Markdown-guide index/hub/article pages). Changes on this branch are **not live until merged into `main`**. After deployment, CI now checks the actual public HTML, structured data, calculator JavaScript, sitemap, image and manifest rather than treating a successful HTTP connection as a successful deployment.
 
 ## Verify
 
@@ -20,4 +20,6 @@ The deployment workflow tests the project, generates the Markdown article mirror
 
 A build without `SITE_URL` is a preview: pages are noindex, root-relative and robots-disallowed, and `sitemap.xml`, `feed.xml`, `llms.txt` and `ai.txt` are removed instead of shipped with placeholder URLs.
 
-Search indexing and rankings are not automatic or guaranteed; Google Search Console ownership verification and sitemap submission remain separate webmaster tasks.
+The live pages already have JSON-LD, but it must match the page people can use. This build now checks that the page/entity URL matches its canonical, every advertised tool has a working form, and social images resolve under `/bbbh/`. The income-percentile route remains a guide because we do not have a verified current distribution dataset; we will not invent a score.
+
+Run `SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run check:live` to test the public deployment yourself. The Pages workflow runs the same check after merging/deploying. Search indexing and visitors are not automatic or guaranteed; Google Search Console ownership, sitemap submission and actual traffic data still require access to the site's webmaster account. We do not simulate visits or claim a result we cannot measure.

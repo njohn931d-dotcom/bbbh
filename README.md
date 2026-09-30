@@ -6,33 +6,33 @@
 [![142 Pages](https://img.shields.io/badge/SEO%20Pages-142-blue)](https://njohn931d-dotcom.github.io/bbbh/sitemap.xml)
 
 **Live site:** <https://njohn931d-dotcom.github.io/bbbh/>  
-**Sitemap:** 142 URLs | **Tools:** 95 | **Guides:** 46 | **Languages:** 10 | **PWA:** Yes | **Open Source:** MIT
+**Sitemap:** 142 URLs | **Interactive calculators:** 53 | **Long-form guides:** 40 | **Translated pages:** 10 | **Open Source:** MIT
 
-Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator and guide routes, and 46 long-form guides rendered from Markdown sources at build time. All calculations run 100% in browser — private, no tracking, no sign-up.
+Worth is a static site of browser-based money calculators and practical guides. It publishes **142 indexable URLs**: the homepage, 95 calculator/guide routes, and 46 Markdown-derived pages (40 articles, five collection pages and a guide index). All calculations run in the browser — private, no tracking, no sign-up.
 
-Every page carries its own formula, worked example and FAQ. Ten pages are genuine translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
+Tool pages provide route-specific inputs and results; guides explain formulas and assumptions with worked examples. Ten pages are translations (de, fr, ru, zh, ja, ko, ar, pt, es) with reciprocal `hreflang`.
 
 ## ✨ Features
 
-- **95 calculators and guides** — cost of time, subscription, salary→hourly, mortgage, compound interest, freelance rate, overtime, streaming audit, and more
-- **46 long-form guides** — hand-written, 5 clusters, tables with real math
+- **95 calculator and guide routes** — 53 interactive calculators (including mortgage, compound interest, salary→hourly, loan payment and subscriptions); the remaining routes are guides and worked examples. Forms match each route’s actual formula instead of reusing the cost-of-time form.
+- **40 long-form guides** — hand-written, grouped into five clusters, plus six directory/collection pages
 - **10 real translations** — EN, ES, DE, FR, RU, ZH, JA, KO, AR, PT, wired with reciprocal hreflang
-- **PWA ready** — manifest.json, 404.html fallback, offline-capable
+- **Installable site manifest** — scoped to the Pages project path; 404 fallback. No offline service worker is shipped.
 - **SEO** — canonical URLs, breadcrumbs, JSON-LD (WebSite, WebPage, WebApplication, BreadcrumbList, TechArticle, FAQPage, Organization), sitemap with priority/lastmod, robots.txt with LLM crawler allow, llms.txt, ai.txt, feed.xml, and an Open Graph card on every page
-- **Audited build** — `npm run seo:audit` checks all 142 pages for duplicate content, title/description quality, canonical correctness, hreflang reciprocity, link health and orphan pages, and **fails the deploy** on any error
+- **Audited build** — `npm run seo:audit:strict` checks all 142 pages for canonical/schema URL alignment, visible FAQs, social-image paths, indexability, hreflang reciprocity, broken links and orphan pages; errors or warnings **block deploy**. `npm run check:live` checks the public deployment.
 - **Privacy first** — no cookies, no analytics, localStorage only for saved thoughts
-- **142 pages** — all static HTML, unique titles/descriptions, validated by 31 tests
+- **142 pages** — static HTML with unique titles/descriptions, validated by automated tests
 
 ## 🚀 Deployment
 
 GitHub Pages is enabled and live. Workflow `.github/workflows/deploy.yml` runs:
 
-1. `npm test` — 31 tests, 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
+1. `npm test` — functional calculators and 142 URL validation (serial, --test-concurrency=1 to avoid shared output race)
 2. Generate Markdown mirrors (40 articles)
 3. `build:production` with `SITE_URL=https://njohn931d-dotcom.github.io/bbbh`
 4. Verify dist: 142 URLs, 46 guides, 86 feed, 0 noindex, manifest, 404.html, .nojekyll, humans.txt, security.txt, sitemap, robots, feed, llms, canonicals, OG tags
-5. `npm run seo:audit` — fails the deploy on any SEO error
-5. Deploy to GitHub Pages + verify + notify
+5. `npm run seo:audit:strict` — fails on any SEO error or warning
+6. Deploy to GitHub Pages, check the **public** pages with `npm run check:live`, then notify
 
 For manual production build:
 
@@ -59,7 +59,7 @@ Live discovery files:
 ```sh
 npm ci
 npm run dev          # http://localhost:5173
-npm test             # 31 tests
+npm test             # automated tests
 npm run build        # preview (noindex)
 SITE_URL=https://njohn931d-dotcom.github.io/bbbh npm run build:production  # production
 ```
@@ -135,7 +135,7 @@ so it cannot enumerate third-party backlinks — `--audit` covers your own artic
 - `public/manifest.json` — standalone, theme_color #204f3c, shortcuts to 3 calculators, maskable icons
 - `dist/404.html` — GitHub Pages SPA fallback (copied from index)
 - `dist/.nojekyll` — bypass Jekyll
-- Vite: esbuild minify, cssMinify, hashed assets, 500kb warning limit, security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+- Vite: esbuild minify, cssMinify, hashed assets; dev server sends `X-Content-Type-Options` and `Referrer-Policy` (production headers are controlled by GitHub Pages).
 - Preconnect to Google Fonts, optimized images via data URI icons
 
 ## 🧭 Other projects in this repository
